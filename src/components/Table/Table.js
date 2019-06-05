@@ -3,6 +3,7 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 import theme from "../../styles/theme";
 import Backgrounds from "./Backgrounds";
+import { PlayerGrid9Max } from "../PlayerGrid";
 
 const Table = () => {
   return (
@@ -23,26 +24,14 @@ const Table = () => {
         `}
       >
         {/* Grid to lay out Player Widgets */}
-        <div
-          css={css`
-            display: grid;
-            grid-template-columns: 9.75rem 0.25rem 9.75rem 6.5rem 9.75rem 0.25rem 9.75rem;
-            grid-template-rows: 3rem 3.625rem 3rem 3.625rem 3rem 3.625rem 3rem;
-            grid-template-areas:
-              ". . player-10 . player-1 . ."
-              ". . . . . . ."
-              "player-9 .  . . . . player-2"
-              ". . . . . . ."
-              "player-8 . . . . . player-3"
-              ". . . . . . ."
-              ". player-7 . player-6 . player-5 .";
-            padding: 6rem 0 0 2rem;
-          `}
-        >
+        <PlayerGrid9Max>
           <h1
             css={css`
               color: white;
               grid-area: player-1;
+              background-color: red;
+              width: 156px;
+              height: 48px;
             `}
           >
             player-1
@@ -51,6 +40,9 @@ const Table = () => {
             css={css`
               color: white;
               grid-area: player-2;
+              background-color: red;
+              width: 156px;
+              height: 48px;
             `}
           >
             player-2
@@ -59,6 +51,9 @@ const Table = () => {
             css={css`
               color: white;
               grid-area: player-3;
+              background-color: red;
+              width: 156px;
+              height: 48px;
             `}
           >
             player-3
@@ -67,6 +62,9 @@ const Table = () => {
             css={css`
               color: white;
               grid-area: player-4;
+              background-color: red;
+              width: 156px;
+              height: 48px;
             `}
           >
             player-4
@@ -75,6 +73,9 @@ const Table = () => {
             css={css`
               color: white;
               grid-area: player-5;
+              background-color: red;
+              width: 156px;
+              height: 48px;
             `}
           >
             player-5
@@ -83,6 +84,9 @@ const Table = () => {
             css={css`
               color: white;
               grid-area: player-6;
+              background-color: red;
+              width: 156px;
+              height: 48px;
             `}
           >
             player-6
@@ -91,6 +95,9 @@ const Table = () => {
             css={css`
               color: white;
               grid-area: player-7;
+              background-color: red;
+              width: 156px;
+              height: 48px;
             `}
           >
             player-7
@@ -99,6 +106,9 @@ const Table = () => {
             css={css`
               color: white;
               grid-area: player-8;
+              background-color: red;
+              width: 156px;
+              height: 48px;
             `}
           >
             player-8
@@ -107,19 +117,14 @@ const Table = () => {
             css={css`
               color: white;
               grid-area: player-9;
+              background-color: red;
+              width: 156px;
+              height: 48px;
             `}
           >
             player-9
           </h1>
-          <h1
-            css={css`
-              color: white;
-              grid-area: player-10;
-            `}
-          >
-            player-10
-          </h1>
-        </div>
+        </PlayerGrid9Max>
       </div>
       <Backgrounds />
     </div>
