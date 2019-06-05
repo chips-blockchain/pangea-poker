@@ -4,6 +4,7 @@ import { css, jsx } from "@emotion/core";
 import theme from "../../styles/theme";
 import Backgrounds from "./Backgrounds";
 import { PlayerGrid9Max } from "../PlayerGrid";
+import Player from "../Player";
 
 const Table = () => {
   return (
@@ -25,105 +26,15 @@ const Table = () => {
       >
         {/* Grid to lay out Player Widgets */}
         <PlayerGrid9Max>
-          <h1
-            css={css`
-              color: white;
-              grid-area: player-1;
-              background-color: red;
-              width: 156px;
-              height: 48px;
-            `}
-          >
-            player-1
-          </h1>
-          <h1
-            css={css`
-              color: white;
-              grid-area: player-2;
-              background-color: red;
-              width: 156px;
-              height: 48px;
-            `}
-          >
-            player-2
-          </h1>
-          <h1
-            css={css`
-              color: white;
-              grid-area: player-3;
-              background-color: red;
-              width: 156px;
-              height: 48px;
-            `}
-          >
-            player-3
-          </h1>
-          <h1
-            css={css`
-              color: white;
-              grid-area: player-4;
-              background-color: red;
-              width: 156px;
-              height: 48px;
-            `}
-          >
-            player-4
-          </h1>
-          <h1
-            css={css`
-              color: white;
-              grid-area: player-5;
-              background-color: red;
-              width: 156px;
-              height: 48px;
-            `}
-          >
-            player-5
-          </h1>
-          <h1
-            css={css`
-              color: white;
-              grid-area: player-6;
-              background-color: red;
-              width: 156px;
-              height: 48px;
-            `}
-          >
-            player-6
-          </h1>
-          <h1
-            css={css`
-              color: white;
-              grid-area: player-7;
-              background-color: red;
-              width: 156px;
-              height: 48px;
-            `}
-          >
-            player-7
-          </h1>
-          <h1
-            css={css`
-              color: white;
-              grid-area: player-8;
-              background-color: red;
-              width: 156px;
-              height: 48px;
-            `}
-          >
-            player-8
-          </h1>
-          <h1
-            css={css`
-              color: white;
-              grid-area: player-9;
-              background-color: red;
-              width: 156px;
-              height: 48px;
-            `}
-          >
-            player-9
-          </h1>
+          <Player seat="player-1" />
+          <Player seat="player-2" />
+          <Player seat="player-3" />
+          <Player seat="player-4" />
+          <Player seat="player-5" />
+          <Player seat="player-6" />
+          <Player seat="player-7" />
+          <Player seat="player-8" />
+          <Player seat="player-9" />
         </PlayerGrid9Max>
       </div>
       <Backgrounds />

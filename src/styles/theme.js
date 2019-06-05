@@ -11,7 +11,8 @@ const theme = {
       danger: "#CE1311",
       primary: "#4D8484",
       primaryLight: "#6DABAB",
-      text: "#ffffff"
+      text: "#ffffff",
+      superLightGray: "#eeeeee"
     },
     background: { regular: moonBg, retina: moonBg2x },
     table: { regular: tableDefault, retina: tableDefault2x }
