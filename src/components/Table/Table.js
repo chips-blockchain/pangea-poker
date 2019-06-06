@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import theme from "../../styles/theme";
@@ -7,6 +7,62 @@ import { PlayerGrid9Max } from "../PlayerGrid";
 import Player from "../Player";
 
 const Table = () => {
+  const [players, setPlayers] = useState([
+    {
+      isPlaying: true,
+      seat: "player-1",
+      chips: 783900,
+      hasCards: true
+    },
+    {
+      isPlaying: true,
+      seat: "player-2",
+      chips: 65984,
+      hasCards: true
+    },
+    {
+      isPlaying: true,
+      seat: "player-3",
+      chips: 677854,
+      hasCards: true
+    },
+    {
+      isPlaying: true,
+      seat: "player-4",
+      chips: 900999,
+      hasCards: true
+    },
+    {
+      isPlaying: true,
+      seat: "player-5",
+      chips: 10008942,
+      hasCards: true
+    },
+    {
+      isPlaying: true,
+      seat: "player-6",
+      chips: 78400,
+      hasCards: true
+    },
+    {
+      isPlaying: true,
+      seat: "player-7",
+      chips: 800800,
+      hasCards: true
+    },
+    {
+      isPlaying: true,
+      seat: "player-8",
+      chips: 12000,
+      hasCards: true
+    },
+    {
+      isPlaying: true,
+      seat: "player-9",
+      chips: 650000,
+      hasCards: true
+    }
+  ]);
   return (
     <div
       css={css`
@@ -26,15 +82,16 @@ const Table = () => {
       >
         {/* Grid to lay out Player Widgets */}
         <PlayerGrid9Max>
-          <Player seat="player-1" />
-          <Player seat="player-2" />
-          <Player seat="player-3" />
-          <Player seat="player-4" />
-          <Player seat="player-5" />
-          <Player seat="player-6" />
-          <Player seat="player-7" />
-          <Player seat="player-8" />
-          <Player seat="player-9" />
+          {players.map(
+            player =>
+              player.isPlaying && (
+                <Player
+                  seat={player.seat}
+                  hasCards={player.hasCards}
+                  chips={player.chips}
+                />
+              )
+          )}
         </PlayerGrid9Max>
       </div>
       <Backgrounds />
