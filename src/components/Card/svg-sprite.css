@@ -1,0 +1,521 @@
+/* Icons from directory "" */
+.card-10c,
+.card-10c\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+.card-10c-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-10d,
+.card-10d\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -70px;
+  background-repeat: no-repeat;
+}
+.card-10d-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-10h,
+.card-10h\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -140px;
+  background-repeat: no-repeat;
+}
+.card-10h-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-10s,
+.card-10s\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -210px;
+  background-repeat: no-repeat;
+}
+.card-10s-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-2c,
+.card-2c\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -280px;
+  background-repeat: no-repeat;
+}
+.card-2c-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-2d,
+.card-2d\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -350px;
+  background-repeat: no-repeat;
+}
+.card-2d-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-2h,
+.card-2h\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -420px;
+  background-repeat: no-repeat;
+}
+.card-2h-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-2s,
+.card-2s\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -490px;
+  background-repeat: no-repeat;
+}
+.card-2s-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-3c,
+.card-3c\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -560px;
+  background-repeat: no-repeat;
+}
+.card-3c-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-3d,
+.card-3d\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -630px;
+  background-repeat: no-repeat;
+}
+.card-3d-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-3h,
+.card-3h\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -700px;
+  background-repeat: no-repeat;
+}
+.card-3h-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-3s,
+.card-3s\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -770px;
+  background-repeat: no-repeat;
+}
+.card-3s-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-4c,
+.card-4c\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -840px;
+  background-repeat: no-repeat;
+}
+.card-4c-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-4d,
+.card-4d\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -910px;
+  background-repeat: no-repeat;
+}
+.card-4d-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-4h,
+.card-4h\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -980px;
+  background-repeat: no-repeat;
+}
+.card-4h-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-4s,
+.card-4s\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1050px;
+  background-repeat: no-repeat;
+}
+.card-4s-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-5c,
+.card-5c\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1120px;
+  background-repeat: no-repeat;
+}
+.card-5c-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-5d,
+.card-5d\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1190px;
+  background-repeat: no-repeat;
+}
+.card-5d-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-5h,
+.card-5h\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1260px;
+  background-repeat: no-repeat;
+}
+.card-5h-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-5s,
+.card-5s\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1330px;
+  background-repeat: no-repeat;
+}
+.card-5s-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-6c,
+.card-6c\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1400px;
+  background-repeat: no-repeat;
+}
+.card-6c-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-6d,
+.card-6d\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1470px;
+  background-repeat: no-repeat;
+}
+.card-6d-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-6h,
+.card-6h\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1540px;
+  background-repeat: no-repeat;
+}
+.card-6h-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-6s,
+.card-6s\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1610px;
+  background-repeat: no-repeat;
+}
+.card-6s-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-7c,
+.card-7c\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1680px;
+  background-repeat: no-repeat;
+}
+.card-7c-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-7d,
+.card-7d\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1750px;
+  background-repeat: no-repeat;
+}
+.card-7d-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-7h,
+.card-7h\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1820px;
+  background-repeat: no-repeat;
+}
+.card-7h-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-7s,
+.card-7s\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1890px;
+  background-repeat: no-repeat;
+}
+.card-7s-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-8c,
+.card-8c\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -1960px;
+  background-repeat: no-repeat;
+}
+.card-8c-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-8d,
+.card-8d\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2030px;
+  background-repeat: no-repeat;
+}
+.card-8d-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-8h,
+.card-8h\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2100px;
+  background-repeat: no-repeat;
+}
+.card-8h-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-8s,
+.card-8s\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2170px;
+  background-repeat: no-repeat;
+}
+.card-8s-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-9c,
+.card-9c\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2240px;
+  background-repeat: no-repeat;
+}
+.card-9c-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-9d,
+.card-9d\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2310px;
+  background-repeat: no-repeat;
+}
+.card-9d-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-9h,
+.card-9h\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2380px;
+  background-repeat: no-repeat;
+}
+.card-9h-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-9s,
+.card-9s\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2450px;
+  background-repeat: no-repeat;
+}
+.card-9s-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Ac,
+.card-Ac\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2520px;
+  background-repeat: no-repeat;
+}
+.card-Ac-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Ad,
+.card-Ad\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2590px;
+  background-repeat: no-repeat;
+}
+.card-Ad-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Ah,
+.card-Ah\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2660px;
+  background-repeat: no-repeat;
+}
+.card-Ah-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-As,
+.card-As\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2730px;
+  background-repeat: no-repeat;
+}
+.card-As-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Jc,
+.card-Jc\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2800px;
+  background-repeat: no-repeat;
+}
+.card-Jc-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Jd,
+.card-Jd\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2870px;
+  background-repeat: no-repeat;
+}
+.card-Jd-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Jh,
+.card-Jh\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -2940px;
+  background-repeat: no-repeat;
+}
+.card-Jh-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Js,
+.card-Js\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -3010px;
+  background-repeat: no-repeat;
+}
+.card-Js-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Kc,
+.card-Kc\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -3080px;
+  background-repeat: no-repeat;
+}
+.card-Kc-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Kd,
+.card-Kd\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -3150px;
+  background-repeat: no-repeat;
+}
+.card-Kd-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Kh,
+.card-Kh\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -3220px;
+  background-repeat: no-repeat;
+}
+.card-Kh-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Ks,
+.card-Ks\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -3290px;
+  background-repeat: no-repeat;
+}
+.card-Ks-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Qc,
+.card-Qc\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -3360px;
+  background-repeat: no-repeat;
+}
+.card-Qc-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Qd,
+.card-Qd\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -3430px;
+  background-repeat: no-repeat;
+}
+.card-Qd-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Qh,
+.card-Qh\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -3500px;
+  background-repeat: no-repeat;
+}
+.card-Qh-dims {
+  width: 50px;
+  height: 70px;
+}
+.card-Qs,
+.card-Qs\:regular {
+  background-image: url("cards/cards.svg");
+  background-position: 0 -3570px;
+  background-repeat: no-repeat;
+}
+.card-Qs-dims {
+  width: 50px;
+  height: 70px;
+}

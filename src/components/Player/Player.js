@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { css, jsx } from "@emotion/core";
 import randomEmoji from "./randomEmoji";
 import theme from "../../styles/theme";
-import cardBg from "../Cards/SVG/back/bg-red.svg";
+import cardBg from "../Card/cards/bg-red.svg";
 
 const Player = props => {
   // const [seat, setSeat] = useState("player-1");
