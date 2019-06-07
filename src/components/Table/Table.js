@@ -6,6 +6,7 @@ import Backgrounds from "./Backgrounds";
 import { PlayerGrid9Max } from "../PlayerGrid";
 import Player from "../Player";
 import Board from "../Board";
+import TotalPot from "./TotalPot";
 
 const Table = () => {
   const [players, setPlayers] = useState([
@@ -97,6 +98,7 @@ const Table = () => {
           z-index: 1;
         `}
       >
+        <TotalPot pot={pot} />
         <Board flop={board.flop} turn={board.turn} river={board.river} />
         <PlayerGrid9Max>
           {players.map(
