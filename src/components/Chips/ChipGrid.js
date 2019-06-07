@@ -1,9 +1,8 @@
 import React from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import chip1B from "./chip-1B.svg";
 
-const ChipsGrid = () => {
+const ChipsGrid = props => {
   return (
     <div
       css={css`
@@ -22,61 +21,7 @@ const ChipsGrid = () => {
         left: 12rem;
       `}
     >
-      <img
-        css={css`
-          grid-area: player-1;
-        `}
-        src={chip1B}
-      />
-      <img
-        css={css`
-          grid-area: player-2;
-        `}
-        src={chip1B}
-      />
-      <img
-        css={css`
-          grid-area: player-3;
-        `}
-        src={chip1B}
-      />
-      <img
-        css={css`
-          grid-area: player-4;
-          justify-self: end;
-        `}
-        src={chip1B}
-      />
-      <img
-        css={css`
-          grid-area: player-5;
-        `}
-        src={chip1B}
-      />
-      <img
-        css={css`
-          grid-area: player-6;
-        `}
-        src={chip1B}
-      />
-      <img
-        css={css`
-          grid-area: player-7;
-        `}
-        src={chip1B}
-      />
-      <img
-        css={css`
-          grid-area: player-8;
-        `}
-        src={chip1B}
-      />
-      <img
-        css={css`
-          grid-area: player-9;
-        `}
-        src={chip1B}
-      />
+      {props.children}
     </div>
   );
 };

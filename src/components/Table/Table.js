@@ -7,7 +7,7 @@ import { PlayerGrid9Max } from "../PlayerGrid";
 import Player from "../Player";
 import Board from "../Board";
 import TotalPot from "./TotalPot";
-import { ChipGrid } from "../Chips";
+import { ChipGrid, Bet } from "../Chips";
 
 const Table = () => {
   const [players, setPlayers] = useState([
@@ -16,63 +16,81 @@ const Table = () => {
       seat: "player-1",
       chips: 783900,
       hasCards: true,
-      isMe: false
+      isMe: false,
+      isBetting: true,
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-2",
       chips: 65984,
       hasCards: true,
-      isMe: false
+      isMe: false,
+      isBetting: true,
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-3",
       chips: 677854,
       hasCards: true,
-      isMe: false
+      isMe: false,
+      isBetting: true,
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-4",
       chips: 900999,
       hasCards: true,
-      isMe: false
+      isMe: false,
+      isBetting: true,
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-5",
       chips: 10008942,
       hasCards: true,
-      isMe: true
+      isMe: true,
+      isBetting: true,
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-6",
       chips: 78400,
       hasCards: true,
-      isMe: false
+      isMe: false,
+      isBetting: true,
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-7",
       chips: 800800,
       hasCards: true,
-      isMe: false
+      isMe: false,
+      isBetting: true,
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-8",
       chips: 12000,
       hasCards: true,
-      isMe: false
+      isMe: false,
+      isBetting: true,
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-9",
       chips: 650000,
       hasCards: true,
-      isMe: false
+      isMe: false,
+      isBetting: true,
+      betAmount: 1000
     }
   ]);
 
@@ -120,7 +138,18 @@ const Table = () => {
               )
           )}
         </PlayerGrid9Max>
-        <ChipGrid />
+        <ChipGrid>
+          {players.map(
+            player =>
+              player.isBetting && (
+                <Bet
+                  forPlayer={player.seat}
+                  betAmount={player.betAmount}
+                  key={player.seat}
+                />
+              )
+          )}
+        </ChipGrid>
       </div>
       <Backgrounds />
     </div>
