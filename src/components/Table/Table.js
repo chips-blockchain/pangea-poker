@@ -7,6 +7,7 @@ import { PlayerGrid9Max } from "../PlayerGrid";
 import Player from "../Player";
 import Board from "../Board";
 import TotalPot from "./TotalPot";
+import { ChipGrid } from "../Chips";
 
 const Table = () => {
   const [players, setPlayers] = useState([
@@ -119,6 +120,7 @@ const Table = () => {
               )
           )}
         </PlayerGrid9Max>
+        <ChipGrid />
       </div>
       <Backgrounds />
     </div>
