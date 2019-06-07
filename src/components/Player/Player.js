@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import randomEmoji from "./randomEmoji";
+import randomEmoji from "../../lib/randomEmoji";
+import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import cardBg from "../Card/cards/bg-red.svg";
 
@@ -80,7 +81,7 @@ const Player = props => {
               text-transform: uppercase;
             `}
           >
-            {props.chips}
+            {numberWithCommas(props.chips)}
           </div>
         </span>
         <span

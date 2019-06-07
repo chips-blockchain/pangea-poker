@@ -79,6 +79,7 @@ const Table = () => {
     turn: "Kd",
     river: "8s"
   });
+  const [pot, setPot] = useState(5691200);
   return (
     <div
       css={css`
