@@ -1,4 +1,8 @@
 /* Icons from directory "" */
+.card {
+  display: inline-block;
+}
+
 .card-10c,
 .card-10c\:regular {
   background-image: url("cards/cards.svg");

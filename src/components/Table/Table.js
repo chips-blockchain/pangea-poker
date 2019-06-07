@@ -5,7 +5,7 @@ import theme from "../../styles/theme";
 import Backgrounds from "./Backgrounds";
 import { PlayerGrid9Max } from "../PlayerGrid";
 import Player from "../Player";
-import Card from "../Card";
+import Board from "../Board";
 
 const Table = () => {
   const [players, setPlayers] = useState([
@@ -73,6 +73,12 @@ const Table = () => {
       isMe: false
     }
   ]);
+
+  const [board, setBoard] = useState({
+    flop: ["Kh", "7c", "8c"],
+    turn: "Kd",
+    river: "8s"
+  });
   return (
     <div
       css={css`
@@ -90,7 +96,7 @@ const Table = () => {
           z-index: 1;
         `}
       >
-        {/* Grid to lay out Player Widgets */}
+        <Board flop={board.flop} turn={board.turn} river={board.river} />
         <PlayerGrid9Max>
           {players.map(
             player =>
@@ -104,7 +110,6 @@ const Table = () => {
               )
           )}
         </PlayerGrid9Max>
-        <Card card="Qh" />
       </div>
       <Backgrounds />
     </div>
