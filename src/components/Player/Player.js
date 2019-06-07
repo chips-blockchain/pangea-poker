@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import Card from "../Card";
 import randomEmoji from "../../lib/randomEmoji";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import cardBg from "../Card/cards/bg-red.svg";
 
 const Player = props => {
-  // const [seat, setSeat] = useState("player-1");
-  // const [chips, setChips] = useState(0);
-  // const [isMe, setIsMe] = useState(false);
-  // const [isActive, setIsActive] = useState(false);
-
   return (
     <div
       css={css`
@@ -19,8 +15,22 @@ const Player = props => {
         position: relative;
       `}
     >
-      {/* Show cards if the player has them */}
-      {props.hasCards && (
+      {/* Show my cards if I have them */}
+      {props.isMe && props.hasCards && (
+        <div
+          css={css`
+            bottom: 0.875rem;
+            left: 1.75rem;
+            position: absolute;
+            z-index: 1;
+          `}
+        >
+          <Card card={props.myCards[0]} />
+          <Card card={props.myCards[1]} />
+        </div>
+      )}
+      {/* Show other players' cards if they have them */}
+      {!props.isMe && props.hasCards && (
         <div
           css={css`
             bottom: 0;

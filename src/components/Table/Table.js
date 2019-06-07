@@ -15,7 +15,7 @@ const Table = () => {
       seat: "player-1",
       chips: 783900,
       hasCards: true,
-      isMe: true
+      isMe: false
     },
     {
       isPlaying: true,
@@ -43,7 +43,7 @@ const Table = () => {
       seat: "player-5",
       chips: 10008942,
       hasCards: true,
-      isMe: false
+      isMe: true
     },
     {
       isPlaying: true,
@@ -75,12 +75,16 @@ const Table = () => {
     }
   ]);
 
+  const [myCards, setMyCards] = useState(["Ac", "Kc"]);
+
   const [board, setBoard] = useState({
     flop: ["Kh", "7c", "8c"],
     turn: "Kd",
     river: "8s"
   });
+
   const [pot, setPot] = useState(5691200);
+
   return (
     <div
       css={css`
@@ -108,6 +112,8 @@ const Table = () => {
                   seat={player.seat}
                   hasCards={player.hasCards}
                   chips={player.chips}
+                  isMe={player.isMe}
+                  myCards={myCards}
                   key={player.seat}
                 />
               )
