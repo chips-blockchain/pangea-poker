@@ -20,6 +20,8 @@ class App extends React.Component {
                 url(${NoticiaBold}) format("woff2");
             }
             * {
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
               font-family: "Noticia Text";
             }
           `}
