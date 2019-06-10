@@ -8,7 +8,7 @@ import Player from "../Player";
 import Board from "../Board";
 import Dealer from "../Dealer";
 import TotalPot from "./TotalPot";
-import { ChipGrid, Bet } from "../Chips";
+import { ChipGrid, Bet, Stack } from "../Chips";
 
 const Table = () => {
   const [players, setPlayers] = useState([
@@ -164,6 +164,7 @@ const Table = () => {
         <Dealer dealer={dealer} onClick={() => setDelaer("player-2")} />
       </div>
       <Backgrounds />
+      <Stack chips="12312" />
     </div>
   );
 };
