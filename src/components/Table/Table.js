@@ -6,6 +6,7 @@ import Backgrounds from "./Backgrounds";
 import { PlayerGrid9Max } from "../PlayerGrid";
 import Player from "../Player";
 import Board from "../Board";
+import Dealer from "../Dealer";
 import TotalPot from "./TotalPot";
 import { ChipGrid, Bet } from "../Chips";
 
@@ -18,7 +19,8 @@ const Table = () => {
       hasCards: true,
       isMe: false,
       isBetting: true,
-      betAmount: 1000
+      betAmount: 1000,
+      isDealer: true
     },
     {
       isPlaying: true,
@@ -27,7 +29,8 @@ const Table = () => {
       hasCards: true,
       isMe: false,
       isBetting: true,
-      betAmount: 1000
+      betAmount: 1000,
+      isDealer: true
     },
     {
       isPlaying: true,
@@ -36,7 +39,8 @@ const Table = () => {
       hasCards: true,
       isMe: false,
       isBetting: true,
-      betAmount: 1000
+      betAmount: 1000,
+      isDealer: true
     },
     {
       isPlaying: true,
@@ -45,7 +49,8 @@ const Table = () => {
       hasCards: true,
       isMe: false,
       isBetting: true,
-      betAmount: 1000
+      betAmount: 1000,
+      isDealer: true
     },
     {
       isPlaying: true,
@@ -54,7 +59,8 @@ const Table = () => {
       hasCards: true,
       isMe: true,
       isBetting: true,
-      betAmount: 1000
+      betAmount: 1000,
+      isDealer: true
     },
     {
       isPlaying: true,
@@ -63,7 +69,8 @@ const Table = () => {
       hasCards: true,
       isMe: false,
       isBetting: true,
-      betAmount: 1000
+      betAmount: 1000,
+      isDealer: true
     },
     {
       isPlaying: true,
@@ -72,7 +79,8 @@ const Table = () => {
       hasCards: true,
       isMe: false,
       isBetting: true,
-      betAmount: 1000
+      betAmount: 1000,
+      isDealer: true
     },
     {
       isPlaying: true,
@@ -81,7 +89,8 @@ const Table = () => {
       hasCards: true,
       isMe: false,
       isBetting: true,
-      betAmount: 1000
+      betAmount: 1000,
+      isDealer: true
     },
     {
       isPlaying: true,
@@ -90,7 +99,8 @@ const Table = () => {
       hasCards: true,
       isMe: false,
       isBetting: true,
-      betAmount: 1000
+      betAmount: 1000,
+      isDealer: true
     }
   ]);
 
@@ -103,6 +113,7 @@ const Table = () => {
   });
 
   const [pot, setPot] = useState(5691200);
+  const [dealer, setDealer] = useState("player-1");
 
   return (
     <div
@@ -150,6 +161,7 @@ const Table = () => {
               )
           )}
         </ChipGrid>
+        <Dealer dealer={dealer} onClick={() => setDelaer("player-2")} />
       </div>
       <Backgrounds />
     </div>

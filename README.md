@@ -11,7 +11,7 @@
 - [x] Add Cards
 - [x] Add Player Chips
 - [ ] Add Pot Chips
-- [ ] Add Dealer Button
+- [x] Add Dealer Button
 - [ ] Add Stack
 - [ ] Add UI Buttons
 - [ ] Add Slider
