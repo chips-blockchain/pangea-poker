@@ -18,7 +18,7 @@ const Table = () => {
       chips: 783900,
       hasCards: true,
       isMe: false,
-      isBetting: true,
+      isBetting: false,
       betAmount: 1000,
       isDealer: true
     },
@@ -38,7 +38,7 @@ const Table = () => {
       chips: 677854,
       hasCards: true,
       isMe: false,
-      isBetting: true,
+      isBetting: false,
       betAmount: 1000,
       isDealer: true
     },
@@ -48,7 +48,7 @@ const Table = () => {
       chips: 900999,
       hasCards: true,
       isMe: false,
-      isBetting: true,
+      isBetting: false,
       betAmount: 1000,
       isDealer: true
     },
@@ -58,7 +58,7 @@ const Table = () => {
       chips: 10008942,
       hasCards: true,
       isMe: true,
-      isBetting: true,
+      isBetting: false,
       betAmount: 1000,
       isDealer: true
     },
@@ -68,7 +68,7 @@ const Table = () => {
       chips: 78400,
       hasCards: true,
       isMe: false,
-      isBetting: true,
+      isBetting: false,
       betAmount: 1000,
       isDealer: true
     },
@@ -78,7 +78,7 @@ const Table = () => {
       chips: 800800,
       hasCards: true,
       isMe: false,
-      isBetting: true,
+      isBetting: false,
       betAmount: 1000,
       isDealer: true
     },
@@ -88,7 +88,7 @@ const Table = () => {
       chips: 12000,
       hasCards: true,
       isMe: false,
-      isBetting: true,
+      isBetting: false,
       betAmount: 1000,
       isDealer: true
     },
@@ -98,7 +98,7 @@ const Table = () => {
       chips: 650000,
       hasCards: true,
       isMe: false,
-      isBetting: true,
+      isBetting: false,
       betAmount: 1000,
       isDealer: true
     }
@@ -164,7 +164,6 @@ const Table = () => {
         <Dealer dealer={dealer} onClick={() => setDelaer("player-2")} />
       </div>
       <Backgrounds />
-      <Stack chips="12312" />
     </div>
   );
 };

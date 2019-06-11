@@ -3,7 +3,7 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 import theme from "../../styles/theme";
 import numberWithCommas from "../../lib/numberWithCommas";
-import Chip from "./Chip";
+import Stack from "./Stack";
 
 const Bet = props => {
   return (
@@ -25,7 +25,7 @@ const Bet = props => {
             : "order: 1;"}
         `}
       >
-        <Chip chip="1K" />
+        <Stack chips="1234" />
       </span>
       <span
         css={css`
