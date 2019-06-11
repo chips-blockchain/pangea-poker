@@ -17,90 +17,81 @@ const Table = () => {
       seat: "player-1",
       chips: 783900,
       hasCards: true,
-      isMe: false,
+      showCards: false,
       isBetting: true,
-      betAmount: 27500,
-      isDealer: false
+      betAmount: 27500
     },
     {
       isPlaying: true,
       seat: "player-2",
       chips: 65984,
       hasCards: true,
-      isMe: false,
+      showCards: false,
       isBetting: true,
-      betAmount: 5249,
-      isDealer: false
+      betAmount: 5249
     },
     {
       isPlaying: true,
       seat: "player-3",
       chips: 677854,
       hasCards: true,
-      isMe: false,
+      showCards: false,
       isBetting: true,
-      betAmount: 13980,
-      isDealer: false
+      betAmount: 13980
     },
     {
       isPlaying: true,
       seat: "player-4",
       chips: 900999,
       hasCards: true,
-      isMe: false,
+      showCards: false,
       isBetting: false,
-      betAmount: 1000,
-      isDealer: false
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-5",
       chips: 10008942,
       hasCards: true,
-      isMe: true,
-      isBetting: false,
-      betAmount: 1000,
-      isDealer: false
+      showCards: true,
+      isBetting: true,
+      betAmount: 1000000
     },
     {
       isPlaying: true,
       seat: "player-6",
       chips: 78400,
       hasCards: true,
-      isMe: false,
+      showCards: false,
       isBetting: false,
-      betAmount: 1000,
-      isDealer: false
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-7",
       chips: 800800,
       hasCards: true,
-      isMe: false,
+      showCards: false,
       isBetting: false,
-      betAmount: 1000,
-      isDealer: false
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-8",
       chips: 12000,
       hasCards: true,
-      isMe: false,
+      showCards: false,
       isBetting: false,
-      betAmount: 1000,
-      isDealer: false
+      betAmount: 1000
     },
     {
       isPlaying: true,
       seat: "player-9",
       chips: 650000,
       hasCards: true,
-      isMe: false,
+      showCards: false,
       isBetting: false,
-      betAmount: 1000,
-      isDealer: false
+      betAmount: 1000
     }
   ]);
 
@@ -142,7 +133,7 @@ const Table = () => {
                   seat={player.seat}
                   hasCards={player.hasCards}
                   chips={player.chips}
-                  isMe={player.isMe}
+                  isMe={player.showCards}
                   myCards={myCards}
                   key={player.seat}
                 />
