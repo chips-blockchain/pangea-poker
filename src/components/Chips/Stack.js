@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import Chip from "./Chip";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 
 const Stack = props => {
   // This component calculates how many of each chips should be rendered based on the bet amount, and renders one or more stacks as a result
@@ -74,9 +76,25 @@ const Stack = props => {
     chipsCountObject
   );
 
+  // Define the function that reverses the z-index rules for the chips, so the stack grows from the bottom to the top
+  const reverseZIndex = () => {
+    let zIndexRules = "";
+    for (let i = 0; i < 15; i++) {
+      zIndexRules += " div:nth-of-type(" + i + ") {z-index:" + (15 - i) + "}";
+    }
+    return zIndexRules;
+  };
+
   return (
-    <div>
-      {Object.keys(chipsCountWithNames).map(function(key) {
+    <div
+      css={css`
+        display: grid;
+        grid-template-rows: repeat(16, 0.125rem);
+        ${reverseZIndex()}
+      `}
+    >
+      {/* Render chips from the object ("value" times each "key" type of chips) */}
+      {Object.keys(chipsCountWithNames).map(key => {
         return Array.apply(null, { length: chipsCountWithNames[key] }).map(
           (e, i) => <Chip chip={key} key={i} />
         );

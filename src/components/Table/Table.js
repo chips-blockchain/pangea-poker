@@ -18,9 +18,9 @@ const Table = () => {
       chips: 783900,
       hasCards: true,
       isMe: false,
-      isBetting: false,
-      betAmount: 1000,
-      isDealer: true
+      isBetting: true,
+      betAmount: 27500,
+      isDealer: false
     },
     {
       isPlaying: true,
@@ -29,8 +29,8 @@ const Table = () => {
       hasCards: true,
       isMe: false,
       isBetting: true,
-      betAmount: 1000,
-      isDealer: true
+      betAmount: 5249,
+      isDealer: false
     },
     {
       isPlaying: true,
@@ -38,9 +38,9 @@ const Table = () => {
       chips: 677854,
       hasCards: true,
       isMe: false,
-      isBetting: false,
-      betAmount: 1000,
-      isDealer: true
+      isBetting: true,
+      betAmount: 13980,
+      isDealer: false
     },
     {
       isPlaying: true,
@@ -50,7 +50,7 @@ const Table = () => {
       isMe: false,
       isBetting: false,
       betAmount: 1000,
-      isDealer: true
+      isDealer: false
     },
     {
       isPlaying: true,
@@ -60,7 +60,7 @@ const Table = () => {
       isMe: true,
       isBetting: false,
       betAmount: 1000,
-      isDealer: true
+      isDealer: false
     },
     {
       isPlaying: true,
@@ -70,7 +70,7 @@ const Table = () => {
       isMe: false,
       isBetting: false,
       betAmount: 1000,
-      isDealer: true
+      isDealer: false
     },
     {
       isPlaying: true,
@@ -80,7 +80,7 @@ const Table = () => {
       isMe: false,
       isBetting: false,
       betAmount: 1000,
-      isDealer: true
+      isDealer: false
     },
     {
       isPlaying: true,
@@ -90,7 +90,7 @@ const Table = () => {
       isMe: false,
       isBetting: false,
       betAmount: 1000,
-      isDealer: true
+      isDealer: false
     },
     {
       isPlaying: true,
@@ -100,7 +100,7 @@ const Table = () => {
       isMe: false,
       isBetting: false,
       betAmount: 1000,
-      isDealer: true
+      isDealer: false
     }
   ]);
 

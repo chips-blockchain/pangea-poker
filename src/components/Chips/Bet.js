@@ -25,7 +25,7 @@ const Bet = props => {
             : "order: 1;"}
         `}
       >
-        <Stack chips="1234" />
+        <Stack chips={props.betAmount} />
       </span>
       <span
         css={css`
