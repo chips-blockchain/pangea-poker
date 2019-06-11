@@ -1,8 +1,8 @@
 import React from "react";
-import chip1B from "./chip-1B.svg";
+import "./chips-svg-sprite.css";
 
-const Chip = () => {
-  return <img src={chip1B} />;
+const Chip = props => {
+  return <div className={`icon chip-${props.chip} chip-${props.chip}-dims`} />;
 };
 
 export default Chip;

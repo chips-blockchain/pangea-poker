@@ -25,17 +25,17 @@ const Bet = props => {
             : "order: 1;"}
         `}
       >
-        <Chip />
+        <Chip chip="1K" />
       </span>
       <span
         css={css`
           order: 1;
           color: ${theme.moon.colors.text};
           font-size: 0.625rem;
-          padding: 0 0 0.25rem 0.5rem;
+          padding: 0 0 0.5rem 0.3rem;
           position: relative;
           ${props.forPlayer === "player-2" || props.forPlayer === "player-3"
-            ? "padding-right: 0.125rem; text-align: right; order: 1;"
+            ? "padding-right: 0.3rem; text-align: right; order: 1;"
             : ""};
         `}
       >

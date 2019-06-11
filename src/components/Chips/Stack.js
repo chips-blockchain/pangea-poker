@@ -25,8 +25,6 @@ const Stack = props => {
 
   return (
     <div>
-      These are the chips
-      <span>LOL</span>
       {chipsCount.map(decimal => {
         console.log(decimal);
         [...Array(decimal[0])].map((e, i) => console.log("ones"));
