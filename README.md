@@ -12,10 +12,10 @@
 - [x] Add Player Chips
 - [ ] Add Pot Chips
 - [x] Add Dealer Button
-- [ ] Add Stack
+- [x] Add Stack
 - [ ] Add UI Buttons
 - [ ] Add Slider
-- [ ] Add Timer Animations
+- [x] Add Timer Animations
 - [ ] Add Chip Animations
 - [ ] Add Card Animations
 - [ ] Add Dealer Button Animations

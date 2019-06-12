@@ -1,13 +1,87 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import Card from "../Card";
 import randomEmoji from "../../lib/randomEmoji";
+import useInterval from "../../lib/useInterval";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import cardBg from "../Card/cards/bg-red.svg";
 
 const Player = props => {
+  // Miliseconds for each active player to act
+  let timeAllowance = 6000;
+
+  const [timeLeftToAct, setTimeLeftToAct] = useState(timeAllowance);
+  const [percentLeft, setPercentLeft] = useState(100);
+  const [userAvatar, setUserAvater] = useState(randomEmoji());
+  const [userName, setUserName] = useState({
+    text: props.seat,
+    color: theme.moon.colors.superLightGray
+  });
+
+  // Set deadline for the to active player
+  let deadlineToAct = new Date();
+  deadlineToAct.setSeconds(deadlineToAct.getSeconds() + timeLeftToAct / 1000);
+
+  // Countdown
+  props.isActive &&
+    useInterval(
+      () => {
+        const now = new Date().getTime();
+        if (timeLeftToAct > 0) {
+          let timeLeft = Math.floor(deadlineToAct - now);
+          setTimeLeftToAct(Math.max(0, timeLeft));
+          console.log(timeLeftToAct);
+        }
+      },
+      timeLeftToAct > 0 ? 1000 : null
+    );
+
+  // Function to execute when time is up
+  props.isActive &&
+    useEffect(() => {
+      if (timeLeftToAct <= 0) {
+        setTimeout(() => {
+          setUserName({ text: "Fold", color: theme.moon.colors.accent });
+          // Have to use useReducer instead
+          props.setPlayers({
+            ...props.players,
+            "player-1": {
+              isPlaying: true,
+              seat: "player-1",
+              chips: 783900,
+              hasCards: false,
+              showCards: false,
+              isBetting: false,
+              betAmount: 27500
+            }
+          });
+          console.log(props.seat + "'s time is up.");
+        }, 1500);
+      }
+    });
+
+  // Update the percentage of time left
+  props.isActive &&
+    useEffect(() => {
+      setPercentLeft(
+        ((timeAllowance - (timeAllowance - timeLeftToAct)) / timeAllowance) *
+          100
+      );
+    });
+
+  // Rules to change the colors
+  const colorChange = () => {
+    return percentLeft > 75
+      ? theme.moon.colors.primary
+      : percentLeft > 25
+      ? theme.moon.colors.accent
+      : theme.moon.colors.danger;
+  };
+
+  let transitionSpeed = "1s ease-out";
+
   return (
     <div
       css={css`
@@ -15,8 +89,8 @@ const Player = props => {
         position: relative;
       `}
     >
-      {/* Show my cards if I have them */}
-      {props.isMe && props.hasCards && (
+      {/* Wether or not to to show current cards */}
+      {props.showCards && props.hasCards && (
         <div
           css={css`
             bottom: 0.875rem;
@@ -29,8 +103,8 @@ const Player = props => {
           <Card card={props.myCards[1]} />
         </div>
       )}
-      {/* Show other players' cards if they have them */}
-      {!props.isMe && props.hasCards && (
+      {/* Whether or not the player has cards */}
+      {!props.showCards && props.hasCards && (
         <div
           css={css`
             bottom: 0;
@@ -50,6 +124,7 @@ const Player = props => {
           />
         </div>
       )}
+      {/* Player info widget */}
       <div
         css={css`
           align-items: center;
@@ -58,9 +133,11 @@ const Player = props => {
           border-radius: 10rem;
           box-sizing: border-box;
           box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.1);
+          ${props.isActive && "border: 2px solid " + colorChange() + ";"}
           grid-template-columns: 1fr 0.5fr;
           height: 100%;
           justify-content: center;
+          transition: ${transitionSpeed};
           position: absolute;
           width: 100%;
           z-index: 2;
@@ -71,17 +148,19 @@ const Player = props => {
             margin-left: 1rem;
           `}
         >
+          {/* Player name area */}
           <div
             css={css`
-              color: ${theme.moon.colors.superLightGray};
+              color: ${userName.color};
               font-size: 0.625rem;
               line-height: 0.875rem;
               text-align: center;
               text-transform: uppercase;
             `}
           >
-            {props.seat}
+            {userName.text}
           </div>
+          {/* Available chips */}
           <div
             css={css`
               color: ${theme.moon.colors.primaryLight};
@@ -94,15 +173,40 @@ const Player = props => {
             {numberWithCommas(props.chips)}
           </div>
         </span>
+        {/* Player emoji */}
         <span
           css={css`
             font-size: 1.875rem;
             margin-right: 1rem;
           `}
         >
-          {randomEmoji()}
+          {userAvatar}
         </span>
       </div>
+      {/* Active player countdown */}
+      {props.isActive && (
+        <div
+          css={css`
+            background: ${theme.moon.colors.background};
+            border: 2px solid ${colorChange()};
+            height: 0.5rem;
+            margin: auto;
+            position: relative;
+            top: 2.875rem;
+            transition: ${transitionSpeed};
+            width: 6.75rem;
+          `}
+        >
+          <div
+            css={css`
+              background-color: ${colorChange()};
+              height: 0.5rem;
+              width: ${percentLeft}%;
+              transition: ${transitionSpeed};
+            `}
+          />
+        </div>
+      )}
     </div>
   );
 };

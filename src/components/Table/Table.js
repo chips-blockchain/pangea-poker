@@ -8,11 +8,11 @@ import Player from "../Player";
 import Board from "../Board";
 import Dealer from "../Dealer";
 import TotalPot from "./TotalPot";
-import { ChipGrid, Bet, Stack } from "../Chips";
+import { ChipGrid, Bet } from "../Chips";
 
 const Table = () => {
-  const [players, setPlayers] = useState([
-    {
+  const [players, setPlayers] = useState({
+    "player-1": {
       isPlaying: true,
       seat: "player-1",
       chips: 783900,
@@ -21,7 +21,7 @@ const Table = () => {
       isBetting: true,
       betAmount: 27500
     },
-    {
+    "player-2": {
       isPlaying: true,
       seat: "player-2",
       chips: 65984,
@@ -30,7 +30,7 @@ const Table = () => {
       isBetting: true,
       betAmount: 5249
     },
-    {
+    "player-3": {
       isPlaying: true,
       seat: "player-3",
       chips: 677854,
@@ -39,7 +39,7 @@ const Table = () => {
       isBetting: true,
       betAmount: 13980
     },
-    {
+    "player-4": {
       isPlaying: true,
       seat: "player-4",
       chips: 900999,
@@ -48,7 +48,7 @@ const Table = () => {
       isBetting: false,
       betAmount: 1000
     },
-    {
+    "player-5": {
       isPlaying: true,
       seat: "player-5",
       chips: 10008942,
@@ -57,7 +57,7 @@ const Table = () => {
       isBetting: true,
       betAmount: 1000000
     },
-    {
+    "player-6": {
       isPlaying: true,
       seat: "player-6",
       chips: 78400,
@@ -66,7 +66,7 @@ const Table = () => {
       isBetting: false,
       betAmount: 1000
     },
-    {
+    "player-7": {
       isPlaying: true,
       seat: "player-7",
       chips: 800800,
@@ -75,7 +75,7 @@ const Table = () => {
       isBetting: false,
       betAmount: 1000
     },
-    {
+    "player-8": {
       isPlaying: true,
       seat: "player-8",
       chips: 12000,
@@ -84,7 +84,7 @@ const Table = () => {
       isBetting: false,
       betAmount: 1000
     },
-    {
+    "player-9": {
       isPlaying: true,
       seat: "player-9",
       chips: 650000,
@@ -93,7 +93,7 @@ const Table = () => {
       isBetting: false,
       betAmount: 1000
     }
-  ]);
+  });
 
   const [myCards, setMyCards] = useState(["Ac", "Kc"]);
 
@@ -105,6 +105,7 @@ const Table = () => {
 
   const [pot, setPot] = useState(5691200);
   const [dealer, setDealer] = useState("player-1");
+  const [activePlayer, setActivePlayer] = useState("player-1");
 
   return (
     <div
@@ -126,22 +127,26 @@ const Table = () => {
         <TotalPot pot={pot} />
         <Board flop={board.flop} turn={board.turn} river={board.river} />
         <PlayerGrid9Max>
-          {players.map(
+          {Object.values(players).map(
             player =>
               player.isPlaying && (
                 <Player
                   seat={player.seat}
                   hasCards={player.hasCards}
                   chips={player.chips}
-                  isMe={player.showCards}
+                  showCards={player.showCards}
                   myCards={myCards}
                   key={player.seat}
+                  isActive={activePlayer === player.seat}
+                  setPlayers={setPlayers}
+                  players={players}
+                  setActivePlayer={setActivePlayer}
                 />
               )
           )}
         </PlayerGrid9Max>
         <ChipGrid>
-          {players.map(
+          {Object.values(players).map(
             player =>
               player.isBetting && (
                 <Bet
@@ -152,7 +157,7 @@ const Table = () => {
               )
           )}
         </ChipGrid>
-        <Dealer dealer={dealer} onClick={() => setDelaer("player-2")} />
+        <Dealer dealer={dealer} />
       </div>
       <Backgrounds />
     </div>
