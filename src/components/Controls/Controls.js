@@ -6,7 +6,7 @@ import Slider from "./Slider";
 
 const Controls = props => {
   const [toCall, setToCall] = useState(13980);
-  const [toRaise, setToRaise] = useState(toCall * 2);
+  const [toRaise, setToRaise] = useState(22711);
 
   return (
     <div

@@ -10,6 +10,7 @@ import Dealer from "../Dealer";
 import TotalPot from "./TotalPot";
 import { ChipGrid, Bet } from "../Chips";
 import Controls from "../Controls";
+import MainPot from "./MainPot";
 
 const Table = () => {
   const [players, setPlayers] = useState({
@@ -104,7 +105,7 @@ const Table = () => {
     river: "8s"
   });
 
-  const [pot, setPot] = useState(5691200);
+  const [pot, setPot] = useState(27729);
   const [dealer, setDealer] = useState("player-1");
   const [activePlayer, setActivePlayer] = useState("player-5");
 
@@ -158,6 +159,7 @@ const Table = () => {
               )
           )}
         </ChipGrid>
+        <MainPot />
         <Dealer dealer={dealer} />
         <div>
           <Controls />
