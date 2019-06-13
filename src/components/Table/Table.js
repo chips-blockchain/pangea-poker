@@ -17,9 +17,9 @@ const Table = () => {
       isPlaying: true,
       seat: "player-1",
       chips: 783900,
-      hasCards: true,
+      hasCards: false,
       showCards: false,
-      isBetting: true,
+      isBetting: false,
       betAmount: 27500
     },
     "player-2": {
@@ -44,7 +44,7 @@ const Table = () => {
       isPlaying: true,
       seat: "player-4",
       chips: 900999,
-      hasCards: true,
+      hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 1000
@@ -55,14 +55,14 @@ const Table = () => {
       chips: 108942,
       hasCards: true,
       showCards: true,
-      isBetting: true,
+      isBetting: false,
       betAmount: 1000000
     },
     "player-6": {
       isPlaying: true,
       seat: "player-6",
       chips: 78400,
-      hasCards: true,
+      hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 1000
@@ -71,7 +71,7 @@ const Table = () => {
       isPlaying: true,
       seat: "player-7",
       chips: 800800,
-      hasCards: true,
+      hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 1000
@@ -80,7 +80,7 @@ const Table = () => {
       isPlaying: true,
       seat: "player-8",
       chips: 12000,
-      hasCards: true,
+      hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 1000
@@ -89,7 +89,7 @@ const Table = () => {
       isPlaying: true,
       seat: "player-9",
       chips: 650000,
-      hasCards: true,
+      hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 1000
@@ -106,7 +106,7 @@ const Table = () => {
 
   const [pot, setPot] = useState(5691200);
   const [dealer, setDealer] = useState("player-1");
-  const [activePlayer, setActivePlayer] = useState("player-1");
+  const [activePlayer, setActivePlayer] = useState("player-5");
 
   return (
     <div

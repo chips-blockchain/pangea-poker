@@ -10,7 +10,7 @@ import cardBg from "../Card/cards/bg-red.svg";
 
 const Player = props => {
   // Miliseconds for each active player to act
-  let timeAllowance = 6000;
+  let timeAllowance = 30000;
 
   const [timeLeftToAct, setTimeLeftToAct] = useState(timeAllowance);
   const [percentLeft, setPercentLeft] = useState(100);
