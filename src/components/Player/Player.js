@@ -32,7 +32,6 @@ const Player = props => {
         if (timeLeftToAct > 0) {
           let timeLeft = Math.floor(deadlineToAct - now);
           setTimeLeftToAct(Math.max(0, timeLeft));
-          console.log(timeLeftToAct);
         }
       },
       timeLeftToAct > 0 ? 1000 : null

@@ -52,7 +52,7 @@ const Table = () => {
     "player-5": {
       isPlaying: true,
       seat: "player-5",
-      chips: 10008942,
+      chips: 108942,
       hasCards: true,
       showCards: true,
       isBetting: true,
