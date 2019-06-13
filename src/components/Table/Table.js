@@ -9,6 +9,7 @@ import Board from "../Board";
 import Dealer from "../Dealer";
 import TotalPot from "./TotalPot";
 import { ChipGrid, Bet } from "../Chips";
+import Controls from "../Controls";
 
 const Table = () => {
   const [players, setPlayers] = useState({
@@ -158,6 +159,9 @@ const Table = () => {
           )}
         </ChipGrid>
         <Dealer dealer={dealer} />
+        <div>
+          <Controls />
+        </div>
       </div>
       <Backgrounds />
     </div>
