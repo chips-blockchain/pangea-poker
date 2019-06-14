@@ -1,0 +1,19 @@
+{
+  "method": "invoiceRequest",
+  "playerid": 1,
+  "betAmount": 100000,
+  "label": "LABEL",
+  "invoice": {
+    "paymnet_hash": "PAYMNET_HASH",
+    "expiry_time": "EXPIRY_TIME",
+    "expires_at": "EXPIRES"
+  },
+  "payment_params": {
+    "method": "betting",
+    "action": "small_blind",
+    "playerid": 1,
+    "round": 0,
+    "pot": 0,
+    "gui_playerID": 1
+  }
+}

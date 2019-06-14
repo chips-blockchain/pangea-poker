@@ -1,0 +1,13 @@
+{
+  "method": "invoiceRequest",
+  "playerid": 1,
+  "betAmount": 100000,
+  "payment_params": {
+    "method": "betting",
+    "action": "small_blind",
+    "playerid": 1,
+    "round": 0,
+    "pot": 0,
+    "gui_playerID": 1
+  }
+}
