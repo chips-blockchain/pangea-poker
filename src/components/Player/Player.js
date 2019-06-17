@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import Card from "../Card";
@@ -7,8 +7,11 @@ import useInterval from "../../lib/useInterval";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import cardBg from "../Card/cards/bg-red.svg";
+import { DispatchContext, StateContext } from "../Table/Table";
 
 const Player = props => {
+  const dispatch = useContext(DispatchContext);
+  const state = useContext(StateContext);
   // Miliseconds for each active player to act
   let timeAllowance = 30000;
 

@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useReducer, createContext } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import theme from "../../styles/theme";
@@ -121,87 +121,91 @@ function reducer(state, action) {
   }
 }
 
+export const StateContext = createContext();
+export const DispatchContext = createContext();
+
 const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { players, myCards, board, pot, dealer, activePlayer } = state;
 
   console.log(state);
 
   return (
-    <div
-      css={css`
-        background-color: ${theme.moon.colors.dark};
-        height: 37.5rem;
-        width: 50rem;
-        position: relative;
-      `}
-    >
-      <div
-        css={css`
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          z-index: 1;
-        `}
-      >
+    <DispatchContext.Provider value={dispatch}>
+      <StateContext.Provider value={state}>
         <div
           css={css`
-            position: absolute;
+            background-color: ${theme.moon.colors.dark};
+            height: 37.5rem;
+            width: 50rem;
+            position: relative;
           `}
         >
-          <button
-            label="LOL"
-            onClick={() =>
-              dispatch({ type: "setActivePlayer", payload: "player1" })
-            }
+          <div
+            css={css`
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              z-index: 1;
+            `}
           >
-            LOL
-          </button>
+            <div
+              css={css`
+                position: absolute;
+              `}
+            >
+              <button
+                label="LOL"
+                onClick={() =>
+                  dispatch({ type: "setActivePlayer", payload: "player1" })
+                }
+              >
+                LOL
+              </button>
+            </div>
+            <TotalPot pot={pot} />
+            <Board flop={board.flop} turn={board.turn} river={board.river} />
+            <PlayerGrid9Max>
+              {Object.values(players).map(
+                player =>
+                  player.isPlaying && (
+                    <Player
+                      seat={player.seat}
+                      hasCards={player.hasCards}
+                      chips={player.chips}
+                      showCards={player.showCards}
+                      myCards={myCards}
+                      key={player.seat}
+                      isActive={activePlayer === player.seat}
+                      // setPlayers={setPlayers}
+                      players={players}
+                      // setActivePlayer={setActivePlayer}
+                    />
+                  )
+              )}
+            </PlayerGrid9Max>
+            <ChipGrid>
+              {Object.values(players).map(
+                player =>
+                  player.isBetting && (
+                    <Bet
+                      forPlayer={player.seat}
+                      betAmount={player.betAmount}
+                      key={player.seat}
+                    />
+                  )
+              )}
+            </ChipGrid>
+            <MainPot />
+            <Dealer dealer={dealer} />
+            <div>
+              <Controls />
+            </div>
+          </div>
+          <Backgrounds />
         </div>
-        <TotalPot pot={state.pot} />
-        <Board
-          flop={state.board.flop}
-          turn={state.board.turn}
-          river={state.board.river}
-        />
-        <PlayerGrid9Max>
-          {Object.values(state.players).map(
-            player =>
-              player.isPlaying && (
-                <Player
-                  seat={player.seat}
-                  hasCards={player.hasCards}
-                  chips={player.chips}
-                  showCards={player.showCards}
-                  myCards={state.myCards}
-                  key={player.seat}
-                  isActive={state.activePlayer === player.seat}
-                  // setPlayers={setPlayers}
-                  players={state.players}
-                  // setActivePlayer={setActivePlayer}
-                />
-              )
-          )}
-        </PlayerGrid9Max>
-        <ChipGrid>
-          {Object.values(state.players).map(
-            player =>
-              player.isBetting && (
-                <Bet
-                  forPlayer={player.seat}
-                  betAmount={player.betAmount}
-                  key={player.seat}
-                />
-              )
-          )}
-        </ChipGrid>
-        <MainPot />
-        <Dealer dealer={state.dealer} />
-        <div>
-          <Controls />
-        </div>
-      </div>
-      <Backgrounds />
-    </div>
+      </StateContext.Provider>
+    </DispatchContext.Provider>
   );
 };
 export default Table;
