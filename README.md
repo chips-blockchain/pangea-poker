@@ -10,14 +10,14 @@
 - [x] Add Palyers
 - [x] Add Cards
 - [x] Add Player Chips
-- [ ] Add Pot Chips
+- [x] Add Pot Chips
 - [x] Add Dealer Button
 - [x] Add Stack
-- [ ] Add UI Buttons
-- [ ] Add Slider
+- [x] Add UI Buttons
+- [x] Add Slider
 - [x] Add Timer Animations
 - [ ] Add Chip Animations
 - [ ] Add Card Animations
-- [ ] Add Dealer Button Animations
+- [x] Add Dealer Button Animations
 - [ ] Add Chat
 - [ ] Hook up with JSONs
