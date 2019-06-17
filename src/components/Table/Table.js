@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import theme from "../../styles/theme";
@@ -12,102 +12,119 @@ import { ChipGrid, Bet } from "../Chips";
 import Controls from "../Controls";
 import MainPot from "./MainPot";
 
-const Table = () => {
-  const [players, setPlayers] = useState({
-    "player-1": {
+const initialState = {
+  players: {
+    player1: {
       isPlaying: true,
-      seat: "player-1",
+      seat: "player1",
       chips: 783900,
       hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 27500
     },
-    "player-2": {
+    player2: {
       isPlaying: true,
-      seat: "player-2",
+      seat: "player2",
       chips: 65984,
       hasCards: true,
       showCards: false,
       isBetting: true,
       betAmount: 5249
     },
-    "player-3": {
+    player3: {
       isPlaying: true,
-      seat: "player-3",
+      seat: "player3",
       chips: 677854,
       hasCards: true,
       showCards: false,
       isBetting: true,
       betAmount: 13980
     },
-    "player-4": {
+    player4: {
       isPlaying: true,
-      seat: "player-4",
+      seat: "player4",
       chips: 900999,
       hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 1000
     },
-    "player-5": {
+    player5: {
       isPlaying: true,
-      seat: "player-5",
+      seat: "player5",
       chips: 108942,
       hasCards: true,
       showCards: true,
       isBetting: false,
       betAmount: 1000000
     },
-    "player-6": {
+    player6: {
       isPlaying: true,
-      seat: "player-6",
+      seat: "player6",
       chips: 78400,
       hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 1000
     },
-    "player-7": {
+    player7: {
       isPlaying: true,
-      seat: "player-7",
+      seat: "player7",
       chips: 800800,
       hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 1000
     },
-    "player-8": {
+    player8: {
       isPlaying: true,
-      seat: "player-8",
+      seat: "player8",
       chips: 12000,
       hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 1000
     },
-    "player-9": {
+    player9: {
       isPlaying: true,
-      seat: "player-9",
+      seat: "player9",
       chips: 650000,
       hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 1000
     }
-  });
-
-  const [myCards, setMyCards] = useState(["Ac", "Kc"]);
-
-  const [board, setBoard] = useState({
+  },
+  myCards: ["Ac", "Kc"],
+  board: {
     flop: ["Kh", "7c", "8c"],
     turn: "Kd",
     river: "8s"
-  });
+  },
+  pot: 27729,
+  dealer: "player1",
+  activePlayer: "player5"
+};
 
-  const [pot, setPot] = useState(27729);
-  const [dealer, setDealer] = useState("player-1");
-  const [activePlayer, setActivePlayer] = useState("player-5");
+function reducer(state, action) {
+  switch (action.type) {
+    case "setActivePlayer": {
+      return {
+        ...state,
+        activePlayer: action.payload
+      };
+    }
+
+    default:
+      throw new Error("Action type is required");
+  }
+}
+
+const Table = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  console.log(state);
 
   return (
     <div
@@ -126,10 +143,28 @@ const Table = () => {
           z-index: 1;
         `}
       >
-        <TotalPot pot={pot} />
-        <Board flop={board.flop} turn={board.turn} river={board.river} />
+        <div
+          css={css`
+            position: absolute;
+          `}
+        >
+          <button
+            label="LOL"
+            onClick={() =>
+              dispatch({ type: "setActivePlayer", payload: "player1" })
+            }
+          >
+            LOL
+          </button>
+        </div>
+        <TotalPot pot={state.pot} />
+        <Board
+          flop={state.board.flop}
+          turn={state.board.turn}
+          river={state.board.river}
+        />
         <PlayerGrid9Max>
-          {Object.values(players).map(
+          {Object.values(state.players).map(
             player =>
               player.isPlaying && (
                 <Player
@@ -137,18 +172,18 @@ const Table = () => {
                   hasCards={player.hasCards}
                   chips={player.chips}
                   showCards={player.showCards}
-                  myCards={myCards}
+                  myCards={state.myCards}
                   key={player.seat}
-                  isActive={activePlayer === player.seat}
-                  setPlayers={setPlayers}
-                  players={players}
-                  setActivePlayer={setActivePlayer}
+                  isActive={state.activePlayer === player.seat}
+                  // setPlayers={setPlayers}
+                  players={state.players}
+                  // setActivePlayer={setActivePlayer}
                 />
               )
           )}
         </PlayerGrid9Max>
         <ChipGrid>
-          {Object.values(players).map(
+          {Object.values(state.players).map(
             player =>
               player.isBetting && (
                 <Bet
@@ -160,7 +195,7 @@ const Table = () => {
           )}
         </ChipGrid>
         <MainPot />
-        <Dealer dealer={dealer} />
+        <Dealer dealer={state.dealer} />
         <div>
           <Controls />
         </div>
@@ -169,5 +204,4 @@ const Table = () => {
     </div>
   );
 };
-
 export default Table;

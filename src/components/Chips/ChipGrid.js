@@ -11,10 +11,10 @@ const ChipsGrid = props => {
         grid-template-columns: 1.75rem 4rem 6.625rem 7.875rem 4rem 1.75rem;
         grid-template-rows: 2.625rem 3.75rem 4.875rem 2.75rem;
         grid-template-areas:
-          ". . player-9 . player-1 ."
-          "player-8 . . . . player-2"
-          "player-7 . . . . player-3"
-          ". player-6 . player-5 player-4 .";
+          ". . player9 . player1 ."
+          "player8 . . . . player2"
+          "player7 . . . . player3"
+          ". player6 . player5 player4 .";
 
         position: absolute;
         top: 9.5rem;

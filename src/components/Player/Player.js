@@ -25,50 +25,46 @@ const Player = props => {
   deadlineToAct.setSeconds(deadlineToAct.getSeconds() + timeLeftToAct / 1000);
 
   // Countdown
-  props.isActive &&
-    useInterval(
-      () => {
-        const now = new Date().getTime();
-        if (timeLeftToAct > 0) {
-          let timeLeft = Math.floor(deadlineToAct - now);
-          setTimeLeftToAct(Math.max(0, timeLeft));
-        }
-      },
-      timeLeftToAct > 0 ? 1000 : null
-    );
+  useInterval(
+    () => {
+      const now = new Date().getTime();
+      if (timeLeftToAct > 0) {
+        let timeLeft = Math.floor(deadlineToAct - now);
+        setTimeLeftToAct(Math.max(0, timeLeft));
+      }
+    },
+    timeLeftToAct > 0 ? 1000 : null
+  );
 
   // Function to execute when time is up
-  props.isActive &&
-    useEffect(() => {
-      if (timeLeftToAct <= 0) {
-        setTimeout(() => {
-          setUserName({ text: "Fold", color: theme.moon.colors.accent });
-          // Have to use useReducer instead
-          props.setPlayers({
-            ...props.players,
-            "player-1": {
-              isPlaying: true,
-              seat: "player-1",
-              chips: 783900,
-              hasCards: false,
-              showCards: false,
-              isBetting: false,
-              betAmount: 27500
-            }
-          });
-          console.log(props.seat + "'s time is up.");
-        }, 1500);
-      }
-    });
+  useEffect(() => {
+    if (timeLeftToAct <= 0) {
+      setTimeout(() => {
+        setUserName({ text: "Fold", color: theme.moon.colors.accent });
+        // Have to use useReducer instead
+        // props.setPlayers({
+        //   ...props.players,
+        //   player5: {
+        //     isPlaying: true,
+        //     seat: "player5",
+        //     chips: 783900,
+        //     hasCards: false,
+        //     showCards: false,
+        //     isBetting: false,
+        //     betAmount: 27500
+        //   }
+        // });
+        console.log(props.seat + "'s time is up.");
+      }, 1500);
+    }
+  }, []);
 
   // Update the percentage of time left
-  props.isActive &&
-    useEffect(() => {
-      setPercentLeft(
-        ((timeAllowance - (timeAllowance - timeLeftToAct)) / timeAllowance) *
-          100
-      );
-    });
+  useEffect(() => {
+    setPercentLeft(
+      ((timeAllowance - (timeAllowance - timeLeftToAct)) / timeAllowance) * 100
+    );
+  });
 
   // Rules to change the colors
   const colorChange = () => {
