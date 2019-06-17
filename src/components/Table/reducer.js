@@ -1,5 +1,3 @@
-import update from "immutability-helper";
-
 const reducer = (state, action) => {
   switch (action.type) {
     case "setActivePlayer": {
