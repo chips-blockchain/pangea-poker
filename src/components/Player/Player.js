@@ -7,7 +7,7 @@ import useInterval from "../../lib/useInterval";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import cardBg from "../Card/cards/bg-red.svg";
-import { DispatchContext, StateContext } from "../Table/Table";
+import { DispatchContext, StateContext } from "../Table";
 
 const Player = props => {
   const dispatch = useContext(DispatchContext);
