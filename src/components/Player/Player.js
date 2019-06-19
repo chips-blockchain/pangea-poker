@@ -23,51 +23,51 @@ const Player = props => {
     color: theme.moon.colors.superLightGray
   });
 
-  // Set deadline for the to active player
-  let deadlineToAct = new Date();
-  deadlineToAct.setSeconds(deadlineToAct.getSeconds() + timeLeftToAct / 1000);
+  // // Set deadline for the to active player
+  // let deadlineToAct = new Date();
+  // deadlineToAct.setSeconds(deadlineToAct.getSeconds() + timeLeftToAct / 1000);
 
-  // Countdown
-  useInterval(
-    () => {
-      const now = new Date().getTime();
-      if (timeLeftToAct > 0) {
-        let timeLeft = Math.floor(deadlineToAct - now);
-        setTimeLeftToAct(Math.max(0, timeLeft));
-      }
-    },
-    timeLeftToAct > 0 ? 1000 : null
-  );
+  // // Countdown
+  // useInterval(
+  //   () => {
+  //     const now = new Date().getTime();
+  //     if (timeLeftToAct > 0) {
+  //       let timeLeft = Math.floor(deadlineToAct - now);
+  //       setTimeLeftToAct(Math.max(0, timeLeft));
+  //     }
+  //   },
+  //   timeLeftToAct > 0 ? 1000 : null
+  // );
 
-  // Function to execute when time is up
-  useEffect(() => {
-    if (timeLeftToAct <= 0) {
-      setTimeout(() => {
-        setUserName({ text: "Fold", color: theme.moon.colors.accent });
-        // Have to use useReducer instead
-        // props.setPlayers({
-        //   ...props.players,
-        //   player5: {
-        //     isPlaying: true,
-        //     seat: "player5",
-        //     chips: 783900,
-        //     hasCards: false,
-        //     showCards: false,
-        //     isBetting: false,
-        //     betAmount: 27500
-        //   }
-        // });
-        console.log(props.seat + "'s time is up.");
-      }, 1500);
-    }
-  }, []);
+  // // Function to execute when time is up
+  // useEffect(() => {
+  //   if (timeLeftToAct <= 0) {
+  //     setTimeout(() => {
+  //       setUserName({ text: "Fold", color: theme.moon.colors.accent });
+  //       // Have to use useReducer instead
+  //       // props.setPlayers({
+  //       //   ...props.players,
+  //       //   player5: {
+  //       //     isPlaying: true,
+  //       //     seat: "player5",
+  //       //     chips: 783900,
+  //       //     hasCards: false,
+  //       //     showCards: false,
+  //       //     isBetting: false,
+  //       //     betAmount: 27500
+  //       //   }
+  //       // });
+  //       console.log(props.seat + "'s time is up.");
+  //     }, 1500);
+  //   }
+  // }, []);
 
-  // Update the percentage of time left
-  useEffect(() => {
-    setPercentLeft(
-      ((timeAllowance - (timeAllowance - timeLeftToAct)) / timeAllowance) * 100
-    );
-  });
+  // // Update the percentage of time left
+  // useEffect(() => {
+  //   setPercentLeft(
+  //     ((timeAllowance - (timeAllowance - timeLeftToAct)) / timeAllowance) * 100
+  //   );
+  // });
 
   // Rules to change the colors
   const colorChange = () => {
@@ -168,7 +168,7 @@ const Player = props => {
               text-transform: uppercase;
             `}
           >
-            {numberWithCommas(props.chips)}
+            {props.chips}
           </div>
         </span>
         {/* Player emoji */}
