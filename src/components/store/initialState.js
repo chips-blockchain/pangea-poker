@@ -90,7 +90,13 @@ const initialState = {
   },
   pot: 27729,
   dealer: "player1",
-  activePlayer: "player5"
+  activePlayer: "player5",
+  connection: {
+    dcv: "Not connected",
+    bvv: "Not connected",
+    player1: "Not connected",
+    player2: "Not connected"
+  }
 };
 
 export default initialState;

@@ -11,8 +11,10 @@ import TotalPot from "./TotalPot";
 import { ChipGrid, Bet } from "../Chips";
 import Controls from "../Controls";
 import MainPot from "./MainPot";
-import initialState from "./initialState";
-import reducer from "./reducer";
+import initialState from "../store/initialState";
+import reducer from "../store/reducer";
+import Game from "../Game";
+import Connections from "./Connections";
 
 const StateContext = createContext();
 const DispatchContext = createContext();
@@ -21,11 +23,12 @@ const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { players, myCards, board, pot, dealer, activePlayer } = state;
 
-  console.log(state);
+  console.log(state.connection);
 
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
+        <Game />
         <div
           css={css`
             background-color: ${theme.moon.colors.dark};
@@ -34,6 +37,7 @@ const Table = () => {
             position: relative;
           `}
         >
+          <Connections />
           <div
             css={css`
               position: absolute;
@@ -48,7 +52,7 @@ const Table = () => {
               `}
             >
               <button
-                label="LOL"
+                label="TEST"
                 onClick={() => dispatch({ type: "Fold", payload: "player5" })}
               >
                 LOL

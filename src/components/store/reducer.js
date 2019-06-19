@@ -1,5 +1,14 @@
 const reducer = (state, action) => {
   switch (action.type) {
+    case "Connect": {
+      return {
+        ...state,
+        connection: {
+          ...state.connection,
+          [action.payload.nodeName]: action.payload.readyState
+        }
+      };
+    }
     case "setActivePlayer": {
       return {
         ...state,
