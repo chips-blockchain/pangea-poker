@@ -23,7 +23,7 @@ const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { players, myCards, board, pot, dealer, activePlayer } = state;
 
-  console.log(state.connection);
+  console.log(state);
 
   return (
     <DispatchContext.Provider value={dispatch}>
@@ -55,10 +55,10 @@ const Table = () => {
                 label="TEST"
                 onClick={() => dispatch({ type: "Fold", payload: "player5" })}
               >
-                LOL
+                TEST
               </button>
             </div>
-            <TotalPot pot={pot} />
+            {state.options.showPotCounter && <TotalPot pot={pot} />}
             <Board flop={board.flop} turn={board.turn} river={board.river} />
             <PlayerGrid9Max>
               {Object.values(players).map(
@@ -91,11 +91,13 @@ const Table = () => {
                   )
               )}
             </ChipGrid>
-            <MainPot />
-            <Dealer dealer={dealer} />
-            <div>
-              <Controls />
-            </div>
+            {state.options.showPot && <MainPot />}
+            {state.options.showDealer && <Dealer dealer={dealer} />}
+            {state.options.showControls && (
+              <div>
+                <Controls />
+              </div>
+            )}
           </div>
           <Backgrounds />
         </div>
