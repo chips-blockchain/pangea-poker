@@ -9,6 +9,18 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "toggleIsPlaying": {
+      return {
+        ...state,
+        players: {
+          ...state.players,
+          [action.payload]: {
+            ...state.players[action.payload],
+            isPlaying: true
+          }
+        }
+      };
+    }
     case "setActivePlayer": {
       return {
         ...state,

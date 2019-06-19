@@ -51,12 +51,12 @@ const Table = () => {
                 position: absolute;
               `}
             >
-              <button
+              {/* <button
                 label="TEST"
                 onClick={() => dispatch({ type: "Fold", payload: "player5" })}
               >
                 TEST
-              </button>
+              </button> */}
             </div>
             {state.options.showPotCounter && <TotalPot pot={pot} />}
             <Board flop={board.flop} turn={board.turn} river={board.river} />

@@ -40,6 +40,19 @@ const WebSocket = React.memo(props => {
     }
   });
 
+  useEffect(() => {
+    if (
+      state.connection[props.nodeName] === "Connected" &&
+      props.nodeName !== "dcv" &&
+      props.nodeName !== "bvv"
+    ) {
+      dispatch({
+        type: "toggleIsPlaying",
+        payload: props.nodeName
+      });
+    }
+  });
+
   const readyStateString = {
     0: "Connecting...",
     1: "Connected",

@@ -13,7 +13,7 @@ const initialState = {
       isPlaying: false,
       seat: "player2",
       chips: 65984,
-      hasCards: true,
+      hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 5249
