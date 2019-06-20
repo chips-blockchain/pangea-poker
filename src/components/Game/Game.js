@@ -1,11 +1,14 @@
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import React, { useState, useContext } from "react";
 import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../Table";
+import { Button } from "../Controls";
 
-const SOCKET_URL_DCV = "wss://echo.websocket.org";
-const SOCKET_URL_BVV = "wss://demos.kaazing.com/echo";
-const SOCKET_URL_PLAYER2 = "wss://echo.websocket.org";
-const SOCKET_URL_PLAYER1 = "wss://echo.websocket.org";
+const SOCKET_URL_DCV = "ws://209.250.254.100:9000/";
+const SOCKET_URL_BVV = "ws://217.69.0.32:9001/";
+const SOCKET_URL_PLAYER1 = "ws://217.69.0.32:9002";
+const SOCKET_URL_PLAYER2 = "ws://45.77.52.117:9003";
 
 const Game = () => {
   const dispatch = useContext(DispatchContext);
@@ -19,6 +22,19 @@ const Game = () => {
   });
   return (
     <div>
+      <div
+        css={css`
+          position: absolute;
+          z-index: 5;
+        `}
+      >
+        <Button
+          label="Start"
+          onClick={() =>
+            setMessage({ ...message, dcv: JSON.stringify({ method: "game" }) })
+          }
+        />
+      </div>
       <WebSocket nodeName="dcv" server={SOCKET_URL_DCV} message={message.dcv} />
       <WebSocket nodeName="bvv" server={SOCKET_URL_BVV} message={message.bvv} />
       <WebSocket

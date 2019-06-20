@@ -5,7 +5,7 @@ import { DispatchContext, StateContext } from "../Table";
 const STATIC_OPTIONS = {};
 const READY_STATE_OPEN = 1;
 
-const WebSocket = React.memo(({ message, nodeName, server }) => {
+const WebSocket = React.memo(({ children, message, nodeName, server }) => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
   const [currentSocketUrl, setCurrentSocketUrl] = useState(server);
@@ -52,6 +52,10 @@ const WebSocket = React.memo(({ message, nodeName, server }) => {
         payload: nodeName
       });
     }
+  });
+
+  useEffect(() => {
+    console.log(lastMessage);
   });
 
   const readyStateString = {
