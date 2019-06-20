@@ -5,10 +5,10 @@ import { DispatchContext, StateContext } from "../Table";
 const STATIC_OPTIONS = {};
 const READY_STATE_OPEN = 1;
 
-const WebSocket = React.memo(props => {
+const WebSocket = React.memo(({ message, nodeName, server }) => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
-  const [currentSocketUrl, setCurrentSocketUrl] = useState(props.server);
+  const [currentSocketUrl, setCurrentSocketUrl] = useState(server);
   const [messageHistory, setMessageHistory] = useState([]);
   const [inputtedMessage, setInputtedMessage] = useState("");
   const [sendMessage, lastMessage, readyState] = useWebSocket(
@@ -22,33 +22,34 @@ const WebSocket = React.memo(props => {
 
   // Send a message if props changes
   useEffect(() => {
-    if (props.message !== null) {
+    if (message !== null) {
       if (readyState === 1) {
       }
-      console.log(props.message + " has been sent");
-      sendMessage(props.message);
+      console.log(message + " has been sent");
+      sendMessage(message);
     }
-  }, [props]);
+  }, [message]);
 
   // If the connection status changes, update the state
   useEffect(() => {
-    if (state.connection[props.nodeName] !== readyStateString) {
+    if (state.connection[nodeName] !== readyStateString) {
       dispatch({
         type: "Connect",
-        payload: { nodeName: props.nodeName, readyState: readyStateString }
+        payload: { nodeName: nodeName, readyState: readyStateString }
       });
     }
   });
 
   useEffect(() => {
     if (
-      state.connection[props.nodeName] === "Connected" &&
-      props.nodeName !== "dcv" &&
-      props.nodeName !== "bvv"
+      nodeName !== "dcv" &&
+      nodeName !== "bvv" &&
+      state.connection[nodeName] === "Connected" &&
+      state.players[nodeName].isPlaying === false
     ) {
       dispatch({
         type: "toggleIsPlaying",
-        payload: props.nodeName
+        payload: nodeName
       });
     }
   });
