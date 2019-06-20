@@ -7,6 +7,7 @@ import numberWithCommas from "../../lib/numberWithCommas";
 const Button = props => {
   return (
     <button
+      onClick={props.onClick}
       css={css`
         background: ${theme.moon.colors.background};
         border: 0.0625rem solid ${theme.moon.colors.primary};
