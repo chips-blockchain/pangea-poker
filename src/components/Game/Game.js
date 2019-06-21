@@ -14,13 +14,6 @@ const Game = () => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
 
-  const [message, setMessage] = useState({
-    dcv: null,
-    bvv: null,
-    player1: null,
-    player2: null
-  });
-
   return (
     <div>
       <div
@@ -34,26 +27,37 @@ const Game = () => {
             label="Start"
             onClick={() => {
               if (state.connection.dcv === "Connected") {
-                setMessage({
-                  ...message,
-                  dcv: JSON.stringify({ method: "game" })
+                dispatch({
+                  type: "sendMessage",
+                  payload: {
+                    node: "dcv",
+                    message: JSON.stringify({ method: "game" })
+                  }
                 });
               } else alert("Please wait until DCV is connected.");
             }}
           />
         )}
       </div>
-      <WebSocket nodeName="dcv" server={SOCKET_URL_DCV} message={message.dcv} />
-      <WebSocket nodeName="bvv" server={SOCKET_URL_BVV} message={message.bvv} />
+      <WebSocket
+        nodeName="dcv"
+        server={SOCKET_URL_DCV}
+        message={state.message.dcv}
+      />
+      <WebSocket
+        nodeName="bvv"
+        server={SOCKET_URL_BVV}
+        message={state.message.bvv}
+      />
       <WebSocket
         nodeName="player1"
         server={SOCKET_URL_PLAYER1}
-        message={message.player1}
+        message={state.message.player1}
       />
       <WebSocket
         nodeName="player2"
         server={SOCKET_URL_PLAYER2}
-        message={message.player2}
+        message={state.message.player2}
       />
     </div>
   );

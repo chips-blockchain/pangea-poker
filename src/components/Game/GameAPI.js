@@ -1,5 +1,7 @@
 const GameAPI = {};
 
+GameAPI.sendMessage = function(message, node) {};
+
 GameAPI.game = function(gameObject, state, dispatch) {
   console.log(gameObject);
   if (state.gameStarted === false) {

@@ -9,6 +9,15 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "sendMessage": {
+      return {
+        ...state,
+        message: {
+          ...state.message,
+          [action.payload.node]: action.payload.message
+        }
+      };
+    }
     case "startGame": {
       return {
         ...state,

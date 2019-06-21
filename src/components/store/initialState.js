@@ -106,7 +106,13 @@ const initialState = {
   gameType: "",
   gameStarted: false,
   toCall: 0,
-  seats: 0
+  seats: 0,
+  message: {
+    dcv: null,
+    bvv: null,
+    player1: null,
+    player2: null
+  }
 };
 
 export default initialState;
