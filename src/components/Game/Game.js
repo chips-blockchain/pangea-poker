@@ -28,12 +28,19 @@ const Game = () => {
           z-index: 5;
         `}
       >
-        <Button
-          label="Start"
-          onClick={() =>
-            setMessage({ ...message, dcv: JSON.stringify({ method: "game" }) })
-          }
-        />
+        {state.gameStarted === false && (
+          <Button
+            label="Start"
+            onClick={() => {
+              if (state.connection.dcv === "Connected") {
+                setMessage({
+                  ...message,
+                  dcv: JSON.stringify({ method: "game" })
+                });
+              } else alert("Please wait until DCV is connected.");
+            }}
+          />
+        )}
       </div>
       <WebSocket nodeName="dcv" server={SOCKET_URL_DCV} message={message.dcv} />
       <WebSocket nodeName="bvv" server={SOCKET_URL_BVV} message={message.bvv} />

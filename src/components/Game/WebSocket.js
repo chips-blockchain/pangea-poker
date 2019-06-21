@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import useWebSocket from "react-use-websocket";
 import { DispatchContext, StateContext } from "../Table";
+import pangea from "./pangea";
 
 const STATIC_OPTIONS = {};
 const READY_STATE_OPEN = 1;
@@ -9,16 +10,10 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
   const [currentSocketUrl, setCurrentSocketUrl] = useState(server);
-  const [messageHistory, setMessageHistory] = useState([]);
-  const [inputtedMessage, setInputtedMessage] = useState("");
   const [sendMessage, lastMessage, readyState] = useWebSocket(
     currentSocketUrl,
     STATIC_OPTIONS
   );
-
-  useEffect(() => {
-    lastMessage && setMessageHistory(prev => prev.concat(lastMessage.data));
-  }, [lastMessage]);
 
   // Send a message if props changes
   useEffect(() => {
@@ -34,7 +29,7 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
   useEffect(() => {
     if (state.connection[nodeName] !== readyStateString) {
       dispatch({
-        type: "Connect",
+        type: "connect",
         payload: { nodeName: nodeName, readyState: readyStateString }
       });
     }
@@ -54,8 +49,13 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
     }
   });
 
+  // Parese the received message depending on the node
   useEffect(() => {
-    console.log(lastMessage);
+    if (lastMessage && nodeName === "dcv") {
+      pangea.onMessage(lastMessage.data, state, dispatch);
+    } else if (lastMessage) {
+      pangea.onMessage_[nodeName](lastMessage.data, state, dispatch);
+    }
   });
 
   const readyStateString = {

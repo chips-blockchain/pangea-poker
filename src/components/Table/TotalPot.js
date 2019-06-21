@@ -18,7 +18,7 @@ const TotalPot = props => {
         text-align: center;
       `}
     >
-      Pot: {numberWithCommas(props.pot)}
+      Pot: {numberWithCommas(props.pot[0])}
     </div>
   );
 };

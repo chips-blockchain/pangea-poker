@@ -40,6 +40,18 @@ const Table = () => {
           <Connections />
           <div
             css={css`
+              color: white;
+              position: absolute;
+              top: 0.25rem;
+              left: 0.25rem;
+              z-index: 4;
+              font-size: 0.75rem;
+            `}
+          >
+            {state.gameType}
+          </div>
+          <div
+            css={css`
               position: absolute;
               width: 100%;
               height: 100%;
@@ -50,14 +62,7 @@ const Table = () => {
               css={css`
                 position: absolute;
               `}
-            >
-              {/* <button
-                label="TEST"
-                onClick={() => dispatch({ type: "Fold", payload: "player5" })}
-              >
-                TEST
-              </button> */}
-            </div>
+            />
             {state.options.showPotCounter && <TotalPot pot={pot} />}
             <Board flop={board.flop} turn={board.turn} river={board.river} />
             <PlayerGrid9Max>
@@ -72,9 +77,7 @@ const Table = () => {
                       myCards={myCards}
                       key={player.seat}
                       isActive={activePlayer === player.seat}
-                      // setPlayers={setPlayers}
                       players={players}
-                      // setActivePlayer={setActivePlayer}
                     />
                   )
               )}
@@ -91,7 +94,7 @@ const Table = () => {
                   )
               )}
             </ChipGrid>
-            {state.options.showPot && <MainPot />}
+            {state.options.showPot && state.pot[0] !== 0 && <MainPot />}
             {state.options.showDealer && <Dealer dealer={dealer} />}
             {state.options.showControls && (
               <div>

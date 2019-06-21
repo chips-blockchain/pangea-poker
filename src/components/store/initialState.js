@@ -88,7 +88,7 @@ const initialState = {
     turn: "",
     river: ""
   },
-  pot: 0,
+  pot: [0],
   dealer: "player1",
   activePlayer: "player5",
   connection: {
@@ -102,7 +102,10 @@ const initialState = {
     showControls: false,
     showPotCounter: false,
     showPot: false
-  }
+  },
+  gameType: "",
+  gameStarted: false,
+  toCall: 0
 };
 
 export default initialState;
