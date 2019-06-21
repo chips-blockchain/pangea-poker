@@ -20,6 +20,7 @@ const Game = () => {
     player1: null,
     player2: null
   });
+
   return (
     <div>
       <div

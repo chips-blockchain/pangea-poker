@@ -40,6 +40,7 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
       nodeName !== "dcv" &&
       nodeName !== "bvv" &&
       state.connection[nodeName] === "Connected" &&
+      state.gameStarted === true &&
       state.players[nodeName].isPlaying === false
     ) {
       dispatch({
@@ -56,7 +57,7 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
     } else if (lastMessage) {
       pangea.onMessage_[nodeName](lastMessage.data, state, dispatch);
     }
-  });
+  }, [lastMessage]);
 
   const readyStateString = {
     0: "Connecting...",
@@ -65,29 +66,7 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
     3: "Disconnected"
   }[readyState];
 
-  return (
-    <React.Fragment />
-    // <div>
-    //   Whatever you send will be echoed from the Server
-    //   <div>
-    //     <input
-    //       type={"text"}
-    //       value={inputtedMessage}
-    //       onChange={e => setInputtedMessage(e.target.value)}
-    //     />
-    //     <button
-    //       onClick={() => sendMessage(inputtedMessage)}
-    //       disabled={readyState !== READY_STATE_OPEN}
-    //     >
-    //       Send
-    //     </button>
-    //   </div>
-    //   <br />
-    //   ReadyState: {readyStateString}
-    //   <br />
-    //   MessageHistory: {messageHistory.join(", ")}
-    // </div>
-  );
+  return <React.Fragment />;
 });
 
 export default WebSocket;

@@ -12,7 +12,14 @@ GameAPI.game = function(gameObject, state, dispatch) {
       }
     });
     for (let i = 0; i < gameObject.seats; i++) {
-      console.log("seat");
+      dispatch({
+        type: "startGame",
+        payload: {
+          gameType: gameObject.gametype,
+          pot: gameObject.pot,
+          toCall: gameObject.tocall
+        }
+      });
     }
   }
 };

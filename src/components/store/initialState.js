@@ -105,7 +105,8 @@ const initialState = {
   },
   gameType: "",
   gameStarted: false,
-  toCall: 0
+  toCall: 0,
+  seats: 0
 };
 
 export default initialState;
