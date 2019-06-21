@@ -1,4 +1,4 @@
-import React, { useReducer, createContext } from "react";
+import React, { useReducer, createContext, useEffect } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import theme from "../../styles/theme";
@@ -23,7 +23,11 @@ const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { players, myCards, board, pot, dealer, activePlayer } = state;
 
-  console.log(state);
+  // For debugging purposes
+  useEffect(() => {
+    console.log("The state has changed");
+    console.log(state);
+  }, [state]);
 
   return (
     <DispatchContext.Provider value={dispatch}>
