@@ -4,6 +4,7 @@ import React, { useState, useContext } from "react";
 import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../Table";
 import { Button } from "../Controls";
+import GameAPI from "./GameAPI";
 
 const SOCKET_URL_DCV = "ws://209.250.254.100:9000/";
 const SOCKET_URL_BVV = "ws://217.69.0.32:9001/";
@@ -25,17 +26,7 @@ const Game = () => {
         {state.gameStarted === false && (
           <Button
             label="Start"
-            onClick={() => {
-              if (state.connection.dcv === "Connected") {
-                dispatch({
-                  type: "sendMessage",
-                  payload: {
-                    node: "dcv",
-                    message: JSON.stringify({ method: "game" })
-                  }
-                });
-              } else alert("Please wait until DCV is connected.");
-            }}
+            onClick={() => GameAPI.sendMessage("game", "dcv", state, dispatch)}
           />
         )}
       </div>
