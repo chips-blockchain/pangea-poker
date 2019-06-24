@@ -100,7 +100,7 @@ const Table = () => {
             </ChipGrid>
             {state.options.showPot && state.pot[0] !== 0 && <MainPot />}
             {state.options.showDealer && <Dealer dealer={dealer} />}
-            {state.options.showControls && (
+            {state.controls.showControls && (
               <div>
                 <Controls />
               </div>

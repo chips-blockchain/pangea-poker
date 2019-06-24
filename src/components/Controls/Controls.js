@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import Button from "./Button";
 import Slider from "./Slider";
+import { DispatchContext, StateContext } from "../Table";
 
 const Controls = props => {
+  const dispatch = useContext(DispatchContext);
+  const state = useContext(StateContext);
   const [toCall, setToCall] = useState(13980);
   const [toRaise, setToRaise] = useState(22711);
 

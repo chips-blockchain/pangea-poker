@@ -99,9 +99,12 @@ const initialState = {
   },
   options: {
     showDealer: false,
-    showControls: false,
     showPotCounter: false,
     showPot: false
+  },
+  controls: {
+    showControls: false,
+    showSlider: false
   },
   gameType: "",
   gameStarted: false,
