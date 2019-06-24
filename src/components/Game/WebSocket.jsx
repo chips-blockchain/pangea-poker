@@ -20,7 +20,7 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
     if (message !== null) {
       if (readyState === 1) {
       }
-      console.log(message + " has been sent");
+      console.log(message + " has been sent to " + nodeName);
       sendMessage(message);
     }
   }, [message]);
