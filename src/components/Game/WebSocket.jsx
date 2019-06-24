@@ -40,7 +40,7 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
     if (lastMessage && nodeName === "dcv") {
       pangea.onMessage(lastMessage.data, state, dispatch);
     } else if (lastMessage) {
-      pangea.onMessage_[nodeName](lastMessage.data, state, dispatch);
+      pangea["onMessage_" + nodeName](lastMessage.data, state, dispatch);
     }
   }, [lastMessage]);
 
