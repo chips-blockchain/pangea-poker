@@ -32,14 +32,17 @@ const reducer = (state, action) => {
         }
       };
     }
-    case "toggleIsPlaying": {
+    case "updateSeats": {
       return {
         ...state,
         players: {
           ...state.players,
-          [action.payload]: {
-            ...state.players[action.payload],
-            isPlaying: true
+          [action.payload.player]: {
+            ...state.players[action.payload.player],
+            isPlaying: action.payload.isPlaying,
+            player: action.payload.player,
+            chips: action.payload.chips,
+            seat: action.payload.seat
           }
         }
       };

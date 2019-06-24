@@ -26,6 +26,9 @@ pangea.onMessage = function(message, state, dispatch) {
   message = JSON.parse(message);
   if (message["method"] == "game") {
     GameAPI.game(message["game"], state, dispatch);
+    GameAPI.sendMessage("seats", "dcv", state, dispatch);
+  } else if (message["method"] == "seats") {
+    GameAPI.seats(message["seats"], state, dispatch);
   } else if (message["method"] == "bvv_join") {
     pangea.API.chat("BVV is Joined");
   } else if (message["method"] == "join_res") {

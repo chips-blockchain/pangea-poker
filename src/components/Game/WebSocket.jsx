@@ -35,21 +35,6 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
     }
   });
 
-  useEffect(() => {
-    if (
-      nodeName !== "dcv" &&
-      nodeName !== "bvv" &&
-      state.connection[nodeName] === "Connected" &&
-      state.gameStarted === true &&
-      state.players[nodeName].isPlaying === false
-    ) {
-      dispatch({
-        type: "toggleIsPlaying",
-        payload: nodeName
-      });
-    }
-  });
-
   // Parese the received message depending on the node
   useEffect(() => {
     if (lastMessage && nodeName === "dcv") {

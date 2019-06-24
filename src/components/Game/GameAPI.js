@@ -13,7 +13,6 @@ GameAPI.sendMessage = function(message, node, state, dispatch) {
 };
 
 GameAPI.game = function(gameObject, state, dispatch) {
-  console.log(gameObject);
   if (state.gameStarted === false) {
     dispatch({
       type: "startGame",
@@ -23,14 +22,21 @@ GameAPI.game = function(gameObject, state, dispatch) {
         toCall: gameObject.tocall
       }
     });
-    for (let i = 0; i < gameObject.seats; i++) {
-      // Todo: render seats based on this number
-    }
   }
 };
 
-GameAPI.seats = function(seatsObject, state, dispatch) {
-  console.log(seatsObject);
+GameAPI.seats = function(seatsArray, state, dispatch) {
+  seatsArray.map(seat => {
+    dispatch({
+      type: "updateSeats",
+      payload: {
+        isPlaying: seat.playing === 1 ? true : false,
+        player: seat.name,
+        chips: seat.stack,
+        seat: `player${seat.seat + 1}`
+      }
+    });
+  });
 };
 
 export default GameAPI;
