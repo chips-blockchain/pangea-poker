@@ -1,7 +1,7 @@
 import React from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import Bet from "../Chips/Bet";
+import { Bet } from "../Chips";
 
 const MainPot = () => {
   return (

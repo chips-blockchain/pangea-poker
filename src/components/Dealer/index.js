@@ -1,3 +1,3 @@
-import Dealer from "./Dealer";
+import Dealer from "./Dealer.jsx";
 
 export default Dealer;

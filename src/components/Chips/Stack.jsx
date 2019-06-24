@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Chip from "./Chip";
+import Chip from "./Chip.jsx";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 

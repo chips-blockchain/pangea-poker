@@ -3,7 +3,7 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 import theme from "../../styles/theme";
 import numberWithCommas from "../../lib/numberWithCommas";
-import Stack from "./Stack";
+import Stack from "./Stack.jsx";
 
 const Bet = props => {
   return (

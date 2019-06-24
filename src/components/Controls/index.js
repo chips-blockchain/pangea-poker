@@ -1,5 +1,5 @@
-import Controls from "./Controls";
-import Button from "./Button";
+import Controls from "./Controls.jsx";
+import Button from "./Button.jsx";
 
 export default Controls;
 export { Button };
