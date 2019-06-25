@@ -100,8 +100,8 @@ const Player = props => {
             z-index: 1;
           `}
         >
-          <Card card={props.myCards[0]} />
-          <Card card={props.myCards[1]} />
+          <Card card={props.holeCards[0]} />
+          <Card card={props.holeCards[1]} />
         </div>
       )}
       {/* Whether or not the player has cards */}

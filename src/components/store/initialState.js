@@ -7,7 +7,8 @@ const initialState = {
       hasCards: false,
       showCards: false,
       isBetting: false,
-      betAmount: 27500
+      betAmount: 27500,
+      playerCards: null
     },
     player2: {
       isPlaying: false,
@@ -16,7 +17,8 @@ const initialState = {
       hasCards: false,
       showCards: false,
       isBetting: false,
-      betAmount: 5249
+      betAmount: 5249,
+      playerCards: null
     },
     player3: {
       isPlaying: false,
@@ -25,7 +27,8 @@ const initialState = {
       hasCards: true,
       showCards: false,
       isBetting: false,
-      betAmount: 13980
+      betAmount: 13980,
+      playerCards: null
     },
     player4: {
       isPlaying: false,
@@ -34,7 +37,8 @@ const initialState = {
       hasCards: false,
       showCards: false,
       isBetting: false,
-      betAmount: 1000
+      betAmount: 1000,
+      playerCards: null
     },
     player5: {
       isPlaying: false,
@@ -43,7 +47,8 @@ const initialState = {
       hasCards: true,
       showCards: true,
       isBetting: false,
-      betAmount: 1000000
+      betAmount: 1000000,
+      playerCards: null
     },
     player6: {
       isPlaying: false,
@@ -52,7 +57,8 @@ const initialState = {
       hasCards: false,
       showCards: false,
       isBetting: false,
-      betAmount: 1000
+      betAmount: 1000,
+      playerCards: null
     },
     player7: {
       isPlaying: false,
@@ -61,7 +67,8 @@ const initialState = {
       hasCards: false,
       showCards: false,
       isBetting: false,
-      betAmount: 1000
+      betAmount: 1000,
+      playerCards: null
     },
     player8: {
       isPlaying: false,
@@ -70,7 +77,8 @@ const initialState = {
       hasCards: false,
       showCards: false,
       isBetting: false,
-      betAmount: 1000
+      betAmount: 1000,
+      playerCards: null
     },
     player9: {
       isPlaying: false,
@@ -79,10 +87,11 @@ const initialState = {
       hasCards: false,
       showCards: false,
       isBetting: false,
-      betAmount: 1000
+      betAmount: 1000,
+      playerCards: null
     }
   },
-  myCards: [],
+  holeCards: [],
   board: {
     flop: [],
     turn: "",

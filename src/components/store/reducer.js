@@ -63,6 +63,12 @@ const reducer = (state, action) => {
         activePlayer: action.payload
       };
     }
+    case "setDealer": {
+      return {
+        ...state,
+        dealer: action.payload
+      };
+    }
     case "Fold": {
       return {
         ...state,

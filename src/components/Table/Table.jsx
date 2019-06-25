@@ -21,7 +21,7 @@ const DispatchContext = createContext();
 
 const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { players, myCards, board, pot, dealer, activePlayer } = state;
+  const { players, holeCards, board, pot, dealer, activePlayer } = state;
 
   // For debugging purposes
   // useEffect(() => {
@@ -78,7 +78,7 @@ const Table = () => {
                       hasCards={player.hasCards}
                       chips={player.chips}
                       showCards={player.showCards}
-                      myCards={myCards}
+                      holeCards={holeCards}
                       key={player.seat}
                       isActive={`player${activePlayer + 1}` === player.seat}
                       players={players}
