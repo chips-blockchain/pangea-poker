@@ -26,7 +26,9 @@ const Game = () => {
         {state.gameStarted === false && (
           <Button
             label="Start"
-            onClick={() => GameAPI.sendMessage("game", "dcv", state, dispatch)}
+            onClick={() =>
+              GameAPI.sendMessage({ method: "game" }, "dcv", state, dispatch)
+            }
           />
         )}
       </div>

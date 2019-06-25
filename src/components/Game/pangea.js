@@ -40,12 +40,12 @@ pangea.onMessage = function(message, state, dispatch) {
   message = JSON.parse(message);
   if (message["method"] == "game") {
     GameAPI.game(message["game"], state, dispatch);
-    GameAPI.sendMessage("seats", "dcv", state, dispatch);
+    GameAPI.sendMessage({ method: "seats" }, "dcv", state, dispatch);
   } else if (message["method"] == "seats") {
     GameAPI.seats(message["seats"], state, dispatch);
-    GameAPI.sendMessage("dcv", "dcv", state, dispatch);
+    GameAPI.sendMessage({ method: "dcv" }, "dcv", state, dispatch);
   } else if (message["method"] == "dcv") {
-    GameAPI.sendMessage("bvv", "bvv", state, dispatch);
+    GameAPI.sendMessage({ method: "bvv" }, "bvv", state, dispatch);
   } else if (message["method"] == "bvv_join") {
     console.log("BVV has Joined");
   } else if (message["method"] == "join_res") {

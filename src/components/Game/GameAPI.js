@@ -6,7 +6,7 @@ GameAPI.sendMessage = function(message, node, state, dispatch) {
       type: "sendMessage",
       payload: {
         node: [node],
-        message: JSON.stringify({ method: message })
+        message: JSON.stringify(message)
       }
     });
   } else alert(`Error: ${node} is not connected.`);
