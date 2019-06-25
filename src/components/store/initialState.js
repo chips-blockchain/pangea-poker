@@ -89,8 +89,9 @@ const initialState = {
     river: ""
   },
   pot: [0],
-  dealer: "player1",
-  activePlayer: "player5",
+  dealer: 0,
+  activePlayer: 0,
+  userSeat: null,
   connection: {
     dcv: "Not connected",
     bvv: "Not connected",
@@ -98,7 +99,7 @@ const initialState = {
     player2: "Not connected"
   },
   options: {
-    showDealer: false,
+    showDealer: true,
     showPotCounter: false,
     showPot: false
   },

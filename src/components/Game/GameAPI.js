@@ -49,4 +49,11 @@ GameAPI.playerJoin = function(player, state, dispatch) {
   );
 };
 
+GameAPI.setUserSeat = function(player, state, dispatch) {
+  dispatch({
+    type: "setUserSeat",
+    payload: player
+  });
+};
+
 export default GameAPI;

@@ -47,6 +47,16 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "setUserSeat": {
+      return {
+        ...state,
+        userSeat: action.payload.userSeat,
+        [action.payload]: {
+          ...state.players[action.payload],
+          showCards: true
+        }
+      };
+    }
     case "setActivePlayer": {
       return {
         ...state,

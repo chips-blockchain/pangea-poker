@@ -80,7 +80,7 @@ const Table = () => {
                       showCards={player.showCards}
                       myCards={myCards}
                       key={player.seat}
-                      isActive={activePlayer === player.seat}
+                      isActive={`player${activePlayer + 1}` === player.seat}
                       players={players}
                     />
                   )
@@ -99,7 +99,9 @@ const Table = () => {
               )}
             </ChipGrid>
             {state.options.showPot && state.pot[0] !== 0 && <MainPot />}
-            {state.options.showDealer && <Dealer dealer={dealer} />}
+            {state.options.showDealer && (
+              <Dealer dealer={`player${dealer + 1}`} />
+            )}
             {state.controls.showControls && (
               <div>
                 <Controls />

@@ -198,11 +198,12 @@ pangea.onMessage_bvv = function(message, state, dispatch) {
 
 pangea.onMessage_player1 = function(message, state, dispatch) {
   message = JSON.parse(message);
-  console.log("Received: player1: ", message);
+  console.log("Received from player1: ", message);
 
   if (message["method"] == "deal") {
-    pangea.player.seat = 0;
-    pangea.API.deal(message["deal"]);
+    GameAPI.setUserSeat("player1", state, dispatch);
+    console.log("YAY WE GOT HERE");
+    // pangea.API.deal(message["deal"]);
   } else if (message["method"] == "requestShare") {
     if (message["toPlayer"] == 1) {
       message["gui_playerID"] = 1;
@@ -236,11 +237,12 @@ pangea.onMessage_player1 = function(message, state, dispatch) {
 
 pangea.onMessage_player2 = function(message, state, dispatch) {
   message = JSON.parse(message);
-  console.log("Received: player2: ", message);
+  console.log("Received from player2: ", message);
 
   if (message["method"] == "deal") {
-    pangea.player.seat = 1;
-    pangea.API.deal(message["deal"]);
+    GameAPI.setUserSeat("player2", state, dispatch);
+    console.log("YAY WE GOT HERE");
+    // pangea.API.deal(message["deal"]);
   } else if (message["method"] == "requestShare") {
     if (message["toPlayer"] == 0) {
       message["gui_playerID"] = 0;
