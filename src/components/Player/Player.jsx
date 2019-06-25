@@ -8,6 +8,7 @@ import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import cardBg from "../Card/cards/bg-red.svg";
 import { DispatchContext, StateContext } from "../Table";
+import { GameAPI } from "../Game";
 
 const Player = props => {
   const dispatch = useContext(DispatchContext);
@@ -82,9 +83,11 @@ const Player = props => {
 
   return (
     <div
+      onClick={() => GameAPI.playerJoin(props.seat, state, dispatch)}
       css={css`
         grid-area: ${props.seat};
         position: relative;
+        cursor: pointer;
       `}
     >
       {/* Wether or not to to show current cards */}

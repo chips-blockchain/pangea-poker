@@ -39,4 +39,14 @@ GameAPI.seats = function(seatsArray, state, dispatch) {
   });
 };
 
+GameAPI.playerJoin = function(player, state, dispatch) {
+  let id = player.slice(-1) - 1;
+  GameAPI.sendMessage(
+    { method: "player_join", gui_playerID: id },
+    player,
+    state,
+    dispatch
+  );
+};
+
 export default GameAPI;
