@@ -27,7 +27,8 @@ const Game = () => {
           <Button
             label="Start"
             onClick={() =>
-              GameAPI.sendMessage({ method: "game" }, "dcv", state, dispatch)
+              // GameAPI.sendMessage({ method: "game" }, "dcv", state, dispatch)
+              GameAPI.dealCards(state, dispatch)
             }
           />
         )}

@@ -132,4 +132,9 @@ GameAPI.deal = function(message, state, dispatch) {
   // pangea.update();
 };
 
+GameAPI.dealCards = (state, dispatch) =>
+  dispatch({
+    type: "dealCards"
+  });
+
 export default GameAPI;

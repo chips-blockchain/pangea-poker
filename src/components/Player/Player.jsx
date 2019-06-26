@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import Card from "../Card";
+import { CardFaceDown } from "../Card";
 import randomEmoji from "../../lib/randomEmoji";
 import useInterval from "../../lib/useInterval";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
-import cardBg from "../Card/cards/bg-red.svg";
 import { DispatchContext, StateContext } from "../Table";
 import { GameAPI } from "../Game";
 
@@ -114,14 +114,16 @@ const Player = props => {
             z-index: 1;
           `}
         >
-          <img src={cardBg} alt="" />
-          <img
-            src={cardBg}
-            css={css`
-              position: relative;
-              left: -2.25rem;
-            `}
-            alt=""
+          <CardFaceDown
+            centered={!state.cardsDealt}
+            seat={props.seat}
+            seats={state.seats}
+          />
+          <CardFaceDown
+            second
+            centered={!state.cardsDealt}
+            seat={props.seat}
+            seats={state.seats}
           />
         </div>
       )}

@@ -1,20 +1,21 @@
 const initialState = {
+  // Object of all players at the table
   players: {
     player1: {
-      isPlaying: false,
+      isPlaying: true,
       seat: "player1",
       chips: 783900,
-      hasCards: false,
+      hasCards: true,
       showCards: false,
       isBetting: false,
       betAmount: 27500,
       playerCards: null
     },
     player2: {
-      isPlaying: false,
+      isPlaying: true,
       seat: "player2",
       chips: 65984,
-      hasCards: false,
+      hasCards: true,
       showCards: false,
       isBetting: false,
       betAmount: 5249,
@@ -24,7 +25,7 @@ const initialState = {
       isPlaying: false,
       seat: "player3",
       chips: 677854,
-      hasCards: true,
+      hasCards: false,
       showCards: false,
       isBetting: false,
       betAmount: 13980,
@@ -44,8 +45,8 @@ const initialState = {
       isPlaying: false,
       seat: "player5",
       chips: 108942,
-      hasCards: true,
-      showCards: true,
+      hasCards: false,
+      showCards: false,
       isBetting: false,
       betAmount: 1000000,
       playerCards: null
@@ -91,41 +92,57 @@ const initialState = {
       playerCards: null
     }
   },
-  holeCards: [],
+  // Which seat is the active player
+  activePlayer: null,
+  // Board Cards
   board: {
     flop: [],
     turn: "",
     river: ""
   },
-  pot: [0],
-  dealer: 0,
-  activePlayer: null,
-  userSeat: null,
+  // Connection status dispalyed at the top
   connection: {
     dcv: "Not connected",
     bvv: "Not connected",
     player1: "Not connected",
     player2: "Not connected"
   },
-  showDealer: false,
-  options: {
-    showPotCounter: false,
-    showPot: false
-  },
   controls: {
     showControls: false,
     showSlider: false
   },
-  gameType: "",
+  // Wether the cards have been dealt
+  cardsDealt: false,
+  // Which player is the dealer
+  dealer: 0,
+  // Wether the game has started
   gameStarted: false,
-  toCall: 0,
-  seats: 0,
+  // Game type at the top left corner
+  gameType: "",
+  // Cards of the user
+  holeCards: [],
+  // Messages to send to the nodes - when updated, the message will be sent
   message: {
     dcv: null,
     bvv: null,
     player1: null,
     player2: null
-  }
+  },
+  // Options for the pot
+  options: {
+    showPotCounter: false,
+    showPot: false
+  },
+  // Pot and side pots
+  pot: [0],
+  // Number of seats at the table
+  seats: 2,
+  // Wether to show the dealer button
+  showDealer: false,
+  // Amount to call
+  toCall: 0,
+  // Where does the user sit
+  userSeat: null
 };
 
 export default initialState;

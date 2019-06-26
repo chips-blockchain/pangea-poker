@@ -70,6 +70,12 @@ const reducer = (state, action) => {
         showDealer: true
       };
     }
+    case "dealCards": {
+      return {
+        ...state,
+        cardsDealt: true
+      };
+    }
     case "Fold": {
       return {
         ...state,
