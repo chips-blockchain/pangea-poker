@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import useWebSocket from "react-use-websocket";
 import { DispatchContext, StateContext } from "../Table";
 import pangea from "./pangea";
+import GameAPI from "./GameAPI";
 
 const STATIC_OPTIONS = {};
 const READY_STATE_OPEN = 1;
@@ -20,7 +21,7 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
     if (message !== null) {
       if (readyState === 1) {
       }
-      console.log(message + " has been sent to " + nodeName);
+      GameAPI.chat(`Sent to ${nodeName}: `, "sent", JSON.parse(message));
       sendMessage(message);
     }
   }, [message]);

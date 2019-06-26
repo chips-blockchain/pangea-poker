@@ -1,8 +1,22 @@
 import theme from "../../styles/theme";
 const GameAPI = {};
 
-GameAPI.chat = function(message) {
-  console.log("%c" + message, `color: ${theme.moon.colors.accent}`);
+GameAPI.chat = function(text, color, message) {
+  console.log(
+    "%c" + text,
+    `color: ${
+      color === "sent"
+        ? theme.moon.colors.accent
+        : color === "info"
+        ? "#89ca77"
+        : color === "received"
+        ? "#e0be1d"
+        : color === "danger"
+        ? theme.moon.colors.danger
+        : ""
+    }; background-color: #2a2b2e;`,
+    message ? message : ""
+  );
 };
 
 GameAPI.sendMessage = function(message, node, state, dispatch) {
@@ -71,7 +85,7 @@ GameAPI.setDealer = function(player, state, dispatch) {
 GameAPI.deal = function(message, state, dispatch) {
   console.log("GameAPI.deal");
   if (message.deal.dealer !== null) {
-    GameAPI.chat(`The dealer is player${message.deal.dealer + 1}.`);
+    GameAPI.chat(`The dealer is player${message.deal.dealer + 1}.`, "info");
     GameAPI.setDealer(message.deal.dealer, state, dispatch);
   }
   if (message.deal.holecards) {

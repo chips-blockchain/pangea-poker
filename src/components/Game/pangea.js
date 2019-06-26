@@ -2,12 +2,6 @@ import GameAPI from "./GameAPI";
 
 const pangea = {};
 
-pangea.processDefault = function(message) {
-  message = JSON.parse(message);
-  console.log(message);
-  for (var key in message) console.log(key, ":", message[key]);
-};
-
 pangea.processControls = function(message) {
   console.log(message);
 
@@ -36,7 +30,7 @@ pangea.onMessage = function(message, state, dispatch) {
 	}
 	*/
   //pangea.gui.addPlayerControls()
-  console.log("Received from DCV: ", message);
+  GameAPI.chat("Received from DCV", "received", JSON.parse(message));
   message = JSON.parse(message);
   if (message["method"] == "game") {
     GameAPI.game(message["game"], state, dispatch);
@@ -47,7 +41,7 @@ pangea.onMessage = function(message, state, dispatch) {
   } else if (message["method"] == "dcv") {
     GameAPI.sendMessage({ method: "bvv" }, "bvv", state, dispatch);
   } else if (message["method"] == "bvv_join") {
-    console.log("BVV has Joined");
+    GameAPI.chat("BVV has Joined", "info");
   } else if (message["method"] == "join_res") {
     message["gui_playerID"] = 0;
     GameAPI.sendMessage(message, "player1", state, dispatch);
@@ -181,8 +175,7 @@ pangea.onMessage = function(message, state, dispatch) {
 
 pangea.onMessage_bvv = function(message, state, dispatch) {
   message = JSON.parse(message);
-  console.log("Received from bvv: ", message);
-  console.log(message["method"]);
+  GameAPI.chat("Received from BVV: ", "received", message);
   if (message["method"] == "init_b") {
     /*
     sg777: In the back end this message is forwarded to both the players, this should be changed in the future
@@ -198,7 +191,7 @@ pangea.onMessage_bvv = function(message, state, dispatch) {
 
 pangea.onMessage_player1 = function(message, state, dispatch) {
   message = JSON.parse(message);
-  console.log("Received from player1: ", message);
+  GameAPI.chat("Received from player1: ", "received", message);
 
   if (message["method"] == "deal") {
     GameAPI.setUserSeat("player1", state, dispatch);
@@ -237,7 +230,7 @@ pangea.onMessage_player1 = function(message, state, dispatch) {
 
 pangea.onMessage_player2 = function(message, state, dispatch) {
   message = JSON.parse(message);
-  console.log("Received from player2: ", message);
+  GameAPI.chat("Received from player2: ", "received", message);
 
   if (message["method"] == "deal") {
     GameAPI.setUserSeat("player2", state, dispatch);
