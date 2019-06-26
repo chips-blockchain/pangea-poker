@@ -66,7 +66,8 @@ const reducer = (state, action) => {
     case "setDealer": {
       return {
         ...state,
-        dealer: action.payload
+        dealer: action.payload,
+        showDealer: true
       };
     }
     case "Fold": {

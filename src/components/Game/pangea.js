@@ -202,7 +202,7 @@ pangea.onMessage_player1 = function(message, state, dispatch) {
 
   if (message["method"] == "deal") {
     GameAPI.setUserSeat("player1", state, dispatch);
-    console.log("YAY WE GOT HERE");
+    GameAPI.deal(message, state, dispatch);
     // pangea.API.deal(message["deal"]);
   } else if (message["method"] == "requestShare") {
     if (message["toPlayer"] == 1) {
@@ -241,7 +241,6 @@ pangea.onMessage_player2 = function(message, state, dispatch) {
 
   if (message["method"] == "deal") {
     GameAPI.setUserSeat("player2", state, dispatch);
-    console.log("YAY WE GOT HERE");
     // pangea.API.deal(message["deal"]);
   } else if (message["method"] == "requestShare") {
     if (message["toPlayer"] == 0) {

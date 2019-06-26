@@ -99,7 +99,7 @@ const initialState = {
   },
   pot: [0],
   dealer: 0,
-  activePlayer: 0,
+  activePlayer: null,
   userSeat: null,
   connection: {
     dcv: "Not connected",
@@ -107,8 +107,8 @@ const initialState = {
     player1: "Not connected",
     player2: "Not connected"
   },
+  showDealer: false,
   options: {
-    showDealer: true,
     showPotCounter: false,
     showPot: false
   },
