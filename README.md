@@ -2,22 +2,18 @@
 
 ## Run the project
 
-`npm install` and `npm start`
+`npm install` and `npm start` for the front-end.
+
+You will need to run your own back-end nodes. [Here](https://github.com/NOCTLJRNE/CHIPS-tuto/blob/master/README.md) is a detailed guide on how to do it.
+
+Once you've set up the back-end nodes, change the IP addresses in `Game.jsx` to connect to all four nodes.
 
 ## To Dos
 
-- [x] Add Table
-- [x] Add Palyers
-- [x] Add Cards
-- [x] Add Player Chips
-- [x] Add Pot Chips
-- [x] Add Dealer Button
-- [x] Add Stack
-- [x] Add UI Buttons
-- [x] Add Slider
-- [x] Add Timer Animations
+- [ ] Add holeCards logic
+- [ ] Add boardCards logic
+- [ ] Fix `pangea.game.pot` and `pangea.gui.updatePotAmount()`
+- [ ] Add blinds betting logic
+- [ ] Link UI controls via `processControls`
 - [ ] Add Chip Animations
-- [ ] Add Card Animations
-- [x] Add Dealer Button Animations
 - [ ] Add Chat
-- [ ] Hook up with JSONs
