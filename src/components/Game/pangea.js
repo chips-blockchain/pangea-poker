@@ -153,8 +153,10 @@ pangea.onMessage = function(message, state, dispatch) {
       }
     }
   } else if (message["method"] == "invoice") {
-    pangea.game.pot[0] += message["betAmount"];
-    pangea.gui.updatePotAmount();
+    GameAPI.chat(`pangea.game.pot[0] += message["betAmount"];`, "danger");
+    // pangea.game.pot[0] += message["betAmount"];
+    GameAPI.chat(`pangea.gui.updatePotAmount();`, "danger");
+    // pangea.gui.updatePotAmount();
     if (message["playerID"] == 0) {
       message["gui_playerID"] = 0;
       GameAPI.sendMessage(message, "player1", state, dispatch);
@@ -176,6 +178,7 @@ pangea.onMessage = function(message, state, dispatch) {
 pangea.onMessage_bvv = function(message, state, dispatch) {
   message = JSON.parse(message);
   GameAPI.chat("Received from BVV: ", "received", message);
+  GameAPI.chat(message["method"], "info");
   if (message["method"] == "init_b") {
     /*
     sg777: In the back end this message is forwarded to both the players, this should be changed in the future
@@ -222,7 +225,8 @@ pangea.onMessage_player1 = function(message, state, dispatch) {
   } else if (message["method"] == "replay") {
     message["method"] = "betting";
     message["gui_playerID"] = 0;
-    pangea.processControls(message);
+    GameAPI.chat(`pangea.processControls(message);`, "danger");
+    // pangea.processControls(message);
   } else {
     GameAPI.sendMessage(message, "dcv", state, dispatch);
   }
@@ -260,7 +264,8 @@ pangea.onMessage_player2 = function(message, state, dispatch) {
   } else if (message["method"] == "replay") {
     message["method"] = "betting";
     message["gui_playerID"] = 1;
-    pangea.processControls(message);
+    GameAPI.chat(`pangea.processControls(message);`, "danger");
+    // pangea.processControls(message);
   } else {
     GameAPI.sendMessage(message, "dcv", state, dispatch);
   }
