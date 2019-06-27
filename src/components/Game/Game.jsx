@@ -7,9 +7,9 @@ import { Button } from "../Controls";
 import GameAPI from "./GameAPI";
 
 const SOCKET_URL_DCV = "ws://209.250.254.100:9000/";
-const SOCKET_URL_BVV = "ws://217.69.0.32:9001/";
-const SOCKET_URL_PLAYER1 = "ws://217.69.0.32:9002";
-const SOCKET_URL_PLAYER2 = "ws://45.77.52.117:9003";
+const SOCKET_URL_BVV = "ws://95.179.192.102:9001/";
+const SOCKET_URL_PLAYER1 = "ws://45.77.52.117:9002";
+const SOCKET_URL_PLAYER2 = "ws://217.69.0.32:9003";
 
 const Game = () => {
   const dispatch = useContext(DispatchContext);
@@ -27,8 +27,7 @@ const Game = () => {
           <Button
             label="Start"
             onClick={() =>
-              // GameAPI.sendMessage({ method: "game" }, "dcv", state, dispatch)
-              GameAPI.dealCards(state, dispatch)
+              GameAPI.sendMessage({ method: "game" }, "dcv", state, dispatch)
             }
           />
         )}
