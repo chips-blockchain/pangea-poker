@@ -121,7 +121,8 @@ pangea.onMessage = function(message, state, dispatch) {
         }
       }
     } else if (message["action"] == "small_blind_bet") {
-      console.log("small_blind_bet");
+      GameAPI.chat("Small Blind has been posted.", "info");
+      GameAPI.bet(message["playerid"], message["amount"], state, dispatch);
       message["action"] = "small_blind_bet_player";
       message["gui_playerID"] = 0;
       GameAPI.sendMessage(message, "player1", state, dispatch);
