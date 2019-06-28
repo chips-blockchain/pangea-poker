@@ -130,7 +130,8 @@ pangea.onMessage = function(message, state, dispatch) {
       message["gui_playerID"] = 1;
       GameAPI.sendMessage(message, "player2", state, dispatch);
     } else if (message["action"] == "big_blind_bet") {
-      console.log("big_blind_bet");
+      GameAPI.chat("Big Blind has been posted.", "info");
+      GameAPI.bet(message["playerid"], message["amount"], state, dispatch);
       message["action"] = "big_blind_bet_player";
       message["gui_playerID"] = 0;
       GameAPI.sendMessage(message, "player1", state, dispatch);
