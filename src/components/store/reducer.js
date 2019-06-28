@@ -76,6 +76,20 @@ const reducer = (state, action) => {
         cardsDealt: true
       };
     }
+    case "bet": {
+      return {
+        ...state,
+        players: {
+          ...state.players,
+          [action.payload.player]: {
+            ...state.players[action.payload.player],
+            isBetting: true,
+            betAmount: action.payload.betAmount,
+            chips: action.payload.chips
+          }
+        }
+      };
+    }
     case "Fold": {
       return {
         ...state,

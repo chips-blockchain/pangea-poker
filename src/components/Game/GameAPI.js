@@ -1,5 +1,19 @@
 import theme from "../../styles/theme";
+import playerIdToString from "../../lib/playerIdToString";
 const GameAPI = {};
+
+GameAPI.bet = function(player, betAmount, state, dispatch) {
+  let stringId = playerIdToString(player);
+  let reducedChips = state.players[stringId].chips - betAmount;
+  dispatch({
+    type: "bet",
+    payload: {
+      player: stringId,
+      betAmount,
+      chips: reducedChips
+    }
+  });
+};
 
 GameAPI.chat = function(text, color, message) {
   console.log(
