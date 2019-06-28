@@ -9,6 +9,7 @@ import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../Table";
 import { GameAPI } from "../Game";
+import playerIdToString from "../../lib/playerIdToString";
 
 const Player = props => {
   const dispatch = useContext(DispatchContext);
@@ -154,14 +155,21 @@ const Player = props => {
           {/* Player name area */}
           <div
             css={css`
-              color: ${userName.color};
+              color: ${state.lastAction.action &&
+              props.seat == playerIdToString(state.lastAction.player)
+                ? theme.moon.colors.accent
+                : userName.color};
               font-size: 0.625rem;
               line-height: 0.875rem;
               text-align: center;
               text-transform: uppercase;
             `}
           >
-            {userName.text}
+            {/* Show the player's name or the last action */}
+            {state.lastAction.action &&
+            props.seat == playerIdToString(state.lastAction.player)
+              ? state.lastAction.action
+              : userName.text}
           </div>
           {/* Available chips */}
           <div

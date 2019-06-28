@@ -1,5 +1,19 @@
 const reducer = (state, action) => {
   switch (action.type) {
+    case "bet": {
+      return {
+        ...state,
+        players: {
+          ...state.players,
+          [action.payload.player]: {
+            ...state.players[action.payload.player],
+            isBetting: true,
+            betAmount: action.payload.betAmount,
+            chips: action.payload.chips
+          }
+        }
+      };
+    }
     case "connect": {
       return {
         ...state,
@@ -76,17 +90,12 @@ const reducer = (state, action) => {
         cardsDealt: true
       };
     }
-    case "bet": {
+    case "setLastAction": {
       return {
         ...state,
-        players: {
-          ...state.players,
-          [action.payload.player]: {
-            ...state.players[action.payload.player],
-            isBetting: true,
-            betAmount: action.payload.betAmount,
-            chips: action.payload.chips
-          }
+        lastAction: {
+          player: action.payload.player,
+          action: action.payload.action
         }
       };
     }

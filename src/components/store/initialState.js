@@ -121,6 +121,8 @@ const initialState = {
   gameType: "",
   // Cards of the user
   holeCards: [],
+  // Object that stores the last action so we can dispaly it on the UI
+  lastAction: { player: 0, action: null },
   // Messages to send to the nodes - when updated, the message will be sent
   message: {
     dcv: null,
@@ -138,7 +140,7 @@ const initialState = {
   // Number of seats at the table
   seats: 2,
   // Wether to show the dealer button
-  showDealer: false,
+  showDealer: true,
   // Amount to call
   toCall: 0,
   // Where does the user sit

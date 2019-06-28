@@ -11,6 +11,9 @@ const SOCKET_URL_BVV = "ws://95.179.192.102:9001/";
 const SOCKET_URL_PLAYER1 = "ws://45.77.52.117:9002";
 const SOCKET_URL_PLAYER2 = "ws://217.69.0.32:9003";
 
+// For testing
+const SOCKET_URL_ECHO = "wss://echo.websocket.org";
+
 const Game = () => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);

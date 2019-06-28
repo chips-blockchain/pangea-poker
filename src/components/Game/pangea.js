@@ -123,6 +123,12 @@ pangea.onMessage = function(message, state, dispatch) {
     } else if (message["action"] == "small_blind_bet") {
       GameAPI.chat("Small Blind has been posted.", "info");
       GameAPI.bet(message["playerid"], message["amount"], state, dispatch);
+      GameAPI.setLastAction(
+        message["playerid"],
+        "Small Blind",
+        state,
+        dispatch
+      );
       message["action"] = "small_blind_bet_player";
       message["gui_playerID"] = 0;
       GameAPI.sendMessage(message, "player1", state, dispatch);
@@ -132,6 +138,7 @@ pangea.onMessage = function(message, state, dispatch) {
     } else if (message["action"] == "big_blind_bet") {
       GameAPI.chat("Big Blind has been posted.", "info");
       GameAPI.bet(message["playerid"], message["amount"], state, dispatch);
+      GameAPI.setLastAction(message["playerid"], "Big Blind", state, dispatch);
       message["action"] = "big_blind_bet_player";
       message["gui_playerID"] = 0;
       GameAPI.sendMessage(message, "player1", state, dispatch);
