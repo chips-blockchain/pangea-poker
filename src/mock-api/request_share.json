@@ -1,9 +1,0 @@
-{
-  "method": "request_share",
-  "playerid": 0,
-  "cardid": 0,
-  "card_type": 1,
-  "toPlayer": 1,
-  "fromPlayer": 0,
-  "gui_PlayerID": 1
-}

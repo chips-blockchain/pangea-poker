@@ -1,9 +1,0 @@
-{
-  "method": "game",
-  "game": {
-    "tocall": 0,
-    "seats": 2,
-    "pot": [0],
-    "gametype": "NL Hold'em<br>Blinds: 3/6"
-  }
-}
