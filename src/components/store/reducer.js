@@ -23,12 +23,50 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "dealCards": {
+      return {
+        ...state,
+        cardsDealt: true
+      };
+    }
     case "sendMessage": {
       return {
         ...state,
         message: {
           ...state.message,
           [action.payload.node]: action.payload.message
+        }
+      };
+    }
+    case "setActivePlayer": {
+      return {
+        ...state,
+        activePlayer: action.payload
+      };
+    }
+    case "setDealer": {
+      return {
+        ...state,
+        dealer: action.payload,
+        showDealer: true
+      };
+    }
+    case "setLastAction": {
+      return {
+        ...state,
+        lastAction: {
+          player: action.payload.player,
+          action: action.payload.action
+        }
+      };
+    }
+    case "setUserSeat": {
+      return {
+        ...state,
+        userSeat: action.payload.userSeat,
+        [action.payload]: {
+          ...state.players[action.payload],
+          showCards: true
         }
       };
     }
@@ -61,42 +99,10 @@ const reducer = (state, action) => {
         }
       };
     }
-    case "setUserSeat": {
+    case "updatePot": {
       return {
         ...state,
-        userSeat: action.payload.userSeat,
-        [action.payload]: {
-          ...state.players[action.payload],
-          showCards: true
-        }
-      };
-    }
-    case "setActivePlayer": {
-      return {
-        ...state,
-        activePlayer: action.payload
-      };
-    }
-    case "setDealer": {
-      return {
-        ...state,
-        dealer: action.payload,
-        showDealer: true
-      };
-    }
-    case "dealCards": {
-      return {
-        ...state,
-        cardsDealt: true
-      };
-    }
-    case "setLastAction": {
-      return {
-        ...state,
-        lastAction: {
-          player: action.payload.player,
-          action: action.payload.action
-        }
+        pot: action.payload
       };
     }
     case "Fold": {

@@ -13,6 +13,7 @@ GameAPI.bet = function(player, betAmount, state, dispatch) {
       chips: reducedChips
     }
   });
+  GameAPI.updatePot(betAmount, state, dispatch);
 };
 
 GameAPI.chat = function(text, color, message) {
@@ -101,6 +102,16 @@ GameAPI.game = function(gameObject, state, dispatch) {
   }
 };
 
+GameAPI.playerJoin = function(player, state, dispatch) {
+  let id = player.slice(-1) - 1;
+  GameAPI.sendMessage(
+    { method: "player_join", gui_playerID: id },
+    player,
+    state,
+    dispatch
+  );
+};
+
 GameAPI.seats = function(seatsArray, state, dispatch) {
   seatsArray.map(seat => {
     dispatch({
@@ -151,14 +162,14 @@ GameAPI.setUserSeat = function(player, state, dispatch) {
   });
 };
 
-GameAPI.playerJoin = function(player, state, dispatch) {
-  let id = player.slice(-1) - 1;
-  GameAPI.sendMessage(
-    { method: "player_join", gui_playerID: id },
-    player,
-    state,
-    dispatch
-  );
+GameAPI.updatePot = function(betAmount, state, dispatch) {
+  let updatedPot = [];
+  updatedPot[0] = state.pot[0] + betAmount;
+  console.log(updatedPot);
+  dispatch({
+    type: "updatePot",
+    payload: updatedPot
+  });
 };
 
 export default GameAPI;
