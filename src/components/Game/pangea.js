@@ -36,7 +36,7 @@ pangea.onMessage = function(message, state, dispatch) {
     GameAPI.game(message["game"], state, dispatch);
     GameAPI.sendMessage({ method: "seats" }, "dcv", state, dispatch);
   } else if (message["method"] == "seats") {
-    GameAPI.seats(message["seats"], state, dispatch);
+    GameAPI.seats(message["seats"], dispatch);
     GameAPI.sendMessage({ method: "dcv" }, "dcv", state, dispatch);
   } else if (message["method"] == "dcv") {
     GameAPI.sendMessage({ method: "bvv" }, "bvv", state, dispatch);
@@ -206,7 +206,7 @@ pangea.onMessage_player1 = function(message, state, dispatch) {
   GameAPI.chat("Received from player1: ", "received", message);
 
   if (message["method"] == "deal") {
-    GameAPI.setUserSeat("player1", state, dispatch);
+    GameAPI.setUserSeat("player1", dispatch);
     GameAPI.deal(message, state, dispatch);
     // pangea.API.deal(message["deal"]);
   } else if (message["method"] == "requestShare") {
@@ -246,7 +246,7 @@ pangea.onMessage_player2 = function(message, state, dispatch) {
   GameAPI.chat("Received from player2: ", "received", message);
 
   if (message["method"] == "deal") {
-    GameAPI.setUserSeat("player2", state, dispatch);
+    GameAPI.setUserSeat("player2", dispatch);
     // pangea.API.deal(message["deal"]);
   } else if (message["method"] == "requestShare") {
     if (message["toPlayer"] == 0) {
@@ -273,6 +273,7 @@ pangea.onMessage_player2 = function(message, state, dispatch) {
   } else if (message["method"] == "replay") {
     message["method"] = "betting";
     message["gui_playerID"] = 1;
+    GameAPI.dealCards(dispatch);
     GameAPI.chat(`pangea.processControls(message);`, "danger");
     // pangea.processControls(message);
   } else {

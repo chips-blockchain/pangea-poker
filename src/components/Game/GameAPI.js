@@ -38,7 +38,7 @@ GameAPI.deal = function(message, state, dispatch) {
   console.log("GameAPI.deal");
   if (message.deal.dealer !== null) {
     GameAPI.chat(`The dealer is player${message.deal.dealer + 1}.`, "info");
-    GameAPI.setDealer(message.deal.dealer, state, dispatch);
+    GameAPI.setDealer(message.deal.dealer, dispatch);
   }
   if (message.deal.holecards) {
     console.log(message.deal.holecards);
@@ -84,7 +84,7 @@ GameAPI.deal = function(message, state, dispatch) {
   // pangea.update();
 };
 
-GameAPI.dealCards = (state, dispatch) =>
+GameAPI.dealCards = dispatch =>
   dispatch({
     type: "dealCards"
   });
@@ -112,7 +112,7 @@ GameAPI.playerJoin = function(player, state, dispatch) {
   );
 };
 
-GameAPI.seats = function(seatsArray, state, dispatch) {
+GameAPI.seats = function(seatsArray, dispatch) {
   seatsArray.map(seat => {
     dispatch({
       type: "updateSeats",
@@ -138,7 +138,7 @@ GameAPI.sendMessage = function(message, node, state, dispatch) {
   } else alert(`Error: ${node} is not connected.`);
 };
 
-GameAPI.setDealer = function(player, state, dispatch) {
+GameAPI.setDealer = function(player, dispatch) {
   dispatch({
     type: "setDealer",
     payload: player
@@ -155,7 +155,7 @@ GameAPI.setLastAction = function(player, action, state, dispatch) {
   });
 };
 
-GameAPI.setUserSeat = function(player, state, dispatch) {
+GameAPI.setUserSeat = function(player, dispatch) {
   dispatch({
     type: "setUserSeat",
     payload: player

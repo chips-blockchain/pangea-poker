@@ -140,7 +140,7 @@ const initialState = {
   // Number of seats at the table
   seats: 2,
   // Wether to show the dealer button
-  showDealer: true,
+  showDealer: false,
   // Amount to call
   toCall: 0,
   // Where does the user sit

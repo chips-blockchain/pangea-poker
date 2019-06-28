@@ -23,7 +23,7 @@ const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { players, holeCards, board, pot, dealer, activePlayer } = state;
 
-  // For debugging purposes
+  // For debugging purposes log the state when it changes
   // useEffect(() => {
   //   console.log("The state has changed");
   //   console.log(state);
