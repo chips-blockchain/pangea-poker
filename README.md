@@ -1,4 +1,8 @@
-# Pange Poker GUI Refresh (WIP)
+<img src="https://norbert.dev/chips_poker@2x.jpg" srcset="https://norbert.dev/chips_poker@.jpg 1x https://norbert.dev/chips_poker@.jpg 2x"">
+
+# Lightning Chips Frontend
+
+This is a redesign of [Pangea Poker Frontend](https://github.com/sg777/pangea-poker-frontend). Built with React, currently in WIP.
 
 ## Run the project
 
@@ -13,7 +17,6 @@ Once you've set up the back-end nodes, change the IP addresses in `Game.jsx` to 
 - [ ] Add holeCards logic
 - [ ] Add boardCards logic
 - [ ] Fix `pangea.game.pot` and `pangea.gui.updatePotAmount()`
-- [ ] Add blinds betting logic
 - [ ] Link UI controls via `processControls`
 - [ ] Add Chip Animations
 - [ ] Add Chat
