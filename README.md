@@ -1,4 +1,4 @@
-<img src="https://norbert.dev/chips_poker@2x.jpg" srcset="https://norbert.dev/chips_poker@.jpg 1x https://norbert.dev/chips_poker@.jpg 2x"">
+![Screenshot of Lightining CHIPS Poker](https://norbert.dev/chips_poker@2x.jpg)
 
 # Lightning Chips Frontend
 
