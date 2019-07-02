@@ -9,7 +9,8 @@ const initialState = {
       showCards: true,
       isBetting: false,
       betAmount: 0,
-      playerCards: []
+      playerCards: [],
+      connected: false
     },
     player2: {
       isPlaying: false,
@@ -19,7 +20,8 @@ const initialState = {
       showCards: true,
       isBetting: false,
       betAmount: 0,
-      playerCards: []
+      playerCards: [],
+      connected: false
     },
     player3: {
       isPlaying: false,
@@ -29,7 +31,8 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: []
+      playerCards: [],
+      connected: false
     },
     player4: {
       isPlaying: false,
@@ -39,7 +42,8 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: []
+      playerCards: [],
+      connected: false
     },
     player5: {
       isPlaying: false,
@@ -49,7 +53,8 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: []
+      playerCards: [],
+      connected: false
     },
     player6: {
       isPlaying: false,
@@ -59,7 +64,8 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: []
+      playerCards: [],
+      connected: false
     },
     player7: {
       isPlaying: false,
@@ -69,7 +75,8 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: []
+      playerCards: [],
+      connected: false
     },
     player8: {
       isPlaying: false,
@@ -79,7 +86,8 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: []
+      playerCards: [],
+      connected: false
     },
     player9: {
       isPlaying: false,
@@ -89,7 +97,8 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: []
+      playerCards: [],
+      connected: false
     }
   },
   // Which seat is the active player

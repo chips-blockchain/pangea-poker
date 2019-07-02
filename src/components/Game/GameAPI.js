@@ -41,7 +41,6 @@ GameAPI.deal = function(message, state, dispatch) {
     GameAPI.setDealer(message.deal.dealer, dispatch);
   }
   if (message.deal.holecards) {
-    console.log(message.deal.holecards);
     GameAPI.setHoleCards(message.deal.holecards, dispatch);
   }
   if (message.deal.board) {
@@ -131,6 +130,13 @@ GameAPI.setActivePlayer = function(player, dispatch) {
   dispatch({
     type: "setActivePlayer",
     payload: player
+  });
+};
+
+GameAPI.setBalance = function(player, balance, dispatch) {
+  dispatch({
+    type: "setBalance",
+    payload: { player, balance }
   });
 };
 

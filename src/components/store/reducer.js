@@ -44,6 +44,19 @@ const reducer = (state, action) => {
         activePlayer: action.payload
       };
     }
+    case "setBalance": {
+      return {
+        ...state,
+        players: {
+          ...state.players,
+          [action.payload.player]: {
+            ...state.players[action.payload.player],
+            chips: action.payload.balance,
+            connected: true
+          }
+        }
+      };
+    }
     case "setDealer": {
       return {
         ...state,

@@ -75,6 +75,7 @@ const Table = () => {
                   player.isPlaying && (
                     <Player
                       chips={player.chips}
+                      connected={player.connected}
                       hasCards={player.hasCards}
                       isActive={activePlayer && activePlayer == player.seat}
                       playerCards={player.playerCards}

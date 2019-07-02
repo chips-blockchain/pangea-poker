@@ -13,6 +13,7 @@ import playerIdToString from "../../lib/playerIdToString";
 
 const Player = ({
   chips,
+  connected,
   hasCards,
   isActive,
   playerCards,
@@ -25,6 +26,7 @@ const Player = ({
   // Miliseconds for each active player to act
   let timeAllowance = 30000;
 
+  const [balanceMessage, setBalanceMessage] = useState("CLICK TO SIT");
   const [timeLeftToAct, setTimeLeftToAct] = useState(timeAllowance);
   const [percentLeft, setPercentLeft] = useState(100);
   const [userAvatar, setUserAvater] = useState(randomEmoji());
@@ -92,7 +94,10 @@ const Player = ({
 
   return (
     <div
-      onClick={() => GameAPI.playerJoin(seat, state, dispatch)}
+      onClick={() => {
+        GameAPI.playerJoin(seat, state, dispatch);
+        setBalanceMessage("SITTING...");
+      }}
       css={css`
         grid-area: ${seat};
         position: relative;
@@ -201,7 +206,7 @@ const Player = ({
               text-transform: uppercase;
             `}
           >
-            {chips}
+            {connected ? numberWithCommas(chips) : balanceMessage}
           </div>
         </span>
         {/* Player emoji */}

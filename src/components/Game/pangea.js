@@ -238,6 +238,9 @@ pangea.onMessage_player1 = function(message, state, dispatch) {
     GameAPI.setActivePlayer("player1", dispatch);
     GameAPI.chat(`pangea.processControls(message);`, "danger");
     // pangea.processControls(message);
+  } else if (message["method"] == "join_req") {
+    GameAPI.setBalance("player1", message.balance, dispatch);
+    GameAPI.sendMessage(message, "dcv", state, dispatch);
   } else {
     GameAPI.sendMessage(message, "dcv", state, dispatch);
   }
@@ -279,6 +282,9 @@ pangea.onMessage_player2 = function(message, state, dispatch) {
     GameAPI.chat(`pangea.processControls(message);`, "danger");
     GameAPI.setActivePlayer("player2", dispatch);
     // pangea.processControls(message);
+  } else if (message["method"] == "join_req") {
+    GameAPI.setBalance("player2", message.balance, dispatch);
+    GameAPI.sendMessage(message, "dcv", state, dispatch);
   } else {
     GameAPI.sendMessage(message, "dcv", state, dispatch);
   }
