@@ -5,21 +5,21 @@ const initialState = {
       isPlaying: false,
       seat: "player1",
       chips: 0,
-      hasCards: false,
-      showCards: false,
+      hasCards: true,
+      showCards: true,
       isBetting: false,
       betAmount: 0,
-      playerCards: null
+      playerCards: []
     },
     player2: {
       isPlaying: false,
       seat: "player2",
       chips: 0,
-      hasCards: false,
-      showCards: false,
+      hasCards: true,
+      showCards: true,
       isBetting: false,
       betAmount: 0,
-      playerCards: null
+      playerCards: []
     },
     player3: {
       isPlaying: false,
@@ -29,7 +29,7 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: null
+      playerCards: []
     },
     player4: {
       isPlaying: false,
@@ -39,7 +39,7 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: null
+      playerCards: []
     },
     player5: {
       isPlaying: false,
@@ -49,7 +49,7 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: null
+      playerCards: []
     },
     player6: {
       isPlaying: false,
@@ -59,7 +59,7 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: null
+      playerCards: []
     },
     player7: {
       isPlaying: false,
@@ -69,7 +69,7 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: null
+      playerCards: []
     },
     player8: {
       isPlaying: false,
@@ -79,7 +79,7 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: null
+      playerCards: []
     },
     player9: {
       isPlaying: false,
@@ -89,7 +89,7 @@ const initialState = {
       showCards: false,
       isBetting: false,
       betAmount: 0,
-      playerCards: null
+      playerCards: []
     }
   },
   // Which seat is the active player
@@ -144,7 +144,7 @@ const initialState = {
   // Amount to call
   toCall: 0,
   // Where does the user sit
-  userSeat: null
+  userSeat: ""
 };
 
 export default initialState;

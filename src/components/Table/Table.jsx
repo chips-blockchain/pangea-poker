@@ -74,17 +74,14 @@ const Table = () => {
                 player =>
                   player.isPlaying && (
                     <Player
-                      seat={player.seat}
-                      hasCards={player.hasCards}
                       chips={player.chips}
-                      showCards={player.showCards}
-                      holeCards={holeCards}
-                      key={player.seat}
-                      isActive={
-                        activePlayer &&
-                        `player${activePlayer + 2}` === player.seat
-                      }
+                      hasCards={player.hasCards}
+                      isActive={activePlayer && activePlayer == player.seat}
+                      playerCards={player.playerCards}
                       players={players}
+                      seat={player.seat}
+                      showCards={player.showCards}
+                      key={player.seat}
                     />
                   )
               )}

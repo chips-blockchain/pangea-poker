@@ -51,6 +51,13 @@ const reducer = (state, action) => {
         showDealer: true
       };
     }
+    case "setHoleCards": {
+      return {
+        ...state,
+        holeCards: action.payload
+      };
+    }
+
     case "setLastAction": {
       return {
         ...state,
@@ -63,7 +70,7 @@ const reducer = (state, action) => {
     case "setUserSeat": {
       return {
         ...state,
-        userSeat: action.payload.userSeat,
+        userSeat: action.payload,
         [action.payload]: {
           ...state.players[action.payload],
           showCards: true

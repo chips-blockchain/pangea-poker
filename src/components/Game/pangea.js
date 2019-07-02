@@ -137,6 +137,7 @@ pangea.onMessage = function(message, state, dispatch) {
       GameAPI.sendMessage(message, "player2", state, dispatch);
     } else if (message["action"] == "big_blind_bet") {
       GameAPI.chat("Big Blind has been posted.", "info");
+      GameAPI.dealCards(dispatch);
       GameAPI.bet(message["playerid"], message["amount"], state, dispatch);
       GameAPI.setLastAction(message["playerid"], "Big Blind", state, dispatch);
       message["action"] = "big_blind_bet_player";
@@ -234,6 +235,7 @@ pangea.onMessage_player1 = function(message, state, dispatch) {
   } else if (message["method"] == "replay") {
     message["method"] = "betting";
     message["gui_playerID"] = 0;
+    GameAPI.setActivePlayer("player1", dispatch);
     GameAPI.chat(`pangea.processControls(message);`, "danger");
     // pangea.processControls(message);
   } else {
@@ -247,6 +249,7 @@ pangea.onMessage_player2 = function(message, state, dispatch) {
 
   if (message["method"] == "deal") {
     GameAPI.setUserSeat("player2", dispatch);
+    GameAPI.deal(message, state, dispatch);
     // pangea.API.deal(message["deal"]);
   } else if (message["method"] == "requestShare") {
     if (message["toPlayer"] == 0) {
@@ -273,8 +276,8 @@ pangea.onMessage_player2 = function(message, state, dispatch) {
   } else if (message["method"] == "replay") {
     message["method"] = "betting";
     message["gui_playerID"] = 1;
-    GameAPI.dealCards(dispatch);
     GameAPI.chat(`pangea.processControls(message);`, "danger");
+    GameAPI.setActivePlayer("player2", dispatch);
     // pangea.processControls(message);
   } else {
     GameAPI.sendMessage(message, "dcv", state, dispatch);

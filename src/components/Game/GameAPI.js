@@ -42,6 +42,7 @@ GameAPI.deal = function(message, state, dispatch) {
   }
   if (message.deal.holecards) {
     console.log(message.deal.holecards);
+    GameAPI.setHoleCards(message.deal.holecards, dispatch);
   }
   if (message.deal.board) {
     console.log(message.deal.board);
@@ -126,6 +127,13 @@ GameAPI.seats = function(seatsArray, dispatch) {
   });
 };
 
+GameAPI.setActivePlayer = function(player, dispatch) {
+  dispatch({
+    type: "setActivePlayer",
+    payload: player
+  });
+};
+
 GameAPI.sendMessage = function(message, node, state, dispatch) {
   if (state.connection[node] === "Connected") {
     dispatch({
@@ -142,6 +150,13 @@ GameAPI.setDealer = function(player, dispatch) {
   dispatch({
     type: "setDealer",
     payload: player
+  });
+};
+
+GameAPI.setHoleCards = function(holeCards, dispatch) {
+  dispatch({
+    type: "setHoleCards",
+    payload: holeCards
   });
 };
 

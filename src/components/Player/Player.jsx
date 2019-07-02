@@ -11,7 +11,15 @@ import { DispatchContext, StateContext } from "../Table";
 import { GameAPI } from "../Game";
 import playerIdToString from "../../lib/playerIdToString";
 
-const Player = props => {
+const Player = ({
+  chips,
+  hasCards,
+  isActive,
+  playerCards,
+  players,
+  seat,
+  showCards
+}) => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
   // Miliseconds for each active player to act
@@ -21,7 +29,7 @@ const Player = props => {
   const [percentLeft, setPercentLeft] = useState(100);
   const [userAvatar, setUserAvater] = useState(randomEmoji());
   const [userName, setUserName] = useState({
-    text: props.seat,
+    text: seat,
     color: theme.moon.colors.superLightGray
   });
 
@@ -47,8 +55,8 @@ const Player = props => {
   //     setTimeout(() => {
   //       setUserName({ text: "Fold", color: theme.moon.colors.accent });
   //       // Have to use useReducer instead
-  //       // props.setPlayers({
-  //       //   ...props.players,
+  //       // setPlayers({
+  //       //   ...players,
   //       //   player5: {
   //       //     isPlaying: true,
   //       //     seat: "player5",
@@ -59,7 +67,7 @@ const Player = props => {
   //       //     betAmount: 27500
   //       //   }
   //       // });
-  //       console.log(props.seat + "'s time is up.");
+  //       console.log(seat + "'s time is up.");
   //     }, 1500);
   //   }
   // }, []);
@@ -84,15 +92,15 @@ const Player = props => {
 
   return (
     <div
-      onClick={() => GameAPI.playerJoin(props.seat, state, dispatch)}
+      onClick={() => GameAPI.playerJoin(seat, state, dispatch)}
       css={css`
-        grid-area: ${props.seat};
+        grid-area: ${seat};
         position: relative;
         cursor: pointer;
       `}
     >
       {/* Wether or not to to show current cards */}
-      {props.showCards && props.hasCards && (
+      {state.cardsDealt && showCards && hasCards && (
         <div
           css={css`
             bottom: 0.875rem;
@@ -101,12 +109,24 @@ const Player = props => {
             z-index: 1;
           `}
         >
-          <Card card={props.holeCards[0]} />
-          <Card card={props.holeCards[1]} />
+          {/* User's cards */}
+          {state.userSeat == seat && state.holeCards && (
+            <React.Fragment>
+              <Card card={state.holeCards[0]} />
+              <Card card={state.holeCards[1]} />
+            </React.Fragment>
+          )}
+          {/* Other player's cards */}
+          {state.userSeat != seat && (
+            <React.Fragment>
+              <Card card={playerCards[0]} />
+              <Card card={playerCards[1]} />
+            </React.Fragment>
+          )}
         </div>
       )}
       {/* Whether or not the player has cards */}
-      {!props.showCards && props.hasCards && (
+      {state.userSeat != seat && hasCards && (
         <div
           css={css`
             bottom: 0;
@@ -117,13 +137,13 @@ const Player = props => {
         >
           <CardFaceDown
             centered={!state.cardsDealt}
-            seat={props.seat}
+            seat={seat}
             seats={state.seats}
           />
           <CardFaceDown
             second
             centered={!state.cardsDealt}
-            seat={props.seat}
+            seat={seat}
             seats={state.seats}
           />
         </div>
@@ -137,7 +157,7 @@ const Player = props => {
           border-radius: 10rem;
           box-sizing: border-box;
           box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.1);
-          ${props.isActive && "border: 2px solid " + colorChange() + ";"}
+          ${isActive && "border: 2px solid " + colorChange() + ";"}
           grid-template-columns: 1fr 0.5fr;
           height: 100%;
           justify-content: center;
@@ -156,7 +176,7 @@ const Player = props => {
           <div
             css={css`
               color: ${state.lastAction.action &&
-              props.seat == playerIdToString(state.lastAction.player)
+              seat == playerIdToString(state.lastAction.player)
                 ? theme.moon.colors.accent
                 : userName.color};
               font-size: 0.625rem;
@@ -167,7 +187,7 @@ const Player = props => {
           >
             {/* Show the player's name or the last action */}
             {state.lastAction.action &&
-            props.seat == playerIdToString(state.lastAction.player)
+            seat == playerIdToString(state.lastAction.player)
               ? state.lastAction.action
               : userName.text}
           </div>
@@ -181,7 +201,7 @@ const Player = props => {
               text-transform: uppercase;
             `}
           >
-            {props.chips}
+            {chips}
           </div>
         </span>
         {/* Player emoji */}
@@ -195,7 +215,7 @@ const Player = props => {
         </span>
       </div>
       {/* Active player countdown */}
-      {props.isActive && (
+      {isActive && (
         <div
           css={css`
             background: ${theme.moon.colors.background};
