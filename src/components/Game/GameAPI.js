@@ -95,8 +95,8 @@ GameAPI.game = function(gameObject, state, dispatch) {
       type: "startGame",
       payload: {
         gameType: gameObject.gametype,
-        pot: gameObject.pot,
-        toCall: gameObject.tocall
+        pot: gameObject.pot
+        // toCall: gameObject.tocall
       }
     });
   }
@@ -180,6 +180,12 @@ GameAPI.setUserSeat = function(player, dispatch) {
   dispatch({
     type: "setUserSeat",
     payload: player
+  });
+};
+
+GameAPI.toggleControls = function(dispatch) {
+  dispatch({
+    type: "toggleControls"
   });
 };
 

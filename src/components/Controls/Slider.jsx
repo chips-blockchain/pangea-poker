@@ -43,7 +43,7 @@ const Slider = props => {
         <RCSlider
           onChange={e => props.setToRaise(e)}
           min={amount}
-          max={108942}
+          max={props.state.players[props.state.userSeat].chips}
         />
       </div>
     </div>

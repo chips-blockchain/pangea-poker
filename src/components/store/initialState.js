@@ -118,7 +118,7 @@ const initialState = {
   },
   controls: {
     showControls: false,
-    showSlider: false
+    showFirstRow: true
   },
   // Wether the cards have been dealt
   cardsDealt: false,
@@ -151,9 +151,11 @@ const initialState = {
   // Wether to show the dealer button
   showDealer: false,
   // Amount to call
-  toCall: 0,
+  toCall: 1000000,
+  // Amount of the minimum raise
+  toRaise: 2000000,
   // Where does the user sit
-  userSeat: ""
+  userSeat: "player1"
 };
 
 export default initialState;

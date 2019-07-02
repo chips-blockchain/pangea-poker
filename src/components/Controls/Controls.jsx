@@ -8,8 +8,8 @@ import { DispatchContext, StateContext } from "../Table";
 const Controls = props => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
-  const [toCall, setToCall] = useState(13980);
-  const [toRaise, setToRaise] = useState(22711);
+  const [toCall, setToCall] = useState(state.toCall);
+  const [toRaise, setToRaise] = useState(state.toRaise);
 
   return (
     <div
@@ -28,12 +28,22 @@ const Controls = props => {
         <Button label="1/2 Pot" small />
         <Button label="Pot" small />
         <Button label="Max" small />
-        <Slider toRaise={toRaise} setToRaise={setToRaise} />
+        <Slider state={state} toRaise={toRaise} setToRaise={setToRaise} />
       </div>
       <Button label="Fold" />
-      <Button label="Call" amount={toCall} />
       <Button
-        label={`${toRaise === 108942 ? "All-In" : "Raise"}`}
+        label={toCall === 0 ? "Check" : "Call"}
+        amount={toCall !== 0 && toCall}
+      />
+      <Button
+        label={
+          toRaise === state.players[state.userSeat].chips ||
+          toCall >= state.players[state.userSeat].chips
+            ? "All-In"
+            : toCall === 0
+            ? "Bet"
+            : "Raise"
+        }
         amount={toRaise}
       />
     </div>

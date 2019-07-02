@@ -236,7 +236,7 @@ pangea.onMessage_player1 = function(message, state, dispatch) {
     message["method"] = "betting";
     message["gui_playerID"] = 0;
     GameAPI.setActivePlayer("player1", dispatch);
-    GameAPI.chat(`pangea.processControls(message);`, "danger");
+    GameAPI.toggleControls(dispatch);
     // pangea.processControls(message);
   } else if (message["method"] == "join_req") {
     GameAPI.setBalance("player1", message.balance, dispatch);
@@ -279,8 +279,8 @@ pangea.onMessage_player2 = function(message, state, dispatch) {
   } else if (message["method"] == "replay") {
     message["method"] = "betting";
     message["gui_playerID"] = 1;
-    GameAPI.chat(`pangea.processControls(message);`, "danger");
     GameAPI.setActivePlayer("player2", dispatch);
+    GameAPI.toggleControls(dispatch);
     // pangea.processControls(message);
   } else if (message["method"] == "join_req") {
     GameAPI.setBalance("player2", message.balance, dispatch);

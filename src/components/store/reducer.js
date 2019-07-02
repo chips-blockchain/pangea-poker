@@ -96,11 +96,20 @@ const reducer = (state, action) => {
         gameType: action.payload.gameType,
         gameStarted: true,
         pot: action.payload.pot,
-        toCall: action.payload.toCall,
+        // toCall: action.payload.toCall,
         options: {
           ...state.options,
           showPot: true,
           showPotCounter: true
+        }
+      };
+    }
+    case "toggleControls": {
+      return {
+        ...state,
+        controls: {
+          ...state.controls,
+          showControls: !state.controls.showControls
         }
       };
     }
