@@ -13,21 +13,19 @@ import Controls from "../Controls";
 import MainPot from "./MainPot";
 import initialState from "../store/initialState";
 import reducer from "../store/reducer";
-import Game from "../Game";
+import Game from "../Game/";
 import Connections from "./Connections";
-
-const StateContext = createContext();
-const DispatchContext = createContext();
+import { StateContext, DispatchContext } from "../store/context";
 
 const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { players, holeCards, board, pot, dealer, activePlayer } = state;
 
   // For debugging purposes log the state when it changes
-  // useEffect(() => {
-  //   console.log("The state has changed");
-  //   console.log(state);
-  // }, [state]);
+  useEffect(() => {
+    console.log("The state has changed");
+    console.log(state);
+  }, [state]);
 
   return (
     <DispatchContext.Provider value={dispatch}>

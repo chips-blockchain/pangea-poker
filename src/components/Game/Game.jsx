@@ -1,8 +1,8 @@
+import React, { useState, useContext } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import React, { useState, useContext } from "react";
 import WebSocket from "./WebSocket";
-import { DispatchContext, StateContext } from "../Table";
+import { DispatchContext, StateContext } from "../store/context";
 import { Button } from "../Controls";
 import GameAPI from "./GameAPI";
 
@@ -28,7 +28,7 @@ const Game = () => {
       >
         {state.gameStarted === false && (
           <Button
-            label="Start"
+            label="Starts"
             onClick={() =>
               GameAPI.sendMessage({ method: "game" }, "dcv", state, dispatch)
             }

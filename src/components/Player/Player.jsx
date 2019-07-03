@@ -7,7 +7,7 @@ import randomEmoji from "../../lib/randomEmoji";
 import useInterval from "../../lib/useInterval";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
-import { DispatchContext, StateContext } from "../Table";
+import { DispatchContext, StateContext } from "../store/context";
 import { GameAPI } from "../Game";
 import playerIdToString from "../../lib/playerIdToString";
 

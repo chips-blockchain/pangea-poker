@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StateContext } from ".";
+import { StateContext } from "../store/context";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import theme from "../../styles/theme";

@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import { css, jsx } from "@emotion/core";
 import Button from "./Button";
 import Slider from "./Slider";
-import { DispatchContext, StateContext } from "../Table";
+import { DispatchContext, StateContext } from "../store/context";
 
 const Controls = props => {
   const dispatch = useContext(DispatchContext);

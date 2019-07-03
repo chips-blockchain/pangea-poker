@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import useWebSocket from "react-use-websocket";
-import { DispatchContext, StateContext } from "../Table";
+import { DispatchContext, StateContext } from "../store/context";
 import pangea from "./pangea";
 import GameAPI from "./GameAPI";
 
