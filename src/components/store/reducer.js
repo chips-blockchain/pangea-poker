@@ -80,6 +80,12 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "setLastMessage": {
+      return {
+        ...state,
+        lastMessage: action.payload
+      };
+    }
     case "setUserSeat": {
       return {
         ...state,

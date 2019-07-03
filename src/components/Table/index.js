@@ -1,5 +1,3 @@
-import Table from "./Table.jsx";
-import { DispatchContext, StateContext } from "./Table.jsx";
+import Main from "./Table.jsx";
 
-export default Table;
-export { DispatchContext, StateContext };
+export default Main;

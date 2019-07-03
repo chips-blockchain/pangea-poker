@@ -112,6 +112,35 @@ GameAPI.playerJoin = function(player, state, dispatch) {
   );
 };
 
+GameAPI.processControls = function(message, state, dispatch) {
+  const allPossibilities = [
+    "",
+    "small_blind",
+    "big_blind",
+    "check",
+    "raise",
+    "call",
+    "allin",
+    "fold"
+  ];
+
+  // This is not being used temporarily
+  if (message.possibilities) {
+    message.possibilities.map(possibility => {
+      allPossibilities[possibility] == "check" &&
+        console.log("Check is an otpion");
+      allPossibilities[possibility] == "raise" &&
+        console.log("Raise is an otpion");
+      allPossibilities[possibility] == "call" &&
+        console.log("Call is an otpion");
+      allPossibilities[possibility] == "allin" &&
+        console.log("All-in is an otpion - but it's always an option lol");
+      allPossibilities[possibility] == "fold" &&
+        console.log("Fold is an otpion - which is always an option");
+    });
+  }
+};
+
 GameAPI.seats = function(seatsArray, dispatch) {
   seatsArray.map(seat => {
     dispatch({
@@ -173,6 +202,13 @@ GameAPI.setLastAction = function(player, action, state, dispatch) {
       player,
       action
     }
+  });
+};
+
+GameAPI.setLastMessage = function(message, dispatch) {
+  dispatch({
+    type: "setLastMessage",
+    payload: message
   });
 };
 

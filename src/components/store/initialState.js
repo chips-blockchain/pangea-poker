@@ -117,7 +117,7 @@ const initialState = {
     player2: "Not connected"
   },
   controls: {
-    showControls: false,
+    showControls: true,
     showFirstRow: true
   },
   // Wether the cards have been dealt
@@ -133,6 +133,17 @@ const initialState = {
   // Object that stores the last action so we can dispaly it on the UI
   lastAction: { player: 0, action: null },
   // Messages to send to the nodes - when updated, the message will be sent
+  lastMessage: {
+    method: "replay",
+    action: "round_betting",
+    playerid: 1,
+    round: 1,
+    pot: 4000000,
+    actions: [5, 3, 3],
+    possibilities: [0, 1, 2, 3, 4, 5, 6, 7],
+    min_amount: 0,
+    gui_playerID: 1
+  },
   message: {
     dcv: null,
     bvv: null,
@@ -141,8 +152,7 @@ const initialState = {
   },
   // Options for the pot
   options: {
-    showPotCounter: false,
-    showPot: false
+    showPotCounter: false
   },
   // Pot and side pots
   pot: [0],

@@ -29,8 +29,26 @@ const Game = () => {
         {state.gameStarted === false && (
           <Button
             label="Starts"
-            onClick={() =>
-              GameAPI.sendMessage({ method: "game" }, "dcv", state, dispatch)
+            onClick={
+              () =>
+                // GameAPI.sendMessage({ method: "game" }, "dcv", state, dispatch)
+                GameAPI.sendMessage(
+                  {
+                    method: "replay",
+                    action: "round_betting",
+                    playerid: 1,
+                    round: 1,
+                    pot: 4000000,
+                    actions: [5, 3, 3],
+                    possibilities: [0, 1, 2, 3, 4, 5, 6, 7],
+                    min_amount: 0,
+                    gui_playerID: 1
+                  },
+                  "player2",
+                  state,
+                  dispatch
+                )
+              // GameAPI.toggleControls(dispatch)
             }
           />
         )}
@@ -38,7 +56,7 @@ const Game = () => {
       <WebSocket
         nodeName="dcv"
         server={SOCKET_URL_DCV}
-        message={state.message.dcv}
+        message={state.message.bvv}
       />
       <WebSocket
         nodeName="bvv"
@@ -52,7 +70,7 @@ const Game = () => {
       />
       <WebSocket
         nodeName="player2"
-        server={SOCKET_URL_PLAYER2}
+        server={SOCKET_URL_ECHO}
         message={state.message.player2}
       />
     </div>

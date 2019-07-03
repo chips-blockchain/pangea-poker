@@ -32,6 +32,7 @@ pangea.onMessage = function(message, state, dispatch) {
   //pangea.gui.addPlayerControls()
   GameAPI.chat("Received from DCV", "received", JSON.parse(message));
   message = JSON.parse(message);
+  GameAPI.setLastMessage(message, dispatch);
   if (message["method"] == "game") {
     GameAPI.game(message["game"], state, dispatch);
     GameAPI.sendMessage({ method: "seats" }, "dcv", state, dispatch);
@@ -187,6 +188,7 @@ pangea.onMessage = function(message, state, dispatch) {
 
 pangea.onMessage_bvv = function(message, state, dispatch) {
   message = JSON.parse(message);
+  GameAPI.setLastMessage(message, dispatch);
   GameAPI.chat("Received from BVV: ", "received", message);
   GameAPI.chat(message["method"], "info");
   if (message["method"] == "init_b") {
@@ -204,6 +206,7 @@ pangea.onMessage_bvv = function(message, state, dispatch) {
 
 pangea.onMessage_player1 = function(message, state, dispatch) {
   message = JSON.parse(message);
+  GameAPI.setLastMessage(message, dispatch);
   GameAPI.chat("Received from player1: ", "received", message);
 
   if (message["method"] == "deal") {
@@ -248,6 +251,7 @@ pangea.onMessage_player1 = function(message, state, dispatch) {
 
 pangea.onMessage_player2 = function(message, state, dispatch) {
   message = JSON.parse(message);
+  GameAPI.setLastMessage(message, dispatch);
   GameAPI.chat("Received from player2: ", "received", message);
 
   if (message["method"] == "deal") {

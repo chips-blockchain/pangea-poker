@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Global, css } from "@emotion/core";
-import Table from "./components/Table";
+import Main from "./components/Table";
 import "normalize.css";
 import NoticiaBold from "./fonts/NoticiaText-Bold.ttf";
 import PTSansBold from "./fonts/PT_Sans-Web-Bold.ttf";
@@ -35,7 +35,7 @@ class App extends React.Component {
             }
           `}
         />
-        <Table />
+        <Main />
       </React.Fragment>
     );
   }

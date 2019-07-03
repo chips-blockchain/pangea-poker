@@ -22,10 +22,10 @@ const Table = () => {
   const { players, holeCards, board, pot, dealer, activePlayer } = state;
 
   // For debugging purposes log the state when it changes
-  useEffect(() => {
-    console.log("The state has changed");
-    console.log(state);
-  }, [state]);
+  // useEffect(() => {
+  //   console.log("The state has changed");
+  //   console.log(state);
+  // }, [state]);
 
   return (
     <DispatchContext.Provider value={dispatch}>
