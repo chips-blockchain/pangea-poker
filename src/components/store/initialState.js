@@ -1,6 +1,28 @@
 const initialState = {
   // Object of all players at the table
   players: {
+    // player1: {
+    //   isPlaying: true,
+    //   seat: "player1",
+    //   chips: 10000000,
+    //   hasCards: true,
+    //   showCards: true,
+    //   isBetting: true,
+    //   betAmount: 1000000,
+    //   playerCards: [],
+    //   connected: false
+    // },
+    // player2: {
+    //   isPlaying: true,
+    //   seat: "player2",
+    //   chips: 10000000,
+    //   hasCards: true,
+    //   showCards: true,
+    //   isBetting: true,
+    //   betAmount: 2000000,
+    //   playerCards: [],
+    //   connected: false
+    // },
     player1: {
       isPlaying: false,
       seat: "player1",
@@ -161,9 +183,9 @@ const initialState = {
   // Wether to show the dealer button
   showDealer: false,
   // Amount to call
-  toCall: 1000000,
+  toCall: 2000000,
   // Amount of the minimum raise
-  toRaise: 2000000,
+  minRaise: 2000000,
   // Where does the user sit
   userSeat: "player1"
 };

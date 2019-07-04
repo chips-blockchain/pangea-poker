@@ -63,7 +63,12 @@ const Game = () => {
           top: 2.7rem;
         `}
       >
-        <Button label="Reconnect" onClick={() => setReconnect(Math.random())} />
+        {reconnect != 0 && (
+          <Button
+            label="Reconnect"
+            onClick={() => setReconnect(Math.random())}
+          />
+        )}
       </div>
       <WebSocket
         nodeName="dcv"

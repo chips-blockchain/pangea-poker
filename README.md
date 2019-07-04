@@ -14,9 +14,8 @@ Once you've set up the back-end nodes, change the IP addresses in `Game.jsx` to 
 
 ## To Dos
 
-- [ ] Add holeCards logic
+- [ ] Link UI controls
 - [ ] Add boardCards logic
-- [ ] Fix `pangea.game.pot` and `pangea.gui.updatePotAmount()`
-- [ ] Link UI controls via `processControls`
+- [ ] Add Board Animations
 - [ ] Add Chip Animations
 - [ ] Add Chat

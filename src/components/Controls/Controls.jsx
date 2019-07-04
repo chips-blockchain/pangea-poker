@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import Button from "./Button";
@@ -11,7 +11,14 @@ const Controls = props => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
   const [toCall, setToCall] = useState(state.toCall);
-  const [toRaise, setToRaise] = useState(state.toRaise);
+  const [minRaise, setminRaise] = useState(state.minRaise);
+
+  const betAmount = state.players[state.userSeat].betAmount;
+
+  const [raiseAmount, setRaiseAmount] = useState(minRaise);
+  const canCheck = toCall - betAmount === 0;
+  const callAmount = toCall - betAmount;
+  const chips = state.players[state.userSeat].chips;
 
   // const allPossibilities = {
   //   0: "",
@@ -24,12 +31,22 @@ const Controls = props => {
   //   7: "fold"
   // };
 
-  const handleButtonClick = (action, player, betAmount) => {
+  const handleButtonClick = (action, player, amount) => {
+    // Update the previous message with the new data and send it
+    console.log("ls");
     let nextAction = state.lastMessage;
     nextAction.playerid = playerStringToId(player);
     nextAction.possibilities = [action];
-    if (betAmount) nextAction.betAmount = betAmount;
+    if (amount) {
+      // TODO: Fix raise
+      nextAction.betAmount = toCall;
+      GameAPI.bet(player, betAmount, state, dispatch);
+    } else {
+      nextAction.betAmount = 0;
+      GameAPI.bet(player, betAmount, state, dispatch);
+    }
     GameAPI.sendMessage(nextAction, state.userSeat, state, dispatch);
+    GameAPI.toggleControls(dispatch);
   };
 
   return (
@@ -49,38 +66,40 @@ const Controls = props => {
         <Button label="1/2 Pot" small />
         <Button label="Pot" small />
         <Button label="Max" small />
-        <Slider state={state} toRaise={toRaise} setToRaise={setToRaise} />
+        <Slider state={state} minRaise={minRaise} setminRaise={setminRaise} />
       </div>
       <Button
         label="Fold"
         onClick={() => handleButtonClick(7, state.userSeat)}
       />
       <Button
-        label={toCall === 0 ? "Check" : "Call"}
-        amount={toCall !== 0 && toCall}
+        label={canCheck ? "Check" : "Call"}
+        amount={!canCheck && callAmount}
         onClick={() =>
-          toCall === 0
-            ? () => handleButtonClick(3, state.userSeat)
-            : handleButtonClick(5, state.userSeat, toCall)
+          canCheck
+            ? handleButtonClick(3, state.userSeat, toCall)
+            : handleButtonClick(5, state.userSeat, callAmount)
         }
       />
       <Button
         label={
-          toRaise === state.players[state.userSeat].chips ||
-          toCall >= state.players[state.userSeat].chips
+          minRaise >= chips || toCall >= chips
             ? "All-In"
             : toCall === 0
             ? "Bet"
             : "Raise"
         }
-        amount={toRaise}
+        amount={
+          minRaise >= chips || toCall >= chips ? chips + betAmount : raiseAmount
+        }
         onClick={() =>
-          toRaise === state.players[state.userSeat].chips ||
-          toCall >= state.players[state.userSeat].chips
-            ? handleButtonClick(6, state.userSeat)
-            : toCall === 0
-            ? handleButtonClick(4, state.userSeat)
-            : handleButtonClick(4, state.userSeat)
+          minRaise >= chips || toCall >= chips
+            ? handleButtonClick(6, state.userSeat, chips)
+            : handleButtonClick(
+                4,
+                state.userSeat,
+                toCall - betAmount + raiseAmount
+              )
         }
       />
     </div>

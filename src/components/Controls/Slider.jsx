@@ -6,7 +6,7 @@ import RCSlider from "rc-slider";
 import "./slider.css";
 
 const Slider = props => {
-  const [amount, setAmount] = useState(props.toRaise);
+  const [amount, setAmount] = useState(props.minRaise);
 
   return (
     <div
@@ -36,12 +36,12 @@ const Slider = props => {
             text-align: right;
             width: 4rem;
           `}
-          value={props.toRaise}
-          onChange={e => props.setToRaise(e.target.value)}
+          value={props.minRaise}
+          onChange={e => props.setminRaise(e.target.value)}
         />
 
         <RCSlider
-          onChange={e => props.setToRaise(e)}
+          onChange={e => props.setminRaise(e)}
           min={amount}
           max={props.state.players[props.state.userSeat].chips}
         />

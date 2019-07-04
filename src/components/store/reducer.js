@@ -29,7 +29,7 @@ const reducer = (state, action) => {
         cardsDealt: true
       };
     }
-    case "sendMessage": {
+    case "setMessage": {
       return {
         ...state,
         message: {

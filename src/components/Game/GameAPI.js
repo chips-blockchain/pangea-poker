@@ -1,15 +1,18 @@
 import theme from "../../styles/theme";
 import playerIdToString from "../../lib/playerIdToString";
+import Controls from "../Controls";
 const GameAPI = {};
 
 GameAPI.bet = function(player, betAmount, state, dispatch) {
-  let stringId = playerIdToString(player);
-  let reducedChips = state.players[stringId].chips - betAmount;
+  if (typeof player === "number") {
+    player = playerIdToString(player);
+  }
+  let reducedChips = state.players[player].chips - betAmount;
   dispatch({
     type: "bet",
     payload: {
-      player: stringId,
-      betAmount,
+      player,
+      betAmount: state.players[player].betAmount + betAmount,
       chips: reducedChips
     }
   });
@@ -141,6 +144,16 @@ GameAPI.processControls = function(message, state, dispatch) {
   }
 };
 
+GameAPI.resetMessage = function(message, node, dispatch) {
+  dispatch({
+    type: "setMessage",
+    payload: {
+      node: [node],
+      message: JSON.stringify(message)
+    }
+  });
+};
+
 GameAPI.seats = function(seatsArray, dispatch) {
   seatsArray.map(seat => {
     dispatch({
@@ -172,7 +185,7 @@ GameAPI.setBalance = function(player, balance, dispatch) {
 GameAPI.sendMessage = function(message, node, state, dispatch) {
   if (state.connection[node] === "Connected") {
     dispatch({
-      type: "sendMessage",
+      type: "setMessage",
       payload: {
         node: [node],
         message: JSON.stringify(message)
