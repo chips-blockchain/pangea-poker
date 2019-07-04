@@ -117,7 +117,7 @@ const initialState = {
     player2: "Not connected"
   },
   controls: {
-    showControls: true,
+    showControls: false,
     showFirstRow: true
   },
   // Wether the cards have been dealt

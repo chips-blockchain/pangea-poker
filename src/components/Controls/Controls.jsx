@@ -61,7 +61,7 @@ const Controls = props => {
         onClick={() =>
           toCall === 0
             ? () => handleButtonClick(3, state.userSeat)
-            : handleButtonClick(7, state.userSeat, toCall)
+            : handleButtonClick(5, state.userSeat, toCall)
         }
       />
       <Button
