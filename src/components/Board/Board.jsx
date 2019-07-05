@@ -17,6 +17,8 @@ const Board = ({ boardCards, gameTurn }) => {
       <span
         css={css`
           opacity: ${gameTurn == 0 ? "0" : "1"};
+          transition: 0s all;
+          transition-delay: 0.5s;
         `}
       >
         <span css={css``}>
@@ -27,6 +29,7 @@ const Board = ({ boardCards, gameTurn }) => {
             position: relative;
             right: ${gameTurn == 0 ? "3.25rem" : "0"};
             transition: 0.5s ease all;
+            transition-delay: 0.5s;
           `}
         >
           <Card card={boardCards[1]} />
@@ -36,6 +39,7 @@ const Board = ({ boardCards, gameTurn }) => {
             position: relative;
             right: ${gameTurn == 0 ? "6.5rem" : "0"};
             transition: 0.5s ease all;
+            transition-delay: 0.5s;
           `}
         >
           <Card card={boardCards[2]} />
