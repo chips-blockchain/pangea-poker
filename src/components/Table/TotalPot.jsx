@@ -4,7 +4,13 @@ import { css, jsx } from "@emotion/core";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 
-const TotalPot = ({ players, pot }) => {
+const TotalPot = ({
+  chipsCollected,
+  dispatch,
+  players,
+  pot,
+  updateMainPot
+}) => {
   const [totalPot, setTotalPot] = useState(0);
 
   useEffect(() => {
@@ -14,6 +20,10 @@ const TotalPot = ({ players, pot }) => {
     });
     setTotalPot(pot[0] + sumBetAmount);
   }, [players]);
+
+  useEffect(() => {
+    updateMainPot(totalPot, dispatch);
+  }, [chipsCollected]);
 
   return (
     <div

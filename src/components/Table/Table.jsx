@@ -16,10 +16,11 @@ import reducer from "../store/reducer";
 import Game from "../Game/";
 import Connections from "./Connections";
 import { StateContext, DispatchContext } from "../store/context";
+import GameAPI from "../Game/GameAPI";
 
 const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { players, holeCards, board, pot, dealer, activePlayer } = state;
+  const { players, holeCards, boardCards, pot, dealer, activePlayer } = state;
 
   // For debugging purposes log the state when it changes
   // useEffect(() => {
@@ -65,8 +66,16 @@ const Table = () => {
                 position: absolute;
               `}
             />
-            {state.options.showPotCounter && <TotalPot pot={pot} />}
-            <Board flop={board.flop} turn={board.turn} river={board.river} />
+            {state.options.showPotCounter && (
+              <TotalPot
+                pot={pot}
+                players={players}
+                chipsCollected={state.chipsCollected}
+                updateMainPot={GameAPI.updateMainPot}
+                dispatch={dispatch}
+              />
+            )}
+            <Board boardCards={boardCards} />
             <PlayerGrid9Max>
               {Object.values(players).map(
                 player =>

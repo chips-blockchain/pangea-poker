@@ -146,10 +146,10 @@ const reducer = (state, action) => {
         }
       };
     }
-    case "updatePot": {
+    case "updateMainPot": {
       return {
         ...state,
-        pot: action.payload
+        pot: [action.payload]
       };
     }
     case "Fold": {

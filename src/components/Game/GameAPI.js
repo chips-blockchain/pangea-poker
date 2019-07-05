@@ -16,7 +16,6 @@ GameAPI.bet = function(player, betAmount, state, dispatch) {
       chips: reducedChips
     }
   });
-  GameAPI.updatePot(betAmount, state, dispatch);
 };
 
 GameAPI.chat = function(text, color, message) {
@@ -250,13 +249,10 @@ GameAPI.toggleMainPot = function(dispatch) {
   });
 };
 
-GameAPI.updatePot = function(betAmount, state, dispatch) {
-  let updatedPot = [];
-  updatedPot[0] = state.pot[0] + betAmount;
-  console.log(updatedPot);
+GameAPI.updateMainPot = function(amount, dispatch) {
   dispatch({
-    type: "updatePot",
-    payload: updatedPot
+    type: "updateMainPot",
+    payload: amount
   });
 };
 
