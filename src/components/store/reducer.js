@@ -131,6 +131,18 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "updateGameTurn": {
+      return {
+        ...state,
+        gameTurn: action.payload
+      };
+    }
+    case "updateMainPot": {
+      return {
+        ...state,
+        pot: [action.payload]
+      };
+    }
     case "updateSeats": {
       return {
         ...state,
@@ -144,12 +156,6 @@ const reducer = (state, action) => {
             seat: action.payload.seat
           }
         }
-      };
-    }
-    case "updateMainPot": {
-      return {
-        ...state,
-        pot: [action.payload]
       };
     }
     case "Fold": {

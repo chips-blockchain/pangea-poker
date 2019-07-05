@@ -1,6 +1,6 @@
 import theme from "../../styles/theme";
 import playerIdToString from "../../lib/playerIdToString";
-import Controls from "../Controls";
+
 const GameAPI = {};
 
 GameAPI.bet = function(player, betAmount, state, dispatch) {
@@ -246,6 +246,13 @@ GameAPI.toggleControls = function(dispatch) {
 GameAPI.toggleMainPot = function(dispatch) {
   dispatch({
     type: "toggleMainPot"
+  });
+};
+
+GameAPI.updateGame = function(turn, dispatch) {
+  dispatch({
+    type: "updateGameTurn",
+    payload: turn
   });
 };
 

@@ -3,7 +3,7 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 import Card from "../Card";
 
-const Board = ({ boardCards }) => {
+const Board = ({ boardCards, gameTurn }) => {
   return (
     <div
       css={css`
@@ -13,10 +13,37 @@ const Board = ({ boardCards }) => {
         left: 17rem;
       `}
     >
-      <Card card={boardCards[0]} />
-      <Card card={boardCards[1]} />
-      <Card card={boardCards[2]} />
+      {/* Flop */}
+      <span
+        css={css`
+          opacity: ${gameTurn == 0 ? "0" : "1"};
+        `}
+      >
+        <span css={css``}>
+          <Card card={boardCards[0]} />
+        </span>
+        <span
+          css={css`
+            position: relative;
+            right: ${gameTurn == 0 ? "3.25rem" : "0"};
+            transition: 0.5s ease all;
+          `}
+        >
+          <Card card={boardCards[1]} />
+        </span>
+        <span
+          css={css`
+            position: relative;
+            right: ${gameTurn == 0 ? "6.5rem" : "0"};
+            transition: 0.5s ease all;
+          `}
+        >
+          <Card card={boardCards[2]} />
+        </span>
+      </span>
+      {/* Turn */}
       <Card card={boardCards[3]} />
+      {/* River */}
       <Card card={boardCards[4]} />
     </div>
   );

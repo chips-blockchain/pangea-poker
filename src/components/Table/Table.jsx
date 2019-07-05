@@ -20,7 +20,21 @@ import GameAPI from "../Game/GameAPI";
 
 const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { players, holeCards, boardCards, pot, dealer, activePlayer } = state;
+  const {
+    activePlayer,
+    boardCards,
+    chipsCollected,
+    controls,
+    dealer,
+    gameType,
+    gameTurn,
+    holeCards,
+    players,
+    pot,
+    options,
+    showMainPot,
+    showDealer
+  } = state;
 
   // For debugging purposes log the state when it changes
   // useEffect(() => {
@@ -51,7 +65,7 @@ const Table = () => {
               font-size: 0.75rem;
             `}
           >
-            {state.gameType}
+            {gameType}
           </div>
           <div
             css={css`
@@ -66,16 +80,16 @@ const Table = () => {
                 position: absolute;
               `}
             />
-            {state.options.showPotCounter && (
+            {options.showPotCounter && (
               <TotalPot
                 pot={pot}
                 players={players}
-                chipsCollected={state.chipsCollected}
+                chipsCollected={chipsCollected}
                 updateMainPot={GameAPI.updateMainPot}
                 dispatch={dispatch}
               />
             )}
-            <Board boardCards={boardCards} />
+            <Board boardCards={boardCards} gameTurn={gameTurn} />
             <PlayerGrid9Max>
               {Object.values(players).map(
                 player =>
@@ -94,25 +108,23 @@ const Table = () => {
                   )
               )}
             </PlayerGrid9Max>
-            <ChipGrid chipsCollected={state.chipsCollected}>
+            <ChipGrid chipsCollected={chipsCollected}>
               {Object.values(players).map(
                 player =>
                   player.isBetting && (
                     <Bet
                       betAmount={player.betAmount}
                       forPlayer={player.seat}
-                      chipsCollected={state.chipsCollected}
+                      chipsCollected={chipsCollected}
                       playerBet
                       key={player.seat}
                     />
                   )
               )}
             </ChipGrid>
-            {state.showMainPot && state.pot[0] !== 0 && (
-              <MainPot mainPot={state.pot[0]} />
-            )}
-            {state.showDealer && <Dealer dealer={`player${dealer + 1}`} />}
-            {state.controls.showControls && (
+            {showMainPot && pot[0] !== 0 && <MainPot mainPot={pot[0]} />}
+            {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
+            {controls.showControls && (
               <div>
                 <Controls />
               </div>

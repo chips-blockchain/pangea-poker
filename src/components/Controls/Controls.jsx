@@ -33,7 +33,6 @@ const Controls = props => {
 
   const handleButtonClick = (action, player, amount) => {
     // Update the previous message with the new data and send it
-    console.log("ls");
     let nextAction = state.lastMessage;
     nextAction.playerid = playerStringToId(player);
     nextAction.possibilities = [action];

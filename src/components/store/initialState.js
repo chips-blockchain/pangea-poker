@@ -126,11 +126,7 @@ const initialState = {
   // Which seat is the active player
   activePlayer: null,
   // Board Cards
-  board: {
-    flop: [],
-    turn: "",
-    river: ""
-  },
+  boardCards: [],
   // Connection status dispalyed at the top
   connection: {
     dcv: "Not connected",
@@ -150,6 +146,8 @@ const initialState = {
   dealer: 0,
   // Wether the game has started
   gameStarted: false,
+  // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river
+  gameTurn: 0,
   // Game type at the top left corner
   gameType: "",
   // Cards of the user
@@ -222,7 +220,7 @@ export const testState = {
     player3: {
       isPlaying: false,
       seat: "player3",
-      chips: 0,
+      chips: 78600035,
       hasCards: false,
       showCards: false,
       isBetting: false,
@@ -300,11 +298,7 @@ export const testState = {
   // Which seat is the active player
   activePlayer: null,
   // Board Cards
-  board: {
-    flop: [],
-    turn: "",
-    river: ""
-  },
+  boardCards: ["As", "5d", "6d"],
   // Connection status dispalyed at the top
   connection: {
     dcv: "Not connected",
@@ -313,17 +307,19 @@ export const testState = {
     player2: "Not connected"
   },
   controls: {
-    showControls: false,
+    showControls: true,
     showFirstRow: true
   },
   // Wether the cards have been dealt
-  cardsDealt: false,
+  cardsDealt: true,
   // Wether the chips have been collected to the middle
   chipsCollected: false,
   // Which player is the dealer
   dealer: 0,
   // Wether the game has started
   gameStarted: false,
+  // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river
+  gameTurn: 0,
   // Game type at the top left corner
   gameType: "",
   // Cards of the user
@@ -353,7 +349,7 @@ export const testState = {
     showPotCounter: true
   },
   // Pot and side pots
-  pot: [4000000],
+  pot: [0],
   // Number of seats at the table
   seats: 2,
   // Wether to show the dealer button
@@ -365,7 +361,8 @@ export const testState = {
   // Amount of the minimum raise
   minRaise: 2000000,
   // Where does the user sit
-  userSeat: "player1"
+  userSeat: "player2"
 };
 
-export default initialState;
+// export default initialState;
+export default testState;
