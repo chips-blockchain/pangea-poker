@@ -44,13 +44,21 @@ const Game = () => {
         css={css`
           position: absolute;
           z-index: 5;
+          bottom: 0;
         `}
       >
         {state.gameStarted === false && (
           <Button
             label="Start"
             onClick={() =>
-              GameAPI.sendMessage({ method: "game" }, "dcv", state, dispatch)
+              // GameAPI.sendMessage({ method: "game" }, "dcv", state, dispatch)
+              {
+                GameAPI.collectChips(state, dispatch);
+                // setTimeout(() => {
+
+                //   GameAPI.updateGame(1, dispatch);
+                // }, 500);
+              }
             }
           />
         )}
@@ -72,25 +80,25 @@ const Game = () => {
       </div>
       <WebSocket
         nodeName="dcv"
-        server={SOCKET_URL_DCV}
+        server={SOCKET_URL_ECHO}
         message={state.message.dcv}
         key={webSocketKeys.dcv}
       />
       <WebSocket
         nodeName="bvv"
-        server={SOCKET_URL_BVV}
+        server={SOCKET_URL_ECHO}
         message={state.message.bvv}
         key={webSocketKeys.bvv}
       />
       <WebSocket
         nodeName="player1"
-        server={SOCKET_URL_PLAYER1}
+        server={SOCKET_URL_ECHO}
         message={state.message.player1}
         key={webSocketKeys.player1}
       />
       <WebSocket
         nodeName="player2"
-        server={SOCKET_URL_PLAYER2}
+        server={SOCKET_URL_ECHO}
         message={state.message.player2}
         key={webSocketKeys.player2}
       />

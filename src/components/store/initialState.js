@@ -141,9 +141,9 @@ const initialState = {
   // Wether the cards have been dealt
   cardsDealt: false,
   // Which player is the dealer
+  dealer: 0,
   // Wether the chips have been collected to the middle
   chipsCollected: false,
-  dealer: 0,
   // Wether the game has started
   gameStarted: false,
   // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river
@@ -198,18 +198,18 @@ export const testState = {
     player1: {
       isPlaying: true,
       seat: "player1",
-      chips: 10000000,
+      chips: 400000000,
       hasCards: true,
       showCards: true,
       isBetting: true,
-      betAmount: 1000000,
+      betAmount: 15000000,
       playerCards: [],
       connected: true
     },
     player2: {
       isPlaying: true,
       seat: "player2",
-      chips: 10000000,
+      chips: 560000000,
       hasCards: true,
       showCards: true,
       isBetting: true,
@@ -296,7 +296,7 @@ export const testState = {
     }
   },
   // Which seat is the active player
-  activePlayer: null,
+  activePlayer: "player2",
   // Board Cards
   boardCards: ["As", "5d", "6d"],
   // Connection status dispalyed at the top
@@ -315,7 +315,7 @@ export const testState = {
   // Wether the chips have been collected to the middle
   chipsCollected: false,
   // Which player is the dealer
-  dealer: 0,
+  dealer: 1,
   // Wether the game has started
   gameStarted: false,
   // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river
@@ -323,7 +323,7 @@ export const testState = {
   // Game type at the top left corner
   gameType: "",
   // Cards of the user
-  holeCards: [],
+  holeCards: ["Ad", "Kd"],
   // Object that stores the last action so we can dispaly it on the UI
   lastAction: { player: 0, action: null },
   // Messages to send to the nodes - when updated, the message will be sent
@@ -353,11 +353,11 @@ export const testState = {
   // Number of seats at the table
   seats: 2,
   // Wether to show the dealer button
-  showDealer: false,
+  showDealer: true,
   // Wether to show to main pot at the center of the table
   showMainPot: false,
   // Amount to call
-  toCall: 2000000,
+  toCall: 15000000,
   // Amount of the minimum raise
   minRaise: 2000000,
   // Where does the user sit

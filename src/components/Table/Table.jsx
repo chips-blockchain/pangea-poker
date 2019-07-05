@@ -85,6 +85,7 @@ const Table = () => {
                 pot={pot}
                 players={players}
                 chipsCollected={chipsCollected}
+                gameTurn={gameTurn}
                 updateMainPot={GameAPI.updateMainPot}
                 dispatch={dispatch}
               />

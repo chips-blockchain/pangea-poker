@@ -7,6 +7,7 @@ import theme from "../../styles/theme";
 const TotalPot = ({
   chipsCollected,
   dispatch,
+  gameTurn,
   players,
   pot,
   updateMainPot
@@ -23,7 +24,7 @@ const TotalPot = ({
 
   useEffect(() => {
     updateMainPot(totalPot, dispatch);
-  }, [chipsCollected]);
+  }, [gameTurn]);
 
   return (
     <div

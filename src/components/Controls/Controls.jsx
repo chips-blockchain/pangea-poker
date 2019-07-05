@@ -15,7 +15,7 @@ const Controls = props => {
 
   const betAmount = state.players[state.userSeat].betAmount;
 
-  const [raiseAmount, setRaiseAmount] = useState(minRaise);
+  const [raiseAmount, setRaiseAmount] = useState(28000000);
   const canCheck = toCall - betAmount === 0;
   const callAmount = toCall - betAmount;
   const chips = state.players[state.userSeat].chips;
@@ -36,16 +36,19 @@ const Controls = props => {
     let nextAction = state.lastMessage;
     nextAction.playerid = playerStringToId(player);
     nextAction.possibilities = [action];
-    if (amount) {
-      // TODO: Fix raise
+    if (amount === callAmount) {
       nextAction.betAmount = toCall;
-      GameAPI.bet(player, betAmount, state, dispatch);
+      GameAPI.bet(player, amount, state, dispatch);
     } else {
       nextAction.betAmount = 0;
-      GameAPI.bet(player, betAmount, state, dispatch);
+      GameAPI.bet(player, amount, state, dispatch);
     }
     GameAPI.sendMessage(nextAction, state.userSeat, state, dispatch);
-    GameAPI.toggleControls(dispatch);
+    setTimeout(() => {
+      GameAPI.collectChips(state, dispatch);
+      GameAPI.updateGame(1, dispatch);
+      GameAPI.toggleControls(dispatch);
+    }, 1000);
   };
 
   return (
@@ -65,12 +68,18 @@ const Controls = props => {
         <Button label="1/2 Pot" small />
         <Button label="Pot" small />
         <Button label="Max" small />
-        <Slider state={state} minRaise={minRaise} setminRaise={setminRaise} />
+        <Slider
+          state={state}
+          minRaise={raiseAmount}
+          setminRaise={setRaiseAmount}
+        />
       </div>
+      {/* Fold Button */}
       <Button
         label="Fold"
         onClick={() => handleButtonClick(7, state.userSeat)}
       />
+      {/* Check/Call Button */}
       <Button
         label={canCheck ? "Check" : "Call"}
         amount={!canCheck && callAmount}
@@ -80,6 +89,7 @@ const Controls = props => {
             : handleButtonClick(5, state.userSeat, callAmount)
         }
       />
+      {/* Raise/All-In Button */}
       <Button
         label={
           minRaise >= chips || toCall >= chips
