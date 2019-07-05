@@ -85,19 +85,23 @@ const Table = () => {
                   )
               )}
             </PlayerGrid9Max>
-            <ChipGrid>
+            <ChipGrid chipsCollected={state.chipsCollected}>
               {Object.values(players).map(
                 player =>
                   player.isBetting && (
                     <Bet
-                      forPlayer={player.seat}
                       betAmount={player.betAmount}
+                      forPlayer={player.seat}
+                      chipsCollected={state.chipsCollected}
+                      playerBet
                       key={player.seat}
                     />
                   )
               )}
             </ChipGrid>
-            {state.showMainPot && state.pot[0] !== 0 && <MainPot />}
+            {state.showMainPot && state.pot[0] !== 0 && (
+              <MainPot mainPot={state.pot[0]} />
+            )}
             {state.showDealer && <Dealer dealer={`player${dealer + 1}`} />}
             {state.controls.showControls && (
               <div>

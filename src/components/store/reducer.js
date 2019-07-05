@@ -14,6 +14,12 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "collectChips": {
+      return {
+        ...state,
+        chipsCollected: true
+      };
+    }
     case "connect": {
       return {
         ...state,
@@ -94,6 +100,12 @@ const reducer = (state, action) => {
           ...state.players[action.payload],
           showCards: true
         }
+      };
+    }
+    case "toggleMainPot": {
+      return {
+        ...state,
+        showMainPot: !state.showMainPot
       };
     }
     case "startGame": {

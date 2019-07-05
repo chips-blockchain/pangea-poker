@@ -37,6 +37,13 @@ GameAPI.chat = function(text, color, message) {
   );
 };
 
+GameAPI.collectChips = function(state, dispatch) {
+  dispatch({
+    type: "collectChips"
+  });
+  !state.showMainPot && setTimeout(() => GameAPI.toggleMainPot(dispatch), 400);
+};
+
 GameAPI.deal = function(message, state, dispatch) {
   console.log("GameAPI.deal");
   if (message.deal.dealer !== null) {
@@ -231,10 +238,15 @@ GameAPI.setUserSeat = function(player, dispatch) {
     payload: player
   });
 };
-
 GameAPI.toggleControls = function(dispatch) {
   dispatch({
     type: "toggleControls"
+  });
+};
+
+GameAPI.toggleMainPot = function(dispatch) {
+  dispatch({
+    type: "toggleMainPot"
   });
 };
 

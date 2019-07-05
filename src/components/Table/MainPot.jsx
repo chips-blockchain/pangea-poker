@@ -3,7 +3,7 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 import { Bet } from "../Chips";
 
-const MainPot = () => {
+const MainPot = ({ mainPot }) => {
   return (
     <div
       css={css`
@@ -16,7 +16,7 @@ const MainPot = () => {
         top: 19rem;
       `}
     >
-      <Bet betAmount={8500} />
+      <Bet betAmount={mainPot} />
     </div>
   );
 };
