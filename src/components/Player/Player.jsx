@@ -162,7 +162,8 @@ const Player = ({
           border-radius: 10rem;
           box-sizing: border-box;
           box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.1);
-          ${isActive && "border: 2px solid " + colorChange() + ";"}
+          /* ${isActive && "border: 2px solid " + colorChange() + ";"} */
+          ${isActive && `border: 2px solid ${theme.moon.colors.accent};`}
           grid-template-columns: 1fr 0.5fr;
           height: 100%;
           justify-content: center;
@@ -220,7 +221,7 @@ const Player = ({
         </span>
       </div>
       {/* Active player countdown */}
-      {isActive && (
+      {/* {isActive && (
         <div
           css={css`
             background: ${theme.moon.colors.background};
@@ -242,7 +243,7 @@ const Player = ({
             `}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
