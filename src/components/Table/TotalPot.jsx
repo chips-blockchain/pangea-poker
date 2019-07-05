@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 
-const TotalPot = props => {
+const TotalPot = ({ players, pot }) => {
+  const [totalPot, setTotalPot] = useState(0);
+
+  useEffect(() => {
+    let sumBetAmount = 0;
+    Object.values(players).map(player => {
+      if (player.isPlaying) sumBetAmount += player.betAmount;
+    });
+    setTotalPot(pot[0] + sumBetAmount);
+  }, [players]);
+
   return (
     <div
       css={css`
@@ -18,7 +28,7 @@ const TotalPot = props => {
         text-align: center;
       `}
     >
-      Pot: {numberWithCommas(props.pot[0])}
+      Pot: {numberWithCommas(totalPot)}
     </div>
   );
 };

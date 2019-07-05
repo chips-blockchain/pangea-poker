@@ -3,7 +3,7 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 import Card from "../Card";
 
-const Board = props => {
+const Board = ({ boardCards }) => {
   return (
     <div
       css={css`
@@ -13,11 +13,11 @@ const Board = props => {
         left: 17rem;
       `}
     >
-      <Card card={props.flop[0]} />
-      <Card card={props.flop[1]} />
-      <Card card={props.flop[2]} />
-      <Card card={props.turn} />
-      <Card card={props.river} />
+      <Card card={boardCards[0]} />
+      <Card card={boardCards[1]} />
+      <Card card={boardCards[2]} />
+      <Card card={boardCards[3]} />
+      <Card card={boardCards[4]} />
     </div>
   );
 };
