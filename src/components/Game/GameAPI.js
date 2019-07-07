@@ -1,9 +1,7 @@
 import theme from "../../styles/theme";
 import playerIdToString from "../../lib/playerIdToString";
 
-const GameAPI = {};
-
-GameAPI.bet = function(player, betAmount, state, dispatch) {
+export const bet = (player, betAmount, state, dispatch) => {
   if (typeof player === "number") {
     player = playerIdToString(player);
   }
@@ -18,7 +16,7 @@ GameAPI.bet = function(player, betAmount, state, dispatch) {
   });
 };
 
-GameAPI.chat = function(text, color, message) {
+export const log = (text, color, message) => {
   console.log(
     "%c" + text,
     `color: ${
@@ -36,27 +34,27 @@ GameAPI.chat = function(text, color, message) {
   );
 };
 
-GameAPI.collectChips = function(state, dispatch) {
+export const collectChips = (state, dispatch) => {
   dispatch({
     type: "collectChips"
   });
-  !state.showMainPot && setTimeout(() => GameAPI.toggleMainPot(dispatch), 400);
+  !state.showMainPot && setTimeout(() => toggleMainPot(dispatch), 400);
 };
 
-GameAPI.deal = function(message, state, dispatch) {
-  console.log("GameAPI.deal");
+export const deal = (message, state, dispatch) => {
+  console.log("deal");
   if (message.deal.dealer !== null) {
-    GameAPI.chat(`The dealer is player${message.deal.dealer + 1}.`, "info");
-    GameAPI.setDealer(message.deal.dealer, dispatch);
+    log(`The dealer is player${message.deal.dealer + 1}.`, "info");
+    setDealer(message.deal.dealer, dispatch);
   }
   if (message.deal.holecards) {
-    GameAPI.setHoleCards(message.deal.holecards, dispatch);
+    setHoleCards(message.deal.holecards, dispatch);
   }
   if (message.deal.board) {
     console.log(message.deal.board);
   }
   // function dealer(new_dealer) {
-  //   GameAPI.setDealer(new_dealer, state, dispatch);
+  //   setDealer(new_dealer, state, dispatch);
   // }
   // function holecards(new_cards) {
   //   // 1. Set all playerCards to null
@@ -93,12 +91,12 @@ GameAPI.deal = function(message, state, dispatch) {
   // pangea.update();
 };
 
-GameAPI.dealCards = dispatch =>
+export const dealCards = dispatch =>
   dispatch({
     type: "dealCards"
   });
 
-GameAPI.game = function(gameObject, state, dispatch) {
+export const game = (gameObject, state, dispatch) => {
   if (state.gameStarted === false) {
     dispatch({
       type: "startGame",
@@ -111,9 +109,9 @@ GameAPI.game = function(gameObject, state, dispatch) {
   }
 };
 
-GameAPI.playerJoin = function(player, state, dispatch) {
+export const playerJoin = (player, state, dispatch) => {
   let id = player.slice(-1) - 1;
-  GameAPI.sendMessage(
+  sendMessage(
     { method: "player_join", gui_playerID: id },
     player,
     state,
@@ -121,7 +119,7 @@ GameAPI.playerJoin = function(player, state, dispatch) {
   );
 };
 
-GameAPI.processControls = function(message, state, dispatch) {
+export const processControls = (message, state, dispatch) => {
   const allPossibilities = [
     "",
     "small_blind",
@@ -150,7 +148,7 @@ GameAPI.processControls = function(message, state, dispatch) {
   }
 };
 
-GameAPI.resetMessage = function(message, node, dispatch) {
+export const resetMessage = (message, node, dispatch) => {
   dispatch({
     type: "setMessage",
     payload: {
@@ -160,7 +158,7 @@ GameAPI.resetMessage = function(message, node, dispatch) {
   });
 };
 
-GameAPI.seats = function(seatsArray, dispatch) {
+export const seats = (seatsArray, dispatch) => {
   seatsArray.map(seat => {
     dispatch({
       type: "updateSeats",
@@ -174,21 +172,21 @@ GameAPI.seats = function(seatsArray, dispatch) {
   });
 };
 
-GameAPI.setActivePlayer = function(player, dispatch) {
+export const setActivePlayer = (player, dispatch) => {
   dispatch({
     type: "setActivePlayer",
     payload: player
   });
 };
 
-GameAPI.setBalance = function(player, balance, dispatch) {
+export const setBalance = (player, balance, dispatch) => {
   dispatch({
     type: "setBalance",
     payload: { player, balance }
   });
 };
 
-GameAPI.sendMessage = function(message, node, state, dispatch) {
+export const sendMessage = (message, node, state, dispatch) => {
   if (state.connection[node] === "Connected") {
     dispatch({
       type: "setMessage",
@@ -200,21 +198,21 @@ GameAPI.sendMessage = function(message, node, state, dispatch) {
   } else alert(`Error: ${node} is not connected.`);
 };
 
-GameAPI.setDealer = function(player, dispatch) {
+export const setDealer = (player, dispatch) => {
   dispatch({
     type: "setDealer",
     payload: player
   });
 };
 
-GameAPI.setHoleCards = function(holeCards, dispatch) {
+export const setHoleCards = (holeCards, dispatch) => {
   dispatch({
     type: "setHoleCards",
     payload: holeCards
   });
 };
 
-GameAPI.setLastAction = function(player, action, state, dispatch) {
+export const setLastAction = (player, action, state, dispatch) => {
   dispatch({
     type: "setLastAction",
     payload: {
@@ -224,43 +222,41 @@ GameAPI.setLastAction = function(player, action, state, dispatch) {
   });
 };
 
-GameAPI.setLastMessage = function(message, dispatch) {
+export const setLastMessage = (message, dispatch) => {
   dispatch({
     type: "setLastMessage",
     payload: message
   });
 };
 
-GameAPI.setUserSeat = function(player, dispatch) {
+export const setUserSeat = (player, dispatch) => {
   dispatch({
     type: "setUserSeat",
     payload: player
   });
 };
-GameAPI.toggleControls = function(dispatch) {
+export const toggleControls = dispatch => {
   dispatch({
     type: "toggleControls"
   });
 };
 
-GameAPI.toggleMainPot = function(dispatch) {
+export const toggleMainPot = dispatch => {
   dispatch({
     type: "toggleMainPot"
   });
 };
 
-GameAPI.updateGame = function(turn, dispatch) {
+export const updateGame = (turn, dispatch) => {
   dispatch({
     type: "updateGameTurn",
     payload: turn
   });
 };
 
-GameAPI.updateMainPot = function(amount, dispatch) {
+export const updateMainPot = (amount, dispatch) => {
   dispatch({
     type: "updateMainPot",
     payload: amount
   });
 };
-
-export default GameAPI;

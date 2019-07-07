@@ -5,7 +5,13 @@ import Button from "./Button";
 import Slider from "./Slider";
 import { DispatchContext, StateContext } from "../store/context";
 import playerStringToId from "../../lib/playerStringToId";
-import GameAPI from "../Game/GameAPI";
+import {
+  bet,
+  collectChips,
+  updateGame,
+  toggleControls,
+  sendMessage
+} from "../Game/gameAPI";
 
 const Controls = props => {
   const dispatch = useContext(DispatchContext);
@@ -38,16 +44,16 @@ const Controls = props => {
     nextAction.possibilities = [action];
     if (amount === callAmount) {
       nextAction.betAmount = toCall;
-      GameAPI.bet(player, amount, state, dispatch);
+      bet(player, amount, state, dispatch);
     } else {
       nextAction.betAmount = 0;
-      GameAPI.bet(player, amount, state, dispatch);
+      bet(player, amount, state, dispatch);
     }
-    GameAPI.sendMessage(nextAction, state.userSeat, state, dispatch);
+    sendMessage(nextAction, state.userSeat, state, dispatch);
     setTimeout(() => {
-      GameAPI.collectChips(state, dispatch);
-      GameAPI.updateGame(1, dispatch);
-      GameAPI.toggleControls(dispatch);
+      collectChips(state, dispatch);
+      updateGame(1, dispatch);
+      toggleControls(dispatch);
     }, 1000);
   };
 
