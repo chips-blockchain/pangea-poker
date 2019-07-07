@@ -4,7 +4,7 @@ import { css, jsx } from "@emotion/core";
 import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../store/context";
 import { Button } from "../Controls";
-import GameAPI from "./GameAPI";
+import { collectChips, sendMessage, updateGame } from "./gameAPI";
 
 const SOCKET_URL_DCV = "ws://209.250.254.100:9000/";
 const SOCKET_URL_BVV = "ws://95.179.192.102:9001/";
@@ -51,12 +51,12 @@ const Game = () => {
           <Button
             label="Start"
             onClick={() =>
-              // GameAPI.sendMessage({ method: "game" }, "dcv", state, dispatch)
+              // sendMessage({ method: "game" }, "dcv", state, dispatch)
               {
-                GameAPI.collectChips(state, dispatch);
+                collectChips(state, dispatch);
                 // setTimeout(() => {
 
-                //   GameAPI.updateGame(1, dispatch);
+                // updateGame(1, dispatch);
                 // }, 500);
               }
             }

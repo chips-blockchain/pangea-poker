@@ -16,7 +16,7 @@ import reducer from "../store/reducer";
 import Game from "../Game/";
 import Connections from "./Connections";
 import { StateContext, DispatchContext } from "../store/context";
-import GameAPI from "../Game/GameAPI";
+import { updateMainPot } from "../Game/gameAPI";
 
 const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -86,7 +86,7 @@ const Table = () => {
                 players={players}
                 chipsCollected={chipsCollected}
                 gameTurn={gameTurn}
-                updateMainPot={GameAPI.updateMainPot}
+                updateMainPot={updateMainPot}
                 dispatch={dispatch}
               />
             )}

@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import useWebSocket from "react-use-websocket";
 import { DispatchContext, StateContext } from "../store/context";
-import pangea from "./pangea";
-import GameAPI from "./GameAPI";
+import {
+  onMessage,
+  onMessage_bvv,
+  onMessage_player1,
+  onMessage_player2
+} from "./onMessage";
+import { log } from "./gameAPI";
 
 const STATIC_OPTIONS = {};
 const READY_STATE_OPEN = 1;
@@ -21,7 +26,7 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
     if (message !== null) {
       if (readyState === 1) {
       }
-      GameAPI.chat(`Sent to ${nodeName}: `, "sent", JSON.parse(message));
+      log(`Sent to ${nodeName}: `, "sent", JSON.parse(message));
       sendMessage(message);
     }
   }, [message]);
@@ -39,9 +44,9 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
   // Parese the received message depending on the node
   useEffect(() => {
     if (lastMessage && nodeName === "dcv") {
-      pangea.onMessage(lastMessage.data, state, dispatch);
+      onMessage(lastMessage.data, state, dispatch);
     } else if (lastMessage) {
-      pangea["onMessage_" + nodeName](lastMessage.data, state, dispatch);
+      ["onMessage_" + nodeName](lastMessage.data, state, dispatch);
     }
   }, [lastMessage]);
 
