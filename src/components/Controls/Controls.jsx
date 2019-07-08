@@ -29,16 +29,16 @@ const Controls = props => {
   const callAmount = toCall - betAmount;
   const chips = state.players[state.userSeat].chips;
 
-  const allPossibilities = {
-    0: "",
-    1: "small_blind",
-    2: "big_blind",
-    3: "check",
-    4: "raise",
-    5: "call",
-    6: "allin",
-    7: "fold"
-  };
+  // const allPossibilities = {
+  //   0: "",
+  //   1: "small_blind",
+  //   2: "big_blind",
+  //   3: "check",
+  //   4: "raise",
+  //   5: "call",
+  //   6: "allin",
+  //   7: "fold"
+  // };
 
   // This is strongly in prototpye phase
   const handleButtonClick = (action, player, amount, lastAction) => {
@@ -50,12 +50,17 @@ const Controls = props => {
       nextAction.betAmount = toCall;
       bet(player, amount, state, dispatch);
     } else {
+      console.log("amount: " + amount);
+      console.log("betAmount: " + betAmount);
       nextAction.betAmount = 0;
       const amountToRaise = amount - toCall;
+      console.log("amountToRaise: " + amountToRaise);
+      console.log("toCall " + toCall);
       bet(player, amountToRaise, state, dispatch);
-      setMinRaise(amount * 2, dispatch);
+      setMinRaise(amount + amountToRaise, dispatch);
+      setToCall(betAmount, dispatch);
+      console.log(state);
     }
-    setToCall(amount, dispatch);
     toggleControls(dispatch);
     setLastAction(nextAction.playerid, lastAction, dispatch);
     // sendMessage(nextAction, state.userSeat, state, dispatch);

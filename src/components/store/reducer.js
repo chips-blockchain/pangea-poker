@@ -50,7 +50,6 @@ const reducer = (state, action) => {
           player2: {
             ...state.players.player2,
             isBetting: false,
-            isBetting: false,
             betAmount: 0
           }
         }

@@ -123,9 +123,9 @@ const Game = () => {
                 setTimeout(() => {
                   setActivePlayer("player1", dispatch);
                   setUserSeat("player1", dispatch);
+                  resetTurn(dispatch);
                   toggleControls(dispatch);
                 }, 1000);
-                // resetTurn(dispatch);
                 setLastAction(1, null, dispatch);
               }}
             />
