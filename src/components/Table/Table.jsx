@@ -16,7 +16,6 @@ import reducer from "../store/reducer";
 import Game from "../Game/";
 import Connections from "./Connections";
 import { StateContext, DispatchContext } from "../store/context";
-import { updateMainPot } from "../Game/gameAPI";
 
 const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -81,14 +80,7 @@ const Table = () => {
               `}
             />
             {options.showPotCounter && (
-              <TotalPot
-                pot={pot}
-                players={players}
-                chipsCollected={chipsCollected}
-                gameTurn={gameTurn}
-                updateMainPot={updateMainPot}
-                dispatch={dispatch}
-              />
+              <TotalPot state={state} dispatch={dispatch} />
             )}
             <Board boardCards={boardCards} gameTurn={gameTurn} />
             <PlayerGrid9Max>

@@ -125,7 +125,7 @@ const Game = () => {
                   setUserSeat("player1", dispatch);
                   toggleControls(dispatch);
                 }, 1000);
-                resetTurn(dispatch);
+                // resetTurn(dispatch);
                 setLastAction(1, null, dispatch);
               }}
             />
