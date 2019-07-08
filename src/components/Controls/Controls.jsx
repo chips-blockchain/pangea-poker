@@ -10,34 +10,38 @@ import {
   collectChips,
   updateGame,
   toggleControls,
-  sendMessage
+  sendMessage,
+  setActivePlayer,
+  setMinRaise,
+  setToCall,
+  setLastAction
 } from "../Game/gameAPI";
 
 const Controls = props => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
-  const [toCall, setToCall] = useState(state.toCall);
-  const [minRaise, setminRaise] = useState(state.minRaise);
+  const { toCall, minRaise } = state;
 
   const betAmount = state.players[state.userSeat].betAmount;
 
-  const [raiseAmount, setRaiseAmount] = useState(28000000);
+  const [raiseAmount, setRaiseAmount] = useState(minRaise);
   const canCheck = toCall - betAmount === 0;
   const callAmount = toCall - betAmount;
   const chips = state.players[state.userSeat].chips;
 
-  // const allPossibilities = {
-  //   0: "",
-  //   1: "small_blind",
-  //   2: "big_blind",
-  //   3: "check",
-  //   4: "raise",
-  //   5: "call",
-  //   6: "allin",
-  //   7: "fold"
-  // };
+  const allPossibilities = {
+    0: "",
+    1: "small_blind",
+    2: "big_blind",
+    3: "check",
+    4: "raise",
+    5: "call",
+    6: "allin",
+    7: "fold"
+  };
 
-  const handleButtonClick = (action, player, amount) => {
+  // This is strongly in prototpye phase
+  const handleButtonClick = (action, player, amount, lastAction) => {
     // Update the previous message with the new data and send it
     let nextAction = state.lastMessage;
     nextAction.playerid = playerStringToId(player);
@@ -47,13 +51,17 @@ const Controls = props => {
       bet(player, amount, state, dispatch);
     } else {
       nextAction.betAmount = 0;
-      bet(player, amount, state, dispatch);
+      const amountToRaiseWith = amount - betAmount;
+      bet(player, amountToRaiseWith, state, dispatch);
+      setMinRaise(amount * 2, dispatch);
     }
-    sendMessage(nextAction, state.userSeat, state, dispatch);
+    setToCall(amount, dispatch);
+    toggleControls(dispatch);
+    setLastAction(nextAction.playerid, lastAction, dispatch);
+    // sendMessage(nextAction, state.userSeat, state, dispatch);
     setTimeout(() => {
-      collectChips(state, dispatch);
-      updateGame(1, dispatch);
-      toggleControls(dispatch);
+      // collectChips(state, dispatch);
+      // updateGame(1, dispatch);
     }, 1000);
   };
 
@@ -76,7 +84,7 @@ const Controls = props => {
         <Button label="Max" small />
         <Slider
           state={state}
-          minRaise={raiseAmount}
+          minRaise={minRaise}
           setminRaise={setRaiseAmount}
         />
       </div>
@@ -91,8 +99,8 @@ const Controls = props => {
         amount={!canCheck && callAmount}
         onClick={() =>
           canCheck
-            ? handleButtonClick(3, state.userSeat, toCall)
-            : handleButtonClick(5, state.userSeat, callAmount)
+            ? handleButtonClick(3, state.userSeat, toCall, "CHECK")
+            : handleButtonClick(5, state.userSeat, callAmount, "CALL")
         }
       />
       {/* Raise/All-In Button */}
@@ -109,11 +117,12 @@ const Controls = props => {
         }
         onClick={() =>
           minRaise >= chips || toCall >= chips
-            ? handleButtonClick(6, state.userSeat, chips)
+            ? handleButtonClick(6, state.userSeat, chips, "ALL-IN")
             : handleButtonClick(
                 4,
                 state.userSeat,
-                toCall - betAmount + raiseAmount
+                toCall - betAmount + raiseAmount,
+                "RAISE"
               )
         }
       />

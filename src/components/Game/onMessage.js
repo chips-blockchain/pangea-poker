@@ -125,7 +125,7 @@ export const onMessage = (message, state, dispatch) => {
     } else if (message["action"] == "small_blind_bet") {
       log("Small Blind has been posted.", "info");
       bet(message["playerid"], message["amount"], state, dispatch);
-      setLastAction(message["playerid"], "Small Blind", state, dispatch);
+      setLastAction(message["playerid"], "Small Blind", dispatch);
       message["action"] = "small_blind_bet_player";
       message["gui_playerID"] = 0;
       sendMessage(message, "player1", state, dispatch);
@@ -136,7 +136,7 @@ export const onMessage = (message, state, dispatch) => {
       log("Big Blind has been posted.", "info");
       dealCards(dispatch);
       bet(message["playerid"], message["amount"], state, dispatch);
-      setLastAction(message["playerid"], "Big Blind", state, dispatch);
+      setLastAction(message["playerid"], "Big Blind", dispatch);
       message["action"] = "big_blind_bet_player";
       message["gui_playerID"] = 0;
       sendMessage(message, "player1", state, dispatch);

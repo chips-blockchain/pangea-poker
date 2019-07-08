@@ -23,28 +23,6 @@ const initialState = {
       playerCards: [],
       connected: false
     },
-    player1: {
-      isPlaying: false,
-      seat: "player1",
-      chips: 0,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    },
-    player2: {
-      isPlaying: false,
-      seat: "player2",
-      chips: 0,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    },
     player3: {
       isPlaying: false,
       seat: "player3",
@@ -201,8 +179,8 @@ export const testState = {
       chips: 400000000,
       hasCards: true,
       showCards: true,
-      isBetting: true,
-      betAmount: 15000000,
+      isBetting: false,
+      betAmount: 0,
       playerCards: [],
       connected: true
     },
@@ -212,8 +190,8 @@ export const testState = {
       chips: 560000000,
       hasCards: true,
       showCards: true,
-      isBetting: true,
-      betAmount: 2000000,
+      isBetting: false,
+      betAmount: 0,
       playerCards: [],
       connected: true
     },
@@ -296,7 +274,7 @@ export const testState = {
     }
   },
   // Which seat is the active player
-  activePlayer: "player2",
+  activePlayer: "player1",
   // Board Cards
   boardCards: ["As", "5d", "6d"],
   // Connection status dispalyed at the top
@@ -307,15 +285,15 @@ export const testState = {
     player2: "Not connected"
   },
   controls: {
-    showControls: true,
+    showControls: false,
     showFirstRow: true
   },
   // Wether the cards have been dealt
-  cardsDealt: true,
+  cardsDealt: false,
   // Wether the chips have been collected to the middle
   chipsCollected: false,
   // Which player is the dealer
-  dealer: 1,
+  dealer: 0,
   // Wether the game has started
   gameStarted: false,
   // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river
@@ -355,13 +333,13 @@ export const testState = {
   // Wether to show the dealer button
   showDealer: true,
   // Wether to show to main pot at the center of the table
-  showMainPot: false,
+  showMainPot: true,
   // Amount to call
-  toCall: 15000000,
+  toCall: 2000000,
   // Amount of the minimum raise
-  minRaise: 2000000,
+  minRaise: 4000000,
   // Where does the user sit
-  userSeat: "player2"
+  userSeat: "player3"
 };
 
 // export default initialState;

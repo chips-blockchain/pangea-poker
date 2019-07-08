@@ -35,6 +35,27 @@ const reducer = (state, action) => {
         cardsDealt: true
       };
     }
+    case "resetTurn": {
+      return {
+        ...state,
+        chipsCollected: false,
+        toCall: 0,
+        players: {
+          ...state.players,
+          player1: {
+            ...state.players.player1,
+            isBetting: false,
+            betAmount: 0
+          },
+          player2: {
+            ...state.players.player2,
+            isBetting: false,
+            isBetting: false,
+            betAmount: 0
+          }
+        }
+      };
+    }
     case "setMessage": {
       return {
         ...state,
@@ -62,6 +83,12 @@ const reducer = (state, action) => {
           }
         }
       };
+    }
+    case "setMinRaise": {
+      return { ...state, minRaise: action.payload };
+    }
+    case "setToCall": {
+      return { ...state, toCall: action.payload };
     }
     case "setDealer": {
       return {

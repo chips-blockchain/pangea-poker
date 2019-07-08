@@ -91,10 +91,11 @@ export const deal = (message, state, dispatch) => {
   // pangea.update();
 };
 
-export const dealCards = dispatch =>
+export const dealCards = dispatch => {
   dispatch({
     type: "dealCards"
   });
+};
 
 export const game = (gameObject, state, dispatch) => {
   if (state.gameStarted === false) {
@@ -158,6 +159,12 @@ export const resetMessage = (message, node, dispatch) => {
   });
 };
 
+export const resetTurn = dispatch => {
+  dispatch({
+    type: "resetTurn"
+  });
+};
+
 export const seats = (seatsArray, dispatch) => {
   seatsArray.map(seat => {
     dispatch({
@@ -198,6 +205,20 @@ export const sendMessage = (message, node, state, dispatch) => {
   } else alert(`Error: ${node} is not connected.`);
 };
 
+export const setMinRaise = (amount, dispatch) => {
+  dispatch({
+    type: "setMinRaise",
+    payload: amount
+  });
+};
+
+export const setToCall = (amount, dispatch) => {
+  dispatch({
+    type: "setToCall",
+    payload: amount
+  });
+};
+
 export const setDealer = (player, dispatch) => {
   dispatch({
     type: "setDealer",
@@ -212,7 +233,7 @@ export const setHoleCards = (holeCards, dispatch) => {
   });
 };
 
-export const setLastAction = (player, action, state, dispatch) => {
+export const setLastAction = (player, action, dispatch) => {
   dispatch({
     type: "setLastAction",
     payload: {
@@ -247,7 +268,7 @@ export const toggleMainPot = dispatch => {
   });
 };
 
-export const updateGame = (turn, dispatch) => {
+export const updateGameTurn = (turn, dispatch) => {
   dispatch({
     type: "updateGameTurn",
     payload: turn
