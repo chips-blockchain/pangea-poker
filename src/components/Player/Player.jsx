@@ -90,7 +90,7 @@ const Player = ({
       : theme.moon.colors.danger;
   };
 
-  let transitionSpeed = "1s ease-out";
+  const transitionSpeed = "0";
 
   return (
     <div
@@ -163,7 +163,9 @@ const Player = ({
           box-sizing: border-box;
           box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.1);
           /* ${isActive && "border: 2px solid " + colorChange() + ";"} */
-          ${isActive && `border: 2px solid ${theme.moon.colors.accent};`}
+          border: 2px solid ${
+            isActive ? theme.moon.colors.accent : "transparent"
+          };
           grid-template-columns: 1fr 0.5fr;
           height: 100%;
           justify-content: center;
