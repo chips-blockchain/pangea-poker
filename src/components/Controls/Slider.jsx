@@ -5,8 +5,8 @@ import theme from "../../styles/theme";
 import RCSlider from "rc-slider";
 import "./slider.css";
 
-const Slider = props => {
-  const [amount, setAmount] = useState(props.minRaise);
+const Slider = ({ players, raiseAmount, setRaiseAmount, userSeat }) => {
+  const [amount, setAmount] = useState(raiseAmount);
 
   return (
     <div
@@ -36,14 +36,14 @@ const Slider = props => {
             text-align: right;
             width: 4rem;
           `}
-          value={props.minRaise}
-          onChange={e => props.setminRaise(e.target.value)}
+          value={amount}
+          onChange={e => setRaiseAmount(e.target.value)}
         />
 
         <RCSlider
-          onChange={e => props.setminRaise(e)}
+          onChange={e => setRaiseAmount(Math.round(e / 1000) * 1000)}
           min={amount}
-          max={props.state.players[props.state.userSeat].chips}
+          max={players[userSeat].chips}
         />
       </div>
     </div>

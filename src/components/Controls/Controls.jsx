@@ -51,8 +51,8 @@ const Controls = props => {
       bet(player, amount, state, dispatch);
     } else {
       nextAction.betAmount = 0;
-      const amountToRaiseWith = amount - betAmount;
-      bet(player, amountToRaiseWith, state, dispatch);
+      const amountToRaise = amount - toCall;
+      bet(player, amountToRaise, state, dispatch);
       setMinRaise(amount * 2, dispatch);
     }
     setToCall(amount, dispatch);
@@ -83,9 +83,10 @@ const Controls = props => {
         <Button label="Pot" small />
         <Button label="Max" small />
         <Slider
-          state={state}
-          minRaise={minRaise}
-          setminRaise={setRaiseAmount}
+          players={state.players}
+          userSeat={state.userSeat}
+          raiseAmount={minRaise}
+          setRaiseAmount={setRaiseAmount}
         />
       </div>
       {/* Fold Button */}
