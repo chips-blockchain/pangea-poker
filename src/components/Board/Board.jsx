@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import Card from "../Card";
+import Card, { CardFlip } from "../Card";
 
 const Board = ({ boardCards, gameTurn }) => {
   return (
@@ -21,7 +21,7 @@ const Board = ({ boardCards, gameTurn }) => {
           transition-delay: 0.5s;
         `}
       >
-        <span css={css``}>
+        <span>
           <Card card={boardCards[0]} />
         </span>
         <span
@@ -46,9 +46,16 @@ const Board = ({ boardCards, gameTurn }) => {
         </span>
       </span>
       {/* Turn */}
-      <Card card={boardCards[3]} />
+      <span
+        css={css`
+          position: relative;
+          right: 0.0625rem;
+        `}
+      >
+        <CardFlip card={boardCards[3]} dealt={gameTurn >= 2} />
+      </span>
       {/* River */}
-      <Card card={boardCards[4]} />
+      <CardFlip card={boardCards[4]} dealt={gameTurn >= 3} />
     </div>
   );
 };

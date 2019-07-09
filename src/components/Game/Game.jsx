@@ -38,6 +38,21 @@ const Game = () => {
 
   const [reconnect, setReconnect] = useState(0);
 
+  const nextTurn = turn => {
+    collectChips(state, dispatch);
+    setActivePlayer(null, dispatch);
+    setTimeout(() => {
+      updateGameTurn(turn, dispatch);
+    }, 400);
+    setTimeout(() => {
+      setActivePlayer("player1", dispatch);
+      setUserSeat("player1", dispatch);
+      resetTurn(state.blinds[1], dispatch);
+      toggleControls(dispatch);
+    }, 1000);
+    setLastAction(1, null, dispatch);
+  };
+
   const nextPlayer = () => {
     if (state.activePlayer === "player1") {
       setActivePlayer("player2", dispatch);
@@ -73,7 +88,7 @@ const Game = () => {
           <div
             css={css`
               display: grid;
-              grid-template-columns: repeat(5, 1fr);
+              grid-template-columns: repeat(7, 1fr);
               grid-template-rows: 1fr 1fr 1fr;
             `}
           >
@@ -112,21 +127,17 @@ const Game = () => {
                 nextPlayer();
               }}
             />
+            <Button label="Flop" onClick={() => nextTurn(1)} />
             <Button
-              label="Flop"
+              label="Turn"
               onClick={() => {
-                collectChips(state, dispatch);
-                setActivePlayer(null, dispatch);
-                setTimeout(() => {
-                  updateGameTurn(1, dispatch);
-                }, 400);
-                setTimeout(() => {
-                  setActivePlayer("player1", dispatch);
-                  setUserSeat("player1", dispatch);
-                  resetTurn(state.blinds[1], dispatch);
-                  toggleControls(dispatch);
-                }, 1000);
-                setLastAction(1, null, dispatch);
+                nextTurn(2);
+              }}
+            />
+            <Button
+              label="River"
+              onClick={() => {
+                nextTurn(3);
               }}
             />
           </div>

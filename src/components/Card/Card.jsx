@@ -3,10 +3,10 @@ import "./svg-sprite.css";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-const Card = props => {
+const Card = ({ card }) => {
   return (
     <div
-      className={`card card-${props.card} card-${props.card}-dims`}
+      className={`card card-${card} card-${card}-dims`}
       css={css`
         display: inline-block;
         margin-right: 2px;

@@ -278,7 +278,7 @@ export const testState = {
   // Current blinds - small and big one
   blinds: [1000, 2000],
   // Board Cards
-  boardCards: ["As", "5d", "6d"],
+  boardCards: ["As", "5d", "7d", "6d", "6s"],
   // Connection status dispalyed at the top
   connection: {
     dcv: "Not connected",
