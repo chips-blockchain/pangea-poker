@@ -11,11 +11,3 @@ This is a redesign of [Pangea Poker Frontend](https://github.com/sg777/pangea-po
 You will need to run your own back-end nodes. [Here](https://github.com/NOCTLJRNE/CHIPS-tuto/blob/master/README.md) is a detailed guide on how to do it.
 
 Once you've set up the back-end nodes, change the IP addresses in `Game.jsx` to connect to all four nodes.
-
-## To Dos
-
-- [ ] Link UI controls
-- [ ] Add boardCards logic
-- [ ] Add Board Animations
-- [ ] Add Chip Animations
-- [ ] Add Chat
