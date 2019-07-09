@@ -7,7 +7,6 @@ import cardBg from "./cards/bg-red.svg";
 const CardFlip = ({ card, dealt }) => {
   return (
     <div
-      ontouchstart="this.classList.toggle('hover');"
       css={css`
         display: inline-block;
         height: 4.375rem;
