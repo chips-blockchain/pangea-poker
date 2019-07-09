@@ -46,16 +46,17 @@ const Board = ({ boardCards, gameTurn }) => {
         </span>
       </span>
       {/* Turn */}
+
+      <CardFlip card={boardCards[3]} dealt={gameTurn >= 2} />
       <span
         css={css`
           position: relative;
-          right: 0.0625rem;
+          left: 0.125rem;
         `}
       >
-        <CardFlip card={boardCards[3]} dealt={gameTurn >= 2} />
+        {/* River */}
+        <CardFlip card={boardCards[4]} dealt={gameTurn >= 3} />
       </span>
-      {/* River */}
-      <CardFlip card={boardCards[4]} dealt={gameTurn >= 3} />
     </div>
   );
 };

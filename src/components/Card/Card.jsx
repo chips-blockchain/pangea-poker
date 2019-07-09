@@ -9,7 +9,7 @@ const Card = ({ card }) => {
       className={`card card-${card} card-${card}-dims`}
       css={css`
         display: inline-block;
-        margin-right: 2px;
+        margin-right: 0.125rem;
       `}
     />
   );
