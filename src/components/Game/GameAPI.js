@@ -5,13 +5,14 @@ export const bet = (player, betAmount, state, dispatch) => {
   if (typeof player === "number") {
     player = playerIdToString(player);
   }
-  let reducedChips = state.players[player].chips - betAmount;
+  const totalChips =
+    state.players[player].chips + state.players[player].betAmount;
   dispatch({
     type: "bet",
     payload: {
       player,
-      betAmount: state.players[player].betAmount + betAmount,
-      chips: reducedChips
+      betAmount: betAmount,
+      chips: totalChips - betAmount
     }
   });
 };
@@ -159,9 +160,10 @@ export const resetMessage = (message, node, dispatch) => {
   });
 };
 
-export const resetTurn = dispatch => {
+export const resetTurn = (bigBlind, dispatch) => {
   dispatch({
-    type: "resetTurn"
+    type: "resetTurn",
+    payload: bigBlind
   });
 };
 

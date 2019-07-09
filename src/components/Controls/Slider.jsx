@@ -43,7 +43,7 @@ const Slider = ({ players, raiseAmount, setRaiseAmount, userSeat }) => {
         <RCSlider
           onChange={e => setRaiseAmount(Math.round(e / 1000) * 1000)}
           min={amount}
-          max={players[userSeat].chips}
+          max={players[userSeat].chips + players[userSeat].betAmount}
         />
       </div>
     </div>

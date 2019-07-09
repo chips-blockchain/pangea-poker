@@ -40,6 +40,7 @@ const reducer = (state, action) => {
         ...state,
         chipsCollected: false,
         toCall: 0,
+        minRaise: action.payload,
         players: {
           ...state.players,
           player1: {

@@ -81,7 +81,7 @@ const Game = () => {
             <Button
               label="Small Blind"
               onClick={() => {
-                bet("player1", 1000, state, dispatch);
+                bet("player1", state.blinds[0], state, dispatch);
                 setActivePlayer("player2", dispatch);
                 setLastAction(0, "SMALL BLIND", dispatch);
               }}
@@ -89,7 +89,7 @@ const Game = () => {
             <Button
               label="Big Blind"
               onClick={() => {
-                bet("player2", 2000, state, dispatch);
+                bet("player2", state.blinds[1], state, dispatch);
                 setLastAction(1, "BIG BLIND", dispatch);
               }}
             />
@@ -123,7 +123,7 @@ const Game = () => {
                 setTimeout(() => {
                   setActivePlayer("player1", dispatch);
                   setUserSeat("player1", dispatch);
-                  resetTurn(dispatch);
+                  resetTurn(state.blinds[1], dispatch);
                   toggleControls(dispatch);
                 }, 1000);
                 setLastAction(1, null, dispatch);

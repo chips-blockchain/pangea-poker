@@ -51,12 +51,12 @@ const Controls = props => {
     } else if (amount + betAmount === toCall) {
       console.log("call");
       // nextAction.betAmount = toCall;
-      bet(player, amount, state, dispatch);
+      bet(player, amount + betAmount, state, dispatch);
     } else {
+      console.log("raise");
       // nextAction.betAmount = 0;
-      const amountToRaise = amount - betAmount;
-      bet(player, amountToRaise, state, dispatch);
-      setMinRaise(amount + amountToRaise, dispatch);
+      bet(player, amount, state, dispatch);
+      setMinRaise(amount + amount, dispatch);
       setToCall(amount, dispatch);
     }
     console.log("amount is:" + amount);
@@ -111,11 +111,11 @@ const Controls = props => {
       {/* Raise/All-In Button */}
       <Button
         label={
-          minRaise >= chips || toCall >= chips
+          raiseAmount >= chips || toCall >= chips
             ? "All-In"
             : toCall === 0
             ? "Bet"
-            : "Raise"
+            : "Raise to"
         }
         amount={
           minRaise >= chips || toCall >= chips ? chips + betAmount : raiseAmount

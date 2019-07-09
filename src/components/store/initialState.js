@@ -275,6 +275,8 @@ export const testState = {
   },
   // Which seat is the active player
   activePlayer: "player1",
+  // Current blinds - small and big one
+  blinds: [1000, 2000],
   // Board Cards
   boardCards: ["As", "5d", "6d"],
   // Connection status dispalyed at the top
