@@ -40,27 +40,26 @@ const Controls = props => {
   //   7: "fold"
   // };
 
-  // This is strongly in prototpye phase
+  // This is strongly in ugly prototpye phase
   const handleButtonClick = (action, player, amount, lastAction) => {
     // Update the previous message with the new data and send it
     let nextAction = state.lastMessage;
     nextAction.playerid = playerStringToId(player);
-    nextAction.possibilities = [action];
-    if (amount === callAmount) {
-      nextAction.betAmount = toCall;
+    // nextAction.possibilities = [action];
+    if (amount === 0) {
+      console.log("check");
+    } else if (amount + betAmount === toCall) {
+      console.log("call");
+      // nextAction.betAmount = toCall;
       bet(player, amount, state, dispatch);
     } else {
-      console.log("amount: " + amount);
-      console.log("betAmount: " + betAmount);
-      nextAction.betAmount = 0;
-      const amountToRaise = amount - toCall;
-      console.log("amountToRaise: " + amountToRaise);
-      console.log("toCall " + toCall);
+      // nextAction.betAmount = 0;
+      const amountToRaise = amount - betAmount;
       bet(player, amountToRaise, state, dispatch);
       setMinRaise(amount + amountToRaise, dispatch);
-      setToCall(betAmount, dispatch);
-      console.log(state);
+      setToCall(amount, dispatch);
     }
+    console.log("amount is:" + amount);
     toggleControls(dispatch);
     setLastAction(nextAction.playerid, lastAction, dispatch);
     // sendMessage(nextAction, state.userSeat, state, dispatch);
@@ -105,7 +104,7 @@ const Controls = props => {
         amount={!canCheck && callAmount}
         onClick={() =>
           canCheck
-            ? handleButtonClick(3, state.userSeat, toCall, "CHECK")
+            ? handleButtonClick(3, state.userSeat, callAmount, "CHECK")
             : handleButtonClick(5, state.userSeat, callAmount, "CALL")
         }
       />
@@ -124,12 +123,7 @@ const Controls = props => {
         onClick={() =>
           minRaise >= chips || toCall >= chips
             ? handleButtonClick(6, state.userSeat, chips, "ALL-IN")
-            : handleButtonClick(
-                4,
-                state.userSeat,
-                toCall - betAmount + raiseAmount,
-                "RAISE"
-              )
+            : handleButtonClick(4, state.userSeat, raiseAmount, "RAISE")
         }
       />
     </div>

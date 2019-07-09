@@ -176,7 +176,7 @@ export const testState = {
     player1: {
       isPlaying: true,
       seat: "player1",
-      chips: 400000000,
+      chips: 200000,
       hasCards: true,
       showCards: true,
       isBetting: false,
@@ -187,7 +187,7 @@ export const testState = {
     player2: {
       isPlaying: true,
       seat: "player2",
-      chips: 560000000,
+      chips: 200000,
       hasCards: true,
       showCards: true,
       isBetting: false,
@@ -335,9 +335,9 @@ export const testState = {
   // Wether to show to main pot at the center of the table
   showMainPot: true,
   // Amount to call
-  toCall: 2000000,
+  toCall: 2000,
   // Amount of the minimum raise
-  minRaise: 4000000,
+  minRaise: 4000,
   // Where does the user sit
   userSeat: "player3"
 };
