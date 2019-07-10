@@ -34,6 +34,11 @@ const Player = ({
     text: seat,
     color: theme.moon.colors.superLightGray
   });
+  const [looser, setLooser] = useState(false);
+
+  useEffect(() => {
+    state.gameTurn == 4 && setTimeout(() => setLooser(true), 1000);
+  }, [state.gameTurn]);
 
   // // Set deadline for the to active player
   // let deadlineToAct = new Date();
@@ -117,21 +122,25 @@ const Player = ({
           {/* User's cards */}
           {state.userSeat == seat && state.holeCards && (
             <React.Fragment>
-              <Card card={state.holeCards[0]} />
-              <Card card={state.holeCards[1]} />
-            </React.Fragment>
-          )}
-          {/* Other player's cards */}
-          {state.userSeat != seat && (
-            <React.Fragment>
               <Card card={playerCards[0]} />
               <Card card={playerCards[1]} />
             </React.Fragment>
           )}
+          {/* Other player's cards */}
+          {state.userSeat != seat && state.gameTurn == 4 && (
+            <div
+              css={css`
+                opacity: ${looser ? "0.5" : "1"};
+              `}
+            >
+              <Card card={playerCards[0]} />
+              <Card card={playerCards[1]} />
+            </div>
+          )}
         </div>
       )}
       {/* Whether or not the player has cards */}
-      {state.userSeat != seat && hasCards && (
+      {state.userSeat != seat && hasCards && state.gameTurn != 4 && (
         <div
           css={css`
             bottom: 0;

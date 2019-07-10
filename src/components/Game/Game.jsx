@@ -48,7 +48,7 @@ const Game = () => {
       setActivePlayer("player1", dispatch);
       setUserSeat("player1", dispatch);
       resetTurn(state.blinds[1], dispatch);
-      toggleControls(dispatch);
+      turn != 4 && toggleControls(dispatch);
     }, 1000);
     setLastAction(1, null, dispatch);
   };
@@ -138,6 +138,12 @@ const Game = () => {
               label="River"
               onClick={() => {
                 nextTurn(3);
+              }}
+            />
+            <Button
+              label="Winner"
+              onClick={() => {
+                nextTurn(4);
               }}
             />
           </div>

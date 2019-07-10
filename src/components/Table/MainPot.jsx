@@ -3,17 +3,19 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 import { Bet } from "../Chips";
 
-const MainPot = ({ mainPot }) => {
+const MainPot = ({ mainPot, showDown }) => {
   return (
     <div
       css={css`
         position: absolute;
-        left: 0;
+        left: ${showDown ? "25rem" : "0"};
         right: 4rem;
         margin: auto;
         display: flex;
         justify-content: center;
-        top: 19rem;
+        top: ${showDown ? "9.5rem" : "19rem"};
+        transition: 0.5s ease-out;
+        transition-delay: 1s;
       `}
     >
       <Bet betAmount={mainPot} />
