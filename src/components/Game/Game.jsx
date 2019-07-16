@@ -92,7 +92,12 @@ const Game = () => {
               grid-template-rows: 1fr 1fr 1fr;
             `}
           >
-            {/* sendMessage({ method: "game" }, "dcv", state, dispatch) */}
+            <Button
+              label="Start"
+              onClick={() => {
+                sendMessage({ method: "game" }, "dcv", state, dispatch);
+              }}
+            />
             <Button
               label="Small Blind"
               onClick={() => {
@@ -166,25 +171,25 @@ const Game = () => {
       </div>
       <WebSocket
         nodeName="dcv"
-        server={SOCKET_URL_ECHO}
+        server={SOCKET_URL_DCV}
         message={state.message.dcv}
         key={webSocketKeys.dcv}
       />
       <WebSocket
         nodeName="bvv"
-        server={SOCKET_URL_ECHO}
+        server={SOCKET_URL_BVV}
         message={state.message.bvv}
         key={webSocketKeys.bvv}
       />
       <WebSocket
         nodeName="player1"
-        server={SOCKET_URL_ECHO}
+        server={SOCKET_URL_PLAYER1}
         message={state.message.player1}
         key={webSocketKeys.player1}
       />
       <WebSocket
         nodeName="player2"
-        server={SOCKET_URL_ECHO}
+        server={SOCKET_URL_PLAYER2}
         message={state.message.player2}
         key={webSocketKeys.player2}
       />
