@@ -197,6 +197,7 @@ export const onMessage_bvv = (message, state, dispatch) => {
 
     message["gui_playerID"] = 1;
     sendMessage(message, "player2", state, dispatch);
+  } else {
     sendMessage(message, "dcv", state, dispatch);
   }
 };
