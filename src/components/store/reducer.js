@@ -84,6 +84,12 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "setBoardCards": {
+      return {
+        ...state,
+        boardCards: action.payload
+      };
+    }
     case "setMinRaise": {
       return { ...state, minRaise: action.payload };
     }

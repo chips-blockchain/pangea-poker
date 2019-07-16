@@ -52,44 +52,8 @@ export const deal = (message, state, dispatch) => {
     setHoleCards(message.deal.holecards, dispatch);
   }
   if (message.deal.board) {
-    console.log(message.deal.board);
+    setBoardCards(message.deal.boardcards, dispatch);
   }
-  // function dealer(new_dealer) {
-  //   setDealer(new_dealer, state, dispatch);
-  // }
-  // function holecards(new_cards) {
-  //   // 1. Set all playerCards to null
-  //   // 2. Set the holeCards to the new_cards array
-  //   // 3. Set the user's playerCards equal to the holeCards
-  //   for (var seat in pangea.seats) {
-  //     pangea.seats[seat].playercaZrds = null;
-  //     pangea.player.holecards = new_cards;
-  //     if (seat == pangea.player.seat) {
-  //       pangea.seats[seat].playercards = pangea.player.holecards;
-  //     }
-  //   }
-  //   is_holecards = true;
-  // }
-  // function boardcards(new_card) {
-  //   for (var position in new_card) {
-  //     pangea.boardcards[position].card = new_card[position];
-  //   }
-  // }
-  // var is_holecards = false;
-  // var newholecards = [];
-  // var handlers = { holecards: holecards, dealer: dealer, board: boardcards };
-  // for (var key in message) {
-  //   if (message.hasOwnProperty(key)) {
-  //     var handler = handlers[key];
-  //     handler(message[key]);
-  //   }
-  // }
-  // if (is_holecards) {
-  //   console.log("pangea.gui.dealcards");
-  //   //pangea.gui.dealcards()
-  //   pangea.gui.bet_dealcards();
-  // }
-  // pangea.update();
 };
 
 export const dealCards = dispatch => {
@@ -110,17 +74,6 @@ export const game = (gameObject, state, dispatch) => {
     });
   }
 };
-
-// export const nextPlayer = (state, dispatch) => {
-//   if (state.activePlayer === "player1") {
-//     setActivePlayer("player2", dispatch);
-//     setUserSeat("player2", dispatch);
-//   } else {
-//     setActivePlayer("player1", dispatch);
-//     setUserSeat("player1", dispatch);
-//   }
-//   toggleControls(dispatch);
-// };
 
 export const nextTurn = (turn, state, dispatch) => {
   collectChips(state, dispatch);
@@ -216,6 +169,13 @@ export const setBalance = (player, balance, dispatch) => {
   dispatch({
     type: "setBalance",
     payload: { player, balance }
+  });
+};
+
+export const setBoardCards = (boardCards, dispatch) => {
+  dispatch({
+    type: "setBoardCards",
+    payload: boardCards
   });
 };
 
