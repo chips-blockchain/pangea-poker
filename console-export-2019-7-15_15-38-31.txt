@@ -1,0 +1,1437 @@
+pangea.init called pangea.js:44:11
+pangea.getTableOrder: dealer undefined game.js:53:11
+pangea.getTableOrder: dealer 0 game.js:53:11
+The character encoding of the HTML document was not declared. The document will render with garbled text in some browser configurations if the document contains characters from outside the US-ASCII range. The character encoding of the page must be declared in the document or in the transfer protocol. 209.250.254.100:7777
+game pangea.js:305:11
+Sent:  {"method":"game"} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"game",
+	"game":	{
+		"tocall":	0,
+		"seats":	2,
+		"pot":	[0],
+		"gametype":	"NL Hold'em<br>Blinds: 3/6"
+	}
+} pangeapoker.js:198:10
+param  tocall api.js:35:13
+param  seats api.js:35:13
+param  pot api.js:35:13
+param  gametype api.js:35:13
+pangea.getTableOrder: dealer 0 game.js:53:11
+seats pangea.js:318:11
+Sent:  {"method":"seats"} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"seats",
+	"seats":	[{
+			"name":	"player1",
+			"seat":	0,
+			"stack":	0,
+			"empty":	0,
+			"playing":	1
+		}, {
+			"name":	"player2",
+			"seat":	1,
+			"stack":	0,
+			"empty":	0,
+			"playing":	1
+		}]
+} pangeapoker.js:198:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+dcv pangea.js:360:11
+Sent:  {"method":"dcv"} pangeapoker.js:517:11
+Sent:  {"method":"player_join","gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "join_req", player_id: 0, pubkey: "4108a9cf1d2d25b686fb33c1b0599934a5e021dda7b50415d93f90945c36da2f", uri: "022f262e8dc653906e00627411894d31dbd4d6588cd8e1d333408ea60ae47c89e5@45.77.52.117", balance: 19499823 }
+pangeapoker.js:413:11
+Sent:  {"method":"join_req","player_id":0,"pubkey":"4108a9cf1d2d25b686fb33c1b0599934a5e021dda7b50415d93f90945c36da2f","uri":"022f262e8dc653906e00627411894d31dbd4d6588cd8e1d333408ea60ae47c89e5@45.77.52.117","balance":19499823} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"dcv",
+	"dcv":	"{\n\t\"deckid\":\t\"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c\",\n\t\"pubkey\":\t\"5427bccba8c13fc42fecb7550cf6a8a5dadd5efd1e37c2b010a8993900334c5e\"\n}",
+	"uri":	"0277f4838a779eda39d987441a7e566541ae975e710528bbbe0329aca9d2274513@209.250.254.100",
+	"balance":	19499823
+} pangeapoker.js:198:10
+bvv pangea.js:351:11
+Sent:  {"method":"bvv"} pangeapoker.js:531:11
+Received: DCV:  {
+	"method":	"join_res",
+	"peerid":	0,
+	"pubkey":	"4108a9cf1d2d25b686fb33c1b0599934a5e021dda7b50415d93f90945c36da2f",
+	"uri":	"0277f4838a779eda39d987441a7e566541ae975e710528bbbe0329aca9d2274513@209.250.254.100"
+} pangeapoker.js:198:10
+Sent:  {"method":"join_res","peerid":0,"pubkey":"4108a9cf1d2d25b686fb33c1b0599934a5e021dda7b50415d93f90945c36da2f","uri":"0277f4838a779eda39d987441a7e566541ae975e710528bbbe0329aca9d2274513@209.250.254.100","gui_playerID":0} pangeapoker.js:552:11
+Sent:  {"method":"join_res","peerid":0,"pubkey":"4108a9cf1d2d25b686fb33c1b0599934a5e021dda7b50415d93f90945c36da2f","uri":"0277f4838a779eda39d987441a7e566541ae975e710528bbbe0329aca9d2274513@209.250.254.100","gui_playerID":1} pangeapoker.js:573:11
+Received: bvv:  
+Object { method: "bvv_join", uri: "023fa4c5479d2a7810ba98ba02dcc42f061d9db7e5bcaa732b9a5763fc03bfddc9@217.69.0.32", balance: 19899669 }
+pangeapoker.js:392:11
+bvv_join pangeapoker.js:393:11
+Sent:  {"method":"bvv_join","uri":"023fa4c5479d2a7810ba98ba02dcc42f061d9db7e5bcaa732b9a5763fc03bfddc9@217.69.0.32","balance":19899669} pangeapoker.js:517:11
+Received: player1:  
+Object { method: "deal", deal: {…} }
+pangeapoker.js:413:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Sent:  {"method":"player_join","gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "join_req", player_id: 1, pubkey: "ba269f0f4ce2413360f3dd0f539f5638209a9d0783156d5e6e95df5dc0ff1671", uri: "0336f2812f2db2528b08d6ba10fb51a8597af53e9ae58a65e8e3ec9a1e50214b52@95.179.192.102", balance: 19499823 }
+pangeapoker.js:463:11
+Sent:  {"method":"join_req","player_id":1,"pubkey":"ba269f0f4ce2413360f3dd0f539f5638209a9d0783156d5e6e95df5dc0ff1671","uri":"0336f2812f2db2528b08d6ba10fb51a8597af53e9ae58a65e8e3ec9a1e50214b52@95.179.192.102","balance":19499823} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"join_res",
+	"peerid":	1,
+	"pubkey":	"ba269f0f4ce2413360f3dd0f539f5638209a9d0783156d5e6e95df5dc0ff1671",
+	"uri":	"0277f4838a779eda39d987441a7e566541ae975e710528bbbe0329aca9d2274513@209.250.254.100"
+} pangeapoker.js:198:10
+Sent:  {"method":"join_res","peerid":1,"pubkey":"ba269f0f4ce2413360f3dd0f539f5638209a9d0783156d5e6e95df5dc0ff1671","uri":"0277f4838a779eda39d987441a7e566541ae975e710528bbbe0329aca9d2274513@209.250.254.100","gui_playerID":0} pangeapoker.js:552:11
+Sent:  {"method":"join_res","peerid":1,"pubkey":"ba269f0f4ce2413360f3dd0f539f5638209a9d0783156d5e6e95df5dc0ff1671","uri":"0277f4838a779eda39d987441a7e566541ae975e710528bbbe0329aca9d2274513@209.250.254.100","gui_playerID":1} pangeapoker.js:573:11
+Received: DCV:  {
+	"method":	"TableInfo",
+	"playersInfo":	["4108a9cf1d2d25b686fb33c1b0599934a5e021dda7b50415d93f90945c36da2f", "ba269f0f4ce2413360f3dd0f539f5638209a9d0783156d5e6e95df5dc0ff1671"]
+} pangeapoker.js:198:10
+Received: DCV:  {
+	"method":	"check_bvv_ready",
+	"uri_info":	["022f262e8dc653906e00627411894d31dbd4d6588cd8e1d333408ea60ae47c89e5@45.77.52.117", "0336f2812f2db2528b08d6ba10fb51a8597af53e9ae58a65e8e3ec9a1e50214b52@95.179.192.102"]
+} pangeapoker.js:198:10
+Sent:  {"method":"check_bvv_ready","uri_info":["022f262e8dc653906e00627411894d31dbd4d6588cd8e1d333408ea60ae47c89e5@45.77.52.117","0336f2812f2db2528b08d6ba10fb51a8597af53e9ae58a65e8e3ec9a1e50214b52@95.179.192.102"]} pangeapoker.js:531:11
+Received: player2:  
+Object { method: "deal", deal: {…} }
+pangeapoker.js:463:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: bvv:  
+Object { method: "bvv_ready" }
+pangeapoker.js:392:11
+bvv_ready pangeapoker.js:393:11
+Sent:  {"method":"bvv_ready"} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"init"
+} pangeapoker.js:198:10
+Sent:  {"method":"init","gui_playerID":0} pangeapoker.js:552:11
+Sent:  {"method":"init","gui_playerID":1} pangeapoker.js:573:11
+Received: player1:  
+Object { method: "init_p", peerid: 0, pubkey: "4108a9cf1d2d25b686fb33c1b0599934a5e021dda7b50415d93f90945c36da2f", cardinfo: (52) […] }
+pangeapoker.js:413:11
+Sent:  {"method":"init_p","peerid":0,"pubkey":"4108a9cf1d2d25b686fb33c1b0599934a5e021dda7b50415d93f90945c36da2f","cardinfo":["9f831333035c6a1490d5f89fa63a8baa538f3cbba9ea1a9eaec3e25e346d296e","8d997891cddf74dc853e473a0beb2e0d8af2e338722dcdad707bd487c2c9a35d","5d01ce1acb70d9c8c9cf184b0627fd721ed2fc7bb17f1e066064fe9b22736255","1bd658bb7a80c2ea541ec7b8091d4c7d57d67c9a5ad6a96f0e13a44624c5ec0e","b96aa995096b1ebed85dd839d2fff21e9f3845d884d519234e892c24aaf6fb24","5f4fbfee1c64cc1f099867aa9c3666e0c05ef7a4304a36369e7fea25da5bbc1f","fe6d8943e594e0dba03b22051fa9b93104fa8aa52a390bf0d5b6c6862dd8ee11","8f746664868f4ec950945ef3ba26c15d2d2058f6802f43b3229cd4c588efab7a","f2d4725702172188c8ebf1efa713cd701d3187f1f02167bb2f0f3fe7392c9b54","c2543edaf0d86c5eec5eca75519890e835b161a269de3e57a3eafd283798d819","19e540d5532ef5c29ef221dfc8b275bba8548c2f5cc55bcae9c0d97420cb5d00","1f2cc1bb56fd253f688b5244932d5a9d741208bed98502fe68ce0ee901f07054","7d4787a3f9bdae7bc18acf60b4f3e73aff3d4c4cc29e555bb4f6859fdf594375","09ad9bae73f33d5954db6e2de96583fdc7671cde1934e21056d4a42d8c622c6a","28dad3799cc188ade7b662ea59d681a1b1ad6fbe62fa683d9b1a75fe1d307a1f","b496c3f724135bd0e1f48d31db90885a58beef4a1c704a2068b172bf498f2e44","68ffa785aaf7c4465a8b1a4eb982de9aaa383f25bdd481815bf573ed67ad5453","cacc4b664e20d7b910c992abb2d380c0272fc86e77fd806ea600a9eb80c45018","46ecf8ba75d1aba7e4115318949f7d92ee1c389adb4d4221345db8fe7339fa37","b52cb298f6f735492efe0e1267e3589114841fc15e8a3d5e8d53f7663858c62e","5be43039e0b9c77d583d7f8a942b889794ecf6d2ec697d5b33ef980a05b27a13","33be80c601f8e3c526a586898d3f679d6233343909267b18e681d7d57d670b09","57163f63f5654fbb225a3c2c0e25649bb18ff06691195b6afd1409afcc0c113e","937db944fd1ff7ace194bc65fc4331cebc5fa6eedd6ddd125e1d66c9e5f0961e","2be0859b31d7838f89dca0fac2e593f65a97fa2b829d3ac79c4c24f09ae14a33","50d329b543c84d1513a4963379435631c06f39f3215e19e8fa26b2c74d98c112","a70a853afef9c0cb6b7e7090b580d3ebb6c56532f635c2b59aa8803cf4ec9318","de9771a134e5783783afa90656654012c83e3330fbc63b4cc800422c971c2679","8d13168aa1e117fe5b992a168f1a2183f2c42b3c880a1a3f0d2dd726929c7c30","644a5cdf2a4212d62a67153f789cc046512337f69c00366fa8dad8dfbaa4501c","4483d7a5e450bc7a90976c5abc2953a7bcda5d1cc76f2772fe22fa25f20fe409","d58f3cad7f7ec8ef3855c13d508e60005f3f30266db7bf707af2a94c81891050","b3d8b5efc3c8ad20f363fd845b85fab419fa6a69439ea7c220e29af49032cb3b","3786e9ddeebf501a7a71e5b821a56f6026850622fa0e424582fb9a2803ad2408","100067e69b5eba09a52110fdf492aac354dfacca12ed3014254044fe2cf9f51f","07777e3481ccf3d3bd968bf7282292ee8dd209441a92f11e06f4b822e42bc96c","aa6ce92c8e220aaef7c110191e983043e99004d479be836ce1c9977f570c875e","9b9110e81279e015706e67a9652f411bcc96a8e3afcb18cef16a20b868430235","f3e186efe8e2be46a5beb9b166f415ce47feb2fa8d0efca9777e98614108354a","c29274d822bebf6ffe5e5531600e4799a17d2bb79e86702f9e09df9a761f5638","3dc2c383d9d3447b8b32e83a6ac45e12efb0966888a06fc50e69f774efbb6d06","405e741dfb58fa018f8bbe4cd55877127f24d5d03a4d372aea0550379ab47a46","eae3cdc25fa5abe7facd82d77e17ea1bfac5432536ffbd8eed85cd5d28adb849","86e538aededb89b2ea151a63c2fd07413722f7906bde5b9052b4fd28c7640258","1e5c756ddf5cf85b799d817fe265ed3bf085e9a0222476352987301d42e0d07c","97a52ee10ca46de2fcfe4049420f20e25c66d9258e5e213f966fbc84c9d1dc28","9c027128b03885e822922f8c1b1d91668de1b334015b408d29448a9d7bc6674d","58654744e139ad2f3f43d31c00f7162e68aba65f365dd608daf4de46baf86174","61546fe914ddf2217ff28ec76dfe8cf4ad63a63120158faaa49bb45eb026256d","3b5c58c393dd285be946dab4a98bde8c136aa49b67f2a1f1659fbb1853c26210","a65a2eba8e23a87739bc9420ca0fa134db825a30a206687e5207d3db1af4ca66","48ecb0f921f5b62f5058200537437e8e61cf3bfe54379d9fc65cebe29c8bb138"]} pangeapoker.js:517:11
+Received: player2:  
+Object { method: "init_p", peerid: 1, pubkey: "ba269f0f4ce2413360f3dd0f539f5638209a9d0783156d5e6e95df5dc0ff1671", cardinfo: (52) […] }
+pangeapoker.js:463:11
+Sent:  {"method":"init_p","peerid":1,"pubkey":"ba269f0f4ce2413360f3dd0f539f5638209a9d0783156d5e6e95df5dc0ff1671","cardinfo":["ba8f8d92bb837966c02ed16d5c370fcea69d320d1c6bfb3f686678a930f3dc21","84625360282767ebe100c445486eadf9fc89e82fbb86c1ed7b2aa5e165dfcc42","49c85258202d4cab0fa1d744c3ba188eb75514c15d8f442789687851ff777d3f","a2d6ba0e3378f6e7e53811c0f4d8c8a39496a765cd7ee4f4ad845f3c6dcfe760","f152d0cbf4589cc5ead2601ebbffc65d97e8a02ba1aceeb5c9a25fef56c48c6d","fba5a0830f0cb2ae529a0fbcab4da3b762e297603175e91db1517e3d91beec7c","cef06a8304ceb35fb2745a6f7ec9fd7a06efa534e839018a50b5b53ee22cb972","c1c02ab986b5eaf56f1d399807a6faf51de0187c01939c5c27f88df3728c3275","986d2ba809e78a7f63ca02c259830e2e407955c4293b37acac12cbe6e5d0ed4a","de5973d5063021d6dbbafc5e434534858bc89f4a11e0a5b4435e95f1784a3a79","a38ae7b4b8702d7ef95a609acd7206f05c50f2ac72a28a913a913a4901d4a915","4310b3f341a087db9a0cbc98639c7fbdb592418527de6c436f6f1eeaa6c69a4e","a2e509661b8e3df81b3575940f6cdd94b74cee8418cbdcaa51b190dfcfeeb23d","6427fd8bfe15b466b7c36425eaf700b44e4424db7700fa62a2a2816e8143e652","6e1781cdf752333e8cb5ae97c223fcbf3c141d45b9caee21323de95b7a5da425","852c3aad260de96bab6c65417a01a08c584ff7b701b3577e6a2ceb4a59c0450a","b876667e59c2356e02c428cf4f7ad91ecce06f86f869226a39b4ca438a26f11d","d136e3f7261c6cad5bd285d8309a6ae627266923df22a231a73237cc82764d24","37271076334df21e35f8195c3a874ad8e64670f5f8e2a0dcd1193e563b0b4d70","58ef2f2029b07a531feda564e83814d0e65e187515acd66f7a067e92d10f2d47","9bbd3af8241aa66cab9ad1e1ef19b94efb9339ed911e80d37fac8522a7d56e4c","6f653dbc0bf201ce2936b57667b9290244532e4e57f63946da864173af042a6e","44064daff6044fe8e2eae07c1dfcc78c18b9e3f56293c3f168eedadd91d44d04","79a7dbee9a49f1310c32a8f30574802e28e9e88330c4cf1186e09404cf80ce19","c2b89a03d64d5141d7a83bfb9f8a640a5f4767639ae375c9e749b726a6eabe15","a17b5a3f222c549667d4e5c14797b4b8c90450f42784d9428c2430a745581732","630d11dcab4bd747eeeb0ec37e21a38e94fdc54430a8b338ab4ce32ab0996578","55aaa0958c144f9b4080219838fe7918b9bcb6e340a6e4fa64417c13faf89615","18ca298adcc83656831eb2e6f4fc8920608b78ab5a9ed415fe84e5d6f3a4c479","f6edab2fda9d9198e8c1d448706a2669055cc3018a09bee32b562b62fe653e69","84e7da83db2aca2e5fe71b70e90bf2f126021ec5948066494982e9ad9fe50c76","b5988b061a2a1a37183126bf8b5dfb9ffd1d457ab6bfe246d58afc027e7a0526","a33e68286d5b3d7f5feddb030f3efb1eb9d26debb7341550732fcea829aae979","81cd5a1b95cb6c70c6e5858fb813c80c77c2a1a48354ec48aaf6808286b4515a","10a9b28e04e36b6746b72eae1516a31d312e891129df9f8249c7c0e60ee8cd28","459290733112d285c88d2300c492e9b6bd89bf93ca8374568cdb1fefb9bcfc1e","677660bb329e78f99b6cae484d842e04814410c17df2299e5d4aab04ada2dc3f","5b8859daadb602002b6c02cedc8edd0a262b30d12938049b44356925b40af245","7377d56deba6870ae296d0eba72cd48e22aef53f66891e335f476c62ed21bd05","525695f1ccb6cf5bd0d74552bf4a42b4d94997d5b271a781cfbdf9893ecb734b","69d5d868a411e5d18b175a4f4ecec5064c0d2db26a9f2ea681c63302912d2c0d","2507ba7e27c05f53609b36c3060db6600292e5add17017ac6d688c4a5eaf3e00","8cdd8c042b701cd1ca1d225b1a6ab8c6a85da81ea0f5d37e1b86d595c25eb06a","69a72feec43cfc7966debf8ac9cbeb4d9c762624ce0ac0609806530d8b0ca50e","80336cf24331f39d14af96283bcbfa647f9b5f085094cc59c63362a8af7d1b2c","d4ba725b4bfb4459f9b7b30bb81c2f93875e71d6c7c6a617bd9a6d19b5884c45","72aede613d93aa5fc76fcdbb95f643242bce4656e6ba96035164622ab887bb45","a122fb3db971c05c2663b96f1a7968910ea1a78eb64a5382eb4090741d133a28","13a6215637997504dfe6074d3509d1fe35d7ab2ce12677dbe8f57f4b4ef4006b","cc4253b8feb084f96eaca6bed74a4aa9ab318d9d0f205dc8ed83a495a41f6955","198fe8ee5a6ecd8e8a8c72a7a3e2f8b8e2085382e16992e32a4dc1eb2effeb50","0f3dca2a44bf6bc76823c179ff36e33d35c1a4b7c9a1c5e16cc9ad2423920c7d"]} pangeapoker.js:517:11
+Received: DCV:  
+{
+	"method":	"init_d",
+	"deckid":	"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c",
+	"cardprods":	["e6a80d9db810505d038508371d6eee7cab330666118993668e5dd343cc4b406c", "7e0eedacddce57e00e7fd004bd5c2ab406e158d966f825550f501657b4e42201", "5fed9baf3fd2022e8d7b0281f0b914bd388aeaa205d5c3b9eeaee0b68231e057", "83ea4cb5d4f650442aa45ad369d9f23129f676640a9787d53e6db177261b2d53", "1b8fba7b786fcb1184f9e92d9d580360a8b812093bb3fe6a811f8f665caa2e01", "bd1a0df9ce5ea3ac21624bb3972f185b78a99b87167866ac7930d69c5400d411", "4122fe617869ff8b798c15d2e91dd49a59f42d1b116ac8e4af0cd16f68df8f4f", "47d9b9820e920b14723fbcd4cf20429cf03bc04123e60bff4e767c30cf4db02d", "c3b8befda5a12457310055681aa6ad7ca132e5321a4dcfc77c079d6e69e98a74", "0a8b331a2e4d5fc206e8f9a0d8943d06a40e548fa034b85e1ff7b9234ab7d542", "3135ebddabd45ef8bbf4950ec1ecd1890a4ff80da93c39913f27db18145c4504", "d748b1b455dd828358eabcb86ea89a0d93f93c46a6e6d3d4881bfbe12b47d933", "1bd61a51886e4bc4fa3646676d8f939c53433d7f2cefecc34cdd382121c27033",…
+pangeapoker.js:198:10
+Sent:  
+{"method":"init_d_bvv","deckid":"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c","cardprods":["e6a80d9db810505d038508371d6eee7cab330666118993668e5dd343cc4b406c","7e0eedacddce57e00e7fd004bd5c2ab406e158d966f825550f501657b4e42201","5fed9baf3fd2022e8d7b0281f0b914bd388aeaa205d5c3b9eeaee0b68231e057","83ea4cb5d4f650442aa45ad369d9f23129f676640a9787d53e6db177261b2d53","1b8fba7b786fcb1184f9e92d9d580360a8b812093bb3fe6a811f8f665caa2e01","bd1a0df9ce5ea3ac21624bb3972f185b78a99b87167866ac7930d69c5400d411","4122fe617869ff8b798c15d2e91dd49a59f42d1b116ac8e4af0cd16f68df8f4f","47d9b9820e920b14723fbcd4cf20429cf03bc04123e60bff4e767c30cf4db02d","c3b8befda5a12457310055681aa6ad7ca132e5321a4dcfc77c079d6e69e98a74","0a8b331a2e4d5fc206e8f9a0d8943d06a40e548fa034b85e1ff7b9234ab7d542","3135ebddabd45ef8bbf4950ec1ecd1890a4ff80da93c39913f27db18145c4504","d748b1b455dd828358eabcb86ea89a0d93f93c46a6e6d3d4881bfbe12b47d933","1bd61a51886e4bc4fa3646676d8f939c53433d7f2cefecc34cdd382121c27033","0788d096c6e8ae81…
+pangeapoker.js:531:11
+Sent:  
+{"method":"init_d_player","deckid":"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c","cardprods":["e6a80d9db810505d038508371d6eee7cab330666118993668e5dd343cc4b406c","7e0eedacddce57e00e7fd004bd5c2ab406e158d966f825550f501657b4e42201","5fed9baf3fd2022e8d7b0281f0b914bd388aeaa205d5c3b9eeaee0b68231e057","83ea4cb5d4f650442aa45ad369d9f23129f676640a9787d53e6db177261b2d53","1b8fba7b786fcb1184f9e92d9d580360a8b812093bb3fe6a811f8f665caa2e01","bd1a0df9ce5ea3ac21624bb3972f185b78a99b87167866ac7930d69c5400d411","4122fe617869ff8b798c15d2e91dd49a59f42d1b116ac8e4af0cd16f68df8f4f","47d9b9820e920b14723fbcd4cf20429cf03bc04123e60bff4e767c30cf4db02d","c3b8befda5a12457310055681aa6ad7ca132e5321a4dcfc77c079d6e69e98a74","0a8b331a2e4d5fc206e8f9a0d8943d06a40e548fa034b85e1ff7b9234ab7d542","3135ebddabd45ef8bbf4950ec1ecd1890a4ff80da93c39913f27db18145c4504","d748b1b455dd828358eabcb86ea89a0d93f93c46a6e6d3d4881bfbe12b47d933","1bd61a51886e4bc4fa3646676d8f939c53433d7f2cefecc34cdd382121c27033","0788d096c6e8a…
+pangeapoker.js:552:11
+Sent:  
+{"method":"init_d_player","deckid":"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c","cardprods":["e6a80d9db810505d038508371d6eee7cab330666118993668e5dd343cc4b406c","7e0eedacddce57e00e7fd004bd5c2ab406e158d966f825550f501657b4e42201","5fed9baf3fd2022e8d7b0281f0b914bd388aeaa205d5c3b9eeaee0b68231e057","83ea4cb5d4f650442aa45ad369d9f23129f676640a9787d53e6db177261b2d53","1b8fba7b786fcb1184f9e92d9d580360a8b812093bb3fe6a811f8f665caa2e01","bd1a0df9ce5ea3ac21624bb3972f185b78a99b87167866ac7930d69c5400d411","4122fe617869ff8b798c15d2e91dd49a59f42d1b116ac8e4af0cd16f68df8f4f","47d9b9820e920b14723fbcd4cf20429cf03bc04123e60bff4e767c30cf4db02d","c3b8befda5a12457310055681aa6ad7ca132e5321a4dcfc77c079d6e69e98a74","0a8b331a2e4d5fc206e8f9a0d8943d06a40e548fa034b85e1ff7b9234ab7d542","3135ebddabd45ef8bbf4950ec1ecd1890a4ff80da93c39913f27db18145c4504","d748b1b455dd828358eabcb86ea89a0d93f93c46a6e6d3d4881bfbe12b47d933","1bd61a51886e4bc4fa3646676d8f939c53433d7f2cefecc34cdd382121c27033","0788d096c6e8a…
+pangeapoker.js:573:11
+Received: bvv:  
+Object { method: "init_b", bvvpubkey: "15ea164cfa0cb3e629330fcdf3c9a72f18658d6e52ab63e95e1ac8d4a74b6357", bvvblindcards: (104) […], shamirshards: (208) […] }
+pangeapoker.js:392:11
+init_b pangeapoker.js:393:11
+Sent:  
+{"method":"init_b_player","bvvpubkey":"15ea164cfa0cb3e629330fcdf3c9a72f18658d6e52ab63e95e1ac8d4a74b6357","bvvblindcards":["52c788f028c838553934b643316213db07f651ec92114136dfd09123b096fe54","10dc55854b325157fe385f0c8cd69b87396e54db68352b25488070bafbde2518","d50f8fbbdbe15bd8c7c85f78221c7dea0fac208c685a5a2b6b4e32dfe484fe7a","3597bcd6defeed53b1f67db121871e98d4128995d5618ba504b38556f58c0b57","45ec4bb967bac40225f4853fe25d1d99634e0aa3a38cf7bb8ad1a438bd2fba37","a5a2e4e3524071fe5293aaa2a5a51ee72ce6f29eeeb0ef534b181391f1b8a009","4f8fd7a6e91240f41bdf8505565b5b24fd92bb585349f9277fdc0d3af0f13018","ca8736b1ea4a28b49b5bafeba6b0eee0f2789e1671ec6d80afeea8163d36181c","8f0989ef15cdf3a14bb8ac127a93cb06744df4c50a101b625fff33088685bc19","a8d287683d43583116939cac930262855083563c82616aa880a6f934d0ee4844","690cdbfe04342c476504dc687ef05ddcc740fc94c826fe3f585f85dcd4884524","e6d42b5fe473f191bb200d27cd8c7a25f48e27885307a18d98521916d3d3766f","1231c1bb29fdf002ed37c9ccdc7f7b916c1a928e12434c150ba5c228f986e920","b21206…
+pangeapoker.js:552:11
+Sent:  
+{"method":"init_b_player","bvvpubkey":"15ea164cfa0cb3e629330fcdf3c9a72f18658d6e52ab63e95e1ac8d4a74b6357","bvvblindcards":["52c788f028c838553934b643316213db07f651ec92114136dfd09123b096fe54","10dc55854b325157fe385f0c8cd69b87396e54db68352b25488070bafbde2518","d50f8fbbdbe15bd8c7c85f78221c7dea0fac208c685a5a2b6b4e32dfe484fe7a","3597bcd6defeed53b1f67db121871e98d4128995d5618ba504b38556f58c0b57","45ec4bb967bac40225f4853fe25d1d99634e0aa3a38cf7bb8ad1a438bd2fba37","a5a2e4e3524071fe5293aaa2a5a51ee72ce6f29eeeb0ef534b181391f1b8a009","4f8fd7a6e91240f41bdf8505565b5b24fd92bb585349f9277fdc0d3af0f13018","ca8736b1ea4a28b49b5bafeba6b0eee0f2789e1671ec6d80afeea8163d36181c","8f0989ef15cdf3a14bb8ac127a93cb06744df4c50a101b625fff33088685bc19","a8d287683d43583116939cac930262855083563c82616aa880a6f934d0ee4844","690cdbfe04342c476504dc687ef05ddcc740fc94c826fe3f585f85dcd4884524","e6d42b5fe473f191bb200d27cd8c7a25f48e27885307a18d98521916d3d3766f","1231c1bb29fdf002ed37c9ccdc7f7b916c1a928e12434c150ba5c228f986e920","b21206…
+pangeapoker.js:573:11
+Received: player2:  
+Object { method: "player_ready", playerid: 1 }
+pangeapoker.js:463:11
+Sent:  {"method":"player_ready","playerid":1} pangeapoker.js:517:11
+Received: player1:  
+Object { method: "player_ready", playerid: 0 }
+pangeapoker.js:413:11
+Sent:  {"method":"player_ready","playerid":0} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"dealer",
+	"playerid":	1
+} pangeapoker.js:198:10
+We got the dealer pangeapoker.js:258:11
+Sent:  {"method":"dealer_bvv","playerid":1} pangeapoker.js:531:11
+Sent:  {"method":"dealer_player","playerid":1,"gui_playerID":0} pangeapoker.js:552:11
+Sent:  {"method":"dealer_player","playerid":1,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "dealer_ready" }
+pangeapoker.js:463:11
+Sent:  {"method":"dealer_ready"} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	0,
+	"cardid":	0,
+	"card_type":	1
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":0,"cardid":0,"card_type":1,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "requestShare", playerid: 0, cardid: 0, card_type: 1, toPlayer: 1, fromPlayer: 0 }
+pangeapoker.js:413:11
+Sent:  {"method":"requestShare","playerid":0,"cardid":0,"card_type":1,"toPlayer":1,"fromPlayer":0,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "share_info", playerid: 1, cardid: 0, card_type: 1, toPlayer: 0, fromPlayer: 1, share: "944502bf5c80ed8d48dc8225f5143fea33af9e307246a71d8ba361abe3d27f55" }
+pangeapoker.js:463:11
+Sent:  {"method":"share_info","playerid":1,"cardid":0,"card_type":1,"toPlayer":0,"fromPlayer":1,"share":"944502bf5c80ed8d48dc8225f5143fea33af9e307246a71d8ba361abe3d27f55","gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "playerCardInfo", playerid: 0, cardid: 0, card_type: 1, decoded_card: 24 }
+pangeapoker.js:413:11
+playerCardInfo pangeapoker.js:440:13
+Sent:  {"method":"playerCardInfo","playerid":0,"cardid":0,"card_type":1,"decoded_card":24} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	1,
+	"cardid":	1,
+	"card_type":	1
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":1,"cardid":1,"card_type":1,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "requestShare", playerid: 1, cardid: 1, card_type: 1, toPlayer: 0, fromPlayer: 1 }
+pangeapoker.js:463:11
+Sent:  {"method":"requestShare","playerid":1,"cardid":1,"card_type":1,"toPlayer":0,"fromPlayer":1,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "share_info", playerid: 0, cardid: 1, card_type: 1, toPlayer: 1, fromPlayer: 0, share: "2f731e5da7da18237ef81d893bdf81e2f28e1cbcaec608dd24f2925531b408ec" }
+pangeapoker.js:413:11
+Sent:  {"method":"share_info","playerid":0,"cardid":1,"card_type":1,"toPlayer":1,"fromPlayer":0,"share":"2f731e5da7da18237ef81d893bdf81e2f28e1cbcaec608dd24f2925531b408ec","gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "playerCardInfo", playerid: 1, cardid: 1, card_type: 1, decoded_card: 48 }
+pangeapoker.js:463:11
+playerCardInfo pangeapoker.js:489:13
+Sent:  {"method":"playerCardInfo","playerid":1,"cardid":1,"card_type":1,"decoded_card":48} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	0,
+	"cardid":	2,
+	"card_type":	1
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":0,"cardid":2,"card_type":1,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "requestShare", playerid: 0, cardid: 2, card_type: 1, toPlayer: 1, fromPlayer: 0 }
+pangeapoker.js:413:11
+Sent:  {"method":"requestShare","playerid":0,"cardid":2,"card_type":1,"toPlayer":1,"fromPlayer":0,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "share_info", playerid: 1, cardid: 2, card_type: 1, toPlayer: 0, fromPlayer: 1, share: "36b3550fcb60fed79576b5717a8a9a808d536d25a763f1b0d742b02a48e2b854" }
+pangeapoker.js:463:11
+Sent:  {"method":"share_info","playerid":1,"cardid":2,"card_type":1,"toPlayer":0,"fromPlayer":1,"share":"36b3550fcb60fed79576b5717a8a9a808d536d25a763f1b0d742b02a48e2b854","gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "playerCardInfo", playerid: 0, cardid: 2, card_type: 1, decoded_card: 3 }
+pangeapoker.js:413:11
+playerCardInfo pangeapoker.js:440:13
+Sent:  {"method":"playerCardInfo","playerid":0,"cardid":2,"card_type":1,"decoded_card":3} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	1,
+	"cardid":	3,
+	"card_type":	1
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":1,"cardid":3,"card_type":1,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "requestShare", playerid: 1, cardid: 3, card_type: 1, toPlayer: 0, fromPlayer: 1 }
+pangeapoker.js:463:11
+Sent:  {"method":"requestShare","playerid":1,"cardid":3,"card_type":1,"toPlayer":0,"fromPlayer":1,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "share_info", playerid: 0, cardid: 3, card_type: 1, toPlayer: 1, fromPlayer: 0, share: "853f7b0b24c84a1180ced0016ca641c6aac3e4c52369bd01cafad2e0c77b5926" }
+pangeapoker.js:413:11
+Sent:  {"method":"share_info","playerid":0,"cardid":3,"card_type":1,"toPlayer":1,"fromPlayer":0,"share":"853f7b0b24c84a1180ced0016ca641c6aac3e4c52369bd01cafad2e0c77b5926","gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "playerCardInfo", playerid: 1, cardid: 3, card_type: 1, decoded_card: 49 }
+pangeapoker.js:463:11
+playerCardInfo pangeapoker.js:489:13
+Sent:  {"method":"playerCardInfo","playerid":1,"cardid":3,"card_type":1,"decoded_card":49} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"small_blind",
+	"playerid":	0,
+	"round":	0,
+	"pot":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"betting","action":"small_blind","playerid":0,"round":0,"pot":0,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "deal", deal: {…} }
+pangeapoker.js:413:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: player1:  
+Object { method: "invoiceRequest", round: 0, playerID: 0, betAmount: 1000000, payment_params: {…} }
+pangeapoker.js:413:11
+Sent:  {"method":"invoiceRequest","round":0,"playerID":0,"betAmount":1000000,"payment_params":{"method":"betting","action":"small_blind","playerid":0,"round":0,"pot":0,"gui_playerID":0}} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"invoice",
+	"playerID":	0,
+	"round":	0,
+	"betAmount":	1000000,
+	"label":	"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c_1_0_0_1000000",
+	"invoice":	"{ \"payment_hash\" : \"92d7ef7ed9ebbf487dce6d8b85d904cc28ed4cc4086bd0d7d8826cc2a2e6e680\", \"expiry_time\" : 1563208197, \"expires_at\" : 1563208197, \"bolt11\" : \"lnchips10u1pwjexl4pp5jtt77lkeawl5slwwdk9ctkgyes5w6nxypp4ap47csfkv9ghxu6qqdzuf9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xqk8ymm4dejr5vpvvfjhgarfdenjqstdda6kuap6xycrqvpsxqcqcqpgyegalrg6kgk9tsay02tjg6rxvgjqapyep776rs43p2n8tezyp7x5wdcyaxv6y9zfl2thyseyk9q44gah9qadlaz9vs3r4fcmlglpdfcqqp8kc4\" }\n",
+	"payment_params":	{
+		"method":	"betting",
+		"action":	"small_blind",
+		"playerid":	0,
+		"round":	0,
+		"pot":	0,
+		"gui_playerID":	0
+	}
+} pangeapoker.js:198:10
+Sent:  {"method":"invoice","playerID":0,"round":0,"betAmount":1000000,"label":"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c_1_0_0_1000000","invoice":"{ \"payment_hash\" : \"92d7ef7ed9ebbf487dce6d8b85d904cc28ed4cc4086bd0d7d8826cc2a2e6e680\", \"expiry_time\" : 1563208197, \"expires_at\" : 1563208197, \"bolt11\" : \"lnchips10u1pwjexl4pp5jtt77lkeawl5slwwdk9ctkgyes5w6nxypp4ap47csfkv9ghxu6qqdzuf9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xqk8ymm4dejr5vpvvfjhgarfdenjqstdda6kuap6xycrqvpsxqcqcqpgyegalrg6kgk9tsay02tjg6rxvgjqapyep776rs43p2n8tezyp7x5wdcyaxv6y9zfl2thyseyk9q44gah9qadlaz9vs3r4fcmlglpdfcqqp8kc4\" }\n","payment_params":{"method":"betting","action":"small_blind","playerid":0,"round":0,"pot":0,"gui_playerID":0},"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "betting", action: "small_blind_bet", amount: 1000000, playerid: 0, round: 0 }
+pangeapoker.js:413:11
+Sent:  {"method":"betting","action":"small_blind_bet","amount":1000000,"playerid":0,"round":0} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"small_blind_bet",
+	"amount":	1000000,
+	"playerid":	0,
+	"round":	0
+} pangeapoker.js:198:10
+small_blind_bet pangeapoker.js:326:12
+Sent:  {"method":"betting","action":"small_blind_bet_player","amount":1000000,"playerid":0,"round":0,"gui_playerID":0} pangeapoker.js:552:11
+Sent:  {"method":"betting","action":"small_blind_bet_player","amount":1000000,"playerid":0,"round":0,"gui_playerID":1} pangeapoker.js:573:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"big_blind",
+	"playerid":	1,
+	"min_amount":	2000000,
+	"pot":	1000000
+} pangeapoker.js:198:10
+Sent:  {"method":"betting","action":"big_blind","playerid":1,"min_amount":2000000,"pot":1000000,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "deal", deal: {…} }
+pangeapoker.js:463:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: player2:  
+Object { method: "invoiceRequest", round: 0, playerID: 1, betAmount: 2000000, payment_params: {…} }
+pangeapoker.js:463:11
+Sent:  {"method":"invoiceRequest","round":0,"playerID":1,"betAmount":2000000,"payment_params":{"method":"betting","action":"big_blind","playerid":1,"min_amount":2000000,"pot":1000000,"gui_playerID":1}} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"invoice",
+	"playerID":	1,
+	"round":	0,
+	"betAmount":	2000000,
+	"label":	"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c_2_1_0_2000000",
+	"invoice":	"{ \"payment_hash\" : \"9922a2f1a9193f9281479fbcf620a70ee8341f2b3f39f403a79eb172f98101b3\", \"expiry_time\" : 1563208203, \"expires_at\" : 1563208203, \"bolt11\" : \"lnchips20u1pwjexlmpp5ny329udfryle9q28n770vg98pm5rg8et8uulgqa8n6ch97vpqxesdzuf9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xyk8ymm4dejr5vpvvfjhgarfdenjqstdda6kuap6xgcrqvpsxqcqcqpghh4dkz0zdukjqgr4dnumyw0qck89mcds0jsml6kqlmsz5qh8wyxkq8233c2damy6vscnhajd53xsq3lrq99d0d2v6kvlztjmurksrycqsvewq4\" }\n",
+	"payment_params":	{
+		"method":	"betting",
+		"action":	"big_blind",
+		"playerid":	1,
+		"min_amount":	2000000,
+		"pot":	1000000,
+		"gui_playerID":	1
+	}
+} pangeapoker.js:198:10
+Sent:  {"method":"invoice","playerID":1,"round":0,"betAmount":2000000,"label":"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c_2_1_0_2000000","invoice":"{ \"payment_hash\" : \"9922a2f1a9193f9281479fbcf620a70ee8341f2b3f39f403a79eb172f98101b3\", \"expiry_time\" : 1563208203, \"expires_at\" : 1563208203, \"bolt11\" : \"lnchips20u1pwjexlmpp5ny329udfryle9q28n770vg98pm5rg8et8uulgqa8n6ch97vpqxesdzuf9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xyk8ymm4dejr5vpvvfjhgarfdenjqstdda6kuap6xgcrqvpsxqcqcqpghh4dkz0zdukjqgr4dnumyw0qck89mcds0jsml6kqlmsz5qh8wyxkq8233c2damy6vscnhajd53xsq3lrq99d0d2v6kvlztjmurksrycqsvewq4\" }\n","payment_params":{"method":"betting","action":"big_blind","playerid":1,"min_amount":2000000,"pot":1000000,"gui_playerID":1},"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "betting", action: "big_blind_bet", amount: 2000000, playerid: 1, round: 0 }
+pangeapoker.js:463:11
+Sent:  {"method":"betting","action":"big_blind_bet","amount":2000000,"playerid":1,"round":0} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"big_blind_bet",
+	"amount":	2000000,
+	"playerid":	1,
+	"round":	0
+} pangeapoker.js:198:10
+big_blind_bet pangeapoker.js:336:12
+Sent:  {"method":"betting","action":"big_blind_bet_player","amount":2000000,"playerid":1,"round":0,"gui_playerID":0} pangeapoker.js:552:11
+Sent:  {"method":"betting","action":"big_blind_bet_player","amount":2000000,"playerid":1,"round":0,"gui_playerID":1} pangeapoker.js:573:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"round_betting",
+	"playerid":	0,
+	"round":	0,
+	"pot":	3000000,
+	"actions":	[1, 2],
+	"possibilities":	[4, 5, 6, 7],
+	"min_amount":	1000000
+} pangeapoker.js:198:10
+Sent:  {"method":"replay","action":"round_betting","playerid":0,"round":0,"pot":3000000,"actions":[1,2],"possibilities":[4,5,6,7],"min_amount":1000000} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "deal", deal: {…} }
+pangeapoker.js:413:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: player1:  
+Object { method: "replay", action: "round_betting", playerid: 0, round: 0, pot: 3000000, actions: (2) […], possibilities: (4) […], min_amount: 1000000 }
+pangeapoker.js:413:11
+Object { method: "betting", action: "round_betting", playerid: 0, round: 0, pot: 3000000, actions: (2) […], possibilities: (4) […], min_amount: 1000000, gui_playerID: 0 }
+pangeapoker.js:168:10
+Array(4) [ 4, 5, 6, 7 ]
+pangeapoker.js:124:10
+Object { method: "betting", action: "round_betting", playerid: 0, round: 0, pot: 3000000, actions: (2) […], possibilities: (1) […], min_amount: 1000000, gui_playerID: 0 }
+pangea.js:259:10
+Sent:  {"method":"betting","action":"round_betting","playerid":0,"round":0,"pot":3000000,"actions":[1,2],"possibilities":[5],"min_amount":1000000,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "invoiceRequest", round: 0, playerID: 0, betAmount: 1000000, option: 1, payment_params: {…} }
+pangeapoker.js:413:11
+Sent:  {"method":"invoiceRequest","round":0,"playerID":0,"betAmount":1000000,"option":1,"payment_params":{"method":"betting","action":"round_betting","playerid":0,"round":0,"pot":3000000,"actions":[1,2],"possibilities":[5],"min_amount":1000000,"gui_playerID":0}} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"invoice",
+	"playerID":	0,
+	"round":	0,
+	"betAmount":	1000000,
+	"option":	1,
+	"label":	"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c_3_0_0_1000000",
+	"invoice":	"{ \"payment_hash\" : \"4d42c90555bc2363d73742ccc2fae505b4c9f38aade630ff0c2198754a2b544d\", \"expiry_time\" : 1563208213, \"expires_at\" : 1563208213, \"bolt11\" : \"lnchips10u1pwje8q9pp5f4pvjp24hs3k84ehgtxv97h9qk6vnuu24hnrplcvyxv82j3t23xsdzuf9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xqk8ymm4dejr5vpvvfjhgarfdenjqstdda6kuap6xycrqvpsxqcqcqpg4t6y2qzgn4q6rqp2r7rkfsvnl7t0wvvzjnjzu5t5gr43zsy37ndxlkrktjmr0kl7y0ks4k5wyjgu62tzu5qfxng4pz4009sf60j8mqcq03fhuc\" }\n",
+	"payment_params":	{
+		"method":	"betting",
+		"action":	"round_betting",
+		"playerid":	0,
+		"round":	0,
+		"pot":	3000000,
+		"actions":	[1, 2],
+		"possibilities":	[5],
+		"min_amount":	1000000,
+		"gui_playerID":	0
+	}
+} pangeapoker.js:198:10
+Sent:  {"method":"invoice","playerID":0,"round":0,"betAmount":1000000,"option":1,"label":"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c_3_0_0_1000000","invoice":"{ \"payment_hash\" : \"4d42c90555bc2363d73742ccc2fae505b4c9f38aade630ff0c2198754a2b544d\", \"expiry_time\" : 1563208213, \"expires_at\" : 1563208213, \"bolt11\" : \"lnchips10u1pwje8q9pp5f4pvjp24hs3k84ehgtxv97h9qk6vnuu24hnrplcvyxv82j3t23xsdzuf9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xqk8ymm4dejr5vpvvfjhgarfdenjqstdda6kuap6xycrqvpsxqcqcqpg4t6y2qzgn4q6rqp2r7rkfsvnl7t0wvvzjnjzu5t5gr43zsy37ndxlkrktjmr0kl7y0ks4k5wyjgu62tzu5qfxng4pz4009sf60j8mqcq03fhuc\" }\n","payment_params":{"method":"betting","action":"round_betting","playerid":0,"round":0,"pot":3000000,"actions":[1,2],"possibilities":[5],"min_amount":1000000,"gui_playerID":0},"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "betting", playerid: 0, round: 0, action: "call", bet_amount: 1000000 }
+pangeapoker.js:413:11
+Sent:  {"method":"betting","playerid":0,"round":0,"action":"call","bet_amount":1000000,"gui_playerID":0} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"playerid":	0,
+	"round":	0,
+	"action":	"call",
+	"bet_amount":	1000000,
+	"gui_playerID":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"betting","playerid":0,"round":0,"action":"call_player","bet_amount":1000000,"gui_playerID":1} pangeapoker.js:573:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"round_betting",
+	"playerid":	1,
+	"round":	0,
+	"pot":	4000000,
+	"actions":	[5, 2],
+	"possibilities":	[3, 4, 6, 7],
+	"min_amount":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"replay","action":"round_betting","playerid":1,"round":0,"pot":4000000,"actions":[5,2],"possibilities":[3,4,6,7],"min_amount":0} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "deal", deal: {…} }
+pangeapoker.js:463:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: player2:  
+Object { method: "replay", action: "round_betting", playerid: 1, round: 0, pot: 4000000, actions: (2) […], possibilities: (4) […], min_amount: 0 }
+pangeapoker.js:463:11
+Object { method: "betting", action: "round_betting", playerid: 1, round: 0, pot: 4000000, actions: (2) […], possibilities: (4) […], min_amount: 0, gui_playerID: 1 }
+pangeapoker.js:168:10
+Array(4) [ 3, 4, 6, 7 ]
+pangeapoker.js:124:10
+Sent:  {"method":"betting","action":"round_betting","playerid":1,"round":0,"pot":4000000,"actions":[5,2],"possibilities":[3],"min_amount":0,"gui_playerID":1} pangeapoker.js:573:11
+Object { method: "betting", action: "round_betting", playerid: 1, round: 0, pot: 4000000, actions: (2) […], possibilities: (1) […], min_amount: 0, gui_playerID: 1 }
+pangea.js:169:10
+Received: player2:  
+Object { method: "betting", playerid: 1, round: 0, action: "check" }
+pangeapoker.js:463:11
+Sent:  {"method":"betting","playerid":1,"round":0,"action":"check","gui_playerID":1} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"playerid":	1,
+	"round":	0,
+	"action":	"check",
+	"gui_playerID":	1
+} pangeapoker.js:198:10
+Sent:  {"method":"betting","playerid":1,"round":0,"action":"check_player","gui_playerID":0} pangeapoker.js:552:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	0,
+	"cardid":	5,
+	"card_type":	2
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":0,"cardid":5,"card_type":2,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "requestShare", playerid: 0, cardid: 5, card_type: 2, toPlayer: 1, fromPlayer: 0 }
+pangeapoker.js:413:11
+Sent:  {"method":"requestShare","playerid":0,"cardid":5,"card_type":2,"toPlayer":1,"fromPlayer":0,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "share_info", playerid: 1, cardid: 5, card_type: 2, toPlayer: 0, fromPlayer: 1, share: "a3e47b353b795169e56db688894da499dbac05945f90965c23672ae64e5ebab4" }
+pangeapoker.js:463:11
+Sent:  {"method":"share_info","playerid":1,"cardid":5,"card_type":2,"toPlayer":0,"fromPlayer":1,"share":"a3e47b353b795169e56db688894da499dbac05945f90965c23672ae64e5ebab4","gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "playerCardInfo", playerid: 0, cardid: 5, card_type: 2, decoded_card: 14 }
+pangeapoker.js:413:11
+playerCardInfo pangeapoker.js:440:13
+Sent:  {"method":"playerCardInfo","playerid":0,"cardid":5,"card_type":2,"decoded_card":14} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	1,
+	"cardid":	5,
+	"card_type":	2
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":1,"cardid":5,"card_type":2,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "requestShare", playerid: 1, cardid: 5, card_type: 2, toPlayer: 0, fromPlayer: 1 }
+pangeapoker.js:463:11
+Sent:  {"method":"requestShare","playerid":1,"cardid":5,"card_type":2,"toPlayer":0,"fromPlayer":1,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "share_info", playerid: 0, cardid: 5, card_type: 2, toPlayer: 1, fromPlayer: 0, share: "30854f26d2122f86abe1448462d4f78ff7e02c1c0e0a24e06d0f765aee868060" }
+pangeapoker.js:413:11
+Sent:  {"method":"share_info","playerid":0,"cardid":5,"card_type":2,"toPlayer":1,"fromPlayer":0,"share":"30854f26d2122f86abe1448462d4f78ff7e02c1c0e0a24e06d0f765aee868060","gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "playerCardInfo", playerid: 1, cardid: 5, card_type: 2, decoded_card: 14 }
+pangeapoker.js:463:11
+playerCardInfo pangeapoker.js:489:13
+Sent:  {"method":"playerCardInfo","playerid":1,"cardid":5,"card_type":2,"decoded_card":14} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	0,
+	"cardid":	6,
+	"card_type":	3
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":0,"cardid":6,"card_type":3,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "requestShare", playerid: 0, cardid: 6, card_type: 3, toPlayer: 1, fromPlayer: 0 }
+pangeapoker.js:413:11
+Sent:  {"method":"requestShare","playerid":0,"cardid":6,"card_type":3,"toPlayer":1,"fromPlayer":0,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "share_info", playerid: 1, cardid: 6, card_type: 3, toPlayer: 0, fromPlayer: 1, share: "fdaa614b7e4d1cb04556ceb61ff5ebd3aa40e5d635a297efacc66a1123b0692e" }
+pangeapoker.js:463:11
+Sent:  {"method":"share_info","playerid":1,"cardid":6,"card_type":3,"toPlayer":0,"fromPlayer":1,"share":"fdaa614b7e4d1cb04556ceb61ff5ebd3aa40e5d635a297efacc66a1123b0692e","gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "playerCardInfo", playerid: 0, cardid: 6, card_type: 3, decoded_card: 51 }
+pangeapoker.js:413:11
+playerCardInfo pangeapoker.js:440:13
+Sent:  {"method":"playerCardInfo","playerid":0,"cardid":6,"card_type":3,"decoded_card":51} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	1,
+	"cardid":	6,
+	"card_type":	3
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":1,"cardid":6,"card_type":3,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "requestShare", playerid: 1, cardid: 6, card_type: 3, toPlayer: 0, fromPlayer: 1 }
+pangeapoker.js:463:11
+Sent:  {"method":"requestShare","playerid":1,"cardid":6,"card_type":3,"toPlayer":0,"fromPlayer":1,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "share_info", playerid: 0, cardid: 6, card_type: 3, toPlayer: 1, fromPlayer: 0, share: "f552d3af91f87f6150435ed424cd6b9950ec4b4bfaa29e90cc0d8766d7c54c96" }
+pangeapoker.js:413:11
+Sent:  {"method":"share_info","playerid":0,"cardid":6,"card_type":3,"toPlayer":1,"fromPlayer":0,"share":"f552d3af91f87f6150435ed424cd6b9950ec4b4bfaa29e90cc0d8766d7c54c96","gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "playerCardInfo", playerid: 1, cardid: 6, card_type: 3, decoded_card: 51 }
+pangeapoker.js:463:11
+playerCardInfo pangeapoker.js:489:13
+Sent:  {"method":"playerCardInfo","playerid":1,"cardid":6,"card_type":3,"decoded_card":51} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	0,
+	"cardid":	7,
+	"card_type":	4
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":0,"cardid":7,"card_type":4,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "requestShare", playerid: 0, cardid: 7, card_type: 4, toPlayer: 1, fromPlayer: 0 }
+pangeapoker.js:413:11
+Sent:  {"method":"requestShare","playerid":0,"cardid":7,"card_type":4,"toPlayer":1,"fromPlayer":0,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "share_info", playerid: 1, cardid: 7, card_type: 4, toPlayer: 0, fromPlayer: 1, share: "cc8311228cd4bbfa1693ea93dc55408d0a528204bfcc745692b722f64605a0fd" }
+pangeapoker.js:463:11
+Sent:  {"method":"share_info","playerid":1,"cardid":7,"card_type":4,"toPlayer":0,"fromPlayer":1,"share":"cc8311228cd4bbfa1693ea93dc55408d0a528204bfcc745692b722f64605a0fd","gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "playerCardInfo", playerid: 0, cardid: 7, card_type: 4, decoded_card: 10 }
+pangeapoker.js:413:11
+playerCardInfo pangeapoker.js:440:13
+Sent:  {"method":"playerCardInfo","playerid":0,"cardid":7,"card_type":4,"decoded_card":10} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	1,
+	"cardid":	7,
+	"card_type":	4
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":1,"cardid":7,"card_type":4,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "requestShare", playerid: 1, cardid: 7, card_type: 4, toPlayer: 0, fromPlayer: 1 }
+pangeapoker.js:463:11
+Sent:  {"method":"requestShare","playerid":1,"cardid":7,"card_type":4,"toPlayer":0,"fromPlayer":1,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "share_info", playerid: 0, cardid: 7, card_type: 4, toPlayer: 1, fromPlayer: 0, share: "98211631a4d560b25952d9c652894390751d15ba3ff1e52add837ea2c84a10f8" }
+pangeapoker.js:413:11
+Sent:  {"method":"share_info","playerid":0,"cardid":7,"card_type":4,"toPlayer":1,"fromPlayer":0,"share":"98211631a4d560b25952d9c652894390751d15ba3ff1e52add837ea2c84a10f8","gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "playerCardInfo", playerid: 1, cardid: 7, card_type: 4, decoded_card: 10 }
+pangeapoker.js:463:11
+playerCardInfo pangeapoker.js:489:13
+Sent:  {"method":"playerCardInfo","playerid":1,"cardid":7,"card_type":4,"decoded_card":10} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"round_betting",
+	"playerid":	0,
+	"round":	1,
+	"pot":	4000000,
+	"actions":	[5, 3],
+	"possibilities":	[3, 4, 6, 7],
+	"min_amount":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"replay","action":"round_betting","playerid":0,"round":1,"pot":4000000,"actions":[5,3],"possibilities":[3,4,6,7],"min_amount":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "deal", deal: {…} }
+pangeapoker.js:413:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: player1:  
+{…}
+​
+action: "round_betting"
+​
+actions: Array [ 5, 3 ]
+​
+gui_playerID: 0
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 0
+​
+possibilities: Array [ 3 ]
+​
+pot: 4000000
+​
+round: 1
+​
+<prototype>: Object { … }
+pangeapoker.js:413:11
+{…}
+​
+action: "round_betting"
+​
+actions: Array [ 5, 3 ]
+​
+gui_playerID: 0
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 0
+​
+possibilities: Array [ 3 ]
+​
+pot: 4000000
+​
+round: 1
+​
+<prototype>: Object { … }
+pangeapoker.js:168:10
+Array(4) [ 3, 4, 6, 7 ]
+pangeapoker.js:124:10
+Sent:  {"method":"betting","action":"round_betting","playerid":0,"round":1,"pot":4000000,"actions":[5,3],"possibilities":[3],"min_amount":0,"gui_playerID":0} pangeapoker.js:552:11
+Object { method: "betting", action: "round_betting", playerid: 0, round: 1, pot: 4000000, actions: (2) […], possibilities: (1) […], min_amount: 0, gui_playerID: 0 }
+pangea.js:169:10
+Received: player1:  
+Object { method: "betting", playerid: 0, round: 1, action: "check" }
+pangeapoker.js:413:11
+Sent:  {"method":"betting","playerid":0,"round":1,"action":"check","gui_playerID":0} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"playerid":	0,
+	"round":	1,
+	"action":	"check",
+	"gui_playerID":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"betting","playerid":0,"round":1,"action":"check_player","gui_playerID":1} pangeapoker.js:573:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"round_betting",
+	"playerid":	1,
+	"round":	1,
+	"pot":	4000000,
+	"actions":	[5, 3, 3],
+	"possibilities":	[3, 4, 6, 7],
+	"min_amount":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"replay","action":"round_betting","playerid":1,"round":1,"pot":4000000,"actions":[5,3,3],"possibilities":[3,4,6,7],"min_amount":0} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "deal", deal: {…} }
+pangeapoker.js:463:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: player2:  
+Object { method: "replay", action: "round_betting", playerid: 1, round: 1, pot: 4000000, actions: (3) […], possibilities: (4) […], min_amount: 0 }
+pangeapoker.js:463:11
+Object { method: "betting", action: "round_betting", playerid: 1, round: 1, pot: 4000000, actions: (3) […], possibilities: (4) […], min_amount: 0, gui_playerID: 1 }
+pangeapoker.js:168:10
+Array(4) [ 3, 4, 6, 7 ]
+pangeapoker.js:124:10
+Object { method: "betting", action: "round_betting", playerid: 1, round: 1, pot: 4000000, actions: (3) […], possibilities: (1) […], min_amount: 0, gui_playerID: 1, bet_amount: "2000000" }
+pangea.js:230:11
+Sent:  {"method":"betting","action":"round_betting","playerid":1,"round":1,"pot":4000000,"actions":[5,3,3],"possibilities":[4],"min_amount":0,"gui_playerID":1,"bet_amount":"2000000"} pangeapoker.js:573:11
+Received: player2:  
+{…}
+​
+betAmount: 2000000
+​
+method: "invoiceRequest"
+​
+option: 1
+​
+payment_params: Object { method: "betting", action: "round_betting", playerid: 1, … }
+​
+playerID: 1
+​
+round: 1
+​
+<prototype>: Object { … }
+pangeapoker.js:463:11
+Sent:  {"method":"invoiceRequest","round":1,"playerID":1,"betAmount":2000000,"option":1,"payment_params":{"method":"betting","action":"round_betting","playerid":1,"round":1,"pot":4000000,"actions":[5,3,3],"possibilities":[4],"min_amount":0,"gui_playerID":1,"bet_amount":"2000000"}} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"invoice",
+	"playerID":	1,
+	"round":	1,
+	"betAmount":	2000000,
+	"option":	1,
+	"label":	"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c_4_1_1_2000000",
+	"invoice":	"{ \"payment_hash\" : \"71f7876d63beae4198045cd67a10174b1335bd4b84b069bcbb19c82f287a2ec2\", \"expiry_time\" : 1563208311, \"expires_at\" : 1563208311, \"bolt11\" : \"lnchips20u1pwje8r8pp5w8mcwmtrh6hyrxqytnt85yqhfvfnt02tsjcxn09mr8yz72r69mpqdzuf9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xyk8ymm4dejr5vfvvfjhgarfdenjqstdda6kuap6xgcrqvpsxqcqcqpgg9yc93atgrj5duvxp6l5vgzvt484m6u7ztqw6047r4xugqm80k5zzeyj8fk2e34eat6wpxkudvansyesc7tcx737uwfjfnnx9r9maccph09dg7\" }\n",
+	"payment_params":	{
+		"method":	"betting",
+		"action":	"round_betting",
+		"playerid":	1,
+		"round":	1,
+		"pot":	4000000,
+		"actions":	[5, 3, 3],
+		"possibilities":	[4],
+		"min_amount":	0,
+		"gui_playerID":	1,
+		"bet_amount":	"2000000"
+	}
+} pangeapoker.js:198:10
+Sent:  {"method":"invoice","playerID":1,"round":1,"betAmount":2000000,"option":1,"label":"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c_4_1_1_2000000","invoice":"{ \"payment_hash\" : \"71f7876d63beae4198045cd67a10174b1335bd4b84b069bcbb19c82f287a2ec2\", \"expiry_time\" : 1563208311, \"expires_at\" : 1563208311, \"bolt11\" : \"lnchips20u1pwje8r8pp5w8mcwmtrh6hyrxqytnt85yqhfvfnt02tsjcxn09mr8yz72r69mpqdzuf9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xyk8ymm4dejr5vfvvfjhgarfdenjqstdda6kuap6xgcrqvpsxqcqcqpgg9yc93atgrj5duvxp6l5vgzvt484m6u7ztqw6047r4xugqm80k5zzeyj8fk2e34eat6wpxkudvansyesc7tcx737uwfjfnnx9r9maccph09dg7\" }\n","payment_params":{"method":"betting","action":"round_betting","playerid":1,"round":1,"pot":4000000,"actions":[5,3,3],"possibilities":[4],"min_amount":0,"gui_playerID":1,"bet_amount":"2000000"},"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "betting", playerid: 1, round: 1, action: "raise", bet_amount: 2000000 }
+pangeapoker.js:463:11
+Sent:  {"method":"betting","playerid":1,"round":1,"action":"raise","bet_amount":2000000,"gui_playerID":1} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"playerid":	1,
+	"round":	1,
+	"action":	"raise",
+	"bet_amount":	2000000,
+	"gui_playerID":	1
+} pangeapoker.js:198:10
+Sent:  {"method":"betting","playerid":1,"round":1,"action":"raise_player","bet_amount":2000000,"gui_playerID":0} pangeapoker.js:552:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"round_betting",
+	"playerid":	0,
+	"round":	1,
+	"pot":	6000000,
+	"actions":	[5, 3, 3, 4],
+	"possibilities":	[4, 5, 6, 7],
+	"min_amount":	2000000
+} pangeapoker.js:198:10
+Sent:  {"method":"replay","action":"round_betting","playerid":0,"round":1,"pot":6000000,"actions":[5,3,3,4],"possibilities":[4,5,6,7],"min_amount":2000000} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "deal", deal: {…} }
+pangeapoker.js:413:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: player1:  
+{…}
+​
+action: "round_betting"
+​
+actions: Array(4) [ 5, 3, 3, … ]
+​
+gui_playerID: 0
+​
+method: "betting"
+​
+min_amount: 2000000
+​
+playerid: 0
+​
+possibilities: Array [ 5 ]
+​
+pot: 6000000
+​
+round: 1
+​
+<prototype>: Object { … }
+pangeapoker.js:413:11
+{…}
+​
+action: "round_betting"
+​
+actions: Array(4) [ 5, 3, 3, … ]
+​
+gui_playerID: 0
+​
+method: "betting"
+​
+min_amount: 2000000
+​
+playerid: 0
+​
+possibilities: Array [ 5 ]
+​
+pot: 6000000
+​
+round: 1
+​
+<prototype>: Object { … }
+pangeapoker.js:168:10
+Array(4) [ 4, 5, 6, 7 ]
+pangeapoker.js:124:10
+Object { method: "betting", action: "round_betting", playerid: 0, round: 1, pot: 6000000, actions: (4) […], possibilities: (1) […], min_amount: 2000000, gui_playerID: 0 }
+pangea.js:259:10
+Sent:  {"method":"betting","action":"round_betting","playerid":0,"round":1,"pot":6000000,"actions":[5,3,3,4],"possibilities":[5],"min_amount":2000000,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+{…}
+​
+betAmount: 2000000
+​
+method: "invoiceRequest"
+​
+option: 1
+​
+payment_params: Object { method: "betting", action: "round_betting", playerid: 0, … }
+​
+playerID: 0
+​
+round: 1
+​
+<prototype>: Object { … }
+pangeapoker.js:413:11
+Sent:  {"method":"invoiceRequest","round":1,"playerID":0,"betAmount":2000000,"option":1,"payment_params":{"method":"betting","action":"round_betting","playerid":0,"round":1,"pot":6000000,"actions":[5,3,3,4],"possibilities":[5],"min_amount":2000000,"gui_playerID":0}} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"invoice",
+	"playerID":	0,
+	"round":	1,
+	"betAmount":	2000000,
+	"option":	1,
+	"label":	"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c_5_0_1_2000000",
+	"invoice":	"{ \"payment_hash\" : \"30727fcebd20ff1e1ca090bbdcaa3acfdc390563354e5e267f5f08cf7a802fd7\", \"expiry_time\" : 1563208322, \"expires_at\" : 1563208322, \"bolt11\" : \"lnchips20u1pwje8rjpp5xpe8ln4ayrl3u89qjzaae236elwrjptrx489ufnltuyv775q9ltsdzuf9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xqk8ymm4dejr5vfvvfjhgarfdenjqstdda6kuap6xgcrqvpsxqcqcqpglklsnntsd2aq93lej4r0z4fp7dk6ay9cqp5mx6u8080kqj82ea6s803xx03a3cc7tfmuek9gdyhutjvthg2xhseeapqgry8r7tz575cpz90v3h\" }\n",
+	"payment_params":	{
+		"method":	"betting",
+		"action":	"round_betting",
+		"playerid":	0,
+		"round":	1,
+		"pot":	6000000,
+		"actions":	[5, 3, 3, 4],
+		"possibilities":	[5],
+		"min_amount":	2000000,
+		"gui_playerID":	0
+	}
+} pangeapoker.js:198:10
+Sent:  {"method":"invoice","playerID":0,"round":1,"betAmount":2000000,"option":1,"label":"fb1615149851926227cd74352d99535979aa66ea13b8fa40a55b97a087c13b0c_5_0_1_2000000","invoice":"{ \"payment_hash\" : \"30727fcebd20ff1e1ca090bbdcaa3acfdc390563354e5e267f5f08cf7a802fd7\", \"expiry_time\" : 1563208322, \"expires_at\" : 1563208322, \"bolt11\" : \"lnchips20u1pwje8rjpp5xpe8ln4ayrl3u89qjzaae236elwrjptrx489ufnltuyv775q9ltsdzuf9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xqk8ymm4dejr5vfvvfjhgarfdenjqstdda6kuap6xgcrqvpsxqcqcqpglklsnntsd2aq93lej4r0z4fp7dk6ay9cqp5mx6u8080kqj82ea6s803xx03a3cc7tfmuek9gdyhutjvthg2xhseeapqgry8r7tz575cpz90v3h\" }\n","payment_params":{"method":"betting","action":"round_betting","playerid":0,"round":1,"pot":6000000,"actions":[5,3,3,4],"possibilities":[5],"min_amount":2000000,"gui_playerID":0},"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "betting", playerid: 0, round: 1, action: "call", bet_amount: 2000000 }
+pangeapoker.js:413:11
+Sent:  {"method":"betting","playerid":0,"round":1,"action":"call","bet_amount":2000000,"gui_playerID":0} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"playerid":	0,
+	"round":	1,
+	"action":	"call",
+	"bet_amount":	2000000,
+	"gui_playerID":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"betting","playerid":0,"round":1,"action":"call_player","bet_amount":2000000,"gui_playerID":1} pangeapoker.js:573:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	0,
+	"cardid":	9,
+	"card_type":	5
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":0,"cardid":9,"card_type":5,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "requestShare", playerid: 0, cardid: 9, card_type: 5, toPlayer: 1, fromPlayer: 0 }
+pangeapoker.js:413:11
+Sent:  {"method":"requestShare","playerid":0,"cardid":9,"card_type":5,"toPlayer":1,"fromPlayer":0,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "share_info", playerid: 1, cardid: 9, card_type: 5, toPlayer: 0, fromPlayer: 1, share: "6a4982add2ae76361ee89c93ddc747edfb0dc423b3fc1501ec5ac68735687824" }
+pangeapoker.js:463:11
+Sent:  {"method":"share_info","playerid":1,"cardid":9,"card_type":5,"toPlayer":0,"fromPlayer":1,"share":"6a4982add2ae76361ee89c93ddc747edfb0dc423b3fc1501ec5ac68735687824","gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "playerCardInfo", playerid: 0, cardid: 9, card_type: 5, decoded_card: 31 }
+pangeapoker.js:413:11
+playerCardInfo pangeapoker.js:440:13
+Sent:  {"method":"playerCardInfo","playerid":0,"cardid":9,"card_type":5,"decoded_card":31} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	1,
+	"cardid":	9,
+	"card_type":	5
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":1,"cardid":9,"card_type":5,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "requestShare", playerid: 1, cardid: 9, card_type: 5, toPlayer: 0, fromPlayer: 1 }
+pangeapoker.js:463:11
+Sent:  {"method":"requestShare","playerid":1,"cardid":9,"card_type":5,"toPlayer":0,"fromPlayer":1,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "share_info", playerid: 0, cardid: 9, card_type: 5, toPlayer: 1, fromPlayer: 0, share: "79842966e57b16cae1c4b980ea789fd09bfcd4796b571c6fa4e40b85a6553d8f" }
+pangeapoker.js:413:11
+Sent:  {"method":"share_info","playerid":0,"cardid":9,"card_type":5,"toPlayer":1,"fromPlayer":0,"share":"79842966e57b16cae1c4b980ea789fd09bfcd4796b571c6fa4e40b85a6553d8f","gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "playerCardInfo", playerid: 1, cardid: 9, card_type: 5, decoded_card: 31 }
+pangeapoker.js:463:11
+playerCardInfo pangeapoker.js:489:13
+Sent:  {"method":"playerCardInfo","playerid":1,"cardid":9,"card_type":5,"decoded_card":31} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"round_betting",
+	"playerid":	0,
+	"round":	2,
+	"pot":	8000000,
+	"actions":	[5, 3, 5, 4],
+	"possibilities":	[3, 4, 6, 7],
+	"min_amount":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"replay","action":"round_betting","playerid":0,"round":2,"pot":8000000,"actions":[5,3,5,4],"possibilities":[3,4,6,7],"min_amount":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "deal", deal: {…} }
+pangeapoker.js:413:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: player1:  
+{…}
+​
+action: "round_betting"
+​
+actions: Array(4) [ 5, 3, 5, … ]
+​
+gui_playerID: 0
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 0
+​
+possibilities: Array [ 3 ]
+​
+pot: 8000000
+​
+round: 2
+​
+<prototype>: Object { … }
+pangeapoker.js:413:11
+{…}
+​
+action: "round_betting"
+​
+actions: Array(4) [ 5, 3, 5, … ]
+​
+gui_playerID: 0
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 0
+​
+possibilities: Array [ 3 ]
+​
+pot: 8000000
+​
+round: 2
+​
+<prototype>: Object { … }
+pangeapoker.js:168:10
+Array(4) [ 3, 4, 6, 7 ]
+pangeapoker.js:124:10
+Sent:  {"method":"betting","action":"round_betting","playerid":0,"round":2,"pot":8000000,"actions":[5,3,5,4],"possibilities":[3],"min_amount":0,"gui_playerID":0} pangeapoker.js:552:11
+Object { method: "betting", action: "round_betting", playerid: 0, round: 2, pot: 8000000, actions: (4) […], possibilities: (1) […], min_amount: 0, gui_playerID: 0 }
+pangea.js:169:10
+Received: player1:  
+Object { method: "betting", playerid: 0, round: 2, action: "check" }
+pangeapoker.js:413:11
+Sent:  {"method":"betting","playerid":0,"round":2,"action":"check","gui_playerID":0} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"playerid":	0,
+	"round":	2,
+	"action":	"check",
+	"gui_playerID":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"betting","playerid":0,"round":2,"action":"check_player","gui_playerID":1} pangeapoker.js:573:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"round_betting",
+	"playerid":	1,
+	"round":	2,
+	"pot":	8000000,
+	"actions":	[5, 3, 5, 4, 3],
+	"possibilities":	[3, 4, 6, 7],
+	"min_amount":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"replay","action":"round_betting","playerid":1,"round":2,"pot":8000000,"actions":[5,3,5,4,3],"possibilities":[3,4,6,7],"min_amount":0} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "deal", deal: {…} }
+pangeapoker.js:463:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: player2:  
+{…}
+​
+action: "round_betting"
+​
+actions: Array(5) [ 5, 3, 5, … ]
+​
+gui_playerID: 1
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 1
+​
+possibilities: Array [ 3 ]
+​
+pot: 8000000
+​
+round: 2
+​
+<prototype>: Object { … }
+pangeapoker.js:463:11
+{…}
+​
+action: "round_betting"
+​
+actions: Array(5) [ 5, 3, 5, … ]
+​
+gui_playerID: 1
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 1
+​
+possibilities: Array [ 3 ]
+​
+pot: 8000000
+​
+round: 2
+​
+<prototype>: Object { … }
+pangeapoker.js:168:10
+Array(4) [ 3, 4, 6, 7 ]
+pangeapoker.js:124:10
+Sent:  {"method":"betting","action":"round_betting","playerid":1,"round":2,"pot":8000000,"actions":[5,3,5,4,3],"possibilities":[3],"min_amount":0,"gui_playerID":1} pangeapoker.js:573:11
+{…}
+​
+action: "round_betting"
+​
+actions: Array(5) [ 5, 3, 5, … ]
+​
+gui_playerID: 1
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 1
+​
+possibilities: Array [ 3 ]
+​
+pot: 8000000
+​
+round: 2
+​
+<prototype>: Object { … }
+pangea.js:169:10
+Received: player2:  
+Object { method: "betting", playerid: 1, round: 2, action: "check" }
+pangeapoker.js:463:11
+Sent:  {"method":"betting","playerid":1,"round":2,"action":"check","gui_playerID":1} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"playerid":	1,
+	"round":	2,
+	"action":	"check",
+	"gui_playerID":	1
+} pangeapoker.js:198:10
+Sent:  {"method":"betting","playerid":1,"round":2,"action":"check_player","gui_playerID":0} pangeapoker.js:552:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	0,
+	"cardid":	11,
+	"card_type":	6
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":0,"cardid":11,"card_type":6,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "requestShare", playerid: 0, cardid: 11, card_type: 6, toPlayer: 1, fromPlayer: 0 }
+pangeapoker.js:413:11
+Sent:  {"method":"requestShare","playerid":0,"cardid":11,"card_type":6,"toPlayer":1,"fromPlayer":0,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "share_info", playerid: 1, cardid: 11, card_type: 6, toPlayer: 0, fromPlayer: 1, share: "3df8772885d464196cec6b668f846b6fdc7ce9b57b2f0fe61afa6ff226cdf6f3" }
+pangeapoker.js:463:11
+Sent:  {"method":"share_info","playerid":1,"cardid":11,"card_type":6,"toPlayer":0,"fromPlayer":1,"share":"3df8772885d464196cec6b668f846b6fdc7ce9b57b2f0fe61afa6ff226cdf6f3","gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "playerCardInfo", playerid: 0, cardid: 11, card_type: 6, decoded_card: 44 }
+pangeapoker.js:413:11
+playerCardInfo pangeapoker.js:440:13
+Sent:  {"method":"playerCardInfo","playerid":0,"cardid":11,"card_type":6,"decoded_card":44} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"turn",
+	"playerid":	1,
+	"cardid":	11,
+	"card_type":	6
+} pangeapoker.js:198:10
+Received the turn info pangeapoker.js:275:11
+Sent:  {"method":"turn","playerid":1,"cardid":11,"card_type":6,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "requestShare", playerid: 1, cardid: 11, card_type: 6, toPlayer: 0, fromPlayer: 1 }
+pangeapoker.js:463:11
+Sent:  {"method":"requestShare","playerid":1,"cardid":11,"card_type":6,"toPlayer":0,"fromPlayer":1,"gui_playerID":0} pangeapoker.js:552:11
+Received: player1:  
+Object { method: "share_info", playerid: 0, cardid: 11, card_type: 6, toPlayer: 1, fromPlayer: 0, share: "8eaef4ffbb5eacda6cb20bd3d64b23ea17f5933af97eafb411c95226be1c23fe" }
+pangeapoker.js:413:11
+Sent:  {"method":"share_info","playerid":0,"cardid":11,"card_type":6,"toPlayer":1,"fromPlayer":0,"share":"8eaef4ffbb5eacda6cb20bd3d64b23ea17f5933af97eafb411c95226be1c23fe","gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+Object { method: "playerCardInfo", playerid: 1, cardid: 11, card_type: 6, decoded_card: 44 }
+pangeapoker.js:463:11
+playerCardInfo pangeapoker.js:489:13
+Sent:  {"method":"playerCardInfo","playerid":1,"cardid":11,"card_type":6,"decoded_card":44} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"round_betting",
+	"playerid":	0,
+	"round":	3,
+	"pot":	8000000,
+	"actions":	[5, 3, 5, 4, 3, 3],
+	"possibilities":	[3, 4, 6, 7],
+	"min_amount":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"replay","action":"round_betting","playerid":0,"round":3,"pot":8000000,"actions":[5,3,5,4,3,3],"possibilities":[3,4,6,7],"min_amount":0} pangeapoker.js:552:11
+Received: player1:  
+{…}
+​
+deal: {…}
+​​
+board: Array(5) [ "3D", "AS", "QC", … ]
+​​
+dealer: 0
+​​
+holecards: Array [ null, null ]
+​​
+<prototype>: Object { … }
+​
+method: "deal"
+​
+<prototype>: Object { … }
+pangeapoker.js:413:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: player1:  
+{…}
+​
+action: "round_betting"
+​
+actions: Array(6) [ 5, 3, 5, … ]
+​
+gui_playerID: 0
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 0
+​
+possibilities: Array [ 3 ]
+​
+pot: 8000000
+​
+round: 3
+​
+<prototype>: Object { … }
+pangeapoker.js:413:11
+{…}
+​
+action: "round_betting"
+​
+actions: (6) […]
+​​
+0: 5
+​​
+1: 3
+​​
+2: 5
+​​
+3: 4
+​​
+4: 3
+​​
+5: 3
+​​
+length: 6
+​​
+<prototype>: Array []
+​
+gui_playerID: 0
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 0
+​
+possibilities: Array [ 3 ]
+​
+pot: 8000000
+​
+round: 3
+​
+<prototype>: Object { … }
+pangeapoker.js:168:10
+(4) […]
+​
+0: 3
+​
+length: 1
+​
+<prototype>: Array []
+pangeapoker.js:124:10
+Sent:  {"method":"betting","action":"round_betting","playerid":0,"round":3,"pot":8000000,"actions":[5,3,5,4,3,3],"possibilities":[3],"min_amount":0,"gui_playerID":0} pangeapoker.js:552:11
+{…}
+​
+action: "round_betting"
+​
+actions: Array(6) [ 5, 3, 5, … ]
+​
+gui_playerID: 0
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 0
+​
+possibilities: Array [ 3 ]
+​
+pot: 8000000
+​
+round: 3
+​
+<prototype>: Object { … }
+pangea.js:169:10
+Received: player1:  
+{…}
+​
+action: "check"
+​
+gui_playerID: 0
+​
+method: "betting"
+​
+playerid: 0
+​
+round: 3
+​
+<prototype>: Object { … }
+pangeapoker.js:413:11
+Sent:  {"method":"betting","playerid":0,"round":3,"action":"check","gui_playerID":0} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"playerid":	0,
+	"round":	3,
+	"action":	"check",
+	"gui_playerID":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"betting","playerid":0,"round":3,"action":"check_player","gui_playerID":1} pangeapoker.js:573:11
+Received: DCV:  {
+	"method":	"betting",
+	"action":	"round_betting",
+	"playerid":	1,
+	"round":	3,
+	"pot":	8000000,
+	"actions":	[5, 3, 5, 4, 3, 3, 3],
+	"possibilities":	[3, 4, 6, 7],
+	"min_amount":	0
+} pangeapoker.js:198:10
+Sent:  {"method":"replay","action":"round_betting","playerid":1,"round":3,"pot":8000000,"actions":[5,3,5,4,3,3,3],"possibilities":[3,4,6,7],"min_amount":0} pangeapoker.js:573:11
+Received: player2:  
+{…}
+​
+deal: {…}
+​​
+board: (5) […]
+​​​
+0: "3D"
+​​​
+1: "AS"
+​​​
+2: "QC"
+​​​
+3: "7H"
+​​​
+4: "7S"
+​​​
+length: 5
+​​​
+<prototype>: Array []
+​​
+dealer: 0
+​​
+holecards: Array [ "JS", "QS" ]
+​​
+<prototype>: Object { … }
+​
+method: "deal"
+​
+<prototype>: Object { … }
+pangeapoker.js:463:11
+pangea.API.deal api.js:46:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+pangea.gui.dealcards api.js:77:10
+pangea.getTableOrder: dealer 0 game.js:53:11
+Received: player2:  
+{…}
+​
+action: "round_betting"
+​
+actions: Array(7) [ 5, 3, 5, … ]
+​
+gui_playerID: 1
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 1
+​
+possibilities: Array [ 3 ]
+​
+pot: 8000000
+​
+round: 3
+​
+<prototype>: Object { … }
+pangeapoker.js:463:11
+{…}
+​
+action: "round_betting"
+​
+actions: Array(7) [ 5, 3, 5, … ]
+​
+gui_playerID: 1
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 1
+​
+possibilities: Array [ 3 ]
+​
+pot: 8000000
+​
+round: 3
+​
+<prototype>: Object { … }
+pangeapoker.js:168:10
+Array(4) [ 3, 4, 6, 7 ]
+pangeapoker.js:124:10
+Sent:  {"method":"betting","action":"round_betting","playerid":1,"round":3,"pot":8000000,"actions":[5,3,5,4,3,3,3],"possibilities":[3],"min_amount":0,"gui_playerID":1} pangeapoker.js:573:11
+{…}
+​
+action: "round_betting"
+​
+actions: Array(7) [ 5, 3, 5, … ]
+​
+gui_playerID: 1
+​
+method: "betting"
+​
+min_amount: 0
+​
+playerid: 1
+​
+possibilities: Array [ 3 ]
+​
+pot: 8000000
+​
+round: 3
+​
+<prototype>: Object { … }
+pangea.js:169:10
+Received: player2:  
+{…}
+​
+action: "check"
+​
+gui_playerID: 1
+​
+method: "betting"
+​
+playerid: 1
+​
+round: 3
+​
+<prototype>: Object { … }
+pangeapoker.js:463:11
+Sent:  {"method":"betting","playerid":1,"round":3,"action":"check","gui_playerID":1} pangeapoker.js:517:11
+Received: DCV:  {
+	"method":	"betting",
+	"playerid":	1,
+	"round":	3,
+	"action":	"check",
+	"gui_playerID":	1
+} pangeapoker.js:198:10
+Sent:  {"method":"betting","playerid":1,"round":3,"action":"check_player","gui_playerID":0} pangeapoker.js:552:11
+Received: DCV:  {
+	"method":	"winningInvoiceRequest",
+	"playerID":	1,
+	"winningAmount":	8000000
+} pangeapoker.js:198:10
+Sent:  {"method":"winningInvoiceRequest","playerID":1,"winningAmount":8000000,"gui_playerID":1} pangeapoker.js:573:11
+Received: player2:  
+{…}
+​
+invoice: "{ \"payment_hash\" : \"069c474b6375de814bfe4b3c1ca266d57e892190beed5ca2e99a6dc380846c0d\", \"expiry_time\" : 1563208383, \"expires_at\" : 1563208383, \"bolt11\" : \"lnchips80u1pwje890pp5q6wywjmrwh0gzjl7fv7pegnx64lgjgvshmk4eghfnfku8qyydsxsdz0f9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xyk8w6twde5kueeqg9kk7atwwsarsvpsxqcrqvqcqpgmsy4z6xklfsnh7vyd6qz0zlz584pvydyg6ylvwt3fj0ran5mc37pzf28zuzjhrkmn7kuwf42gk2skre69zqjlzx6dktzv7r2hscg3dgptc9ek5\" }\n"
+​
+label: "1_8000000"
+​
+method: "winningClaim"
+​
+playerID: 1
+​
+winningAmount: 8000000
+​
+<prototype>: Object { … }
+pangeapoker.js:463:11
+Sent:  {"method":"winningClaim","playerID":1,"winningAmount":8000000,"label":"1_8000000","invoice":"{ \"payment_hash\" : \"069c474b6375de814bfe4b3c1ca266d57e892190beed5ca2e99a6dc380846c0d\", \"expiry_time\" : 1563208383, \"expires_at\" : 1563208383, \"bolt11\" : \"lnchips80u1pwje890pp5q6wywjmrwh0gzjl7fv7pegnx64lgjgvshmk4eghfnfku8qyydsxsdz0f9h8vmmfvdjjqer9w3skjmrnypcxcctev4eyj3p6xyk8w6twde5kueeqg9kk7atwwsarsvpsxqcrqvqcqpgmsy4z6xklfsnh7vyd6qz0zlz584pvydyg6ylvwt3fj0ran5mc37pzf28zuzjhrkmn7kuwf42gk2skre69zqjlzx6dktzv7r2hscg3dgptc9ek5\" }\n"} pangeapoker.js:517:11
