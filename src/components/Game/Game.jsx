@@ -4,18 +4,7 @@ import { css, jsx } from "@emotion/core";
 import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../store/context";
 import { Button } from "../Controls";
-import {
-  bet,
-  collectChips,
-  dealCards,
-  sendMessage,
-  setActivePlayer,
-  setLastAction,
-  updateGameTurn,
-  resetTurn,
-  setUserSeat,
-  toggleControls
-} from "./gameAPI";
+import { sendMessage } from "./gameAPI";
 
 const SOCKET_URL_DCV = "ws://209.250.254.100:9000/";
 const SOCKET_URL_BVV = "ws://95.179.192.102:9001/";
@@ -55,7 +44,7 @@ const Game = () => {
         css={css`
           position: absolute;
           z-index: 5;
-          bottom: -10;
+          top: 4;
         `}
       >
         {state.gameStarted === false && (
