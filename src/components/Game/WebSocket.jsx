@@ -23,9 +23,7 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
 
   // Send a message if props changes
   useEffect(() => {
-    if (message !== null) {
-      if (readyState === 1) {
-      }
+    if (message && readyState === 1) {
       log(`Sent to ${nodeName}: `, "sent", JSON.parse(message));
       sendMessage(message);
     }
@@ -43,10 +41,25 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
 
   // Parese the received message depending on the node
   useEffect(() => {
-    if (lastMessage && nodeName === "dcv") {
-      onMessage(lastMessage.data, state, dispatch);
-    } else if (lastMessage) {
-      ["onMessage_" + nodeName](lastMessage.data, state, dispatch);
+    if (lastMessage) {
+      switch (nodeName) {
+        case "dcv": {
+          onMessage(lastMessage.data, state, dispatch);
+          break;
+        }
+        case "bvv": {
+          onMessage_bvv(lastMessage.data, state, dispatch);
+          break;
+        }
+        case "player1": {
+          onMessage_player1(lastMessage.data, state, dispatch);
+          break;
+        }
+        case "player2": {
+          onMessage_player2(lastMessage.data, state, dispatch);
+          break;
+        }
+      }
     }
   }, [lastMessage]);
 
