@@ -17,20 +17,6 @@ import {
 // The communication structure of this code has been ported from pangea-poker-frontend
 
 export const onMessage = (message, state, dispatch) => {
-  /*
-	var handlers = {'action':pangea.API.action, 'game':pangea.API.game, 'seats':pangea.API.seats, 
-	'player':pangea.API.player, 'deal':pangea.API.deal,'log':pangea.API.log,'default':pangea.API.default,
-	'bvv':pangea.API.bvv, 'dcv':pangea.API.dcv, 'method':pangea.API.method}
-	message = JSON.parse(message)
-	console.log('Recieved: ', message)
-	for (var key in message){
-	if (handlers.hasOwnProperty(key)){
-	    var handler = handlers[key]
-	    handler(message[key])  
-	}
-	}
-	*/
-  //pangea.gui.addPlayerControls()
   log("Received from DCV", "received", JSON.parse(message));
   message = JSON.parse(message);
   setLastMessage(message, dispatch);
@@ -82,10 +68,6 @@ export const onMessage = (message, state, dispatch) => {
     sendMessage(message, "player1", state, dispatch);
     message["gui_playerID"] = 1;
     sendMessage(message, "player2", state, dispatch);
-    /*
-		message["playerID"]=1
-		sendMessage(message, "player2", state, dispatch) 
-		*/
   } else if (message["method"] == "turn") {
     console.log("Received the turn info");
 
@@ -106,13 +88,10 @@ export const onMessage = (message, state, dispatch) => {
         message["method"] = "replay";
 
         if (message["playerid"] == 0) {
-          //var push_msg={"method":"push_cards", "playerid":0}
           sendMessage(message, "player1", state, dispatch);
         } else if (message["playerid"] == 1) {
-          //var push_msg={"method":"push_cards", "playerid":1}
           sendMessage(message, "player2", state, dispatch);
         }
-        //pangea.processControls(message)
       } else {
         if (message["playerid"] == 0) {
           message["gui_playerID"] = 0;
@@ -161,9 +140,8 @@ export const onMessage = (message, state, dispatch) => {
     }
   } else if (message["method"] == "invoice") {
     log(`pangea.game.pot[0] += message["betAmount"];`, "danger");
-    // pangea.game.pot[0] += message["betAmount"];
     log(`pangea.gui.updatePotAmount();`, "danger");
-    // pangea.gui.updatePotAmount();
+
     if (message["playerID"] == 0) {
       message["gui_playerID"] = 0;
       sendMessage(message, "player1", state, dispatch);
@@ -209,7 +187,6 @@ export const onMessage_player1 = (message, state, dispatch) => {
   if (message["method"] == "deal") {
     setUserSeat("player1", dispatch);
     deal(message, state, dispatch);
-    // pangea.API.deal(message["deal"]);
   } else if (message["method"] == "requestShare") {
     if (message["toPlayer"] == 1) {
       message["gui_playerID"] = 1;
@@ -237,7 +214,6 @@ export const onMessage_player1 = (message, state, dispatch) => {
     message["gui_playerID"] = 0;
     setActivePlayer("player1", dispatch);
     toggleControls(dispatch);
-    // pangea.processControls(message);
   } else if (message["method"] == "join_req") {
     setBalance("player1", message.balance, dispatch);
     sendMessage(message, "dcv", state, dispatch);
@@ -254,7 +230,6 @@ export const onMessage_player2 = (message, state, dispatch) => {
   if (message["method"] == "deal") {
     setUserSeat("player2", dispatch);
     deal(message, state, dispatch);
-    // pangea.API.deal(message["deal"]);
   } else if (message["method"] == "requestShare") {
     if (message["toPlayer"] == 0) {
       message["gui_playerID"] = 0;
@@ -282,7 +257,6 @@ export const onMessage_player2 = (message, state, dispatch) => {
     message["gui_playerID"] = 1;
     setActivePlayer("player2", dispatch);
     toggleControls(dispatch);
-    // pangea.processControls(message);
   } else if (message["method"] == "join_req") {
     setBalance("player2", message.balance, dispatch);
     sendMessage(message, "dcv", state, dispatch);
