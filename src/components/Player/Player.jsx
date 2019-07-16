@@ -8,7 +8,7 @@ import useInterval from "../../lib/useInterval";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../store/context";
-import { GameAPI } from "../Game";
+import { playerJoin } from "../Game/gameAPI";
 import playerIdToString from "../../lib/playerIdToString";
 
 const Player = ({
@@ -100,7 +100,7 @@ const Player = ({
   return (
     <div
       onClick={() => {
-        GameAPI.playerJoin(seat, state, dispatch);
+        playerJoin(seat, state, dispatch);
         setBalanceMessage("SITTING...");
       }}
       css={css`
