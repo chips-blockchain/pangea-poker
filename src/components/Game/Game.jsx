@@ -38,32 +38,6 @@ const Game = () => {
 
   const [reconnect, setReconnect] = useState(0);
 
-  const nextTurn = turn => {
-    collectChips(state, dispatch);
-    setActivePlayer(null, dispatch);
-    setTimeout(() => {
-      updateGameTurn(turn, dispatch);
-    }, 400);
-    setTimeout(() => {
-      setActivePlayer("player1", dispatch);
-      setUserSeat("player1", dispatch);
-      resetTurn(state.blinds[1], dispatch);
-      turn != 4 && toggleControls(dispatch);
-    }, 1000);
-    setLastAction(1, null, dispatch);
-  };
-
-  const nextPlayer = () => {
-    if (state.activePlayer === "player1") {
-      setActivePlayer("player2", dispatch);
-      setUserSeat("player2", dispatch);
-    } else {
-      setActivePlayer("player1", dispatch);
-      setUserSeat("player1", dispatch);
-    }
-    toggleControls(dispatch);
-  };
-
   // TODO: This is not a very elegant solution to refresh the Websocket when they disconenct.
   useEffect(() => {
     Object.keys(webSocketKeys).map(node => {
@@ -96,59 +70,6 @@ const Game = () => {
               label="Start"
               onClick={() => {
                 sendMessage({ method: "game" }, "dcv", state, dispatch);
-              }}
-            />
-            <Button
-              label="Small Blind"
-              onClick={() => {
-                bet("player1", state.blinds[0], state, dispatch);
-                setActivePlayer("player2", dispatch);
-                setLastAction(0, "SMALL BLIND", dispatch);
-              }}
-            />
-            <Button
-              label="Big Blind"
-              onClick={() => {
-                bet("player2", state.blinds[1], state, dispatch);
-                setLastAction(1, "BIG BLIND", dispatch);
-              }}
-            />
-            <Button
-              label="Deal"
-              onClick={() => {
-                dealCards(dispatch);
-                setLastAction(1, null, dispatch);
-                setActivePlayer(null, dispatch);
-                setTimeout(() => {
-                  setActivePlayer("player1", dispatch);
-                  setUserSeat("player1", dispatch);
-                  toggleControls(dispatch);
-                }, 1000);
-              }}
-            />
-            <Button
-              label="Next"
-              onClick={() => {
-                nextPlayer();
-              }}
-            />
-            <Button label="Flop" onClick={() => nextTurn(1)} />
-            <Button
-              label="Turn"
-              onClick={() => {
-                nextTurn(2);
-              }}
-            />
-            <Button
-              label="River"
-              onClick={() => {
-                nextTurn(3);
-              }}
-            />
-            <Button
-              label="Winner"
-              onClick={() => {
-                nextTurn(4);
               }}
             />
           </div>

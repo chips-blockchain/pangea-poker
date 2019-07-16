@@ -111,6 +111,30 @@ export const game = (gameObject, state, dispatch) => {
   }
 };
 
+// export const nextPlayer = (state, dispatch) => {
+//   if (state.activePlayer === "player1") {
+//     setActivePlayer("player2", dispatch);
+//     setUserSeat("player2", dispatch);
+//   } else {
+//     setActivePlayer("player1", dispatch);
+//     setUserSeat("player1", dispatch);
+//   }
+//   toggleControls(dispatch);
+// };
+
+export const nextTurn = (turn, state, dispatch) => {
+  collectChips(state, dispatch);
+  setActivePlayer(null, dispatch);
+  setTimeout(() => {
+    updateGameTurn(turn, dispatch);
+  }, 400);
+  setTimeout(() => {
+    resetTurn(state.blinds[1], dispatch);
+    // turn != 4 && toggleControls(dispatch);
+  }, 1000);
+  setLastAction(1, null, dispatch);
+};
+
 export const playerJoin = (player, state, dispatch) => {
   let id = player.slice(-1) - 1;
   sendMessage(
