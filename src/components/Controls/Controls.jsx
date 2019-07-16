@@ -8,26 +8,27 @@ import playerStringToId from "../../lib/playerStringToId";
 import {
   bet,
   collectChips,
-  updateGame,
-  toggleControls,
+  log,
   sendMessage,
   setActivePlayer,
   setMinRaise,
   setToCall,
-  setLastAction
+  setLastAction,
+  toggleControls,
+  updateGame
 } from "../Game/gameAPI";
 
 const Controls = props => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
-  const { toCall, minRaise } = state;
+  const { toCall, lastMessage, minRaise, players, userSeat } = state;
 
-  const betAmount = state.players[state.userSeat].betAmount;
+  const betAmount = players[userSeat].betAmount;
 
   const [raiseAmount, setRaiseAmount] = useState(minRaise);
   const canCheck = toCall - betAmount === 0;
   const callAmount = toCall - betAmount;
-  const chips = state.players[state.userSeat].chips;
+  const chips = players[userSeat].chips;
 
   // const allPossibilities = {
   //   0: "",
@@ -43,30 +44,28 @@ const Controls = props => {
   // This is strongly in ugly prototpye phase
   const handleButtonClick = (action, player, amount, lastAction) => {
     // Update the previous message with the new data and send it
-    let nextAction = state.lastMessage;
+    let nextAction = lastMessage;
     nextAction.playerid = playerStringToId(player);
     // nextAction.possibilities = [action];
     if (amount === 0) {
-      console.log("check");
+      log(`${player} checks`, "info");
     } else if (amount + betAmount === toCall) {
-      console.log("call");
-      // nextAction.betAmount = toCall;
+      log(`${player} calls`, "info");
       bet(player, amount + betAmount, state, dispatch);
-    } else {
-      console.log("raise");
-      // nextAction.betAmount = 0;
+    } else if (amount + betAmount > toCall) {
+      log(`${player} raises`, "info");
+      nextAction.bet_amount = amount;
       bet(player, amount, state, dispatch);
       setMinRaise(amount + amount, dispatch);
       setToCall(amount, dispatch);
+    } else if (action === 3) {
+      log(`${player} folds`, "info");
     }
-    console.log("amount is:" + amount);
+    console.log("amount is: " + amount);
     toggleControls(dispatch);
+    nextAction.possibilities = [action];
     setLastAction(nextAction.playerid, lastAction, dispatch);
-    // sendMessage(nextAction, state.userSeat, state, dispatch);
-    setTimeout(() => {
-      // collectChips(state, dispatch);
-      // updateGame(1, dispatch);
-    }, 1000);
+    sendMessage(nextAction, userSeat, state, dispatch);
   };
 
   return (
@@ -87,25 +86,22 @@ const Controls = props => {
         <Button label="Pot" small />
         <Button label="Max" small />
         <Slider
-          players={state.players}
-          userSeat={state.userSeat}
+          players={players}
+          userSeat={userSeat}
           raiseAmount={minRaise}
           setRaiseAmount={setRaiseAmount}
         />
       </div>
       {/* Fold Button */}
-      <Button
-        label="Fold"
-        onClick={() => handleButtonClick(7, state.userSeat)}
-      />
+      <Button label="Fold" onClick={() => handleButtonClick(7, userSeat)} />
       {/* Check/Call Button */}
       <Button
         label={canCheck ? "Check" : "Call"}
         amount={!canCheck && callAmount}
         onClick={() =>
           canCheck
-            ? handleButtonClick(3, state.userSeat, callAmount, "CHECK")
-            : handleButtonClick(5, state.userSeat, callAmount, "CALL")
+            ? handleButtonClick(3, userSeat, callAmount, "CHECK")
+            : handleButtonClick(5, userSeat, callAmount, "CALL")
         }
       />
       {/* Raise/All-In Button */}
@@ -122,8 +118,8 @@ const Controls = props => {
         }
         onClick={() =>
           minRaise >= chips || toCall >= chips
-            ? handleButtonClick(6, state.userSeat, chips, "ALL-IN")
-            : handleButtonClick(4, state.userSeat, raiseAmount, "RAISE")
+            ? handleButtonClick(6, userSeat, chips, "ALL-IN")
+            : handleButtonClick(4, userSeat, raiseAmount, "RAISE")
         }
       />
     </div>
