@@ -122,8 +122,8 @@ const Player = ({
           {/* User's cards */}
           {state.userSeat == seat && state.holeCards && (
             <React.Fragment>
-              <Card card={holeCards[0]} />
-              <Card card={holeCards[1]} />
+              <Card card={state.holeCards[0]} />
+              <Card card={state.holeCards[1]} />
             </React.Fragment>
           )}
           {/* Other player's cards */}
@@ -133,8 +133,8 @@ const Player = ({
                 opacity: ${looser ? "0.5" : "1"};
               `}
             >
-              <Card card={} />
-              <Card card={} />
+              <Card card={playerCards[0]} />
+              <Card card={playerCards[0]} />
             </div>
           )}
         </div>

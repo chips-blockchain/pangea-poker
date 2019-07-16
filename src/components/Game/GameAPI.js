@@ -48,11 +48,20 @@ export const deal = (message, state, dispatch) => {
     log(`The dealer is player${message.deal.dealer + 1}.`, "info");
     setDealer(message.deal.dealer, dispatch);
   }
-  if (message.deal.holecards) {
+  if (message.deal.holecards.length === 2) {
     setHoleCards(message.deal.holecards, dispatch);
   }
   if (message.deal.board) {
-    setBoardCards(message.deal.boardcards, dispatch);
+    if (state.gameTurn === 0 && message.deal.board.length === 3) {
+      setBoardCards(message.deal.board, dispatch);
+      nextTurn(1, state, dispatch);
+    } else if (state.gameTurn === 1 && message.deal.board.length === 4) {
+      setBoardCards(message.deal.board, dispatch);
+      nextTurn(2, state, dispatch);
+    } else if (state.gameTurn === 2 && message.deal.board.length === 5) {
+      setBoardCards(message.deal.board, dispatch);
+      nextTurn(3, state, dispatch);
+    }
   }
 };
 

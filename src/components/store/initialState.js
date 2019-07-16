@@ -2,7 +2,7 @@
 export const testState = {
   players: {
     player1: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player1",
       chips: 200000,
       hasCards: true,
@@ -10,10 +10,10 @@ export const testState = {
       isBetting: false,
       betAmount: 0,
       playerCards: ["7h", "7c"],
-      connected: true
+      connected: false
     },
     player2: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player2",
       chips: 200000,
       hasCards: true,
@@ -21,7 +21,7 @@ export const testState = {
       isBetting: false,
       betAmount: 0,
       playerCards: ["Ad", "Kd"],
-      connected: true
+      connected: false
     },
     player3: {
       isPlaying: false,
@@ -104,9 +104,9 @@ export const testState = {
   // Which seat is the active player
   activePlayer: "player1",
   // Current blinds - small and big one
-  blinds: [1000, 2000],
+  blinds: [1000000, 2000000],
   // Board Cards
-  boardCards: ["As", "5d", "7d", "6d", "6s"],
+  boardCards: [],
   // Connection status dispalyed at the top
   connection: {
     dcv: "Not connected",
@@ -131,7 +131,7 @@ export const testState = {
   // Game type at the top left corner
   gameType: "",
   // Cards of the user
-  holeCards: ["Ad", "Kd"],
+  holeCards: [],
   // Object that stores the last action so we can dispaly it on the UI
   lastAction: { player: 0, action: null },
   // Messages to send to the nodes - when updated, the message will be sent
@@ -153,23 +153,23 @@ export const testState = {
     player2: null
   },
   // Amount of the minimum raise
-  minRaise: 4000,
+  minRaise: 4000000,
   // Options for the pot
   options: {
-    showPotCounter: true
+    showPotCounter: false
   },
   // Pot and side pots - dynamicly updated by the TotalPot component
   pot: [0],
   // Number of seats at the table
   seats: 2,
   // Wether to show the dealer button
-  showDealer: true,
+  showDealer: false,
   // Wether to show to main pot at the center of the table
   showMainPot: false,
   // Amount to call
-  toCall: 2000,
+  toCall: 2000000,
   // Where does the user sit
-  userSeat: "player3"
+  userSeat: "player2"
 };
 
 // export default initialState;
