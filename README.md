@@ -6,7 +6,8 @@ This is a redesign of [Pangea Poker Frontend](https://github.com/sg777/pangea-po
 
 ## Run the project
 
-`npm install` and `npm start` for the front-end.
+1. Install Parcel: `npm install -g parcel-bundler`
+2. Run `npm install` and `npm start` in the root folder
 
 You will need to run your own back-end nodes. [Here](https://github.com/NOCTLJRNE/CHIPS-tuto/blob/master/README.md) is a detailed guide on how to do it.
 
