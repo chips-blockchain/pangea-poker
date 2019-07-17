@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
     "start": "NODE_ENV=development parcel src/index.html --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,6 +24,7 @@
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.11",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "cssnano": "^4.1.10",
     "emotion": "^10.0.9",
     "normalize.css": "^8.0.1",
     "rc-slider": "^8.6.13",
@@ -35,6 +38,7 @@
     "babel-loader": "^8.0.6",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "parcel-bundler": "^1.12.3",
     "prettier": "1.17.1"
   }
 }
