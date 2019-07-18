@@ -148,11 +148,17 @@ export const testState = {
     min_amount: 0,
     gui_playerID: 1
   },
+  // nodes: {
+  //   dcv: "209.250.254.100:9000",
+  //   bvv: "95.179.192.102:9001",
+  //   player1: "45.77.52.117:9002",
+  //   player2: "217.69.0.32:9003"
+  // },
   nodes: {
-    dcv: "209.250.254.100",
-    bvv: "95.179.192.102",
-    player1: "45.77.52.117",
-    player2: "217.69.0.32"
+    dcv: null,
+    bvv: null,
+    player1: null,
+    player2: null
   },
   message: {
     dcv: null,

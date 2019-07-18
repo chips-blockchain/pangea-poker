@@ -14,6 +14,12 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "closeStartupModal": {
+      return {
+        ...state,
+        isStartupModal: false
+      };
+    }
     case "collectChips": {
       return {
         ...state,
@@ -63,6 +69,12 @@ const reducer = (state, action) => {
           ...state.message,
           [action.payload.node]: action.payload.message
         }
+      };
+    }
+    case "setNodeAdresses": {
+      return {
+        ...state,
+        nodes: action.payload
       };
     }
     case "setActivePlayer": {

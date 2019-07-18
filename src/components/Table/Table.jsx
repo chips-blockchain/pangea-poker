@@ -16,6 +16,7 @@ import reducer from "../store/reducer";
 import Game from "../Game/";
 import Connections from "./Connections";
 import { StateContext, DispatchContext } from "../store/context";
+import StartupModal from "../StartupModal";
 
 const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -127,6 +128,7 @@ const Table = () => {
           </div>
           <Backgrounds />
         </div>
+        {state.isStartupModal && <StartupModal />}
       </StateContext.Provider>
     </DispatchContext.Provider>
   );
