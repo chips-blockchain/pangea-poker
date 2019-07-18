@@ -5,7 +5,14 @@ import theme from "../../styles/theme";
 import RCSlider from "rc-slider";
 import "./slider.css";
 
-const Slider = ({ players, raiseAmount, setRaiseAmount, userSeat }) => {
+const Slider = ({
+  minRaise,
+  players,
+  raiseAmount,
+  setRaiseAmount,
+  toCall,
+  userSeat
+}) => {
   const [amount, setAmount] = useState(raiseAmount);
 
   return (
@@ -36,12 +43,16 @@ const Slider = ({ players, raiseAmount, setRaiseAmount, userSeat }) => {
             text-align: right;
             width: 4rem;
           `}
-          value={amount}
+          value={minRaise}
           onChange={e => setRaiseAmount(e.target.value)}
         />
 
         <RCSlider
-          onChange={e => setRaiseAmount(Math.round(e / 1000) * 1000)}
+          onChange={e =>
+            setRaiseAmount(
+              Math.round(e / (minRaise - toCall)) * (minRaise - toCall)
+            )
+          }
           min={amount}
           max={players[userSeat].chips + players[userSeat].betAmount}
         />

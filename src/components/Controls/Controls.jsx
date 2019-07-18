@@ -21,7 +21,7 @@ import {
 const Controls = props => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
-  const { toCall, lastMessage, minRaise, players, userSeat } = state;
+  const { blinds, toCall, lastMessage, minRaise, players, userSeat } = state;
 
   const betAmount = players[userSeat].betAmount;
 
@@ -56,7 +56,7 @@ const Controls = props => {
       log(`${player} raises`, "info");
       nextAction.bet_amount = amount;
       bet(player, amount, state, dispatch);
-      setMinRaise(amount + amount, dispatch);
+      setMinRaise(amount + amount - toCall, dispatch);
       setToCall(amount, dispatch);
     } else if (action === 3) {
       log(`${player} folds`, "info");
@@ -90,6 +90,8 @@ const Controls = props => {
           userSeat={userSeat}
           raiseAmount={minRaise}
           setRaiseAmount={setRaiseAmount}
+          minRaise={minRaise}
+          toCall={toCall}
         />
       </div>
       {/* Fold Button */}
