@@ -13,14 +13,12 @@ const Game = () => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
 
-  const SOCKET_URL_DCV = `ws://${state.nodes.dcv}`;
-  const SOCKET_URL_BVV = `ws://${state.nodes.bvv}`;
-  const SOCKET_URL_PLAYER1 = `ws://${state.nodes.player1}`;
-  const SOCKET_URL_PLAYER2 = `ws://${state.nodes.player2}`;
+  const SOCKET_URL_DCV = `wss://${state.nodes.dcv}`;
+  const SOCKET_URL_BVV = `wss://${state.nodes.bvv}`;
+  const SOCKET_URL_PLAYER1 = `wss://${state.nodes.player1}`;
+  const SOCKET_URL_PLAYER2 = `wss://${state.nodes.player2}`;
 
   const [webSocketKey, setWebSocketKey] = useState(0);
-
-  const [reconnect, setReconnect] = useState(0);
 
   // Rerender the WebSocket components and thus reconnect when the nodes in state get updated
   useEffect(() => {
@@ -60,14 +58,7 @@ const Game = () => {
           left: 0;
           top: 2.7rem;
         `}
-      >
-        {reconnect != 0 && (
-          <Button
-            label="Reconnect"
-            onClick={() => setReconnect(Math.random())}
-          />
-        )}
-      </div>
+      />
       <WebSocket
         nodeName="dcv"
         server={SOCKET_URL_DCV}
