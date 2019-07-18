@@ -31,22 +31,8 @@ const Slider = ({
           display: inline-block;
           display: flex;
           height: 100%;
-          width: 11.375rem;
         `}
       >
-        <input
-          css={css`
-            margin: 0.25rem;
-            padding: 0.25rem;
-            font-size: 0.625rem;
-            height: 1.25rem;
-            text-align: right;
-            width: 4rem;
-          `}
-          value={minRaise}
-          onChange={e => setRaiseAmount(e.target.value)}
-        />
-
         <RCSlider
           onChange={e =>
             setRaiseAmount(
