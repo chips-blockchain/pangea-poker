@@ -13,10 +13,10 @@ const Game = () => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
 
-  const SOCKET_URL_DCV = `ws://${state.nodes.dcv}:9000`;
-  const SOCKET_URL_BVV = `ws://${state.nodes.bvv}:9001`;
-  const SOCKET_URL_PLAYER1 = `ws://${state.nodes.player1}:9002`;
-  const SOCKET_URL_PLAYER2 = `ws://${state.nodes.player2}:9003`;
+  const SOCKET_URL_DCV = `ws://${state.nodes.dcv}`;
+  const SOCKET_URL_BVV = `ws://${state.nodes.bvv}`;
+  const SOCKET_URL_PLAYER1 = `ws://${state.nodes.player1}`;
+  const SOCKET_URL_PLAYER2 = `ws://${state.nodes.player2}`;
 
   const [webSocketKeys, setWebSocketKeys] = useState({
     dcv: 1,
