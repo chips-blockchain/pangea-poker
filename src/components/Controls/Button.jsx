@@ -4,22 +4,26 @@ import { css, jsx } from "@emotion/core";
 import theme from "../../styles/theme";
 import numberWithCommas from "../../lib/numberWithCommas";
 
-const Button = props => {
+const Button = ({ amount, disabled, label, onClick, small }) => {
   return (
     <button
-      onClick={props.onClick}
+      onClick={onClick}
+      disabled={disabled}
       css={css`
         background: ${theme.moon.colors.background};
         border: 0.0625rem solid ${theme.moon.colors.primary};
         border-radius: 0.125rem;
         color: ${theme.moon.colors.text};
-        font-size: ${props.small ? ".75rem" : "1rem"};
-        height: ${props.small ? "1.75rem" : "2.5rem"};
+        font-size: ${small ? ".75rem" : "1rem"};
+        height: ${small ? "1.75rem" : "2.5rem"};
         margin: 0.125rem;
         line-height: 1rem;
         transition: 0.1s ease;
-        width: ${props.small ? "3.625rem" : "7.5rem"};
+        width: ${small ? "3.625rem" : "7.5rem"};
+        opacity: ${disabled ? "0.5" : "1.0"};
 
+        ${!disabled &&
+          `
         &:hover {
           color: ${theme.moon.colors.accent};
           cursor: pointer;
@@ -33,6 +37,8 @@ const Button = props => {
           background: ${theme.moon.colors.accent};
           color: ${theme.moon.colors.background};
         }
+        
+        `}
       `}
     >
       <div
@@ -43,7 +49,7 @@ const Button = props => {
           text-align: center;
           justify-content: center;
           /* Crop line height */
-          ${props.amount &&
+          ${amount &&
             `
           &:before {
             content: "";
@@ -56,8 +62,8 @@ const Button = props => {
           `}
         `}
       >
-        {props.label} <br />
-        {props.amount && numberWithCommas(props.amount)}
+        {label} <br />
+        {amount && numberWithCommas(amount)}
       </div>
     </button>
   );
