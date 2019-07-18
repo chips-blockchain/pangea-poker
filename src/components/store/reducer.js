@@ -188,6 +188,12 @@ const reducer = (state, action) => {
         pot: [action.payload]
       };
     }
+    case "updateTotalPot": {
+      return {
+        ...state,
+        totalPot: [action.payload]
+      };
+    }
     case "updateSeats": {
       return {
         ...state,

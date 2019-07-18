@@ -276,3 +276,10 @@ export const updateMainPot = (amount, dispatch) => {
     payload: amount
   });
 };
+
+export const updateTotalPot = (amount, dispatch) => {
+  dispatch({
+    type: "updateTotalPot",
+    payload: amount
+  });
+};

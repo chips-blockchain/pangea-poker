@@ -3,19 +3,19 @@ import React, { useEffect, useState } from "react";
 import { css, jsx } from "@emotion/core";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
-import { updateMainPot } from "../Game/gameAPI";
+import { updateMainPot, updateTotalPot } from "../Game/gameAPI";
 
 const TotalPot = ({ state, dispatch }) => {
-  const [totalPot, setTotalPot] = useState(0);
-  const { chipsCollected, gameTurn, players, pot } = state;
+  const { chipsCollected, gameTurn, players, pot, totalPot } = state;
 
+  // Count all the players' bets and the pot
   useEffect(() => {
     let sumBetAmount = 0;
     !chipsCollected &&
       Object.values(players).map(player => {
         if (player.isPlaying) sumBetAmount += player.betAmount;
       });
-    setTotalPot(pot[0] + sumBetAmount);
+    updateTotalPot(pot[0] + sumBetAmount, dispatch);
   }, [players]);
 
   useEffect(() => {

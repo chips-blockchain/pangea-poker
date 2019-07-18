@@ -2,9 +2,9 @@
 export const testState = {
   players: {
     player1: {
-      isPlaying: false,
+      isPlaying: true,
       seat: "player1",
-      chips: 200000,
+      chips: 20000000,
       hasCards: true,
       showCards: true,
       isBetting: false,
@@ -13,9 +13,9 @@ export const testState = {
       connected: false
     },
     player2: {
-      isPlaying: false,
+      isPlaying: true,
       seat: "player2",
-      chips: 200000,
+      chips: 20000000,
       hasCards: true,
       showCards: true,
       isBetting: false,
@@ -115,7 +115,7 @@ export const testState = {
     player2: "Not connected"
   },
   controls: {
-    showControls: false,
+    showControls: true,
     showFirstRow: true
   },
   // Wether the cards have been dealt
@@ -133,7 +133,7 @@ export const testState = {
   // Cards of the user
   holeCards: [],
   // Wether the Startup Modal shows at the beginning of the game
-  isStartupModal: true,
+  isStartupModal: false,
   // Object that stores the last action so we can dispaly it on the UI
   lastAction: { player: 0, action: null },
   // Messages to send to the nodes - when updated, the message will be sent
@@ -148,18 +148,18 @@ export const testState = {
     min_amount: 0,
     gui_playerID: 1
   },
-  // nodes: {
-  //   dcv: "209.250.254.100:9000",
-  //   bvv: "95.179.192.102:9001",
-  //   player1: "45.77.52.117:9002",
-  //   player2: "217.69.0.32:9003"
-  // },
   nodes: {
-    dcv: null,
-    bvv: null,
-    player1: null,
-    player2: null
+    dcv: "209.250.254.100:9000",
+    bvv: "95.179.192.102:9001",
+    player1: "45.77.52.117:9002",
+    player2: "217.69.0.32:9003"
   },
+  // nodes: {
+  //   dcv: null,
+  //   bvv: null,
+  //   player1: null,
+  //   player2: null
+  // },
   message: {
     dcv: null,
     bvv: null,
@@ -170,7 +170,7 @@ export const testState = {
   minRaise: 4000000,
   // Options for the pot
   options: {
-    showPotCounter: false
+    showPotCounter: true
   },
   // Pot and side pots - dynamicly updated by the TotalPot component
   pot: [0],
@@ -178,8 +178,10 @@ export const testState = {
   seats: 2,
   // Wether to show the dealer button
   showDealer: false,
-  // Wether to show to main pot at the center of the table
+  // Wether to show the main pot at the center of the table
   showMainPot: false,
+  // The calculated value of the pot and all the bets
+  totalPot: 0,
   // Amount to call
   toCall: 2000000,
   // Where does the user sit
