@@ -20,7 +20,7 @@ const Button = ({ amount, disabled, label, onClick, small }) => {
         line-height: 1rem;
         transition: 0.1s ease;
         width: ${small ? "3.625rem" : "7.5rem"};
-        opacity: ${disabled ? "0.5" : "1.0"};
+        opacity: ${disabled && "0.5"};
 
         ${!disabled &&
           `
