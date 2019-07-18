@@ -39,7 +39,7 @@ const Game = () => {
             css={css`
               display: grid;
               grid-template-columns: repeat(7, 1fr);
-              grid-template-rows: 1fr 1fr 1fr;
+              grid-template-rows: repeat(3, 1fr);
             `}
           >
             <Button
