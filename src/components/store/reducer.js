@@ -147,6 +147,9 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "setWinner": {
+      return { ...state, winner: action.payload };
+    }
     case "toggleMainPot": {
       return {
         ...state,

@@ -117,7 +117,11 @@ const Table = () => {
               )}
             </ChipGrid>
             {showMainPot && pot[0] !== 0 && (
-              <MainPot mainPot={pot[0]} showDown={gameTurn == 4} />
+              <MainPot
+                mainPot={pot[0]}
+                gameTurn={state.gameTurn}
+                winner={state.winner}
+              />
             )}
             {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
             {controls.showControls && (

@@ -10,7 +10,7 @@ export const testState = {
       isBetting: true,
       betAmount: 1000000,
       playerCards: ["7h", "7c"],
-      connected: false
+      connected: true
     },
     player2: {
       isPlaying: true,
@@ -21,7 +21,7 @@ export const testState = {
       isBetting: true,
       betAmount: 2000000,
       playerCards: ["Ad", "Kd"],
-      connected: false
+      connected: true
     },
     player3: {
       isPlaying: false,
@@ -106,7 +106,7 @@ export const testState = {
   // Current blinds - small and big one
   blinds: [1000000, 2000000],
   // Board Cards
-  boardCards: [],
+  boardCards: ["Ad", "5c", "6c", "7d", "8d"],
   // Connection status dispalyed at the top
   connection: {
     dcv: "Not connected",
@@ -127,7 +127,7 @@ export const testState = {
   // Wether the game has started
   gameStarted: false,
   // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river
-  gameTurn: 0,
+  gameTurn: 3,
   // Game type at the top left corner
   gameType: "",
   // Cards of the user
@@ -173,19 +173,21 @@ export const testState = {
     showPotCounter: true
   },
   // Pot and side pots - dynamicly updated by the TotalPot component
-  pot: [0],
+  pot: [1000000],
   // Number of seats at the table
   seats: 2,
   // Wether to show the dealer button
   showDealer: false,
   // Wether to show the main pot at the center of the table
-  showMainPot: false,
+  showMainPot: true,
   // The calculated value of the pot and all the bets
   totalPot: 0,
   // Amount to call
   toCall: 2000000,
   // Where does the user sit
-  userSeat: "player1"
+  userSeat: "player1",
+  // The player that won the game
+  winner: null
 };
 
 // export default initialState;

@@ -4,7 +4,7 @@ import { css, jsx } from "@emotion/core";
 import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../store/context";
 import { Button } from "../Controls";
-import { sendMessage, setUserSeat, toggleControls } from "./gameAPI";
+import { sendMessage, setUserSeat, toggleControls, nextTurn } from "./gameAPI";
 
 // For testing
 const SOCKET_URL_ECHO = "wss://echo.websocket.org";
@@ -49,10 +49,22 @@ const Game = () => {
               // }}
               label="Next"
               onClick={() => {
-                if (state.userSeat === "player1") {
-                  setUserSeat("player2", dispatch);
-                } else setUserSeat("player1", dispatch);
-                toggleControls(dispatch);
+                nextTurn(4, state, dispatch);
+                sendMessage(
+                  {
+                    method: "winningInvoiceRequest",
+                    playerID: 1,
+                    winningAmount: 4000000
+                  },
+                  "dcv",
+                  state,
+                  dispatch
+                );
+
+                // if (state.userSeat === "player1") {
+                //   setUserSeat("player2", dispatch);
+                // } else setUserSeat("player1", dispatch);
+                // toggleControls(dispatch);
               }}
             />
           </div>
@@ -68,7 +80,7 @@ const Game = () => {
       />
       <WebSocket
         nodeName="dcv"
-        server={SOCKET_URL_DCV}
+        server={SOCKET_URL_ECHO}
         message={state.message.dcv}
         key={webSocketKey + 1}
       />

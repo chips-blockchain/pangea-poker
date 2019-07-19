@@ -251,6 +251,16 @@ export const setUserSeat = (player, dispatch) => {
     payload: player
   });
 };
+
+export const setWinner = (player, dispatch) => {
+  const winner = playerIdToString(player.playerID);
+  console.log(winner);
+  dispatch({
+    type: "setWinner",
+    payload: winner
+  });
+};
+
 export const toggleControls = dispatch => {
   dispatch({
     type: "toggleControls"
