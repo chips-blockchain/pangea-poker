@@ -29,6 +29,13 @@ const Controls = props => {
   const canCheck = toCall - betAmount === 0;
   const callAmount = toCall - betAmount;
   const chips = players[userSeat].chips;
+  const totalChips = betAmount + chips;
+
+  useEffect(() => {
+    if (raiseAmount > totalChips) {
+      setRaiseAmount(totalChips);
+    }
+  }, [raiseAmount]);
 
   // The back-end uses these numbers to interpret player actions
   // const allPossibilities = {
@@ -46,17 +53,18 @@ const Controls = props => {
     // Update the previous message with the new data and send it
     let nextAction = lastMessage;
     nextAction.playerid = playerStringToId(player);
+
     // nextAction.possibilities = [action];
     // Check
     if (amount === 0) {
       log(`${player} checks`, "info");
       // Call
     } else if (amount + betAmount === toCall) {
-      log(`${player} calls`, "info");
+      log(`${player} calls ${amount}`, "info");
       bet(player, amount + betAmount, state, dispatch);
       // Raise
     } else if (amount + betAmount > toCall) {
-      log(`${player} raises`, "info");
+      log(`${player} raises to ${amount}`, "info");
       nextAction.bet_amount = amount;
       bet(player, amount, state, dispatch);
       setMinRaise(amount + amount - toCall, dispatch);
@@ -64,7 +72,7 @@ const Controls = props => {
       // Fold
     } else if (action === 3) {
       log(`${player} folds`, "info");
-    }
+    } else throw new Error("Something is wrong with the betamount.");
     // Hide Controls
     toggleControls(dispatch);
     // Update the player's name with the last action
@@ -72,6 +80,25 @@ const Controls = props => {
     // Send themessage to the back-end
     nextAction.possibilities = [action];
     sendMessage(nextAction, userSeat, state, dispatch);
+  };
+
+  const handleSmallButtonClick = buttonType => {
+    // 1/2 Pot Button
+    if (buttonType === "halfPot") {
+      const halfPotRaise = toCall + totalPot + betAmount;
+      const raiseToSet = halfPotRaise > totalChips ? totalChips : halfPotRaise;
+      setRaiseAmount(raiseToSet);
+    }
+    // Pot Button
+    else if (buttonType === "pot") {
+      const potRaise = toCall + totalPot + betAmount;
+      const raiseToSet = potRaise > totalChips ? totalChips : potRaise;
+      setRaiseAmount(raiseToSet);
+    }
+    // Max button
+    else if (buttonType === "max") {
+      setRaiseAmount(totalChips);
+    } else throw new Error("No such small  button type.");
   };
 
   return (
@@ -91,22 +118,22 @@ const Controls = props => {
         <Button
           label="1/2 Pot"
           small
-          onClick={() => setRaiseAmount(toCall + totalPot)}
+          onClick={() => handleSmallButtonClick("halfPot")}
         />
         <Button
           label="Pot"
           small
-          onClick={() => setRaiseAmount(toCall + totalPot * 2)}
+          onClick={() => handleSmallButtonClick("pot")}
         />
         <Button
           label="Max"
           small
-          onClick={() => setRaiseAmount(betAmount + chips)}
+          onClick={() => handleSmallButtonClick("max")}
         />
         <Slider
           players={players}
           userSeat={userSeat}
-          raiseAmount={minRaise}
+          raiseAmount={raiseAmount}
           setRaiseAmount={setRaiseAmount}
           minRaise={minRaise}
           toCall={toCall}
@@ -133,12 +160,10 @@ const Controls = props => {
             ? "Bet"
             : "Raise to"
         }
-        amount={
-          minRaise >= chips || toCall >= chips ? chips + betAmount : raiseAmount
-        }
+        amount={minRaise >= chips || toCall >= chips ? totalChips : raiseAmount}
         onClick={() =>
           minRaise >= chips || toCall >= chips
-            ? handleButtonClick(6, userSeat, chips, "ALL-IN")
+            ? handleButtonClick(6, userSeat, totalChips, "ALL-IN")
             : handleButtonClick(4, userSeat, raiseAmount, "RAISE")
         }
       />
