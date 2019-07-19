@@ -7,8 +7,8 @@ export const testState = {
       chips: 20000000,
       hasCards: true,
       showCards: true,
-      isBetting: false,
-      betAmount: 0,
+      isBetting: true,
+      betAmount: 1000000,
       playerCards: ["7h", "7c"],
       connected: false
     },
@@ -18,8 +18,8 @@ export const testState = {
       chips: 20000000,
       hasCards: true,
       showCards: true,
-      isBetting: false,
-      betAmount: 0,
+      isBetting: true,
+      betAmount: 2000000,
       playerCards: ["Ad", "Kd"],
       connected: false
     },
@@ -185,7 +185,7 @@ export const testState = {
   // Amount to call
   toCall: 2000000,
   // Where does the user sit
-  userSeat: "player2"
+  userSeat: "player1"
 };
 
 // export default initialState;

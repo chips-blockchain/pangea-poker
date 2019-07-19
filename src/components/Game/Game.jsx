@@ -4,7 +4,7 @@ import { css, jsx } from "@emotion/core";
 import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../store/context";
 import { Button } from "../Controls";
-import { sendMessage } from "./gameAPI";
+import { sendMessage, setUserSeat, toggleControls } from "./gameAPI";
 
 // For testing
 const SOCKET_URL_ECHO = "wss://echo.websocket.org";
@@ -43,9 +43,16 @@ const Game = () => {
             `}
           >
             <Button
-              label="Start"
+              // label="Start"
+              // onClick={() => {
+              //   sendMessage({ method: "game" }, "dcv", state, dispatch);
+              // }}
+              label="Next"
               onClick={() => {
-                sendMessage({ method: "game" }, "dcv", state, dispatch);
+                if (state.userSeat === "player1") {
+                  setUserSeat("player2", dispatch);
+                } else setUserSeat("player1", dispatch);
+                toggleControls(dispatch);
               }}
             />
           </div>
