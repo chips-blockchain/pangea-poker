@@ -40,6 +40,7 @@ const Slider = ({
             )
           }
           min={amount}
+          value={raiseAmount}
           max={players[userSeat].chips + players[userSeat].betAmount}
         />
       </div>
