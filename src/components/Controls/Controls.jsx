@@ -21,7 +21,7 @@ import {
 const Controls = props => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
-  const { blinds, toCall, lastMessage, minRaise, players, userSeat } = state;
+  const { toCall, lastMessage, minRaise, players, totalPot, userSeat } = state;
 
   const betAmount = players[userSeat].betAmount;
 
@@ -30,6 +30,7 @@ const Controls = props => {
   const callAmount = toCall - betAmount;
   const chips = players[userSeat].chips;
 
+  // The back-end uses these numbers to interpret player actions
   // const allPossibilities = {
   //   0: "",
   //   1: "small_blind",
@@ -41,30 +42,35 @@ const Controls = props => {
   //   7: "fold"
   // };
 
-  // This is strongly in ugly prototpye phase
   const handleButtonClick = (action, player, amount, lastAction) => {
     // Update the previous message with the new data and send it
     let nextAction = lastMessage;
     nextAction.playerid = playerStringToId(player);
     // nextAction.possibilities = [action];
+    // Check
     if (amount === 0) {
       log(`${player} checks`, "info");
+      // Call
     } else if (amount + betAmount === toCall) {
       log(`${player} calls`, "info");
       bet(player, amount + betAmount, state, dispatch);
+      // Raise
     } else if (amount + betAmount > toCall) {
       log(`${player} raises`, "info");
       nextAction.bet_amount = amount;
       bet(player, amount, state, dispatch);
       setMinRaise(amount + amount - toCall, dispatch);
       setToCall(amount, dispatch);
+      // Fold
     } else if (action === 3) {
       log(`${player} folds`, "info");
     }
-    console.log("amount is: " + amount);
+    // Hide Controls
     toggleControls(dispatch);
-    nextAction.possibilities = [action];
+    // Update the player's name with the last action
     setLastAction(nextAction.playerid, lastAction, dispatch);
+    // Send themessage to the back-end
+    nextAction.possibilities = [action];
     sendMessage(nextAction, userSeat, state, dispatch);
   };
 
@@ -82,9 +88,21 @@ const Controls = props => {
           grid-template-columns: 1fr 1fr 1fr 3fr;
         `}
       >
-        <Button label="1/2 Pot" small />
-        <Button label="Pot" small />
-        <Button label="Max" small />
+        <Button
+          label="1/2 Pot"
+          small
+          onClick={() => setRaiseAmount(toCall + totalPot)}
+        />
+        <Button
+          label="Pot"
+          small
+          onClick={() => setRaiseAmount(toCall + totalPot * 2)}
+        />
+        <Button
+          label="Max"
+          small
+          onClick={() => setRaiseAmount(betAmount + chips)}
+        />
         <Slider
           players={players}
           userSeat={userSeat}
