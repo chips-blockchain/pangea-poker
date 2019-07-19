@@ -2,26 +2,26 @@
 export const testState = {
   players: {
     player1: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player1",
       chips: 20000000,
       hasCards: true,
       showCards: true,
-      isBetting: true,
-      betAmount: 1000000,
-      playerCards: ["7h", "7c"],
-      connected: true
+      isBetting: false,
+      betAmount: 0,
+      playerCards: [],
+      connected: false
     },
     player2: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player2",
       chips: 20000000,
       hasCards: true,
       showCards: true,
-      isBetting: true,
-      betAmount: 2000000,
-      playerCards: ["Ad", "Kd"],
-      connected: true
+      isBetting: false,
+      betAmount: 0,
+      playerCards: [],
+      connected: false
     },
     player3: {
       isPlaying: false,
@@ -115,7 +115,7 @@ export const testState = {
     player2: "Not connected"
   },
   controls: {
-    showControls: true,
+    showControls: false,
     showFirstRow: true
   },
   // Wether the cards have been dealt
@@ -127,7 +127,7 @@ export const testState = {
   // Wether the game has started
   gameStarted: false,
   // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river
-  gameTurn: 3,
+  gameTurn: 0,
   // Game type at the top left corner
   gameType: "",
   // Cards of the user
@@ -170,7 +170,7 @@ export const testState = {
   minRaise: 4000000,
   // Options for the pot
   options: {
-    showPotCounter: true
+    showPotCounter: false
   },
   // Pot and side pots - dynamicly updated by the TotalPot component
   pot: [1000000],
@@ -179,7 +179,7 @@ export const testState = {
   // Wether to show the dealer button
   showDealer: false,
   // Wether to show the main pot at the center of the table
-  showMainPot: true,
+  showMainPot: false,
   // The calculated value of the pot and all the bets
   totalPot: 0,
   // Amount to call

@@ -43,29 +43,28 @@ const Game = () => {
             `}
           >
             <Button
-              // label="Start"
-              // onClick={() => {
-              //   sendMessage({ method: "game" }, "dcv", state, dispatch);
-              // }}
-              label="Next"
+              label="Start"
               onClick={() => {
-                nextTurn(4, state, dispatch);
-                sendMessage(
-                  {
-                    method: "winningInvoiceRequest",
-                    playerID: 1,
-                    winningAmount: 4000000
-                  },
-                  "dcv",
-                  state,
-                  dispatch
-                );
-
-                // if (state.userSeat === "player1") {
-                //   setUserSeat("player2", dispatch);
-                // } else setUserSeat("player1", dispatch);
-                // toggleControls(dispatch);
+                sendMessage({ method: "game" }, "dcv", state, dispatch);
               }}
+              // label="Next"
+              // onClick={() => {
+              //   nextTurn(4, state, dispatch);
+              //   sendMessage(
+              //     {
+              //       method: "winningInvoiceRequest",
+              //       playerID: 1,
+              //       winningAmount: 4000000
+              //     },
+              //     "dcv",
+              //     state,
+              //     dispatch
+              //   );
+
+              // if (state.userSeat === "player1") {
+              //   setUserSeat("player2", dispatch);
+              // } else setUserSeat("player1", dispatch);
+              // toggleControls(dispatch);
             />
           </div>
         )}
@@ -80,7 +79,7 @@ const Game = () => {
       />
       <WebSocket
         nodeName="dcv"
-        server={SOCKET_URL_ECHO}
+        server={SOCKET_URL_DCV}
         message={state.message.dcv}
         key={webSocketKey + 1}
       />
