@@ -34,7 +34,6 @@ const Player = ({
     text: seat,
     color: theme.moon.colors.superLightGray
   });
-  const [looser, setLooser] = useState(false);
 
   useEffect(() => {
     state.gameTurn == 4 && setTimeout(() => setLooser(true), 1000);
@@ -130,7 +129,7 @@ const Player = ({
           {state.userSeat != seat && state.gameTurn == 4 && (
             <div
               css={css`
-                opacity: ${looser ? "0.5" : "1"};
+                opacity: ${winner !== userName ? "0.5" : "1"};
               `}
             >
               <Card card={playerCards[0]} />

@@ -33,7 +33,8 @@ const Table = () => {
     pot,
     options,
     showMainPot,
-    showDealer
+    showDealer,
+    winner
   } = state;
 
   // For debugging purposes log the state when it changes
@@ -98,6 +99,7 @@ const Table = () => {
                       seat={player.seat}
                       showCards={player.showCards}
                       key={player.seat}
+                      winner={winner}
                     />
                   )
               )}
