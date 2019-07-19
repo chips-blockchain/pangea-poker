@@ -19,7 +19,8 @@ const Player = ({
   playerCards,
   players,
   seat,
-  showCards
+  showCards,
+  winner
 }) => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
@@ -34,10 +35,6 @@ const Player = ({
     text: seat,
     color: theme.moon.colors.superLightGray
   });
-
-  useEffect(() => {
-    state.gameTurn == 4 && setTimeout(() => setLooser(true), 1000);
-  }, [state.gameTurn]);
 
   // // Set deadline for the to active player
   // let deadlineToAct = new Date();
@@ -126,7 +123,7 @@ const Player = ({
             </React.Fragment>
           )}
           {/* Other player's cards */}
-          {state.userSeat != seat && state.gameTurn == 4 && (
+          {state.userSeat != seat && state.gameTurn === 4 && (
             <div
               css={css`
                 opacity: ${winner !== userName ? "0.5" : "1"};

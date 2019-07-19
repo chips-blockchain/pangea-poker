@@ -158,7 +158,7 @@ export const onMessage = (message, state, dispatch) => {
       message["gui_playerID"] = 1;
       sendMessage(message, "player2", state, dispatch);
     }
-    setWinner(message, dispatch);
+    setWinner(message, state, dispatch);
   }
 };
 

@@ -252,13 +252,16 @@ export const setUserSeat = (player, dispatch) => {
   });
 };
 
-export const setWinner = (player, dispatch) => {
+export const setWinner = (player, state, dispatch) => {
   const winner = playerIdToString(player.playerID);
-  console.log(winner);
-  dispatch({
-    type: "setWinner",
-    payload: winner
-  });
+  console.log(`The winner is ${winner}.`);
+  nextTurn(4, state, dispatch);
+  setTimeout(() => {
+    dispatch({
+      type: "setWinner",
+      payload: winner
+    });
+  }, 1000);
 };
 
 export const toggleControls = dispatch => {
