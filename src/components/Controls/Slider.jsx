@@ -32,7 +32,7 @@ const Slider = ({
           border-radius: 0.125rem;
           display: inline-block;
           display: flex;
-          height: 100%;
+          height: 1.6rem;
         `}
       >
         <RCSlider
