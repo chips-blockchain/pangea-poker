@@ -7,15 +7,13 @@ import { DispatchContext, StateContext } from "../store/context";
 import playerStringToId from "../../lib/playerStringToId";
 import {
   bet,
-  collectChips,
+  fold,
   log,
   sendMessage,
-  setActivePlayer,
   setMinRaise,
   setToCall,
   setLastAction,
-  toggleControls,
-  updateGame
+  toggleControls
 } from "../Game/gameAPI";
 
 const Controls = props => {
@@ -54,7 +52,6 @@ const Controls = props => {
     let nextAction = lastMessage;
     nextAction.playerid = playerStringToId(player);
 
-    // nextAction.possibilities = [action];
     // Check
     if (amount === 0) {
       log(`${player} checks`, "info");
@@ -70,7 +67,8 @@ const Controls = props => {
       setMinRaise(amount + amount - toCall, dispatch);
       setToCall(amount, dispatch);
       // Fold
-    } else if (action === 3) {
+    } else if (action === 7) {
+      fold(player, dispatch);
       log(`${player} folds`, "info");
     } else throw new Error("Something is wrong with the betamount.");
     // Hide Controls
@@ -140,7 +138,10 @@ const Controls = props => {
         />
       </div>
       {/* Fold Button */}
-      <Button label="Fold" onClick={() => handleButtonClick(7, userSeat)} />
+      <Button
+        label="Fold"
+        onClick={() => handleButtonClick(7, userSeat, null, "FOLD")}
+      />
       {/* Check/Call Button */}
       <Button
         label={canCheck ? "Check" : "Call"}

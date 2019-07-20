@@ -41,6 +41,18 @@ const reducer = (state, action) => {
         cardsDealt: true
       };
     }
+    case "fold": {
+      return {
+        ...state,
+        players: {
+          ...state.players,
+          [action.payload]: {
+            ...state.players[action.payload],
+            hasCards: false
+          }
+        }
+      };
+    }
     case "resetTurn": {
       return {
         ...state,
@@ -208,18 +220,6 @@ const reducer = (state, action) => {
             player: action.payload.player,
             chips: action.payload.chips,
             seat: action.payload.seat
-          }
-        }
-      };
-    }
-    case "Fold": {
-      return {
-        ...state,
-        players: {
-          ...state.players,
-          [action.payload]: {
-            ...state.players[action.payload],
-            hasCards: false
           }
         }
       };

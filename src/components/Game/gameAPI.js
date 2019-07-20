@@ -71,6 +71,13 @@ export const dealCards = dispatch => {
   });
 };
 
+export const fold = (player, dispatch) => {
+  dispatch({
+    type: "fold",
+    payload: player
+  });
+};
+
 export const game = (gameObject, state, dispatch) => {
   if (state.gameStarted === false) {
     dispatch({
