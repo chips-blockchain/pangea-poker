@@ -133,7 +133,7 @@ export const testState = {
   // Cards of the user
   holeCards: [],
   // Wether the Startup Modal shows at the beginning of the game
-  isStartupModal: true,
+  isStartupModal: false,
   // Object that stores the last action so we can dispaly it on the UI
   lastAction: { player: 0, action: null },
   // Messages to send to the nodes - when updated, the message will be sent
@@ -148,18 +148,18 @@ export const testState = {
     min_amount: 0,
     gui_playerID: 1
   },
-  // nodes: {
-  //   dcv: "209.250.254.100:9000",
-  //   bvv: "95.179.192.102:9001",
-  //   player1: "45.77.52.117:9002",
-  //   player2: "217.69.0.32:9003"
-  // },
   nodes: {
-    dcv: null,
-    bvv: null,
-    player1: null,
-    player2: null
+    dcv: "209.250.254.100:9000",
+    bvv: "95.179.192.102:9001",
+    player1: "45.77.52.117:9002",
+    player2: "217.69.0.32:9003"
   },
+  // nodes: {
+  //   dcv: null,
+  //   bvv: null,
+  //   player1: null,
+  //   player2: null
+  // },
   message: {
     dcv: null,
     bvv: null,
