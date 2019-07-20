@@ -102,7 +102,7 @@ const reducer = (state, action) => {
           ...state.players,
           [action.payload.player]: {
             ...state.players[action.payload.player],
-            chips: action.payload.balance,
+            chips: 20000000,
             connected: true
           }
         }
