@@ -37,20 +37,21 @@ const Slider = ({
       >
         <RCSlider
           onChange={e => {
-            if (e >= players[userSeat].chips) {
-              setRaiseAmount(e);
-            } else {
-              const roundedValue =
-                Math.round(e / (minRaise - toCall)) * (minRaise - toCall);
-              setRaiseAmount(
-                roundedValue > players[userSeat].chips
-                  ? players[userSeat].chips
-                  : roundedValue
-              );
-            }
+            setRaiseAmount(e);
+            // if (e >= players[userSeat].chips) {
+            //   setRaiseAmount(e);
+            // } else {
+            //   const roundedValue =
+            //     Math.round(e / (minRaise - toCall)) * (minRaise - toCall);
+            //   setRaiseAmount(
+            //     roundedValue > players[userSeat].chips
+            //       ? players[userSeat].chips
+            //       : roundedValue
+            //   );
+            // }
           }}
           min={amount}
-          // step={minRaise - toCall}
+          step={minRaise - toCall}
           value={raiseAmount}
           max={players[userSeat].chips + players[userSeat].betAmount}
         />
