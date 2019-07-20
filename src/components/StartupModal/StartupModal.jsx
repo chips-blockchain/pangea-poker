@@ -130,6 +130,7 @@ const Modal = () => {
                       [nodeName]: e.target.value
                     });
                   }}
+                  name={`nodeAddress-${key}`}
                 />
               </div>
             );
