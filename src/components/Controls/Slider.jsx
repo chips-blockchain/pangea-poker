@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import theme from "../../styles/theme";
@@ -14,6 +14,8 @@ const Slider = ({
   userSeat
 }) => {
   const [amount, setAmount] = useState(raiseAmount);
+
+  useEffect(() => {}, [raiseAmount]);
 
   return (
     <div
@@ -34,12 +36,21 @@ const Slider = ({
         `}
       >
         <RCSlider
-          onChange={e =>
-            setRaiseAmount(
-              Math.round(e / (minRaise - toCall)) * (minRaise - toCall)
-            )
-          }
+          onChange={e => {
+            if (e >= players[userSeat].chips) {
+              setRaiseAmount(e);
+            } else {
+              const roundedValue =
+                Math.round(e / (minRaise - toCall)) * (minRaise - toCall);
+              setRaiseAmount(
+                roundedValue > players[userSeat].chips
+                  ? players[userSeat].chips
+                  : roundedValue
+              );
+            }
+          }}
           min={amount}
+          // step={minRaise - toCall}
           value={raiseAmount}
           max={players[userSeat].chips + players[userSeat].betAmount}
         />

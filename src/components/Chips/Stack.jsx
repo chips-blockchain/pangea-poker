@@ -77,7 +77,6 @@ const Stack = props => {
     chipsCountObject
   );
 
-  console.log(chipsCountWithNames);
   // Define the function that reverses the z-index rules for the chips, so the stack grows from the bottom to the top
   const reverseZIndex = () => {
     let zIndexRules = "";
