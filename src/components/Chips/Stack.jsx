@@ -22,7 +22,8 @@ const Stack = props => {
   };
 
   // Merge the nested arrays, so we only have a single array of numbers
-  let chipsCountArray = countChips(props.chips);
+  // Temporarily rounds down chips to 1ms
+  let chipsCountArray = countChips(Math.floor(props.chips / 1000000) * 1000000);
   let mergedArray = [].concat.apply([], chipsCountArray);
 
   // Add 0s for the non-existent chips so the so the array.length is 24 and we can rename the keys later
@@ -76,6 +77,7 @@ const Stack = props => {
     chipsCountObject
   );
 
+  console.log(chipsCountWithNames);
   // Define the function that reverses the z-index rules for the chips, so the stack grows from the bottom to the top
   const reverseZIndex = () => {
     let zIndexRules = "";
