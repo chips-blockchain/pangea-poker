@@ -18,162 +18,190 @@ import {
 // The communication structure of this code has been ported from pangea-poker-frontend
 
 export const onMessage = (message, state, dispatch) => {
-  log("Received from DCV", "received", JSON.parse(message));
   message = JSON.parse(message);
+
+  log("Received from DCV", "received", message);
   setLastMessage(message, dispatch);
-  if (message["method"] == "game") {
-    game(message["game"], state, dispatch);
-    sendMessage({ method: "seats" }, "dcv", state, dispatch);
-  } else if (message["method"] == "seats") {
-    seats(message["seats"], dispatch);
-    sendMessage({ method: "dcv" }, "dcv", state, dispatch);
-  } else if (message["method"] == "dcv") {
-    sendMessage({ method: "bvv" }, "bvv", state, dispatch);
-  } else if (message["method"] == "bvv_join") {
-    log("BVV has Joined", "info");
-  } else if (message["method"] == "join_res") {
-    message["gui_playerID"] = 0;
-    sendMessage(message, "player1", state, dispatch);
-    message["gui_playerID"] = 1;
-    sendMessage(message, "player2", state, dispatch);
-  } else if (message["method"] == "check_bvv_ready") {
-    sendMessage(message, "bvv", state, dispatch);
-  } else if (message["method"] == "init") {
-    message["gui_playerID"] = 0;
-    sendMessage(message, "player1", state, dispatch);
-    message["gui_playerID"] = 1;
-    sendMessage(message, "player2", state, dispatch);
-  } else if (message["method"] == "init_d") {
-    /*
-	  Actually this message should be forwarded to players along BVV, since in the backe end the same buffer is getting used and
-	  which causing the sync issues, what I'm doing is at this moment I'm just forwading this message to BVV frome from UI and BVV 
-	  in the backend forwards this message to Players
-	  */
-    message["method"] = "init_d_bvv";
-    sendMessage(message, "bvv", state, dispatch);
 
-    message["method"] = "init_d_player";
-    message["gui_playerID"] = 0;
-    sendMessage(message, "player1", state, dispatch);
+  switch (message["method"]) {
+    case "game":
+      game(message["game"], state, dispatch);
+      sendMessage({ method: "seats" }, "dcv", state, dispatch);
+      break;
 
-    message["gui_playerID"] = 1;
-    sendMessage(message, "player2", state, dispatch);
-  } else if (message["method"] == "dealer") {
-    console.log("We got the dealer");
+    case "seats":
+      seats(message["seats"], dispatch);
+      sendMessage({ method: "dcv" }, "dcv", state, dispatch);
+      break;
 
-    message["method"] = "dealer_bvv";
-    sendMessage(message, "bvv", state, dispatch);
+    case "dcv":
+      sendMessage({ method: "bvv" }, "bvv", state, dispatch);
+      break;
 
-    message["method"] = "dealer_player";
-    message["gui_playerID"] = 0;
-    sendMessage(message, "player1", state, dispatch);
-    message["gui_playerID"] = 1;
-    sendMessage(message, "player2", state, dispatch);
-  } else if (message["method"] == "turn") {
-    console.log("Received the turn info");
+    case "bvv_join":
+      log("BVV has Joined", "info");
+      break;
 
-    if (message["playerid"] == 0) {
+    case "join_res":
       message["gui_playerID"] = 0;
       sendMessage(message, "player1", state, dispatch);
-    } else {
       message["gui_playerID"] = 1;
       sendMessage(message, "player2", state, dispatch);
-    }
-  } else if (message["method"] == "betting") {
-    if (
-      message["action"] == "small_blind" ||
-      message["action"] == "big_blind" ||
-      message["action"] == "round_betting"
-    ) {
-      if (message["action"] == "round_betting") {
-        message["method"] = "replay";
+      break;
 
-        if (message["playerid"] == 0) {
-          sendMessage(message, "player1", state, dispatch);
-        } else if (message["playerid"] == 1) {
-          sendMessage(message, "player2", state, dispatch);
-        }
-      } else {
-        if (message["playerid"] == 0) {
-          message["gui_playerID"] = 0;
-          sendMessage(message, "player1", state, dispatch);
-        } else if (message["playerid"] == 1) {
-          message["gui_playerID"] = 1;
-          sendMessage(message, "player2", state, dispatch);
-        }
-      }
-    } else if (message["action"] == "small_blind_bet") {
-      log("Small Blind has been posted.", "info");
-      bet(message["playerid"], message["amount"], state, dispatch);
-      setLastAction(message["playerid"], "Small Blind", dispatch);
-      message["action"] = "small_blind_bet_player";
+    case "check_bvv_ready":
+      sendMessage(message, "bvv", state, dispatch);
+      break;
+
+    case "init":
+      message["gui_playerID"] = 0;
+      sendMessage(message, "player1", state, dispatch);
+      message["gui_playerID"] = 1;
+      sendMessage(message, "player2", state, dispatch);
+      break;
+
+    case "init_d":
+      message["method"] = "init_d_bvv";
+      sendMessage(message, "bvv", state, dispatch);
+
+      message["method"] = "init_d_player";
       message["gui_playerID"] = 0;
       sendMessage(message, "player1", state, dispatch);
 
       message["gui_playerID"] = 1;
       sendMessage(message, "player2", state, dispatch);
-    } else if (message["action"] == "big_blind_bet") {
-      log("Big Blind has been posted.", "info");
-      dealCards(dispatch);
-      bet(message["playerid"], message["amount"], state, dispatch);
-      setLastAction(message["playerid"], "Big Blind", dispatch);
-      message["action"] = "big_blind_bet_player";
+      break;
+
+    case "dealer":
+      console.log("We got the dealer");
+
+      message["method"] = "dealer_bvv";
+      sendMessage(message, "bvv", state, dispatch);
+
+      message["method"] = "dealer_player";
       message["gui_playerID"] = 0;
       sendMessage(message, "player1", state, dispatch);
-
       message["gui_playerID"] = 1;
       sendMessage(message, "player2", state, dispatch);
-    } else if (
-      message["action"] == "check" ||
-      message["action"] == "call" ||
-      message["action"] == "raise" ||
-      message["action"] == "fold" ||
-      message["action"] == "allin"
-    ) {
-      message["action"] = message["action"] + "_player";
-      if (message["gui_playerID"] == 0) {
-        message["gui_playerID"] = 1;
-        sendMessage(message, "player2", state, dispatch);
-      } else if (message["gui_playerID"] == 1) {
+      break;
+
+    case "turn":
+      console.log("Received the turn info");
+
+      if (message["playerid"] == 0) {
         message["gui_playerID"] = 0;
         sendMessage(message, "player1", state, dispatch);
+      } else {
+        message["gui_playerID"] = 1;
+        sendMessage(message, "player2", state, dispatch);
       }
-    }
-  } else if (message["method"] == "invoice") {
-    log(`pangea.game.pot[0] += message["betAmount"];`, "danger");
-    log(`pangea.gui.updatePotAmount();`, "danger");
+      break;
 
-    if (message["playerID"] == 0) {
-      message["gui_playerID"] = 0;
-      sendMessage(message, "player1", state, dispatch);
-    } else if (message["playerID"] == 1) {
-      message["gui_playerID"] = 1;
-      sendMessage(message, "player2", state, dispatch);
-    }
-  } else if (message["method"] == "winningInvoiceRequest") {
-    if (message["playerID"] == 0) {
-      message["gui_playerID"] = 0;
-      sendMessage(message, "player1", state, dispatch);
-    } else if (message["playerID"] == 1) {
-      message["gui_playerID"] = 1;
-      sendMessage(message, "player2", state, dispatch);
-    }
-    setWinner(message, state, dispatch);
-  } else if(message["method"] == "reset") {
-  			/*
-  			Here please keep the logic to reset the table and all other necessary fiedls on gui
-  			*/
-			message["method"]="player_reset"
-			message["gui_playerID"]=0
-            sendMessage(message, "player1", state, dispatch);
+    case "betting":
+      switch (message["action"]) {
+        case "small_blind":
+        case "big_blind":
+        case "round_betting":
+          if (message["action"] === "round_betting") {
+            message["method"] = "replay";
+            message["playerid"] === 0 &&
+              sendMessage(message, "player1", state, dispatch);
+            message["playerid"] === 1 &&
+              sendMessage(message, "player2", state, dispatch);
+          } else {
+            if (message["playerid"] === 0) {
+              message["gui_playerID"] = 0;
+              sendMessage(message, "player1", state, dispatch);
+            } else if (message["playerid"] === 1) {
+              message["gui_playerID"] = 1;
+              sendMessage(message, "player2", state, dispatch);
+            }
+          }
+          break;
 
-			message["gui_playerID"]=1
+        case "small_blind_bet":
+          log("Small Blind has been posted.", "info");
+          bet(message["playerid"], message["amount"], state, dispatch);
+          setLastAction(message["playerid"], "Small Blind", dispatch);
+
+          message["action"] = "small_blind_bet_player";
+          message["gui_playerID"] = 0;
+
+          sendMessage(message, "player1", state, dispatch);
+          message["gui_playerID"] = 1;
+
+          sendMessage(message, "player2", state, dispatch);
+          break;
+
+        case "big_blind_bet":
+          log("Big Blind has been posted.", "info");
+          dealCards(dispatch);
+          bet(message["playerid"], message["amount"], state, dispatch);
+          setLastAction(message["playerid"], "Big Blind", dispatch);
+
+          message["action"] = "big_blind_bet_player";
+
+          message["gui_playerID"] = 0;
+          sendMessage(message, "player1", state, dispatch);
+
+          message["gui_playerID"] = 1;
+          sendMessage(message, "player2", state, dispatch);
+          break;
+
+        case "check":
+        case "call":
+        case "raise":
+        case "fold":
+        case "allin":
+          message["action"] = message["action"] + "_player";
+          if (message["gui_playerID"] == 0) {
+            message["gui_playerID"] = 1;
             sendMessage(message, "player2", state, dispatch);
+          } else if (message["gui_playerID"] == 1) {
+            message["gui_playerID"] = 0;
+            sendMessage(message, "player1", state, dispatch);
+          }
+          break;
+      }
+      break;
 
-			message["method"]="bvv_reset"
-            sendMessage(message, "bvv", state, dispatch);
+    case "invoice":
+      switch (message["playerID"]) {
+        case 0:
+          message["gui_playerID"] = 0;
+          sendMessage(message, "player1", state, dispatch);
+          break;
+        case 1:
+          message["gui_playerID"] = 1;
+          sendMessage(message, "player2", state, dispatch);
+          break;
+      }
+      break;
 
+    case "winningInvoiceRequest":
+      switch (message["playerID"]) {
+        case 0:
+          message["gui_playerID"] = 0;
+          sendMessage(message, "player1", state, dispatch);
+          break;
+        case 1:
+          message["gui_playerID"] = 1;
+          sendMessage(message, "player2", state, dispatch);
+          break;
+      }
+      setWinner(message, state, dispatch);
+      break;
 
+    case "reset":
+      message["method"] = "player_reset";
+      message["gui_playerID"] = 0;
+      sendMessage(message, "player1", state, dispatch);
+
+      message["gui_playerID"] = 1;
+      sendMessage(message, "player2", state, dispatch);
+
+      message["method"] = "bvv_reset";
+      sendMessage(message, "bvv", state, dispatch);
   }
   
 };
@@ -183,7 +211,7 @@ export const onMessage_bvv = (message, state, dispatch) => {
   setLastMessage(message, dispatch);
   log("Received from BVV: ", "received", message);
   log(message["method"], "info");
-  if (message["method"] == "init_b") {
+  if (message["method"] === "init_b") {
     /*
     sg777: In the back end this message is forwarded to both the players, this should be changed in the future
     */
@@ -197,6 +225,7 @@ export const onMessage_bvv = (message, state, dispatch) => {
     sendMessage(message, "dcv", state, dispatch);
   }
 };
+
 export const onMessage_player1 = (message, state, dispatch) => {
   message = JSON.parse(message);
   setLastMessage(message, dispatch);
