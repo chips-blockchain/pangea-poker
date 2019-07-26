@@ -98,64 +98,64 @@ export const onMessage = (message, state, dispatch) => {
       break;
 
     case "betting":
-      if (
-        message["action"] == "small_blind" ||
-        message["action"] == "big_blind" ||
-        message["action"] == "round_betting"
-      ) {
-        if (message["action"] == "round_betting") {
-          message["method"] = "replay";
-
-          if (message["playerid"] == 0) {
-            sendMessage(message, "player1", state, dispatch);
-          } else if (message["playerid"] == 1) {
-            sendMessage(message, "player2", state, dispatch);
+      switch (message["action"]) {
+        case "small_blind":
+        case "big_blind":
+        case "round_betting":
+          if (message["action"] === "round_betting") {
+            message["method"] = "replay";
+            message["playerid"] === 0 &&
+              sendMessage(message, "player1", state, dispatch);
+            message["playerid"] === 1 &&
+              sendMessage(message, "player2", state, dispatch);
+          } else {
+            if (message["playerid"] === 0) {
+              message["gui_playerID"] = 0;
+              sendMessage(message, "player1", state, dispatch);
+            } else if (message["playerid"] === 1) {
+              message["gui_playerID"] = 1;
+              sendMessage(message, "player2", state, dispatch);
+            }
           }
-        } else {
-          if (message["playerid"] == 0) {
-            message["gui_playerID"] = 0;
-            sendMessage(message, "player1", state, dispatch);
-          } else if (message["playerid"] == 1) {
-            message["gui_playerID"] = 1;
-            sendMessage(message, "player2", state, dispatch);
-          }
-        }
-      } else if (message["action"] == "small_blind_bet") {
-        log("Small Blind has been posted.", "info");
-        bet(message["playerid"], message["amount"], state, dispatch);
-        setLastAction(message["playerid"], "Small Blind", dispatch);
-        message["action"] = "small_blind_bet_player";
-        message["gui_playerID"] = 0;
-        sendMessage(message, "player1", state, dispatch);
+          break;
 
-        message["gui_playerID"] = 1;
-        sendMessage(message, "player2", state, dispatch);
-      } else if (message["action"] == "big_blind_bet") {
-        log("Big Blind has been posted.", "info");
-        dealCards(dispatch);
-        bet(message["playerid"], message["amount"], state, dispatch);
-        setLastAction(message["playerid"], "Big Blind", dispatch);
-        message["action"] = "big_blind_bet_player";
-        message["gui_playerID"] = 0;
-        sendMessage(message, "player1", state, dispatch);
-
-        message["gui_playerID"] = 1;
-        sendMessage(message, "player2", state, dispatch);
-      } else if (
-        message["action"] == "check" ||
-        message["action"] == "call" ||
-        message["action"] == "raise" ||
-        message["action"] == "fold" ||
-        message["action"] == "allin"
-      ) {
-        message["action"] = message["action"] + "_player";
-        if (message["gui_playerID"] == 0) {
-          message["gui_playerID"] = 1;
-          sendMessage(message, "player2", state, dispatch);
-        } else if (message["gui_playerID"] == 1) {
+        case "small_blind_bet":
+          log("Small Blind has been posted.", "info");
+          bet(message["playerid"], message["amount"], state, dispatch);
+          setLastAction(message["playerid"], "Small Blind", dispatch);
+          message["action"] = "small_blind_bet_player";
           message["gui_playerID"] = 0;
           sendMessage(message, "player1", state, dispatch);
-        }
+          message["gui_playerID"] = 1;
+          sendMessage(message, "player2", state, dispatch);
+          break;
+
+        case "big_blind_bet":
+          log("Big Blind has been posted.", "info");
+          dealCards(dispatch);
+          bet(message["playerid"], message["amount"], state, dispatch);
+          setLastAction(message["playerid"], "Big Blind", dispatch);
+          message["action"] = "big_blind_bet_player";
+          message["gui_playerID"] = 0;
+          sendMessage(message, "player1", state, dispatch);
+          message["gui_playerID"] = 1;
+          sendMessage(message, "player2", state, dispatch);
+          break;
+
+        case "check":
+        case "call":
+        case "raise":
+        case "fold":
+        case "allin":
+          message["action"] = message["action"] + "_player";
+          if (message["gui_playerID"] == 0) {
+            message["gui_playerID"] = 1;
+            sendMessage(message, "player2", state, dispatch);
+          } else if (message["gui_playerID"] == 1) {
+            message["gui_playerID"] = 0;
+            sendMessage(message, "player1", state, dispatch);
+          }
+          break;
       }
       break;
 
@@ -177,9 +177,11 @@ export const onMessage = (message, state, dispatch) => {
         case 0:
           message["gui_playerID"] = 0;
           sendMessage(message, "player1", state, dispatch);
+          break;
         case 1:
           message["gui_playerID"] = 1;
           sendMessage(message, "player2", state, dispatch);
+          break;
       }
       setWinner(message, state, dispatch);
       break;
@@ -191,7 +193,7 @@ export const onMessage_bvv = (message, state, dispatch) => {
   setLastMessage(message, dispatch);
   log("Received from BVV: ", "received", message);
   log(message["method"], "info");
-  if (message["method"] == "init_b") {
+  if (message["method"] === "init_b") {
     /*
     sg777: In the back end this message is forwarded to both the players, this should be changed in the future
     */
@@ -205,6 +207,7 @@ export const onMessage_bvv = (message, state, dispatch) => {
     sendMessage(message, "dcv", state, dispatch);
   }
 };
+
 export const onMessage_player1 = (message, state, dispatch) => {
   message = JSON.parse(message);
   setLastMessage(message, dispatch);
