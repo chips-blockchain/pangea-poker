@@ -159,7 +159,23 @@ export const onMessage = (message, state, dispatch) => {
       sendMessage(message, "player2", state, dispatch);
     }
     setWinner(message, state, dispatch);
+  } else if(message["method"] == "reset") {
+  			/*
+  			Here please keep the logic to reset the table and all other necessary fiedls on gui
+  			*/
+			message["method"]="player_reset"
+			message["gui_playerID"]=0
+            sendMessage(message, "player1", state, dispatch);
+
+			message["gui_playerID"]=1
+            sendMessage(message, "player2", state, dispatch);
+
+			message["method"]="bvv_reset"
+            sendMessage(message, "bvv", state, dispatch);
+
+
   }
+  
 };
 
 export const onMessage_bvv = (message, state, dispatch) => {
