@@ -123,10 +123,13 @@ export const onMessage = (message, state, dispatch) => {
           log("Small Blind has been posted.", "info");
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Small Blind", dispatch);
+
           message["action"] = "small_blind_bet_player";
           message["gui_playerID"] = 0;
+
           sendMessage(message, "player1", state, dispatch);
           message["gui_playerID"] = 1;
+
           sendMessage(message, "player2", state, dispatch);
           break;
 
@@ -135,9 +138,12 @@ export const onMessage = (message, state, dispatch) => {
           dealCards(dispatch);
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Big Blind", dispatch);
+
           message["action"] = "big_blind_bet_player";
+
           message["gui_playerID"] = 0;
           sendMessage(message, "player1", state, dispatch);
+
           message["gui_playerID"] = 1;
           sendMessage(message, "player2", state, dispatch);
           break;
@@ -185,6 +191,17 @@ export const onMessage = (message, state, dispatch) => {
       }
       setWinner(message, state, dispatch);
       break;
+
+    case "reset":
+      message["method"] = "player_reset";
+      message["gui_playerID"] = 0;
+      sendMessage(message, "player1", state, dispatch);
+
+      message["gui_playerID"] = 1;
+      sendMessage(message, "player2", state, dispatch);
+
+      message["method"] = "bvv_reset";
+      sendMessage(message, "bvv", state, dispatch);
   }
 };
 
