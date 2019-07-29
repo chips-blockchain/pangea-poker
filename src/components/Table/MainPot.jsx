@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import { useEffect, useState } from "react";
 import { Bet } from "../Chips";
 
 const MainPot = ({ mainPot, gameTurn, winner }) => {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import React, { useState, useEffect, useContext } from "react";
 import Card from "../Card";
 import { CardFaceDown } from "../Card";
 import randomEmoji from "../../lib/randomEmoji";

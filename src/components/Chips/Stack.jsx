@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import Chip from "./Chip.jsx";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import Chip from "./Chip.jsx";
 
 const Stack = props => {
   // This component calculates how many of each chips should be rendered based on the bet amount, and renders one or more stacks as a result

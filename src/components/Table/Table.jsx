@@ -1,6 +1,6 @@
-import React, { useReducer, createContext, useEffect } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import { useReducer, useEffect } from "react";
 import theme from "../../styles/theme";
 import Backgrounds from "./Backgrounds";
 import { PlayerGrid9Max } from "../PlayerGrid";

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import { useEffect } from "react";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import { updateMainPot, updateTotalPot } from "../Game/gameAPI";

@@ -1,4 +1,3 @@
-import React, { useEffect, useContext } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import Card, { CardFlip } from "../Card";

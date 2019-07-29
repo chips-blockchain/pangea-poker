@@ -1,7 +1,6 @@
-import React from "react";
-import "./svg-sprite.css";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import "./svg-sprite.css";
 
 const Card = ({ card }) => {
   return (

@@ -1,7 +1,6 @@
-import React from "react";
-import DealerButton from "./dealer.svg";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import DealerButton from "./dealer.svg";
 
 const Dealer = props => {
   return (

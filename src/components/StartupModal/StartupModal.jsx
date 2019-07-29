@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import { useContext, useEffect, useState } from "react";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../store/context";
 import Button from "../Controls/Button";

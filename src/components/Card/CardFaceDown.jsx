@@ -1,4 +1,3 @@
-import React from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import cardBg from "./cards/bg-red.svg";
