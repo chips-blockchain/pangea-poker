@@ -153,9 +153,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         userSeat: action.payload,
-        [action.payload]: {
-          ...state.players[action.payload],
-          showCards: true
+        players: {
+          ...state.players,
+          [action.payload]: {
+            ...state.players[action.payload],
+            showCards: true
+          }
         }
       };
     }
