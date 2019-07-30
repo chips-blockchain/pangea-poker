@@ -12,18 +12,19 @@ const SOCKET_URL_ECHO = "wss://echo.websocket.org";
 const Game = () => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
+  const { gameStarted, isDeveloperMode, nodes, message } = state;
 
-  const SOCKET_URL_DCV = `ws://${state.nodes.dcv}`;
-  const SOCKET_URL_BVV = `ws://${state.nodes.bvv}`;
-  const SOCKET_URL_PLAYER1 = `ws://${state.nodes.player1}`;
-  const SOCKET_URL_PLAYER2 = `ws://${state.nodes.player2}`;
+  const SOCKET_URL_DCV = `ws://${nodes.dcv}`;
+  const SOCKET_URL_BVV = `ws://${nodes.bvv}`;
+  const SOCKET_URL_PLAYER1 = `ws://${nodes.player1}`;
+  const SOCKET_URL_PLAYER2 = `ws://${nodes.player2}`;
 
   const [webSocketKey, setWebSocketKey] = useState(0);
 
   // Rerender the WebSocket components and thus reconnect when the nodes in state get updated
   useEffect(() => {
     setWebSocketKey(Math.random());
-  }, [state.nodes]);
+  }, [nodes]);
 
   return (
     <div>
@@ -34,7 +35,7 @@ const Game = () => {
           top: 4;
         `}
       >
-        {state.gameStarted === false && (
+        {gameStarted === false && (
           <div
             css={css`
               display: grid;
@@ -47,24 +48,6 @@ const Game = () => {
               onClick={() => {
                 sendMessage({ method: "game" }, "dcv", state, dispatch);
               }}
-              // label="Next"
-              // onClick={() => {
-              //   nextTurn(4, state, dispatch);
-              //   sendMessage(
-              //     {
-              //       method: "winningInvoiceRequest",
-              //       playerID: 1,
-              //       winningAmount: 4000000
-              //     },
-              //     "dcv",
-              //     state,
-              //     dispatch
-              //   );
-
-              // if (state.userSeat === "player1") {
-              //   setUserSeat("player2", dispatch);
-              // } else setUserSeat("player1", dispatch);
-              // toggleControls(dispatch);
             />
           </div>
         )}
@@ -79,26 +62,38 @@ const Game = () => {
       />
       <WebSocket
         nodeName="dcv"
-        server={SOCKET_URL_DCV}
-        message={state.message.dcv}
+        server={
+          isDeveloperMode ? process.env.DEV_SOCKET_URL_DCV : SOCKET_URL_DCV
+        }
+        message={message.dcv}
         key={webSocketKey + 1}
       />
       <WebSocket
         nodeName="bvv"
-        server={SOCKET_URL_BVV}
-        message={state.message.bvv}
+        server={
+          isDeveloperMode ? process.env.DEV_SOCKET_URL_BVV : SOCKET_URL_BVV
+        }
+        message={message.bvv}
         key={webSocketKey + 2}
       />
       <WebSocket
         nodeName="player1"
-        server={SOCKET_URL_PLAYER1}
-        message={state.message.player1}
+        server={
+          isDeveloperMode
+            ? process.env.DEV_SOCKET_URL_PLAYER1
+            : SOCKET_URL_PLAYER1
+        }
+        message={message.player1}
         key={webSocketKey + 3}
       />
       <WebSocket
         nodeName="player2"
-        server={SOCKET_URL_PLAYER2}
-        message={state.message.player2}
+        server={
+          isDeveloperMode
+            ? process.env.DEV_SOCKET_URL_PLAYER2
+            : SOCKET_URL_PLAYER2
+        }
+        message={message.player2}
         key={webSocketKey + 4}
       />
     </div>
