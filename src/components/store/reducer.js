@@ -113,17 +113,7 @@ const reducer = (state, action) => {
         lastAction: { player: 0, action: null },
         minRaise: state.blinds[1] * 2,
         dealer: state.dealer === 0 ? 1 : 0,
-        players: {
-          ...state.players,
-          player1: {
-            ...state.players.player1,
-            hasCards: false
-          },
-          player2: {
-            ...state.players.player2,
-            hasCards: false
-          }
-        }
+        cardsDealt: false
       };
     }
     case "setMessage": {
