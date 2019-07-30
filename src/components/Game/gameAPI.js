@@ -120,7 +120,7 @@ export const nextHand = (state, dispatch) => {
 };
 
 export const playerJoin = (player, state, dispatch) => {
-  let id = player.slice(-1) - 1;
+  const id = player.slice(-1) - 1;
   sendMessage(
     { method: "player_join", gui_playerID: id },
     player,
