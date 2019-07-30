@@ -110,6 +110,15 @@ export const nextTurn = (turn, state, dispatch) => {
   setLastAction(1, null, dispatch);
 };
 
+export const nextHand = (state, dispatch) => {
+  setActivePlayer(null, dispatch);
+  updateGameTurn(0, dispatch);
+  resetTurn(state.blinds[1], dispatch);
+  dispatch({
+    type: "resetHand"
+  });
+};
+
 export const playerJoin = (player, state, dispatch) => {
   let id = player.slice(-1) - 1;
   sendMessage(

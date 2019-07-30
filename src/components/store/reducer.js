@@ -104,6 +104,17 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "resetHand": {
+      return {
+        ...state,
+        boardCards: [],
+        holeCards: [],
+        pot: [0],
+        lastAction: { player: 0, action: null },
+        minRaise: state.blinds[1] * 2,
+        dealer: state.dealer === 0 ? 1 : 0
+      };
+    }
     case "setMessage": {
       return {
         ...state,

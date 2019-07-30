@@ -4,6 +4,7 @@ import {
   dealCards,
   game,
   log,
+  nextHand,
   seats,
   sendMessage,
   setActivePlayer,
@@ -202,8 +203,13 @@ export const onMessage = (message, state, dispatch) => {
 
       message["method"] = "bvv_reset";
       sendMessage(message, "bvv", state, dispatch);
+
+      setTimeout(() => {
+        setUserSeat(null, dispatch);
+        nextHand(state, dispatch);
+        sendMessage({ method: "game" }, "dcv", state, dispatch);
+      }, 2000);
   }
-  
 };
 
 export const onMessage_bvv = (message, state, dispatch) => {
