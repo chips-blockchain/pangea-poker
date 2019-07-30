@@ -273,7 +273,6 @@ const reducer = (state, action) => {
             ...state.players[action.payload.player],
             isPlaying: action.payload.isPlaying,
             player: action.payload.player,
-            chips: action.payload.chips,
             seat: action.payload.seat
           }
         }
