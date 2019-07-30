@@ -108,12 +108,13 @@ const reducer = (state, action) => {
       return {
         ...state,
         boardCards: [],
+        cardsDealt: false,
+        dealer: state.dealer === 0 ? 1 : 0,
+        minRaise: state.blinds[1] * 2,
         holeCards: [],
         pot: [0],
         lastAction: { player: 0, action: null },
-        minRaise: state.blinds[1] * 2,
-        dealer: state.dealer === 0 ? 1 : 0,
-        cardsDealt: false
+        toCall: 2000000
       };
     }
     case "setMessage": {
