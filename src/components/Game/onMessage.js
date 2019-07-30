@@ -208,7 +208,7 @@ export const onMessage = (message, state, dispatch) => {
         setUserSeat(null, dispatch);
         nextHand(state, dispatch);
         sendMessage({ method: "game" }, "dcv", state, dispatch);
-      }, 2000);
+      }, 5000);
   }
 };
 
