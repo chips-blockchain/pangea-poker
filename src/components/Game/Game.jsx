@@ -4,7 +4,7 @@ import { useState, useContext, useEffect } from "react";
 import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../store/context";
 import { Button } from "../Controls";
-import { sendMessage, setUserSeat, toggleControls, nextTurn } from "./gameAPI";
+import { sendMessage } from "./gameAPI";
 
 // For testing
 const SOCKET_URL_ECHO = "wss://echo.websocket.org";
@@ -96,6 +96,14 @@ const Game = () => {
         message={message.player2}
         key={webSocketKey + 4}
       />
+      {isDeveloperMode && (
+        <WebSocket
+          nodeName="echo"
+          server={SOCKET_URL_ECHO}
+          message={message.echo}
+          key={webSocketKey + 5}
+        />
+      )}
     </div>
   );
 };

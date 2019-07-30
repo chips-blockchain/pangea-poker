@@ -6,13 +6,15 @@ import theme from "../../styles/theme";
 
 const Connections = () => {
   const state = useContext(StateContext);
+  const { connection, isDeveloperMode } = state;
 
   const nodeList = [
-    ["DCV", state.connection.dcv],
-    ["BVV", state.connection.bvv],
-    ["Player 1", state.connection.player1],
-    ["Player 2", state.connection.player2]
+    ["DCV", connection.dcv],
+    ["BVV", connection.bvv],
+    ["Player 1", connection.player1],
+    ["Player 2", connection.player2]
   ];
+
   return (
     <div
       css={css`
@@ -22,6 +24,9 @@ const Connections = () => {
         z-index: 4;
       `}
     >
+      {/* Display echo websocket in Developer Mode */}
+      {isDeveloperMode && nodeList.push(["Echo", connection.echo])}
+
       {nodeList.map((node, key) => {
         return (
           <span

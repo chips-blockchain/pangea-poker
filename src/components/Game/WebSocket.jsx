@@ -59,6 +59,9 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
           onMessage_player2(lastMessage.data, state, dispatch);
           break;
         }
+        case "echo": {
+          onMessage(lastMessage.data, state, dispatch);
+        }
       }
     }
   }, [lastMessage]);
