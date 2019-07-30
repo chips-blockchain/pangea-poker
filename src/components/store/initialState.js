@@ -106,13 +106,14 @@ export const testState = {
   // Current blinds - small and big one
   blinds: [1000000, 2000000],
   // Board Cards
-  boardCards: ["Ad", "5c", "6c", "7d", "8d"],
+  boardCards: [],
   // Connection status dispalyed at the top
   connection: {
     dcv: "Not connected",
     bvv: "Not connected",
     player1: "Not connected",
-    player2: "Not connected"
+    player2: "Not connected",
+    echo: "Not connected"
   },
   controls: {
     showControls: false,
@@ -166,7 +167,8 @@ export const testState = {
     dcv: null,
     bvv: null,
     player1: null,
-    player2: null
+    player2: null,
+    echo: null
   },
   // Amount of the minimum raise
   minRaise: 4000000,
@@ -175,7 +177,7 @@ export const testState = {
     showPotCounter: false
   },
   // Pot and side pots - dynamicly updated by the TotalPot component
-  pot: [1000000],
+  pot: [0],
   // Number of seats at the table
   seats: 2,
   // Wether to show the dealer button

@@ -17,6 +17,7 @@ import Game from "../Game/";
 import Connections from "./Connections";
 import { StateContext, DispatchContext } from "../store/context";
 import StartupModal from "../StartupModal";
+import DeveloperMode from "../DeveloperMode";
 
 const Table = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -47,6 +48,7 @@ const Table = () => {
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
         <Game />
+        <DeveloperMode />
         <div
           css={css`
             background-color: ${theme.moon.colors.dark};
