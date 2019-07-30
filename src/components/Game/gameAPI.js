@@ -182,7 +182,7 @@ export const seats = (seatsArray, dispatch) => {
       payload: {
         isPlaying: seat.playing === 1 ? true : false,
         player: seat.name,
-        chips: seat.stack,
+        // chips: seat.stack,
         seat: `player${seat.seat + 1}`
       }
     });
