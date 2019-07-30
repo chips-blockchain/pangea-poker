@@ -132,6 +132,8 @@ export const testState = {
   gameType: "",
   // Cards of the user
   holeCards: [],
+  // Wether the app should run in developer mode
+  isDeveloperMode: true,
   // Wether the Startup Modal shows at the beginning of the game
   isStartupModal: true,
   // Object that stores the last action so we can dispaly it on the UI
