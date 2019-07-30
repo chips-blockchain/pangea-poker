@@ -41,6 +41,36 @@ const reducer = (state, action) => {
         cardsDealt: true
       };
     }
+    case "devStart": {
+      return {
+        ...state,
+        boardCards: ["Ad", "5c", "6c", "7d", "8d"],
+        cardsDealt: true,
+        holeCards: ["Ac", "Ad"],
+        showDealer: true,
+        showPot: true,
+        gameStarted: true,
+        players: {
+          ...state.players,
+          player1: {
+            ...state.players.player1,
+            isPlaying: true,
+            connected: true
+          },
+          player2: {
+            ...state.players.player2,
+            isPlaying: true,
+            connected: true
+          }
+        },
+        options: {
+          showPotCounter: true
+        },
+        controls: {
+          showControls: true
+        }
+      };
+    }
     case "fold": {
       return {
         ...state,

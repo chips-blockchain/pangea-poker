@@ -71,6 +71,12 @@ export const dealCards = dispatch => {
   });
 };
 
+export const devStart = dispatch => {
+  dispatch({
+    type: "devStart"
+  });
+};
+
 export const fold = (player, dispatch) => {
   dispatch({
     type: "fold",
@@ -204,7 +210,7 @@ export const sendMessage = (message, node, state, dispatch) => {
         message: JSON.stringify(message)
       }
     });
-  } else alert(`Error: ${node} is not connected.`);
+  } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
 };
 
 export const setMinRaise = (amount, dispatch) => {
