@@ -5,6 +5,7 @@ import {
   game,
   log,
   nextHand,
+  playerJoin,
   seats,
   sendMessage,
   setActivePlayer,
@@ -207,7 +208,8 @@ export const onMessage = (message, state, dispatch) => {
       setTimeout(() => {
         setUserSeat(null, dispatch);
         nextHand(state, dispatch);
-        sendMessage({ method: "game" }, "dcv", state, dispatch);
+        playerJoin("player1", state, dispatch);
+        playerJoin("player2", state, dispatch);
       }, 5000);
   }
 };
