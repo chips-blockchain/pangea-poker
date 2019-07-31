@@ -104,6 +104,20 @@ const reducer = (state, action) => {
         }
       };
     }
+    case "resetHand": {
+      return {
+        ...state,
+        boardCards: [],
+        cardsDealt: false,
+        dealer: state.dealer === 0 ? 1 : 0,
+        handsPlayed: state.handsPlayed + 1,
+        minRaise: state.blinds[1] * 2,
+        holeCards: [],
+        pot: [0],
+        lastAction: { player: 0, action: null },
+        toCall: 2000000
+      };
+    }
     case "setMessage": {
       return {
         ...state,
@@ -132,7 +146,7 @@ const reducer = (state, action) => {
           ...state.players,
           [action.payload.player]: {
             ...state.players[action.payload.player],
-            chips: 20000000,
+            chips: action.payload.balance,
             connected: true
           }
         }
@@ -251,7 +265,6 @@ const reducer = (state, action) => {
             ...state.players[action.payload.player],
             isPlaying: action.payload.isPlaying,
             player: action.payload.player,
-            chips: action.payload.chips,
             seat: action.payload.seat
           }
         }

@@ -10,12 +10,14 @@ const TotalPot = ({ state, dispatch }) => {
 
   // Count all the players' bets and the pot
   useEffect(() => {
-    let sumBetAmount = 0;
-    !chipsCollected &&
+    if (!chipsCollected) {
+      let sumBetAmount = 0;
       Object.values(players).map(player => {
         if (player.isPlaying) sumBetAmount += player.betAmount;
       });
-    updateTotalPot(pot[0] + sumBetAmount, dispatch);
+      updateTotalPot(pot[0] + sumBetAmount, dispatch);
+      console.log(`Updating totalPot which is ${totalPot}`);
+    }
   }, [players]);
 
   useEffect(() => {

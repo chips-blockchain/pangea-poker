@@ -110,8 +110,17 @@ export const nextTurn = (turn, state, dispatch) => {
   setLastAction(1, null, dispatch);
 };
 
+export const nextHand = (state, dispatch) => {
+  setActivePlayer(null, dispatch);
+  updateGameTurn(0, dispatch);
+  resetTurn(state.blinds[1], dispatch);
+  dispatch({
+    type: "resetHand"
+  });
+};
+
 export const playerJoin = (player, state, dispatch) => {
-  let id = player.slice(-1) - 1;
+  const id = player.slice(-1) - 1;
   sendMessage(
     { method: "player_join", gui_playerID: id },
     player,
@@ -173,7 +182,6 @@ export const seats = (seatsArray, dispatch) => {
       payload: {
         isPlaying: seat.playing === 1 ? true : false,
         player: seat.name,
-        chips: seat.stack,
         seat: `player${seat.seat + 1}`
       }
     });
