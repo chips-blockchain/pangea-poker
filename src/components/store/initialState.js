@@ -131,6 +131,8 @@ export const testState = {
   gameTurn: 0,
   // Game type at the top left corner
   gameType: "",
+  // Total number of hands played in this session
+  handsPlayer: 0,
   // Cards of the user
   holeCards: [],
   // Wether the app should run in developer mode
@@ -183,7 +185,7 @@ export const testState = {
   // Wether to show the dealer button
   showDealer: false,
   // Wether to show the main pot at the center of the table
-  showMainPot: false,
+  showMainPot: true,
   // The calculated value of the pot and all the bets
   totalPot: 0,
   // Amount to call

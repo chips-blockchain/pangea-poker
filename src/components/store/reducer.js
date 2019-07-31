@@ -110,6 +110,7 @@ const reducer = (state, action) => {
         boardCards: [],
         cardsDealt: false,
         dealer: state.dealer === 0 ? 1 : 0,
+        handsPlayed: state.handsPlayed + 1,
         minRaise: state.blinds[1] * 2,
         holeCards: [],
         pot: [0],
