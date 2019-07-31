@@ -9,7 +9,7 @@ import {
   setActivePlayer,
   setUserSeat,
   toggleControls
-} from "../Game/gameAPI";
+} from "../store/actions";
 import { DispatchContext, StateContext } from "../store/context";
 
 const DeveloperMode = () => {
@@ -41,7 +41,7 @@ const DeveloperMode = () => {
       <Button
         label="Reset"
         onClick={() => {
-          sendMessage({ method: "reset" }, "echo", state, dispatch);
+          sendMessage({ method: "reset" }, "dcv", state, dispatch);
         }}
       />
     </div>

@@ -8,7 +8,7 @@ import useInterval from "../../lib/useInterval";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../store/context";
-import { playerJoin } from "../Game/gameAPI";
+import { playerJoin } from "../store/actions";
 import playerIdToString from "../../lib/playerIdToString";
 
 const Player = ({

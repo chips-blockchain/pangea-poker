@@ -7,7 +7,7 @@ import {
   onMessage_player1,
   onMessage_player2
 } from "./onMessage";
-import { log } from "./gameAPI";
+import { log } from "../store/actions";
 
 const STATIC_OPTIONS = {};
 const READY_STATE_OPEN = 1;

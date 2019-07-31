@@ -15,7 +15,7 @@ import {
   setUserSeat,
   setWinner,
   toggleControls
-} from "./gameAPI";
+} from "../store/actions";
 
 // The communication structure of this code has been ported from pangea-poker-frontend
 

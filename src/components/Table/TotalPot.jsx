@@ -3,7 +3,7 @@ import { css, jsx } from "@emotion/core";
 import { useEffect } from "react";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
-import { updateMainPot, updateTotalPot } from "../Game/gameAPI";
+import { updateMainPot, updateTotalPot } from "../store/actions";
 
 const TotalPot = ({ state, dispatch }) => {
   const { chipsCollected, gameTurn, players, pot, totalPot } = state;

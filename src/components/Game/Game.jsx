@@ -4,7 +4,7 @@ import { useState, useContext, useEffect } from "react";
 import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../store/context";
 import { Button } from "../Controls";
-import { sendMessage } from "./gameAPI";
+import { sendMessage } from "../store/actions";
 
 // For testing
 const SOCKET_URL_ECHO = "wss://echo.websocket.org";

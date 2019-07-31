@@ -14,7 +14,7 @@ import {
   setToCall,
   setLastAction,
   toggleControls
-} from "../Game/gameAPI";
+} from "../store/actions";
 
 const Controls = props => {
   const dispatch = useContext(DispatchContext);
