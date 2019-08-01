@@ -71,7 +71,7 @@ const Controls = () => {
       // Raise
     } else if (amount + betAmount > toCall) {
       log(`${player} raises to ${amount}`, "info");
-      nextAction.bet_amount = amount;
+      nextAction.bet_amount = amount - betAmount;
       bet(player, amount, state, dispatch);
       setMinRaise(amount + amount - toCall, dispatch);
       setToCall(amount, dispatch);
@@ -84,7 +84,7 @@ const Controls = () => {
     toggleControls(dispatch);
     // Update the player's name with the last action
     setLastAction(nextAction.playerid, lastAction, dispatch);
-    // Send themessage to the back-end
+    // Send the message to the back-end
     nextAction.possibilities = [action];
     sendMessage(nextAction, userSeat, state, dispatch);
   };
