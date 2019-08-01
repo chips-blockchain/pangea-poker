@@ -39,6 +39,10 @@ const DeveloperMode = () => {
       <Button label="River" onClick={() => nextTurn(3, state, dispatch)} />
       <Button label="Next Player" onClick={() => nextPlayer()} />
       <Button
+        label="Toggle Controls"
+        onClick={() => toggleControls(dispatch)}
+      />
+      <Button
         label="Reset"
         onClick={() => {
           sendMessage({ method: "reset" }, "dcv", state, dispatch);
