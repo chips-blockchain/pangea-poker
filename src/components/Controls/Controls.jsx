@@ -16,10 +16,19 @@ import {
   toggleControls
 } from "../store/actions";
 
-const Controls = props => {
+const Controls = () => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
-  const { toCall, lastMessage, minRaise, players, totalPot, userSeat } = state;
+  const {
+    blinds,
+    gameTurn,
+    lastMessage,
+    minRaise,
+    players,
+    toCall,
+    totalPot,
+    userSeat
+  } = state;
 
   const betAmount = players[userSeat].betAmount;
 
@@ -128,14 +137,7 @@ const Controls = props => {
           small
           onClick={() => handleSmallButtonClick("max")}
         />
-        <Slider
-          players={players}
-          userSeat={userSeat}
-          raiseAmount={raiseAmount}
-          setRaiseAmount={setRaiseAmount}
-          minRaise={minRaise}
-          toCall={toCall}
-        />
+        <Slider raiseAmount={raiseAmount} setRaiseAmount={setRaiseAmount} />
       </div>
       {/* Fold Button */}
       <Button

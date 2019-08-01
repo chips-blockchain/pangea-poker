@@ -1,21 +1,19 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { StateContext } from "../store/context";
 import theme from "../../styles/theme";
 import RCSlider from "rc-slider";
 import "./slider.css";
 
-const Slider = ({
-  minRaise,
-  players,
-  raiseAmount,
-  setRaiseAmount,
-  toCall,
-  userSeat
-}) => {
-  const [amount, setAmount] = useState(raiseAmount);
+const Slider = ({ raiseAmount, setRaiseAmount }) => {
+  const state = useContext(StateContext);
+  const { minRaise, players, toCall, userSeat } = state;
 
-  useEffect(() => {}, [raiseAmount]);
+  // Reset the raise amount on the slider when the minimum raise changes
+  useEffect(() => {
+    setRaiseAmount(minRaise);
+  }, [minRaise]);
 
   return (
     <div
@@ -50,7 +48,7 @@ const Slider = ({
             //   );
             // }
           }}
-          min={amount}
+          min={minRaise}
           step={minRaise - toCall}
           value={raiseAmount}
           max={players[userSeat].chips + players[userSeat].betAmount}
