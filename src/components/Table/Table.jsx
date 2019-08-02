@@ -39,16 +39,16 @@ const Table = () => {
   } = state;
 
   // For debugging purposes log the state when it changes
-  // useEffect(() => {
-  //   console.log("The state has changed");
-  //   console.log(state);
-  // }, [state]);
+  useEffect(() => {
+    console.log("The state has changed");
+    console.log(state);
+  }, [state]);
 
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
         <Game />
-        <DeveloperMode />
+        {state.DeveloperMode && <DeveloperMode />}
         <div
           css={css`
             background-color: ${theme.moon.colors.dark};

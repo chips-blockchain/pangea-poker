@@ -271,6 +271,13 @@ const reducer = (state, action) => {
       };
     }
 
+    case "updateStateValue": {
+      return {
+        ...state,
+        [action.payload.key]: action.payload.value
+      };
+    }
+
     default:
       throw new Error("Action type is required");
   }

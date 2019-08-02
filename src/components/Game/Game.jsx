@@ -24,7 +24,6 @@ const Game = () => {
   useEffect(() => {
     setWebSocketKey(Math.random());
   }, [nodes]);
-
   return (
     <div>
       <div
