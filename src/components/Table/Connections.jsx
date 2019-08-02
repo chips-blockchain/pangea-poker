@@ -8,12 +8,14 @@ const Connections = () => {
   const state = useContext(StateContext);
   const { connection, isDeveloperMode } = state;
 
-  const nodeList = [
-    ["DCV", connection.dcv],
-    ["BVV", connection.bvv],
-    ["Player 1", connection.player1],
-    ["Player 2", connection.player2]
-  ];
+  let nodeList = [];
+
+  const dealerNodeList = [["DCV", connection.dcv], ["BVV", connection.bvv]];
+
+  const playerNode = ["Player", connection.player1];
+
+  if (state.nodeType === "dealer") nodeList = dealerNodeList;
+  if (state.nodeType === "player") nodeList.push(playerNode);
 
   return (
     <div

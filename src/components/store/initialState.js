@@ -165,6 +165,7 @@ export const testState = {
     player1: null,
     player2: null
   },
+  nodeType: "player",
   message: {
     dcv: null,
     bvv: null,
