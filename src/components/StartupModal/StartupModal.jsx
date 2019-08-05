@@ -33,8 +33,10 @@ const Modal = () => {
   };
 
   const handleSubmit = () => {
+    const nodeTypeToSet =
+      nodeType === "dealer" ? "dealer" : nodeType.slice(0, -1);
     updateStateValue("nodes", nodes, dispatch);
-    updateStateValue("nodeType", nodeType.slice(0, -1), dispatch);
+    updateStateValue("nodeType", nodeTypeToSet, dispatch);
     closeStartupModal(dispatch);
   };
 
@@ -146,6 +148,7 @@ const Modal = () => {
                     `}
                     placeholder={`192.168.101.234`}
                     onChange={e => {
+                      console.log(e);
                       setNodes({
                         ...nodes,
                         [node.name]: e.target.value
