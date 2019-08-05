@@ -160,10 +160,10 @@ export const testState = {
   //   player2: "217.69.0.32:9003"
   // },
   nodes: {
-    dcv: null,
-    bvv: null,
-    player1: null,
-    player2: null
+    dcv: "0.0.0.0",
+    bvv: "0.0.0.0",
+    player1: "0.0.0.0",
+    player2: "0.0.0.0"
   },
   nodeType: "player",
   message: {

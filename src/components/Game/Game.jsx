@@ -16,7 +16,7 @@ const Game = () => {
 
   const SOCKET_URL_DCV = `ws://${nodes.dcv}:9000`;
   const SOCKET_URL_BVV = `ws://${nodes.bvv}:9000`;
-  const SOCKET_URL_PLAYER1 = `ws://${nodes.player1}:9000`;
+  const SOCKET_URL_PLAYER1 = `ws://${[Object.values(nodes)[0]]}:9000`;
 
   const [webSocketKey, setWebSocketKey] = useState(0);
 
@@ -24,6 +24,9 @@ const Game = () => {
   useEffect(() => {
     setWebSocketKey(Math.random());
   }, [nodes]);
+
+  console.log(SOCKET_URL_PLAYER1, Object.keys(nodes)[0]);
+
   return (
     <div>
       <div
@@ -58,6 +61,15 @@ const Game = () => {
           top: 2.7rem;
         `}
       />
+
+      {/* {Object.entries(nodes).forEach(([node, nodeAddress], key) => {
+        <WebSocket
+          nodeName={node}
+          server={nodeAddress}
+          message={message[node]}
+          key={webSocketKey + key}
+        />;
+      })} */}
       {nodeType === "dealer" && (
         <div>
           <WebSocket
@@ -81,13 +93,13 @@ const Game = () => {
 
       {nodeType === "player" && (
         <WebSocket
-          nodeName="player1"
+          nodeName={Object.keys(nodes)[0]}
           server={
             isDeveloperMode
               ? process.env.DEV_SOCKET_URL_PLAYER1
               : SOCKET_URL_PLAYER1
           }
-          message={message.player1}
+          message={message[Object.keys(nodes)[0]]}
           key={webSocketKey + 3}
         />
       )}

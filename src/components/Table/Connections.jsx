@@ -12,7 +12,7 @@ const Connections = () => {
 
   const dealerNodeList = [["DCV", connection.dcv], ["BVV", connection.bvv]];
 
-  const playerNode = ["Player", connection.player1];
+  const playerNode = ["Player", connection[Object.keys(state.nodes)[0]]];
 
   if (state.nodeType === "dealer") nodeList = dealerNodeList;
   if (state.nodeType === "player") nodeList.push(playerNode);
