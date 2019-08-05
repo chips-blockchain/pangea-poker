@@ -16,7 +16,6 @@ const TotalPot = ({ state, dispatch }) => {
         if (player.isPlaying) sumBetAmount += player.betAmount;
       });
       updateTotalPot(pot[0] + sumBetAmount, dispatch);
-      console.log(`Updating totalPot which is ${totalPot}`);
     }
   }, [players]);
 

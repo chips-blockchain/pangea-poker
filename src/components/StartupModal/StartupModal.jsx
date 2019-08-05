@@ -148,7 +148,6 @@ const Modal = () => {
                     `}
                     placeholder={`192.168.101.234`}
                     onChange={e => {
-                      console.log(e);
                       setNodes({
                         ...nodes,
                         [node.name]: e.target.value

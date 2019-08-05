@@ -25,8 +25,6 @@ const Game = () => {
     setWebSocketKey(Math.random());
   }, [nodes]);
 
-  console.log(SOCKET_URL_PLAYER1, Object.keys(nodes)[0]);
-
   return (
     <div>
       <div

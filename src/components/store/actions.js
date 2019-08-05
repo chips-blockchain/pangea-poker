@@ -319,7 +319,6 @@ export const updateTotalPot = (amount, dispatch) => {
 };
 
 export const updateStateValue = (key, value, dispatch) => {
-  console.log(key, value);
   dispatch({
     type: "updateStateValue",
     payload: { key, value }
