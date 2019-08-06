@@ -33,11 +33,11 @@ export const onMessage = (message, state, dispatch) => {
 
     case "seats":
       seats(message["seats"], dispatch);
-      sendMessage({ method: "dcv" }, "dcv", state, dispatch);
+      //sendMessage({ method: "dcv" }, "dcv", state, dispatch);
       break;
 
     case "dcv":
-      sendMessage({ method: "bvv" }, "bvv", state, dispatch);
+      //sendMessage({ method: "bvv" }, "bvv", state, dispatch);
       break;
 
     case "bvv_join":
@@ -46,9 +46,9 @@ export const onMessage = (message, state, dispatch) => {
 
     case "join_res":
       message["gui_playerID"] = 0;
-      sendMessage(message, "player1", state, dispatch);
+      //sendMessage(message, "player1", state, dispatch);
       message["gui_playerID"] = 1;
-      sendMessage(message, "player2", state, dispatch);
+      //sendMessage(message, "player2", state, dispatch);
       break;
 
     case "check_bvv_ready":
@@ -57,9 +57,9 @@ export const onMessage = (message, state, dispatch) => {
 
     case "init":
       message["gui_playerID"] = 0;
-      sendMessage(message, "player1", state, dispatch);
+      //sendMessage(message, "player1", state, dispatch);
       message["gui_playerID"] = 1;
-      sendMessage(message, "player2", state, dispatch);
+      //sendMessage(message, "player2", state, dispatch);
       break;
 
     case "init_d":
@@ -269,6 +269,11 @@ export const onMessage_player1 = (message, state, dispatch) => {
     message["gui_playerID"] = 0;
     setActivePlayer("player1", dispatch);
     toggleControls(dispatch);
+  } else if(message["method"] == "betting") {
+    setActivePlayer("player1", dispatch);
+    toggleControls(dispatch);
+  } else if(message["method"] == "seats") {
+		 seats(message["seats"], dispatch);	
   } else if (message["method"] == "join_req") {
     setBalance("player1", message.balance, dispatch);
     sendMessage(message, "dcv", state, dispatch);
@@ -312,6 +317,11 @@ export const onMessage_player2 = (message, state, dispatch) => {
     message["gui_playerID"] = 1;
     setActivePlayer("player2", dispatch);
     toggleControls(dispatch);
+  } else if(message["method"] == "betting") {
+    setActivePlayer("player2", dispatch);
+    toggleControls(dispatch);
+  } else if(message["method"] == "seats") {
+		 seats(message["seats"], dispatch);	
   } else if (message["method"] == "join_req") {
     setBalance("player2", message.balance, dispatch);
     sendMessage(message, "dcv", state, dispatch);
