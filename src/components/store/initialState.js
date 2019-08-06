@@ -2,7 +2,7 @@
 export const testState = {
   players: {
     player1: {
-      isPlaying: false,
+      isPlaying: true,
       seat: "player1",
       chips: 20000000,
       hasCards: true,
@@ -10,10 +10,10 @@ export const testState = {
       isBetting: false,
       betAmount: 0,
       playerCards: [],
-      connected: false
+      connected: true
     },
     player2: {
-      isPlaying: false,
+      isPlaying: true,
       seat: "player2",
       chips: 20000000,
       hasCards: true,
@@ -21,7 +21,7 @@ export const testState = {
       isBetting: false,
       betAmount: 0,
       playerCards: [],
-      connected: false
+      connected: true
     },
     player3: {
       isPlaying: false,
