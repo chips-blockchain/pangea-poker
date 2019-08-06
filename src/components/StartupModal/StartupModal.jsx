@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../store/context";
 import Button from "../Controls/Button";
-import { updateStateValue } from "../store/actions";
+import { game, updateStateValue, setUserSeat } from "../store/actions";
 
 const Modal = () => {
   const dispatch = useContext(DispatchContext);
@@ -37,6 +37,10 @@ const Modal = () => {
       nodeType === "dealer" ? "dealer" : nodeType.slice(0, -1);
     updateStateValue("nodes", nodes, dispatch);
     updateStateValue("nodeType", nodeTypeToSet, dispatch);
+
+    nodeTypeToSet === "player" &&
+      game({ gametype: "test", pot: [0] }, state, dispatch);
+    setUserSeat(nodeType, dispatch);
     closeStartupModal(dispatch);
   };
 
@@ -146,6 +150,7 @@ const Modal = () => {
                         border: 1px solid ${theme.moon.colors.accent};
                       }
                     `}
+                    name={node.name}
                     placeholder={`192.168.101.234`}
                     onChange={e => {
                       setNodes({
