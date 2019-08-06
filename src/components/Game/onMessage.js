@@ -137,7 +137,6 @@ export const onMessage = (message, state, dispatch) => {
 
         case "big_blind_bet":
           log("Big Blind has been posted.", "info");
-          dealCards(dispatch);
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Big Blind", dispatch);
 
@@ -240,6 +239,7 @@ export const onMessage_player1 = (message, state, dispatch) => {
   log("Received from player1: ", "received", message);
 
   if (message["method"] == "deal") {
+    dealCards(dispatch);
     setUserSeat("player1", dispatch);
     deal(message, state, dispatch);
   } else if (message["method"] == "requestShare") {
@@ -269,11 +269,11 @@ export const onMessage_player1 = (message, state, dispatch) => {
     message["gui_playerID"] = 0;
     setActivePlayer("player1", dispatch);
     toggleControls(dispatch);
-  } else if(message["method"] == "betting") {
+  } else if (message["method"] == "betting") {
     setActivePlayer("player1", dispatch);
     toggleControls(dispatch);
-  } else if(message["method"] == "seats") {
-		 seats(message["seats"], dispatch);	
+  } else if (message["method"] == "seats") {
+    seats(message["seats"], dispatch);
   } else if (message["method"] == "join_req") {
     setBalance("player1", message.balance, dispatch);
     sendMessage(message, "dcv", state, dispatch);
@@ -288,6 +288,7 @@ export const onMessage_player2 = (message, state, dispatch) => {
   log("Received from player2: ", "received", message);
 
   if (message["method"] == "deal") {
+    dealCards(dispatch);
     setUserSeat("player2", dispatch);
     deal(message, state, dispatch);
   } else if (message["method"] == "requestShare") {
@@ -317,11 +318,11 @@ export const onMessage_player2 = (message, state, dispatch) => {
     message["gui_playerID"] = 1;
     setActivePlayer("player2", dispatch);
     toggleControls(dispatch);
-  } else if(message["method"] == "betting") {
+  } else if (message["method"] == "betting") {
     setActivePlayer("player2", dispatch);
     toggleControls(dispatch);
-  } else if(message["method"] == "seats") {
-		 seats(message["seats"], dispatch);	
+  } else if (message["method"] == "seats") {
+    seats(message["seats"], dispatch);
   } else if (message["method"] == "join_req") {
     setBalance("player2", message.balance, dispatch);
     sendMessage(message, "dcv", state, dispatch);
