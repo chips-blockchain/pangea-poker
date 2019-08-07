@@ -64,6 +64,23 @@ const Modal = () => {
     closeStartupModal(dispatch);
   };
 
+  const setDevNodeTypes = node => {
+    switch (node) {
+      case "dealer":
+        setNodes({
+          dcv: process.env.DEV_SOCKET_URL_DCV,
+          bvv: process.env.DEV_SOCKET_URL_BVV
+        });
+        break;
+      case "player1":
+        setNodes({ player1: process.env.DEV_SOCKET_URL_PLAYER1 });
+        break;
+      case "player2":
+        setNodes({ player2: process.env.DEV_SOCKET_URL_PLAYER2 });
+        break;
+    }
+  };
+
   // Validates wether all four input fields have data
   // useEffect(() => {
   //   nodeType === "dealer" &&
@@ -125,17 +142,26 @@ const Modal = () => {
             <Button
               small
               label="Dealer"
-              onClick={e => hanldeTabClick(e, "dealer")}
+              onClick={e => {
+                hanldeTabClick(e, "dealer");
+                state.isDeveloperMode && setDevNodeTypes("dealer");
+              }}
             />
             <Button
               small
               label="Player1"
-              onClick={e => hanldeTabClick(e, "player1")}
+              onClick={e => {
+                hanldeTabClick(e, "player1");
+                state.isDeveloperMode && setDevNodeTypes("player1");
+              }}
             />
             <Button
               small
               label="Player2"
-              onClick={e => hanldeTabClick(e, "player2")}
+              onClick={e => {
+                hanldeTabClick(e, "player2");
+                state.isDeveloperMode && setDevNodeTypes("player2");
+              }}
             />
           </div>
           <div id="Dealer" />
@@ -143,7 +169,7 @@ const Modal = () => {
             .filter(node => node.id === nodeType)
             .map((node, key) => {
               return (
-                <div key={Math.random(key)}>
+                <div key={key}>
                   {/* Label*/}
                   <div
                     css={css`

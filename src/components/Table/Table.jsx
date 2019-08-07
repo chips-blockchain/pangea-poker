@@ -136,7 +136,7 @@ const Table = () => {
           </div>
           <Backgrounds />
         </div>
-        <StartupModal />
+        {state.isStartupModal && <StartupModal />}
       </StateContext.Provider>
     </DispatchContext.Provider>
   );
