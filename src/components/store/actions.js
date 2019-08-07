@@ -43,9 +43,8 @@ export const collectChips = (state, dispatch) => {
 };
 
 export const deal = (message, state, dispatch) => {
-  console.log("deal");
   if (message.deal.dealer !== null) {
-    log(`The dealer is player${message.deal.dealer + 1}.`, "info");
+    // log(`The dealer is player${message.deal.dealer + 1}.`, "info");
     setDealer(message.deal.dealer, dispatch);
   }
   if (message.deal.holecards.length === 2) {
