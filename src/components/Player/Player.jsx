@@ -24,6 +24,15 @@ const Player = ({
 }) => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
+
+  const {
+    cardsDealt,
+    gameTurn,
+    holeCards,
+    lastAction,
+    seats,
+    userSeat
+  } = state;
   // Miliseconds for each active player to act
   let timeAllowance = 30000;
 
@@ -106,7 +115,7 @@ const Player = ({
       `}
     >
       {/* Wether or not to to show current cards */}
-      {state.cardsDealt && showCards && hasCards && (
+      {cardsDealt && showCards && hasCards && (
         <div
           css={css`
             bottom: 0.875rem;
@@ -116,14 +125,14 @@ const Player = ({
           `}
         >
           {/* User's cards */}
-          {state.userSeat == seat && state.holeCards && (
+          {userSeat === seat && holeCards[0] && (
             <React.Fragment>
-              <Card card={state.holeCards[0]} />
-              <Card card={state.holeCards[1]} />
+              <Card card={holeCards[0]} />
+              <Card card={holeCards[1]} />
             </React.Fragment>
           )}
           {/* Other player's cards */}
-          {state.userSeat != seat && state.gameTurn === 4 && (
+          {userSeat !== seat && gameTurn === 4 && (
             <div
               css={css`
                 opacity: ${winner !== userName ? "0.5" : "1"};
@@ -136,25 +145,22 @@ const Player = ({
         </div>
       )}
       {/* Whether or not the player has cards */}
-      {state.userSeat != seat && hasCards && state.gameTurn != 4 && (
+      {hasCards && gameTurn !== 4 && (
         <div
           css={css`
             bottom: 0;
             left: 3rem;
             position: absolute;
             z-index: 1;
+            display: ${userSeat === seat && holeCards[0] ? "none" : "block"};
           `}
         >
-          <CardFaceDown
-            centered={!state.cardsDealt}
-            seat={seat}
-            seats={state.seats}
-          />
+          <CardFaceDown centered={!cardsDealt} seat={seat} seats={seats} />
           <CardFaceDown
             second
-            centered={!state.cardsDealt}
+            centered={!cardsDealt}
             seat={seat}
-            seats={state.seats}
+            seats={seats}
           />
         </div>
       )}
@@ -188,8 +194,8 @@ const Player = ({
           {/* Player name area */}
           <div
             css={css`
-              color: ${state.lastAction.action &&
-              seat == playerIdToString(state.lastAction.player)
+              color: ${lastAction.action &&
+              seat == playerIdToString(lastAction.player)
                 ? theme.moon.colors.accent
                 : userName.color};
               font-size: 0.625rem;
@@ -199,9 +205,8 @@ const Player = ({
             `}
           >
             {/* Show the player's name or the last action */}
-            {state.lastAction.action &&
-            seat == playerIdToString(state.lastAction.player)
-              ? state.lastAction.action
+            {lastAction.action && seat == playerIdToString(lastAction.player)
+              ? lastAction.action
               : userName.text}
           </div>
           {/* Available chips */}
