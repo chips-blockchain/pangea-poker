@@ -48,7 +48,7 @@ const Table = () => {
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
         <Game />
-        {state.DeveloperMode && <DeveloperMode />}
+        {state.isDeveloperMode && <DeveloperMode />}
         <div
           css={css`
             background-color: ${theme.moon.colors.dark};

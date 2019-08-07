@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { Button } from "../Controls";
 import {
   devStart,
+  dealCards,
   nextTurn,
   sendMessage,
   setActivePlayer,
@@ -43,9 +44,10 @@ const DeveloperMode = () => {
         onClick={() => toggleControls(dispatch)}
       />
       <Button
-        label="Reset"
+        label="Deal Cards"
         onClick={() => {
-          sendMessage({ method: "reset" }, "dcv", state, dispatch);
+          console.log(state);
+          dealCards(dispatch);
         }}
       />
     </div>
