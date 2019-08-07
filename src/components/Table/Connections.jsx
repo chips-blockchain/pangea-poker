@@ -26,9 +26,6 @@ const Connections = () => {
         z-index: 4;
       `}
     >
-      {/* Display echo websocket in Developer Mode */}
-      {isDeveloperMode && nodeList.push(["Echo", connection.echo])}
-
       {nodeList.map((node, key) => {
         return (
           <span

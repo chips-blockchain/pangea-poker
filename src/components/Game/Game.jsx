@@ -93,15 +93,6 @@ const Game = () => {
           key={webSocketKey + 3}
         />
       )}
-
-      {isDeveloperMode && (
-        <WebSocket
-          nodeName="echo"
-          server={SOCKET_URL_ECHO}
-          message={message.echo}
-          key={webSocketKey + 5}
-        />
-      )}
     </div>
   );
 };
