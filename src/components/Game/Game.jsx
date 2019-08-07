@@ -72,17 +72,13 @@ const Game = () => {
         <div>
           <WebSocket
             nodeName="dcv"
-            server={
-              isDeveloperMode ? process.env.DEV_SOCKET_URL_DCV : SOCKET_URL_DCV
-            }
+            server={SOCKET_URL_DCV}
             message={message.dcv}
             key={webSocketKey + 1}
           />
           <WebSocket
             nodeName="bvv"
-            server={
-              isDeveloperMode ? process.env.DEV_SOCKET_URL_BVV : SOCKET_URL_BVV
-            }
+            server={SOCKET_URL_BVV}
             message={message.bvv}
             key={webSocketKey + 2}
           />
@@ -92,11 +88,7 @@ const Game = () => {
       {nodeType === "player" && (
         <WebSocket
           nodeName={Object.keys(nodes)[0]}
-          server={
-            isDeveloperMode
-              ? process.env.DEV_SOCKET_URL_PLAYER1
-              : SOCKET_URL_PLAYER1
-          }
+          server={SOCKET_URL_PLAYER1}
           message={message[Object.keys(nodes)[0]]}
           key={webSocketKey + 3}
         />

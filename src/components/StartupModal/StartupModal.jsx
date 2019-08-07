@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../store/context";
 import Button from "../Controls/Button";
@@ -11,10 +11,30 @@ const Modal = () => {
   const state = useContext(StateContext);
 
   const nodesToInput = [
-    { name: "dcv", id: "dealer", type: "dealer" },
-    { name: "bvv", id: "dealer", type: "dealer" },
-    { name: "player1", id: "player1", type: "player" },
-    { name: "player2", id: "player2", type: "player" }
+    {
+      name: "dcv",
+      id: "dealer",
+      type: "dealer",
+      devAddress: process.env.DEV_SOCKET_URL_DCV
+    },
+    {
+      name: "bvv",
+      id: "dealer",
+      type: "dealer",
+      devAddress: process.env.DEV_SOCKET_URL_BVV
+    },
+    {
+      name: "player1",
+      id: "player1",
+      type: "player",
+      devAddress: process.env.DEV_SOCKET_URL_PLAYER1
+    },
+    {
+      name: "player2",
+      id: "player2",
+      type: "player",
+      devAddress: process.env.DEV_SOCKET_URL_PLAYER2
+    }
   ];
   const [nodes, setNodes] = useState({});
   const [nodeType, setNodeType] = useState("");
@@ -123,7 +143,7 @@ const Modal = () => {
             .filter(node => node.id === nodeType)
             .map((node, key) => {
               return (
-                <div key={key}>
+                <div key={Math.random(key)}>
                   {/* Label*/}
                   <div
                     css={css`
@@ -152,6 +172,7 @@ const Modal = () => {
                     `}
                     name={node.name}
                     placeholder={`192.168.101.234`}
+                    defaultValue={state.isDeveloperMode ? node.devAddress : ""}
                     onChange={e => {
                       setNodes({
                         ...nodes,
