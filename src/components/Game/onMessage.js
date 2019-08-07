@@ -210,6 +210,9 @@ export const onMessage = (message, state, dispatch) => {
         playerJoin("player1", state, dispatch);
         playerJoin("player2", state, dispatch);
       }, 5000);
+	  break;
+	  case "blindsInfo":
+	  	/*update small_blind and big_blind values received from backend to the gui here*/
   }
 };
 
@@ -277,6 +280,8 @@ export const onMessage_player1 = (message, state, dispatch) => {
   } else if (message["method"] == "join_req") {
     setBalance("player1", message.balance, dispatch);
     sendMessage(message, "dcv", state, dispatch);
+  } else if (message["method"] == "blindsInfo") {
+  	/*update small_blind and big_blind values received from backend to the gui here*/
   } else {
     sendMessage(message, "dcv", state, dispatch);
   }
@@ -326,6 +331,8 @@ export const onMessage_player2 = (message, state, dispatch) => {
   } else if (message["method"] == "join_req") {
     setBalance("player2", message.balance, dispatch);
     sendMessage(message, "dcv", state, dispatch);
+  } else if (message["method"] == "blindsInfo") {
+  	/*update small_blind and big_blind values received from backend to the gui here*/
   } else {
     sendMessage(message, "dcv", state, dispatch);
   }
