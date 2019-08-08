@@ -101,54 +101,6 @@ export const onMessage = (message, state, dispatch) => {
 
     case "betting":
       switch (message["action"]) {
-        case "small_blind":
-        case "big_blind":
-        case "round_betting":
-          if (message["action"] === "round_betting") {
-            message["method"] = "replay";
-            message["playerid"] === 0 &&
-              sendMessage(message, "player1", state, dispatch);
-            message["playerid"] === 1 &&
-              sendMessage(message, "player2", state, dispatch);
-          } else {
-            if (message["playerid"] === 0) {
-              message["gui_playerID"] = 0;
-              sendMessage(message, "player1", state, dispatch);
-            } else if (message["playerid"] === 1) {
-              message["gui_playerID"] = 1;
-              sendMessage(message, "player2", state, dispatch);
-            }
-          }
-          break;
-
-        case "small_blind_bet":
-          log("Small Blind has been posted.", "info");
-          bet(message["playerid"], message["amount"], state, dispatch);
-          setLastAction(message["playerid"], "Small Blind", dispatch);
-
-          message["action"] = "small_blind_bet_player";
-          message["gui_playerID"] = 0;
-
-          sendMessage(message, "player1", state, dispatch);
-          message["gui_playerID"] = 1;
-
-          sendMessage(message, "player2", state, dispatch);
-          break;
-
-        case "big_blind_bet":
-          log("Big Blind has been posted.", "info");
-          bet(message["playerid"], message["amount"], state, dispatch);
-          setLastAction(message["playerid"], "Big Blind", dispatch);
-
-          message["action"] = "big_blind_bet_player";
-
-          message["gui_playerID"] = 0;
-          sendMessage(message, "player1", state, dispatch);
-
-          message["gui_playerID"] = 1;
-          sendMessage(message, "player2", state, dispatch);
-          break;
-
         case "check":
         case "call":
         case "raise":
@@ -276,8 +228,55 @@ export const onMessage_player1 = (message, state, dispatch) => {
       break;
 
     case "betting":
-      setActivePlayer("player1", dispatch);
-      toggleControls(dispatch);
+      switch (message["action"]) {
+        case "small_blind_bet":
+          bet(message["playerid"], message["amount"], state, dispatch);
+          setLastAction(message["playerid"], "Small Blind", dispatch);
+
+          message["action"] = "small_blind_bet_player";
+          message["gui_playerID"] = 0;
+          sendMessage(message, "player1", state, dispatch);
+
+          message["gui_playerID"] = 1;
+          sendMessage(message, "player2", state, dispatch);
+
+          log("Small Blind has been posted.", "info");
+          break;
+
+        case "big_blind_bet":
+          bet(message["playerid"], message["amount"], state, dispatch);
+          setLastAction(message["playerid"], "Big Blind", dispatch);
+
+          message["action"] = "big_blind_bet_player";
+
+          message["gui_playerID"] = 0;
+          sendMessage(message, "player1", state, dispatch);
+
+          message["gui_playerID"] = 1;
+          sendMessage(message, "player2", state, dispatch);
+          log("Big Blind has been posted.", "info");
+          break;
+
+        case "betting_round":
+          if (message["action"] === "round_betting") {
+            message["method"] = "replay";
+            message["playerid"] === 0 &&
+              sendMessage(message, "player1", state, dispatch);
+            message["playerid"] === 1 &&
+              sendMessage(message, "player2", state, dispatch);
+          } else {
+            if (message["playerid"] === 0) {
+              message["gui_playerID"] = 0;
+              sendMessage(message, "player1", state, dispatch);
+            } else if (message["playerid"] === 1) {
+              message["gui_playerID"] = 1;
+              sendMessage(message, "player2", state, dispatch);
+            }
+          }
+          setActivePlayer("player1", dispatch);
+          toggleControls(dispatch);
+          break;
+      }
       break;
 
     case "seats":
@@ -350,8 +349,55 @@ export const onMessage_player2 = (message, state, dispatch) => {
       break;
 
     case "betting":
-      setActivePlayer("player2", dispatch);
-      toggleControls(dispatch);
+      switch (message["action"]) {
+        case "small_blind_bet":
+          bet(message["playerid"], message["amount"], state, dispatch);
+          setLastAction(message["playerid"], "Small Blind", dispatch);
+
+          message["action"] = "small_blind_bet_player";
+          message["gui_playerID"] = 0;
+          sendMessage(message, "player1", state, dispatch);
+
+          message["gui_playerID"] = 1;
+          sendMessage(message, "player2", state, dispatch);
+
+          log("Small Blind has been posted.", "info");
+          break;
+
+        case "big_blind_bet":
+          bet(message["playerid"], message["amount"], state, dispatch);
+          setLastAction(message["playerid"], "Big Blind", dispatch);
+
+          message["action"] = "big_blind_bet_player";
+
+          message["gui_playerID"] = 0;
+          sendMessage(message, "player1", state, dispatch);
+
+          message["gui_playerID"] = 1;
+          sendMessage(message, "player2", state, dispatch);
+          log("Big Blind has been posted.", "info");
+          break;
+
+        case "betting_round":
+          if (message["action"] === "round_betting") {
+            message["method"] = "replay";
+            message["playerid"] === 0 &&
+              sendMessage(message, "player1", state, dispatch);
+            message["playerid"] === 1 &&
+              sendMessage(message, "player2", state, dispatch);
+          } else {
+            if (message["playerid"] === 0) {
+              message["gui_playerID"] = 0;
+              sendMessage(message, "player1", state, dispatch);
+            } else if (message["playerid"] === 1) {
+              message["gui_playerID"] = 1;
+              sendMessage(message, "player2", state, dispatch);
+            }
+          }
+          setActivePlayer("player2", dispatch);
+          toggleControls(dispatch);
+          break;
+      }
       break;
 
     case "seats":
