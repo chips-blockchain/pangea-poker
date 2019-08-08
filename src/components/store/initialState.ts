@@ -25,7 +25,7 @@ const initialState = {
     }
   },
   // Which seat is the active player
-  activePlayer: "player1",
+  activePlayer: null,
   // Current blinds - small and big one
   blinds: [1000000, 2000000],
   // Board Cards
