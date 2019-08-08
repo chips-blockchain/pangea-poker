@@ -1,23 +1,44 @@
+/* eslint-disable no-use-before-define */
 import theme from "../../styles/theme";
 import playerIdToString from "../../lib/playerIdToString";
+import { State } from "./initialState";
 
-export const bet = (player, betAmount, state, dispatch) => {
+interface Message {
+  method: string;
+  [key: string]: any;
+}
+
+// Update the player's current betAmount
+export const bet = (
+  player: string | number,
+  betAmount: number,
+  state: State,
+  dispatch: Function
+): void => {
+  // Convert the player parameter to a string if needed
   if (typeof player === "number") {
     player = playerIdToString(player);
   }
+
+  // Calculate the total chips which includes the current
   const totalChips =
     state.players[player].chips + state.players[player].betAmount;
+
+  // Calculate the remaining chips
+  const remainingChips = totalChips - betAmount;
+
   dispatch({
     type: "bet",
     payload: {
       player,
-      betAmount: betAmount,
-      chips: totalChips - betAmount
+      betAmount,
+      chips: remainingChips
     }
   });
 };
 
-export const log = (text, color, message) => {
+// A colored console.log
+export const log = (text: string, color: string, message: Message): void => {
   console.log(
     "%c" + text,
     `color: ${
@@ -35,68 +56,91 @@ export const log = (text, color, message) => {
   );
 };
 
-export const collectChips = (state, dispatch) => {
+// Collect the chips from the player before a new turn
+export const collectChips = (state: State, dispatch: Function): void => {
   dispatch({
     type: "collectChips"
   });
+  // Show the main pot with a slight delay, so it appears when the chips collection animation finishes
   !state.showMainPot && setTimeout(() => toggleMainPot(dispatch), 400);
 };
 
-export const deal = (message, state, dispatch) => {
+// Process the deal message from the backend. It's responsible for setting up the board cards.
+export const deal = (
+  message: Message,
+  state: State,
+  dispatch: Function
+): void => {
+  // Set the dealer
   if (message.deal.dealer !== null) {
-    // log(`The dealer is player${message.deal.dealer + 1}.`, "info");
+    log(`The dealer is player${message.deal.dealer + 1}.`, "info", undefined);
     setDealer(message.deal.dealer, dispatch);
   }
-  if (message.deal.holecards.length === 2) {
+  if (message.deal.holecards.length === 2)
     setHoleCards(message.deal.holecards, dispatch);
-  }
-  if (message.deal.board) {
-    if (state.gameTurn === 0 && message.deal.board.length === 3) {
+  switch (message.deal.board) {
+    // Flop
+    case state.gameTurn === 0 && message.deal.board.length === 3: {
       setBoardCards(message.deal.board, dispatch);
       nextTurn(1, state, dispatch);
-    } else if (state.gameTurn === 1 && message.deal.board.length === 4) {
+      break;
+    }
+    // Turn
+    case state.gameTurn === 1 && message.deal.board.length === 4: {
       setBoardCards(message.deal.board, dispatch);
       nextTurn(2, state, dispatch);
-    } else if (state.gameTurn === 2 && message.deal.board.length === 5) {
+      break;
+    }
+    // River
+    case state.gameTurn === 2 && message.deal.board.length === 5: {
       setBoardCards(message.deal.board, dispatch);
       nextTurn(3, state, dispatch);
+      break;
     }
   }
 };
 
-export const dealCards = dispatch => {
+// Trigger the card deal animation
+export const dealCards = (dispatch: Function): void => {
   dispatch({
     type: "dealCards"
   });
 };
 
-export const devStart = dispatch => {
+// Set up the state for Developer Mode
+export const devStart = (dispatch: Function): void => {
   dispatch({
     type: "devStart"
   });
 };
 
-export const fold = (player, dispatch) => {
+// Fold player action
+export const fold = (player: string, dispatch: Function): void => {
   dispatch({
     type: "fold",
     payload: player
   });
 };
 
-export const game = (gameObject, state, dispatch) => {
+// Initialize the game
+export const game = (
+  gameObject: { gametype: string; pot: number[] },
+  state: State,
+  dispatch: Function
+): void => {
   if (state.gameStarted === false) {
     dispatch({
       type: "startGame",
       payload: {
         gameType: gameObject.gametype,
         pot: gameObject.pot
-        // toCall: gameObject.tocall
       }
     });
   }
 };
 
-export const nextTurn = (turn, state, dispatch) => {
+//
+export const nextTurn = (turn, state: State, dispatch: Function): void => {
   collectChips(state, dispatch);
   setActivePlayer(null, dispatch);
   setTimeout(() => {
@@ -104,12 +148,11 @@ export const nextTurn = (turn, state, dispatch) => {
   }, 400);
   setTimeout(() => {
     resetTurn(state.blinds[1], dispatch);
-    // turn != 4 && toggleControls(dispatch);
   }, 1000);
   setLastAction(1, null, dispatch);
 };
 
-export const nextHand = (state, dispatch) => {
+export const nextHand = (state: State, dispatch: Function): void => {
   setActivePlayer(null, dispatch);
   updateGameTurn(0, dispatch);
   resetTurn(state.blinds[1], dispatch);
@@ -118,7 +161,7 @@ export const nextHand = (state, dispatch) => {
   });
 };
 
-export const playerJoin = (player, state, dispatch) => {
+export const playerJoin = (player, state: State, dispatch: Function): void => {
   const id = player.slice(-1) - 1;
   sendMessage(
     { method: "player_join", gui_playerID: id },
@@ -128,36 +171,7 @@ export const playerJoin = (player, state, dispatch) => {
   );
 };
 
-export const processControls = (message, state, dispatch) => {
-  const allPossibilities = [
-    "",
-    "small_blind",
-    "big_blind",
-    "check",
-    "raise",
-    "call",
-    "allin",
-    "fold"
-  ];
-
-  // This is not being used temporarily
-  if (message.possibilities) {
-    message.possibilities.map(possibility => {
-      allPossibilities[possibility] == "check" &&
-        console.log("Check is an otpion");
-      allPossibilities[possibility] == "raise" &&
-        console.log("Raise is an otpion");
-      allPossibilities[possibility] == "call" &&
-        console.log("Call is an otpion");
-      allPossibilities[possibility] == "allin" &&
-        console.log("All-in is an otpion - but it's always an option lol");
-      allPossibilities[possibility] == "fold" &&
-        console.log("Fold is an otpion - which is always an option");
-    });
-  }
-};
-
-export const resetMessage = (message, node, dispatch) => {
+export const resetMessage = (message, node, dispatch: Function): void => {
   dispatch({
     type: "setMessage",
     payload: {
@@ -167,14 +181,14 @@ export const resetMessage = (message, node, dispatch) => {
   });
 };
 
-export const resetTurn = (bigBlind, dispatch) => {
+export const resetTurn = (bigBlind, dispatch: Function): void => {
   dispatch({
     type: "resetTurn",
     payload: bigBlind
   });
 };
 
-export const seats = (seatsArray, dispatch) => {
+export const seats = (seatsArray, dispatch: Function): void => {
   seatsArray.map(seat => {
     dispatch({
       type: "updateSeats",
@@ -187,28 +201,33 @@ export const seats = (seatsArray, dispatch) => {
   });
 };
 
-export const setActivePlayer = (player, dispatch) => {
+export const setActivePlayer = (player, dispatch: Function): void => {
   dispatch({
     type: "setActivePlayer",
     payload: player
   });
 };
 
-export const setBalance = (player, balance, dispatch) => {
+export const setBalance = (player, balance, dispatch: Function): void => {
   dispatch({
     type: "setBalance",
     payload: { player, balance }
   });
 };
 
-export const setBoardCards = (boardCards, dispatch) => {
+export const setBoardCards = (boardCards, dispatch: Function): void => {
   dispatch({
     type: "setBoardCards",
     payload: boardCards
   });
 };
 
-export const sendMessage = (message, node, state, dispatch) => {
+export const sendMessage = (
+  message,
+  node,
+  state: State,
+  dispatch: Function
+): void => {
   if (state.connection[node] === "Connected") {
     dispatch({
       type: "setMessage",
@@ -220,35 +239,35 @@ export const sendMessage = (message, node, state, dispatch) => {
   } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
 };
 
-export const setMinRaise = (amount, dispatch) => {
+export const setMinRaise = (amount, dispatch: Function): void => {
   dispatch({
     type: "setMinRaise",
     payload: amount
   });
 };
 
-export const setToCall = (amount, dispatch) => {
+export const setToCall = (amount, dispatch: Function): void => {
   dispatch({
     type: "setToCall",
     payload: amount
   });
 };
 
-export const setDealer = (player, dispatch) => {
+export const setDealer = (player, dispatch: Function): void => {
   dispatch({
     type: "setDealer",
     payload: player
   });
 };
 
-export const setHoleCards = (holeCards, dispatch) => {
+export const setHoleCards = (holeCards, dispatch: Function): void => {
   dispatch({
     type: "setHoleCards",
     payload: holeCards
   });
 };
 
-export const setLastAction = (player, action, dispatch) => {
+export const setLastAction = (player, action, dispatch: Function): void => {
   dispatch({
     type: "setLastAction",
     payload: {
@@ -258,21 +277,21 @@ export const setLastAction = (player, action, dispatch) => {
   });
 };
 
-export const setLastMessage = (message, dispatch) => {
+export const setLastMessage = (message, dispatch: Function): void => {
   dispatch({
     type: "setLastMessage",
     payload: message
   });
 };
 
-export const setUserSeat = (player, dispatch) => {
+export const setUserSeat = (player, dispatch: Function): void => {
   dispatch({
     type: "setUserSeat",
     payload: player
   });
 };
 
-export const setWinner = (player, state, dispatch) => {
+export const setWinner = (player, state: State, dispatch: Function): void => {
   const winner = playerIdToString(player.playerID);
   console.log(`The winner is ${winner}.`);
   nextTurn(4, state, dispatch);
@@ -296,21 +315,21 @@ export const toggleMainPot = dispatch => {
   });
 };
 
-export const updateGameTurn = (turn, dispatch) => {
+export const updateGameTurn = (turn, dispatch: Function): void => {
   dispatch({
     type: "updateGameTurn",
     payload: turn
   });
 };
 
-export const updateMainPot = (amount, dispatch) => {
+export const updateMainPot = (amount, dispatch: Function): void => {
   dispatch({
     type: "updateMainPot",
     payload: amount
   });
 };
 
-export const updateTotalPot = (amount, dispatch) => {
+export const updateTotalPot = (amount, dispatch: Function): void => {
   dispatch({
     type: "updateTotalPot",
     payload: amount

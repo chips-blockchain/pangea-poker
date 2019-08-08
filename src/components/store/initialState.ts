@@ -1,5 +1,5 @@
 // Object of all players at the table
-export const testState = {
+const initialState = {
   players: {
     player1: {
       isPlaying: true,
@@ -22,83 +22,6 @@ export const testState = {
       betAmount: 0,
       playerCards: [],
       connected: true
-    },
-    player3: {
-      isPlaying: false,
-      seat: "player3",
-      chips: 78600035,
-      hasCards: false,
-      showCards: false,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    },
-    player4: {
-      isPlaying: false,
-      seat: "player4",
-      chips: 0,
-      hasCards: false,
-      showCards: false,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    },
-    player5: {
-      isPlaying: false,
-      seat: "player5",
-      chips: 0,
-      hasCards: false,
-      showCards: false,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    },
-    player6: {
-      isPlaying: false,
-      seat: "player6",
-      chips: 0,
-      hasCards: false,
-      showCards: false,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    },
-    player7: {
-      isPlaying: false,
-      seat: "player7",
-      chips: 0,
-      hasCards: false,
-      showCards: false,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    },
-    player8: {
-      isPlaying: false,
-      seat: "player8",
-      chips: 0,
-      hasCards: false,
-      showCards: false,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    },
-    player9: {
-      isPlaying: false,
-      seat: "player9",
-      chips: 0,
-      hasCards: false,
-      showCards: false,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
     }
   },
   // Which seat is the active player
@@ -132,7 +55,7 @@ export const testState = {
   // Game type at the top left corner
   gameType: "",
   // Total number of hands played in this session
-  handsPlayer: 0,
+  handsPlayed: 0,
   // Cards of the user
   holeCards: [],
   // Wether the app should run in developer mode
@@ -153,25 +76,18 @@ export const testState = {
     min_amount: 0,
     gui_playerID: 1
   },
-  // nodes: {
-  //   dcv: "209.250.254.100:9000",
-  //   bvv: "95.179.192.102:9001",
-  //   player1: "45.77.52.117:9002",
-  //   player2: "217.69.0.32:9003"
-  // },
-  nodes: {
-    dcv: "0.0.0.0",
-    bvv: "0.0.0.0",
-    player1: "0.0.0.0",
-    player2: "0.0.0.0"
-  },
   nodeType: "player",
+  nodes: {
+    dcv: "0.0.0.0.",
+    bvv: "0.0.0.0.",
+    player1: "0.0.0.0.",
+    player2: "0.0.0.0."
+  },
   message: {
     dcv: null,
     bvv: null,
     player1: null,
-    player2: null,
-    echo: null
+    player2: null
   },
   // Amount of the minimum raise
   minRaise: 4000000,
@@ -197,5 +113,69 @@ export const testState = {
   winner: null
 };
 
+interface Player {
+  isPlaying: boolean;
+  seat: string;
+  chips: number;
+  hasCards: boolean;
+  showCards: boolean;
+  isBetting: boolean;
+  betAmount: number;
+  playerCards: string[];
+  connected: boolean;
+}
+
+export interface State {
+  players: Player;
+  activePlayer: string;
+  blinds: [number, number];
+  boardCards: string[];
+  connection: {
+    dcv: string;
+    bvv: string;
+    player1: string;
+    player2: string;
+    echo: string;
+  };
+  controls: { showControls: boolean; hadowRoot: boolean };
+  cardsDealt: boolean;
+  chipsCollected: boolean;
+  dealer: number;
+  gameStarted: boolean;
+  gameType: string;
+  handsPlayed: number;
+  holeCards: string[];
+  isDeveloperMode: boolean;
+  isStartupModal: boolean;
+  lastAction: { player: number; action: string | null };
+  lastMessage: object;
+  nodes: {
+    dcv: string | null;
+    bvv: string | null;
+    player1: string | null;
+    player2: string | null;
+  };
+  nodeType: string;
+  message: {
+    dcv: string | null;
+    bvv: string | null;
+    player1: string | null;
+    player2: string | null;
+  };
+  gameTurn: number;
+  minRaise: number;
+  options: {
+    showPotCounter: boolean;
+  };
+  pot: number[];
+  seats: number;
+  showDealer: boolean;
+  showMainPot: boolean;
+  totalPot: number;
+  toCall: number;
+  userSeat: string;
+  winner: string | null;
+}
+
 // export default initialState;
-export default testState;
+export default initialState;

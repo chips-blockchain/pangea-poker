@@ -7,7 +7,8 @@
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
     "start": "NODE_ENV=development parcel src/index.html --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:fix": "eslint './src/**/*.{ts,tsx}'"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,16 @@
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.11",
+    "@types/react": "^16.8.24",
+    "@types/react-dom": "^16.8.5",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "cssnano": "^4.1.10",
     "emotion": "^10.0.9",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "normalize.css": "^8.0.1",
     "rc-slider": "^8.6.13",
     "react": "^16.8.6",
@@ -38,7 +46,10 @@
     "babel-loader": "^8.0.6",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "eslint-plugin-react": "^7.14.3",
     "parcel-bundler": "^1.12.3",
-    "prettier": "1.17.1"
+    "prettier": "^1.17.1",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.5.3"
   }
 }
