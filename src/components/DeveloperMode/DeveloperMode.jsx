@@ -9,7 +9,7 @@ import {
   sendMessage,
   setActivePlayer,
   setUserSeat,
-  toggleControls
+  showControls
 } from "../store/actions";
 import { DispatchContext, StateContext } from "../store/context";
 
@@ -21,7 +21,7 @@ const DeveloperMode = () => {
     const nextPlayer = state.activePlayer === "player1" ? "player2" : "player1";
     setUserSeat(nextPlayer, dispatch);
     setActivePlayer(nextPlayer, dispatch);
-    toggleControls(dispatch);
+    showControls(true, dispatch);
   };
 
   return (
@@ -40,8 +40,8 @@ const DeveloperMode = () => {
       <Button label="River" onClick={() => nextTurn(3, state, dispatch)} />
       <Button label="Next Player" onClick={() => nextPlayer()} />
       <Button
-        label="Toggle Controls"
-        onClick={() => toggleControls(dispatch)}
+        label="Show Controls"
+        onClick={() => showControls(true, dispatch)}
       />
       <Button
         label="Deal Cards"

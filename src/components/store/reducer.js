@@ -229,12 +229,12 @@ const reducer = (state, action) => {
         }
       };
     }
-    case "toggleControls": {
+    case "showControls": {
       return {
         ...state,
         controls: {
           ...state.controls,
-          showControls: !state.controls.showControls
+          showControls: action.payload
         }
       };
     }

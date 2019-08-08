@@ -304,9 +304,10 @@ export const setWinner = (player, state: State, dispatch: Function): void => {
   }, 1000);
 };
 
-export const toggleControls = dispatch => {
+export const showControls = (show: boolean, dispatch: Function) => {
   dispatch({
-    type: "toggleControls"
+    type: "showControls",
+    payload: show
   });
 };
 

@@ -13,7 +13,7 @@ import {
   setMinRaise,
   setToCall,
   setLastAction,
-  toggleControls
+  showControls
 } from "../store/actions";
 
 const Controls = () => {
@@ -81,7 +81,7 @@ const Controls = () => {
       log(`${player} folds`, "info");
     } else throw new Error("Something is wrong with the betamount.");
     // Hide Controls
-    toggleControls(dispatch);
+    showControls(false, dispatch);
     // Update the player's name with the last action
     setLastAction(nextAction.playerid, lastAction, dispatch);
     // Send the message to the back-end
