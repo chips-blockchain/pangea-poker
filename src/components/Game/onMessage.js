@@ -221,18 +221,19 @@ export const onMessage_bvv = (message, state, dispatch) => {
   setLastMessage(message, dispatch);
   log("Received from BVV: ", "received", message);
   log(message["method"], "info");
-  if (message["method"] === "init_b") {
-    /*
-    sg777: In the back end this message is forwarded to both the players, this should be changed in the future
-    */
-    message["method"] = "init_b_player";
-    message["gui_playerID"] = 0;
-    sendMessage(message, "player1", state, dispatch);
 
-    message["gui_playerID"] = 1;
-    sendMessage(message, "player2", state, dispatch);
-  } else {
-    sendMessage(message, "dcv", state, dispatch);
+  switch (message["method"]) {
+    case "init_b":
+      message["method"] = "init_b_player";
+      message["gui_playerID"] = 0;
+      sendMessage(message, "player1", state, dispatch);
+
+      message["gui_playerID"] = 1;
+      sendMessage(message, "player2", state, dispatch);
+      break;
+
+    default:
+      sendMessage(message, "dcv", state, dispatch);
   }
 };
 
