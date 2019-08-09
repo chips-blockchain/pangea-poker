@@ -76,7 +76,7 @@ export const onMessage = (message, state, dispatch) => {
 
     case "dealer":
       console.log("We got the dealer");
-
+	  /*
       message["method"] = "dealer_bvv";
       sendMessage(message, "bvv", state, dispatch);
 
@@ -85,6 +85,7 @@ export const onMessage = (message, state, dispatch) => {
       sendMessage(message, "player1", state, dispatch);
       message["gui_playerID"] = 1;
       sendMessage(message, "player2", state, dispatch);
+	  */	
       break;
 
     case "turn":
@@ -232,21 +233,21 @@ export const onMessage_player1 = (message, state, dispatch) => {
         case "small_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Small Blind", dispatch);
-
+		  /*	
           message["action"] = "small_blind_bet_player";
           message["gui_playerID"] = 0;
           sendMessage(message, "player1", state, dispatch);
 
           message["gui_playerID"] = 1;
           sendMessage(message, "player2", state, dispatch);
-
+          */
           log("Small Blind has been posted.", "info");
           break;
 
         case "big_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Big Blind", dispatch);
-
+		  /*
           message["action"] = "big_blind_bet_player";
 
           message["gui_playerID"] = 0;
@@ -254,15 +255,18 @@ export const onMessage_player1 = (message, state, dispatch) => {
 
           message["gui_playerID"] = 1;
           sendMessage(message, "player2", state, dispatch);
+		  */	
           log("Big Blind has been posted.", "info");
           break;
 
         case "round_betting":
+          /*
           message["method"] = "replay";
           message["playerid"] === 0 &&
             sendMessage(message, "player1", state, dispatch);
           message["playerid"] === 1 &&
             sendMessage(message, "player2", state, dispatch);
+		  */  	
           setActivePlayer("player1", dispatch);
           showControls(true, dispatch);
           break;
@@ -354,21 +358,21 @@ export const onMessage_player2 = (message, state, dispatch) => {
         case "small_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Small Blind", dispatch);
-
+		  /*	
           message["action"] = "small_blind_bet_player";
           message["gui_playerID"] = 0;
           sendMessage(message, "player1", state, dispatch);
 
           message["gui_playerID"] = 1;
           sendMessage(message, "player2", state, dispatch);
-
+		  */	
           log("Small Blind has been posted.", "info");
           break;
 
         case "big_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Big Blind", dispatch);
-
+		 /*	
           message["action"] = "big_blind_bet_player";
 
           message["gui_playerID"] = 0;
@@ -376,15 +380,18 @@ export const onMessage_player2 = (message, state, dispatch) => {
 
           message["gui_playerID"] = 1;
           sendMessage(message, "player2", state, dispatch);
+          */
           log("Big Blind has been posted.", "info");
           break;
 
         case "round_betting":
+          /*
           message["method"] = "replay";
           message["playerid"] === 0 &&
             sendMessage(message, "player1", state, dispatch);
           message["playerid"] === 1 &&
             sendMessage(message, "player2", state, dispatch);
+          */
           setActivePlayer("player2", dispatch);
           showControls(true, dispatch);
           break;
