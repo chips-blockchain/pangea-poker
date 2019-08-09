@@ -18,12 +18,12 @@ import {
   showControls
 } from "../store/actions";
 
-import { State } from "../store/initialState";
-import { Message } from "../store/actions";
+import { IState } from "../store/initialState";
+import { IMessage } from "../store/actions";
 
 export const onMessage = (
-  message: Message,
-  state: State,
+  message: IMessage,
+  state: IState,
   dispatch: Function
 ): void => {
   message = JSON.parse(message);
@@ -143,8 +143,8 @@ export const onMessage = (
 };
 
 export const onMessage_bvv = (
-  message: Message,
-  state: State,
+  message: IMessage,
+  state: IState,
   dispatch: Function
 ): void => {
   message = JSON.parse(message);
@@ -168,8 +168,8 @@ export const onMessage_bvv = (
 };
 
 export const onMessage_player1 = (
-  message: Message,
-  state: State,
+  message: IMessage,
+  state: IState,
   dispatch: Function
 ) => {
   message = JSON.parse(message);
@@ -274,8 +274,8 @@ export const onMessage_player1 = (
 };
 
 export const onMessage_player2 = (
-  message: Message,
-  state: State,
+  message: IMessage,
+  state: IState,
   dispatch: Function
 ) => {
   message = JSON.parse(message);

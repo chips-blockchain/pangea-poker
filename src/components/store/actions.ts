@@ -1,9 +1,9 @@
 /* eslint-disable no-use-before-define */
 import theme from "../../styles/theme";
 import playerIdToString from "../../lib/playerIdToString";
-import { State } from "./initialState";
+import { IState } from "./initialState";
 
-export interface Message {
+export interface IMessage {
   method: string;
   [key: string]: any;
 }
@@ -12,7 +12,7 @@ export interface Message {
 export const bet = (
   player: string | number,
   betAmount: number,
-  state: State,
+  state: IState,
   dispatch: Function
 ): void => {
   // Convert the player parameter to a string if needed
@@ -38,7 +38,7 @@ export const bet = (
 };
 
 // A colored console.log
-export const log = (text: string, color: string, message: Message): void => {
+export const log = (text: string, color: string, message: IMessage): void => {
   console.log(
     "%c" + text,
     `color: ${
@@ -57,7 +57,7 @@ export const log = (text: string, color: string, message: Message): void => {
 };
 
 // Collect the chips from the player before a new turn
-export const collectChips = (state: State, dispatch: Function): void => {
+export const collectChips = (state: IState, dispatch: Function): void => {
   dispatch({
     type: "collectChips"
   });
@@ -67,8 +67,8 @@ export const collectChips = (state: State, dispatch: Function): void => {
 
 // Process the deal message from the backend. It's responsible for setting up the board cards.
 export const deal = (
-  message: Message,
-  state: State,
+  message: IMessage,
+  state: IState,
   dispatch: Function
 ): void => {
   // Set the dealer
@@ -126,7 +126,7 @@ export const fold = (player: string, dispatch: Function): void => {
 // Initialize the game
 export const game = (
   gameObject: { gametype: string; pot: number[] },
-  state: State,
+  state: IState,
   dispatch: Function
 ): void => {
   if (state.gameStarted === false) {
@@ -143,7 +143,7 @@ export const game = (
 //
 export const nextTurn = (
   turn: number,
-  state: State,
+  state: IState,
   dispatch: Function
 ): void => {
   collectChips(state, dispatch);
@@ -157,7 +157,7 @@ export const nextTurn = (
   setLastAction(1, null, dispatch);
 };
 
-export const nextHand = (state: State, dispatch: Function): void => {
+export const nextHand = (state: IState, dispatch: Function): void => {
   setActivePlayer(null, dispatch);
   updateGameTurn(0, dispatch);
   resetTurn(state.blinds[1], dispatch);
@@ -168,7 +168,7 @@ export const nextHand = (state: State, dispatch: Function): void => {
 
 export const playerJoin = (
   player: string,
-  state: State,
+  state: IState,
   dispatch: Function
 ): void => {
   const id = Number(player.slice(-1)) - 1;
@@ -181,7 +181,7 @@ export const playerJoin = (
 };
 
 export const resetMessage = (
-  message: Message,
+  message: IMessage,
   node: string,
   dispatch: Function
 ): void => {
@@ -246,9 +246,9 @@ export const setBoardCards = (
 };
 
 export const sendMessage = (
-  message: Message,
+  message: IMessage,
   node: string,
-  state: State,
+  state: IState,
   dispatch: Function
 ): void => {
   if (state.connection[node] === "Connected") {
@@ -304,7 +304,7 @@ export const setLastAction = (
   });
 };
 
-export const setLastMessage = (message: Message, dispatch: Function): void => {
+export const setLastMessage = (message: IMessage, dispatch: Function): void => {
   dispatch({
     type: "setLastMessage",
     payload: message
@@ -319,8 +319,8 @@ export const setUserSeat = (player: string, dispatch: Function): void => {
 };
 
 export const setWinner = (
-  player: Message,
-  state: State,
+  player: IMessage,
+  state: IState,
   dispatch: Function
 ): void => {
   const winner = playerIdToString(player.playerID);
