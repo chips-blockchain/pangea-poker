@@ -14,7 +14,6 @@ import {
   setLastMessage,
   setUserSeat,
   setWinner,
-  updateMainPot,
   updateTotalPot,
   showControls
 } from "../store/actions";
@@ -35,33 +34,14 @@ export const onMessage = (message, state, dispatch) => {
 
     case "seats":
       seats(message["seats"], dispatch);
-      //sendMessage({ method: "dcv" }, "dcv", state, dispatch);
-      break;
-
-    case "dcv":
-      //sendMessage({ method: "bvv" }, "bvv", state, dispatch);
       break;
 
     case "bvv_join":
       log("BVV has Joined", "info");
       break;
 
-    case "join_res":
-      message["gui_playerID"] = 0;
-      //sendMessage(message, "player1", state, dispatch);
-      message["gui_playerID"] = 1;
-      //sendMessage(message, "player2", state, dispatch);
-      break;
-
     case "check_bvv_ready":
       sendMessage(message, "bvv", state, dispatch);
-      break;
-
-    case "init":
-      message["gui_playerID"] = 0;
-      //sendMessage(message, "player1", state, dispatch);
-      message["gui_playerID"] = 1;
-      //sendMessage(message, "player2", state, dispatch);
       break;
 
     case "init_d":
@@ -74,20 +54,6 @@ export const onMessage = (message, state, dispatch) => {
 
       message["gui_playerID"] = 1;
       sendMessage(message, "player2", state, dispatch);
-      break;
-
-    case "dealer":
-      console.log("We got the dealer");
-	  /*
-      message["method"] = "dealer_bvv";
-      sendMessage(message, "bvv", state, dispatch);
-
-      message["method"] = "dealer_player";
-      message["gui_playerID"] = 0;
-      sendMessage(message, "player1", state, dispatch);
-      message["gui_playerID"] = 1;
-      sendMessage(message, "player2", state, dispatch);
-	  */	
       break;
 
     case "turn":
@@ -235,43 +201,19 @@ export const onMessage_player1 = (message, state, dispatch) => {
         case "small_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Small Blind", dispatch);
-		  /*	
-          message["action"] = "small_blind_bet_player";
-          message["gui_playerID"] = 0;
-          sendMessage(message, "player1", state, dispatch);
-
-          message["gui_playerID"] = 1;
-          sendMessage(message, "player2", state, dispatch);
-          */
           log("Small Blind has been posted.", "info");
           break;
 
         case "big_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Big Blind", dispatch);
-		  /*
-          message["action"] = "big_blind_bet_player";
-
-          message["gui_playerID"] = 0;
-          sendMessage(message, "player1", state, dispatch);
-
-          message["gui_playerID"] = 1;
-          sendMessage(message, "player2", state, dispatch);
-		  */	
           log("Big Blind has been posted.", "info");
           break;
 
         case "round_betting":
-          /*
-          message["method"] = "replay";
-          message["playerid"] === 0 &&
-            sendMessage(message, "player1", state, dispatch);
-          message["playerid"] === 1 &&
-            sendMessage(message, "player2", state, dispatch);
-		  */  	
           setActivePlayer("player1", dispatch);
-		  updateTotalPot(message["pot"], dispatch);
-  		  showControls(true, dispatch);
+          updateTotalPot(message["pot"], dispatch);
+          showControls(true, dispatch);
           break;
 
         default:
@@ -361,40 +303,16 @@ export const onMessage_player2 = (message, state, dispatch) => {
         case "small_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Small Blind", dispatch);
-		  /*	
-          message["action"] = "small_blind_bet_player";
-          message["gui_playerID"] = 0;
-          sendMessage(message, "player1", state, dispatch);
-
-          message["gui_playerID"] = 1;
-          sendMessage(message, "player2", state, dispatch);
-		  */	
           log("Small Blind has been posted.", "info");
           break;
 
         case "big_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Big Blind", dispatch);
-		 /*	
-          message["action"] = "big_blind_bet_player";
-
-          message["gui_playerID"] = 0;
-          sendMessage(message, "player1", state, dispatch);
-
-          message["gui_playerID"] = 1;
-          sendMessage(message, "player2", state, dispatch);
-          */
           log("Big Blind has been posted.", "info");
           break;
 
         case "round_betting":
-          /*
-          message["method"] = "replay";
-          message["playerid"] === 0 &&
-            sendMessage(message, "player1", state, dispatch);
-          message["playerid"] === 1 &&
-            sendMessage(message, "player2", state, dispatch);
-          */
           setActivePlayer("player2", dispatch);
           updateTotalPot(message["pot"], dispatch);
           showControls(true, dispatch);
