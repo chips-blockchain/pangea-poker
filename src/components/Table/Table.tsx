@@ -11,9 +11,9 @@ import TotalPot from "./TotalPot";
 import { ChipGrid, Bet } from "../Chips";
 import Controls from "../Controls";
 import MainPot from "./MainPot";
-import initialState from "../store/initialState";
+import initialState, { PlayerType } from "../store/initialState";
 import reducer from "../store/reducer";
-import Game from "../Game/";
+import Game from "../Game";
 import Connections from "./Connections";
 import { StateContext, DispatchContext } from "../store/context";
 import StartupModal from "../StartupModal";
@@ -29,7 +29,7 @@ const Table = () => {
     dealer,
     gameType,
     gameTurn,
-    holeCards,
+    isDeveloperMode,
     players,
     pot,
     options,
@@ -48,7 +48,7 @@ const Table = () => {
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
         <Game />
-        {state.isDeveloperMode && <DeveloperMode />}
+        {isDeveloperMode && <DeveloperMode />}
         <div
           css={css`
             background-color: ${theme.moon.colors.dark};
@@ -89,7 +89,7 @@ const Table = () => {
             <Board boardCards={boardCards} gameTurn={gameTurn} />
             <PlayerGrid9Max>
               {Object.values(players).map(
-                player =>
+                (player: PlayerType) =>
                   player.isPlaying && (
                     <Player
                       chips={player.chips}
@@ -108,7 +108,7 @@ const Table = () => {
             </PlayerGrid9Max>
             <ChipGrid chipsCollected={chipsCollected}>
               {Object.values(players).map(
-                player =>
+                (player: PlayerType) =>
                   player.isBetting && (
                     <Bet
                       betAmount={player.betAmount}

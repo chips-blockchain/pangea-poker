@@ -113,7 +113,7 @@ const initialState = {
   winner: null
 };
 
-interface Player {
+export interface PlayerType {
   isPlaying: boolean;
   seat: string;
   chips: number;
@@ -126,7 +126,7 @@ interface Player {
 }
 
 export interface State {
-  players: Player;
+  players: PlayerType;
   activePlayer: string;
   blinds: [number, number];
   boardCards: string[];

@@ -1,3 +1,3 @@
-import Main from "./Table.jsx";
+import Main from "./Table.tsx";
 
 export default Main;
