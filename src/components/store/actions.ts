@@ -141,7 +141,11 @@ export const game = (
 };
 
 //
-export const nextTurn = (turn, state: State, dispatch: Function): void => {
+export const nextTurn = (
+  turn: number,
+  state: State,
+  dispatch: Function
+): void => {
   collectChips(state, dispatch);
   setActivePlayer(null, dispatch);
   setTimeout(() => {
@@ -162,8 +166,12 @@ export const nextHand = (state: State, dispatch: Function): void => {
   });
 };
 
-export const playerJoin = (player, state: State, dispatch: Function): void => {
-  const id = player.slice(-1) - 1;
+export const playerJoin = (
+  player: string,
+  state: State,
+  dispatch: Function
+): void => {
+  const id = Number(player.slice(-1)) - 1;
   sendMessage(
     { method: "player_join", gui_playerID: id },
     player,
@@ -172,7 +180,11 @@ export const playerJoin = (player, state: State, dispatch: Function): void => {
   );
 };
 
-export const resetMessage = (message, node, dispatch: Function): void => {
+export const resetMessage = (
+  message: Message,
+  node: string,
+  dispatch: Function
+): void => {
   dispatch({
     type: "setMessage",
     payload: {
@@ -182,14 +194,17 @@ export const resetMessage = (message, node, dispatch: Function): void => {
   });
 };
 
-export const resetTurn = (bigBlind, dispatch: Function): void => {
+export const resetTurn = (bigBlind: number, dispatch: Function): void => {
   dispatch({
     type: "resetTurn",
     payload: bigBlind
   });
 };
 
-export const seats = (seatsArray, dispatch: Function): void => {
+export const seats = (
+  seatsArray: [{ name: string; playing: number; seat: number }],
+  dispatch: Function
+): void => {
   seatsArray.map(seat => {
     dispatch({
       type: "updateSeats",
@@ -202,21 +217,28 @@ export const seats = (seatsArray, dispatch: Function): void => {
   });
 };
 
-export const setActivePlayer = (player, dispatch: Function): void => {
+export const setActivePlayer = (player: string, dispatch: Function): void => {
   dispatch({
     type: "setActivePlayer",
     payload: player
   });
 };
 
-export const setBalance = (player, balance, dispatch: Function): void => {
+export const setBalance = (
+  player: string,
+  balance: number,
+  dispatch: Function
+): void => {
   dispatch({
     type: "setBalance",
     payload: { player, balance }
   });
 };
 
-export const setBoardCards = (boardCards, dispatch: Function): void => {
+export const setBoardCards = (
+  boardCards: string[],
+  dispatch: Function
+): void => {
   dispatch({
     type: "setBoardCards",
     payload: boardCards
@@ -224,8 +246,8 @@ export const setBoardCards = (boardCards, dispatch: Function): void => {
 };
 
 export const sendMessage = (
-  message,
-  node,
+  message: Message,
+  node: string,
   state: State,
   dispatch: Function
 ): void => {
@@ -240,35 +262,39 @@ export const sendMessage = (
   } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
 };
 
-export const setMinRaise = (amount, dispatch: Function): void => {
+export const setMinRaise = (amount: number, dispatch: Function): void => {
   dispatch({
     type: "setMinRaise",
     payload: amount
   });
 };
 
-export const setToCall = (amount, dispatch: Function): void => {
+export const setToCall = (amount: number, dispatch: Function): void => {
   dispatch({
     type: "setToCall",
     payload: amount
   });
 };
 
-export const setDealer = (player, dispatch: Function): void => {
+export const setDealer = (player: number, dispatch: Function): void => {
   dispatch({
     type: "setDealer",
     payload: player
   });
 };
 
-export const setHoleCards = (holeCards, dispatch: Function): void => {
+export const setHoleCards = (holeCards: string[], dispatch: Function): void => {
   dispatch({
     type: "setHoleCards",
     payload: holeCards
   });
 };
 
-export const setLastAction = (player, action, dispatch: Function): void => {
+export const setLastAction = (
+  player: number,
+  action: string | null,
+  dispatch: Function
+): void => {
   dispatch({
     type: "setLastAction",
     payload: {
@@ -278,21 +304,25 @@ export const setLastAction = (player, action, dispatch: Function): void => {
   });
 };
 
-export const setLastMessage = (message, dispatch: Function): void => {
+export const setLastMessage = (message: Message, dispatch: Function): void => {
   dispatch({
     type: "setLastMessage",
     payload: message
   });
 };
 
-export const setUserSeat = (player, dispatch: Function): void => {
+export const setUserSeat = (player: string, dispatch: Function): void => {
   dispatch({
     type: "setUserSeat",
     payload: player
   });
 };
 
-export const setWinner = (player, state: State, dispatch: Function): void => {
+export const setWinner = (
+  player: Message,
+  state: State,
+  dispatch: Function
+): void => {
   const winner = playerIdToString(player.playerID);
   console.log(`The winner is ${winner}.`);
   nextTurn(4, state, dispatch);
@@ -311,34 +341,38 @@ export const showControls = (show: boolean, dispatch: Function) => {
   });
 };
 
-export const toggleMainPot = dispatch => {
+export const toggleMainPot = (dispatch: Function) => {
   dispatch({
     type: "toggleMainPot"
   });
 };
 
-export const updateGameTurn = (turn, dispatch: Function): void => {
+export const updateGameTurn = (turn: number, dispatch: Function): void => {
   dispatch({
     type: "updateGameTurn",
     payload: turn
   });
 };
 
-export const updateMainPot = (amount, dispatch: Function): void => {
+export const updateMainPot = (amount: number, dispatch: Function): void => {
   dispatch({
     type: "updateMainPot",
     payload: amount
   });
 };
 
-export const updateTotalPot = (amount, dispatch: Function): void => {
+export const updateTotalPot = (amount: number, dispatch: Function): void => {
   dispatch({
     type: "updateTotalPot",
     payload: amount
   });
 };
 
-export const updateStateValue = (key, value, dispatch) => {
+export const updateStateValue = (
+  key: string,
+  value: any,
+  dispatch: Function
+): void => {
   dispatch({
     type: "updateStateValue",
     payload: { key, value }
