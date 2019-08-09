@@ -14,6 +14,8 @@ import {
   setLastMessage,
   setUserSeat,
   setWinner,
+  updateMainPot,
+  updateTotalPot,
   showControls
 } from "../store/actions";
 
