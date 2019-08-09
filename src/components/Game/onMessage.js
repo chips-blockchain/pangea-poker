@@ -268,7 +268,8 @@ export const onMessage_player1 = (message, state, dispatch) => {
             sendMessage(message, "player2", state, dispatch);
 		  */  	
           setActivePlayer("player1", dispatch);
-          showControls(true, dispatch);
+		  updateTotalPot(message["pot"], dispatch);
+  		  showControls(true, dispatch);
           break;
 
         default:
@@ -393,6 +394,7 @@ export const onMessage_player2 = (message, state, dispatch) => {
             sendMessage(message, "player2", state, dispatch);
           */
           setActivePlayer("player2", dispatch);
+          updateTotalPot(message["pot"], dispatch);
           showControls(true, dispatch);
           break;
 
