@@ -3,7 +3,7 @@ import theme from "../../styles/theme";
 import playerIdToString from "../../lib/playerIdToString";
 import { State } from "./initialState";
 
-interface Message {
+export interface Message {
   method: string;
   [key: string]: any;
 }
