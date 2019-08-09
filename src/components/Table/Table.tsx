@@ -11,7 +11,7 @@ import TotalPot from "./TotalPot";
 import { ChipGrid, Bet } from "../Chips";
 import Controls from "../Controls";
 import MainPot from "./MainPot";
-import initialState, { IPlayer } from "../store/initialState";
+import initialState, { IPlayer, IState } from "../store/initialState";
 import reducer from "../store/reducer";
 import Game from "../Game";
 import Connections from "./Connections";
@@ -19,8 +19,11 @@ import { StateContext, DispatchContext } from "../store/context";
 import StartupModal from "../StartupModal";
 import DeveloperMode from "../DeveloperMode";
 
-const Table = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+const Table: React.SFC = () => {
+  const [state, dispatch]: [IState, Function] = useReducer(
+    reducer,
+    initialState
+  );
   const {
     activePlayer,
     boardCards,
