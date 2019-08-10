@@ -258,14 +258,15 @@ export const onMessage_player1 = (
 
     default:
       switch (message["action"]) {
+	  	/* Here we receive the other players action information*/
         case "check":
         case "call":
         case "raise":
         case "fold":
         case "allin":
-          message["gui_playerID"] = 0;
-          sendMessage(message, "dcv", state, dispatch);
-          break;
+          //message["gui_playerID"] = 0;
+          //sendMessage(message, "dcv", state, dispatch);
+         break;
 
         default:
           sendMessage(message, "dcv", state, dispatch);
@@ -365,13 +366,14 @@ export const onMessage_player2 = (
 
     default:
       switch (message["action"]) {
+	  	/* Here we receive the other players action information*/
         case "check":
         case "call":
         case "raise":
         case "fold":
         case "allin":
-          message["gui_playerID"] = 1;
-          sendMessage(message, "dcv", state, dispatch);
+          //message["gui_playerID"] = 1;
+          //sendMessage(message, "dcv", state, dispatch);
           break;
 
         default:
