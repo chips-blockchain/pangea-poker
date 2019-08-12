@@ -1,4 +1,3 @@
-
 import { css } from "@emotion/core";
 import React, { useState, useEffect, useContext } from "react";
 import Card from "../Card";
@@ -10,20 +9,29 @@ import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../store/context";
 import { playerJoin } from "../store/actions";
 import playerIdToString from "../../lib/playerIdToString";
+import { IPlayer, IState } from "../store/initialState";
 
-const Player = ({
+// This is the Player widget that shows the player avatar, the chips amount, wether the player has cards, etc
+
+interface IProps extends IPlayer {
+  chips: number;
+  connected: boolean;
+  isActive: boolean;
+  winner: string;
+}
+
+const Player: React.FunctionComponent<IProps> = ({
   chips,
   connected,
   hasCards,
   isActive,
   playerCards,
-  players,
   seat,
   showCards,
   winner
-}) => {
-  const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
+}: IProps) => {
+  const dispatch: Function = useContext(DispatchContext);
+  const state: IState = useContext(StateContext);
 
   const {
     cardsDealt,
@@ -44,6 +52,8 @@ const Player = ({
     text: seat,
     color: theme.moon.colors.superLightGray
   });
+
+  // Timer Logic that has been disabled for now
 
   // // Set deadline for the to active player
   // let deadlineToAct = new Date();
@@ -126,10 +136,10 @@ const Player = ({
         >
           {/* User's cards */}
           {userSeat === seat && holeCards[0] && (
-            <React.Fragment>
+            <span>
               <Card card={holeCards[0]} />
               <Card card={holeCards[1]} />
-            </React.Fragment>
+            </span>
           )}
           {/* Other player's cards */}
           {userSeat !== seat && gameTurn === 4 && (
@@ -232,6 +242,7 @@ const Player = ({
           {userAvatar}
         </span>
       </div>
+      {/* The timer is temporarily disabled */}
       {/* Active player countdown */}
       {/* {isActive && (
         <div
