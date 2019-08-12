@@ -2,10 +2,13 @@ import { css } from "@emotion/core";
 import { useContext } from "react";
 import { StateContext } from "../store/context";
 import theme from "../../styles/theme";
+import { IState } from "../store/initialState";
+
+// This component is responsible for displaying the state of the WebSocket connections
 
 const Connections = () => {
-  const state = useContext(StateContext);
-  const { connection, isDeveloperMode } = state;
+  const state: IState = useContext(StateContext);
+  const { connection, nodeType } = state;
 
   let nodeList = [];
 
@@ -13,8 +16,8 @@ const Connections = () => {
 
   const playerNode = ["Player", connection[Object.keys(state.nodes)[0]]];
 
-  if (state.nodeType === "dealer") nodeList = dealerNodeList;
-  if (state.nodeType === "player") nodeList.push(playerNode);
+  if (nodeType === "dealer") nodeList = dealerNodeList;
+  if (nodeType === "player") nodeList.push(playerNode);
 
   return (
     <div
