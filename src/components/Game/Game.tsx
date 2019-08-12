@@ -4,13 +4,16 @@ import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../store/context";
 import { Button } from "../Controls";
 import { sendMessage } from "../store/actions";
+import { IState } from "../store/initialState";
+
+// This component is responsible for the WebSocket connections, as well as displaying the main Start button
 
 // For testing
 const SOCKET_URL_ECHO = "wss://echo.websocket.org";
 
 const Game = () => {
-  const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
+  const dispatch: Function = useContext(DispatchContext);
+  const state: IState = useContext(StateContext);
   const { gameStarted, isDeveloperMode, nodes, nodeType, message } = state;
 
   const SOCKET_URL_DCV = `ws://${nodes.dcv}:9000`;
