@@ -45,7 +45,9 @@ const Board = ({ boardCards, gameTurn }) => {
       </span>
       {/* Turn */}
 
-      <CardFlip card={boardCards[3]} dealt={gameTurn >= 2} />
+      {boardCards.length >= 4 && (
+        <CardFlip card={boardCards[3]} dealt={gameTurn >= 2} />
+      )}
       <span
         css={css`
           position: relative;
@@ -53,7 +55,9 @@ const Board = ({ boardCards, gameTurn }) => {
         `}
       >
         {/* River */}
-        <CardFlip card={boardCards[4]} dealt={gameTurn >= 3} />
+        {boardCards.length === 5 && (
+          <CardFlip card={boardCards[4]} dealt={gameTurn >= 3} />
+        )}
       </span>
     </div>
   );
