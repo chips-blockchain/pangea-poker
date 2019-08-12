@@ -2,9 +2,9 @@ import React from "react";
 import { css } from "@emotion/core";
 import theme from "../../styles/theme";
 
-const backgrounds = () => {
+const Backgrounds: React.SFC = () => {
   return (
-    <React.Fragment>
+    <div>
       {/* Background images as srcSet for better responsive support */}
       <img
         srcSet={`
@@ -28,8 +28,8 @@ const backgrounds = () => {
         `}
         alt="Poker table with Chips logo at the center"
       />
-    </React.Fragment>
+    </div>
   );
 };
 
-export default backgrounds;
+export default Backgrounds;
