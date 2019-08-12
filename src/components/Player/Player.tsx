@@ -29,7 +29,7 @@ const Player: React.FunctionComponent<IProps> = ({
   seat,
   showCards,
   winner
-}: IProps) => {
+}) => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
 
