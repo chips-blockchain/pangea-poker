@@ -9,6 +9,7 @@ import {
 } from "./onMessage";
 import { log } from "../store/actions";
 import { IState } from "../store/initialState";
+import { IMessage } from "../store/actions";
 
 // This component is responsible for the WebSocket connection. It doesn't return and
 
@@ -16,7 +17,7 @@ const STATIC_OPTIONS = {};
 const READY_STATE_OPEN = 1;
 
 interface IProps {
-  message: string;
+  message: IMessage;
   nodeName: string;
   server: string;
 }
