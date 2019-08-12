@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import Card, { CardFlip } from "../Card";
 
 const Board = ({ boardCards, gameTurn }) => {

@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import { useReducer, useEffect } from "react";
 import theme from "../../styles/theme";
 import Backgrounds from "./Backgrounds";

@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import Card from "./Card";
 import cardBg from "./cards/bg-red.svg";
 

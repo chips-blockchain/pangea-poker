@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import { useContext, useState } from "react";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../store/context";

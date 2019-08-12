@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 
 const ChipsGrid = ({ chipsCollected, children }) => {
   return (

@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import cardBg from "./cards/bg-red.svg";
 
 const CardFaceDown = ({ centered, second, seat, seats }) => {

@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import { useEffect } from "react";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";

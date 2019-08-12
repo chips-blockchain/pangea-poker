@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import theme from "../../styles/theme";
 import numberWithCommas from "../../lib/numberWithCommas";
 import Stack from "./Stack.jsx";
