@@ -15,7 +15,8 @@ import {
   setUserSeat,
   setWinner,
   updateTotalPot,
-  showControls
+  showControls,
+  setDealer
 } from "../store/actions";
 
 import { IState } from "../store/initialState";
@@ -183,6 +184,10 @@ export const onMessage_player1 = (
       deal(message, state, dispatch);
       break;
 
+    case "dealer":
+      setDealer(message.playerid, dispatch);
+      break;
+
     case "requestShare":
       if (message["toPlayer"] == 1) {
         message["gui_playerID"] = 1;
@@ -258,7 +263,7 @@ export const onMessage_player1 = (
 
     default:
       switch (message["action"]) {
-	  	/* Here we receive the other players action information*/
+        /* Here we receive the other players action information*/
         case "check":
         case "call":
         case "raise":
@@ -266,7 +271,7 @@ export const onMessage_player1 = (
         case "allin":
           //message["gui_playerID"] = 0;
           //sendMessage(message, "dcv", state, dispatch);
-         break;
+          break;
 
         default:
           sendMessage(message, "dcv", state, dispatch);
@@ -288,6 +293,10 @@ export const onMessage_player2 = (
       dealCards(dispatch);
       setUserSeat("player2", dispatch);
       deal(message, state, dispatch);
+      break;
+
+    case "dealer":
+      setDealer(message.playerid, dispatch);
       break;
 
     case "requestShare":
@@ -366,7 +375,7 @@ export const onMessage_player2 = (
 
     default:
       switch (message["action"]) {
-	  	/* Here we receive the other players action information*/
+        /* Here we receive the other players action information*/
         case "check":
         case "call":
         case "raise":

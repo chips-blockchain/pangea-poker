@@ -71,14 +71,9 @@ export const deal = (
   state: IState,
   dispatch: Function
 ): void => {
-  // Set the dealer
-  if (message.deal.dealer !== null) {
-    log(`The dealer is player${message.deal.dealer + 1}.`, "info", undefined);
-    setDealer(message.deal.dealer, dispatch);
-  }
+  // Set the holecards
   if (message.deal.holecards.length === 2)
     setHoleCards(message.deal.holecards, dispatch);
-
   if (message.deal.board) {
     // Flop
     if (state.gameTurn === 0 && message.deal.board.length === 3) {
