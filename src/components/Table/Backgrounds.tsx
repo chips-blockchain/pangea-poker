@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "@emotion/core";
 import theme from "../../styles/theme";
 
-const Backgrounds: React.SFC = () => {
+const Backgrounds: React.FunctionComponent = () => {
   return (
     <div>
       {/* Background images as srcSet for better responsive support */}
