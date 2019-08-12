@@ -20,7 +20,7 @@ import DeveloperMode from "../DeveloperMode";
 
 // This is the current Main component
 
-const Table: React.SFC = () => {
+const Table: React.FunctionComponent = () => {
   const [state, dispatch]: [IState, Function] = useReducer(
     reducer,
     initialState

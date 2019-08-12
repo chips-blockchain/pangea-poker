@@ -11,7 +11,7 @@ import { IState } from "../store/initialState";
 // For testing
 const SOCKET_URL_ECHO = "wss://echo.websocket.org";
 
-const Game = () => {
+const Game: React.FunctionComponent = () => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const { gameStarted, isDeveloperMode, nodes, nodeType, message } = state;

@@ -6,7 +6,7 @@ import { IState } from "../store/initialState";
 
 // This component is responsible for displaying the state of the WebSocket connections
 
-const Connections = () => {
+const Connections: React.FunctionComponent = () => {
   const state: IState = useContext(StateContext);
   const { connection, nodeType } = state;
 
