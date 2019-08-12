@@ -1,3 +1,3 @@
-import Player from "./Player.jsx";
+import Player from "./Player.tsx";
 
 export default Player;
