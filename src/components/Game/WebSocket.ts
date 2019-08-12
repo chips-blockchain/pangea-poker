@@ -6,15 +6,24 @@ import {
   onMessage_bvv,
   onMessage_player1,
   onMessage_player2
-} from "./onMessage.ts";
+} from "./onMessage";
 import { log } from "../store/actions";
+import { IState } from "../store/initialState";
+
+// This component is responsible for the WebSocket connection. It doesn't return and
 
 const STATIC_OPTIONS = {};
 const READY_STATE_OPEN = 1;
 
-const WebSocket = React.memo(({ children, message, nodeName, server }) => {
-  const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
+interface IProps {
+  message: string;
+  nodeName: string;
+  server: string;
+}
+
+const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
+  const dispatch: Function = useContext(DispatchContext);
+  const state: IState = useContext(StateContext);
   const [currentSocketUrl, setCurrentSocketUrl] = useState(server);
   const [sendMessage, lastMessage, readyState] = useWebSocket(
     currentSocketUrl,
@@ -72,8 +81,6 @@ const WebSocket = React.memo(({ children, message, nodeName, server }) => {
     2: "Disconnecting...",
     3: "Disconnected"
   }[readyState];
-
-  return <React.Fragment />;
 });
 
 export default WebSocket;
