@@ -3,9 +3,13 @@ import { useEffect } from "react";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import { updateMainPot, updateTotalPot } from "../store/actions";
+import { IState } from "../store/initialState";
 
-const TotalPot = ({ state, dispatch }) => {
-  const { chipsCollected, gameTurn, players, pot, totalPot } = state;
+// This component shows the total pot amount right above the boardCards
+
+const TotalPot = (props: { state: IState; dispatch: Function }) => {
+  const { chipsCollected, gameTurn, players, pot, totalPot } = props.state;
+  const dispatch = props.dispatch;
 
   // Count all the players' bets and the pot
   useEffect(() => {
