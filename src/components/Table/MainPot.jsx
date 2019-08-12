@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import { useEffect, useState } from "react";
 import { Bet } from "../Chips";
 

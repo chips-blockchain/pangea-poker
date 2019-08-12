@@ -6,7 +6,7 @@ import {
   onMessage_bvv,
   onMessage_player1,
   onMessage_player2
-} from "./onMessage";
+} from "./onMessage.ts";
 import { log } from "../store/actions";
 
 const STATIC_OPTIONS = {};

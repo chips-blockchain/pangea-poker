@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import { useReducer, useEffect } from "react";
 import theme from "../../styles/theme";
 import Backgrounds from "./Backgrounds";
@@ -11,16 +10,19 @@ import TotalPot from "./TotalPot";
 import { ChipGrid, Bet } from "../Chips";
 import Controls from "../Controls";
 import MainPot from "./MainPot";
-import initialState from "../store/initialState";
+import initialState, { IPlayer, IState } from "../store/initialState";
 import reducer from "../store/reducer";
-import Game from "../Game/";
+import Game from "../Game";
 import Connections from "./Connections";
 import { StateContext, DispatchContext } from "../store/context";
 import StartupModal from "../StartupModal";
 import DeveloperMode from "../DeveloperMode";
 
-const Table = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+const Table: React.SFC = () => {
+  const [state, dispatch]: [IState, Function] = useReducer(
+    reducer,
+    initialState
+  );
   const {
     activePlayer,
     boardCards,
@@ -29,7 +31,7 @@ const Table = () => {
     dealer,
     gameType,
     gameTurn,
-    holeCards,
+    isDeveloperMode,
     players,
     pot,
     options,
@@ -48,7 +50,7 @@ const Table = () => {
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
         <Game />
-        {state.isDeveloperMode && <DeveloperMode />}
+        {isDeveloperMode && <DeveloperMode />}
         <div
           css={css`
             background-color: ${theme.moon.colors.dark};
@@ -89,7 +91,7 @@ const Table = () => {
             <Board boardCards={boardCards} gameTurn={gameTurn} />
             <PlayerGrid9Max>
               {Object.values(players).map(
-                player =>
+                (player: IPlayer) =>
                   player.isPlaying && (
                     <Player
                       chips={player.chips}
@@ -108,7 +110,7 @@ const Table = () => {
             </PlayerGrid9Max>
             <ChipGrid chipsCollected={chipsCollected}>
               {Object.values(players).map(
-                player =>
+                (player: IPlayer) =>
                   player.isBetting && (
                     <Bet
                       betAmount={player.betAmount}

@@ -18,9 +18,14 @@ import {
   showControls
 } from "../store/actions";
 
-// The communication structure of this code has been ported from pangea-poker-frontend
+import { IState } from "../store/initialState";
+import { IMessage } from "../store/actions";
 
-export const onMessage = (message, state, dispatch) => {
+export const onMessage = (
+  message: IMessage,
+  state: IState,
+  dispatch: Function
+): void => {
   message = JSON.parse(message);
 
   log("Received from DCV", "received", message);
@@ -37,7 +42,7 @@ export const onMessage = (message, state, dispatch) => {
       break;
 
     case "bvv_join":
-      log("BVV has Joined", "info");
+      log("BVV has Joined", "info", undefined);
       break;
 
     case "check_bvv_ready":
@@ -137,11 +142,15 @@ export const onMessage = (message, state, dispatch) => {
   }
 };
 
-export const onMessage_bvv = (message, state, dispatch) => {
+export const onMessage_bvv = (
+  message: IMessage,
+  state: IState,
+  dispatch: Function
+): void => {
   message = JSON.parse(message);
   setLastMessage(message, dispatch);
   log("Received from BVV: ", "received", message);
-  log(message["method"], "info");
+  log(message["method"], "info", undefined);
 
   switch (message["method"]) {
     case "init_b":
@@ -158,7 +167,11 @@ export const onMessage_bvv = (message, state, dispatch) => {
   }
 };
 
-export const onMessage_player1 = (message, state, dispatch) => {
+export const onMessage_player1 = (
+  message: IMessage,
+  state: IState,
+  dispatch: Function
+) => {
   message = JSON.parse(message);
   setLastMessage(message, dispatch);
   log("Received from player1: ", "received", message);
@@ -201,13 +214,13 @@ export const onMessage_player1 = (message, state, dispatch) => {
         case "small_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Small Blind", dispatch);
-          log("Small Blind has been posted.", "info");
+          log("Small Blind has been posted.", "info", undefined);
           break;
 
         case "big_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Big Blind", dispatch);
-          log("Big Blind has been posted.", "info");
+          log("Big Blind has been posted.", "info", undefined);
           break;
 
         case "round_betting":
@@ -245,14 +258,15 @@ export const onMessage_player1 = (message, state, dispatch) => {
 
     default:
       switch (message["action"]) {
+	  	/* Here we receive the other players action information*/
         case "check":
         case "call":
         case "raise":
         case "fold":
         case "allin":
-          message["gui_playerID"] = 0;
-          sendMessage(message, "dcv", state, dispatch);
-          break;
+          //message["gui_playerID"] = 0;
+          //sendMessage(message, "dcv", state, dispatch);
+         break;
 
         default:
           sendMessage(message, "dcv", state, dispatch);
@@ -260,7 +274,11 @@ export const onMessage_player1 = (message, state, dispatch) => {
   }
 };
 
-export const onMessage_player2 = (message, state, dispatch) => {
+export const onMessage_player2 = (
+  message: IMessage,
+  state: IState,
+  dispatch: Function
+) => {
   message = JSON.parse(message);
   setLastMessage(message, dispatch);
   log("Received from player2: ", "received", message);
@@ -303,13 +321,13 @@ export const onMessage_player2 = (message, state, dispatch) => {
         case "small_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Small Blind", dispatch);
-          log("Small Blind has been posted.", "info");
+          log("Small Blind has been posted.", "info", undefined);
           break;
 
         case "big_blind_bet":
           bet(message["playerid"], message["amount"], state, dispatch);
           setLastAction(message["playerid"], "Big Blind", dispatch);
-          log("Big Blind has been posted.", "info");
+          log("Big Blind has been posted.", "info", undefined);
           break;
 
         case "round_betting":
@@ -348,13 +366,14 @@ export const onMessage_player2 = (message, state, dispatch) => {
 
     default:
       switch (message["action"]) {
+	  	/* Here we receive the other players action information*/
         case "check":
         case "call":
         case "raise":
         case "fold":
         case "allin":
-          message["gui_playerID"] = 1;
-          sendMessage(message, "dcv", state, dispatch);
+          //message["gui_playerID"] = 1;
+          //sendMessage(message, "dcv", state, dispatch);
           break;
 
         default:

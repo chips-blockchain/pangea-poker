@@ -1,4 +1,19 @@
 {
-  "presets": ["env", "react"],
-  "plugins": ["transform-object-rest-spread"]
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    ["transform-inline-environment-variables"],
+    [
+      "babel-plugin-jsx-pragmatic",
+      { "export": "jsx", "module": "@emotion/core", "import": "___EmotionJSX" }
+    ],
+    [
+      "@babel/plugin-transform-react-jsx",
+      { "pragma": "___EmotionJSX", "pragmaFrag": "React.Fragment" }
+    ],
+    ["emotion"]
+  ]
 }

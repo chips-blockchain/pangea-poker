@@ -113,7 +113,7 @@ const initialState = {
   winner: null
 };
 
-interface Player {
+export interface IPlayer {
   isPlaying: boolean;
   seat: string;
   chips: number;
@@ -125,8 +125,8 @@ interface Player {
   connected: boolean;
 }
 
-export interface State {
-  players: Player;
+export interface IState {
+  players: IPlayer;
   activePlayer: string;
   blinds: [number, number];
   boardCards: string[];
@@ -142,6 +142,7 @@ export interface State {
   chipsCollected: boolean;
   dealer: number;
   gameStarted: boolean;
+  gameTurn: number;
   gameType: string;
   handsPlayed: number;
   holeCards: string[];
@@ -162,7 +163,6 @@ export interface State {
     player1: string | null;
     player2: string | null;
   };
-  gameTurn: number;
   minRaise: number;
   options: {
     showPotCounter: boolean;

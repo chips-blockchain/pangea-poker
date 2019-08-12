@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+
+import { css } from "@emotion/core";
 import React, { useState, useEffect, useContext } from "react";
 import Card from "../Card";
 import { CardFaceDown } from "../Card";
