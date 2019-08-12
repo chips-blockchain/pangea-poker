@@ -142,6 +142,7 @@ export interface IState {
   chipsCollected: boolean;
   dealer: number;
   gameStarted: boolean;
+  gameTurn: number;
   gameType: string;
   handsPlayed: number;
   holeCards: string[];
@@ -162,7 +163,6 @@ export interface IState {
     player1: string | null;
     player2: string | null;
   };
-  gameTurn: number;
   minRaise: number;
   options: {
     showPotCounter: boolean;
