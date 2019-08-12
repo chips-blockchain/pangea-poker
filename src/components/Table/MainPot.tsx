@@ -2,11 +2,19 @@ import { css } from "@emotion/core";
 import { useEffect, useState } from "react";
 import { Bet } from "../Chips";
 
+// This is the component that displays the main pot at the middle of table
+
 const MainPot = ({ mainPot, gameTurn, winner }) => {
-  const [winnerCoordinates, setWinnerCoordinates] = useState({
+  const [winnerCoordinates, setWinnerCoordinates]: [
+    { left: number | string; top: string },
+    Function
+  ] = useState({
     left: 0,
     top: "19rem"
   });
+
+  // Temporarily way of determining the winner. Only works in heads up.
+  // TODO: Separate the logic for the winner selection
 
   useEffect(() => {
     if (gameTurn === 4 && winner) {
