@@ -7,9 +7,13 @@ import { IState } from "../store/initialState";
 
 // This component shows the total pot amount right above the boardCards
 
-const TotalPot = (props: { state: IState; dispatch: Function }) => {
-  const { chipsCollected, gameTurn, players, pot, totalPot } = props.state;
-  const dispatch = props.dispatch;
+interface IProps {
+  state: IState;
+  dispatch: Function;
+}
+
+const TotalPot: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
+  const { chipsCollected, gameTurn, players, pot, totalPot } = state;
 
   // Count all the players' bets and the pot
   useEffect(() => {
