@@ -1,10 +1,21 @@
 import { css } from "@emotion/core";
 import { useEffect, useState } from "react";
 import { Bet } from "../Chips";
+import { setWinner } from "../store/actions";
 
 // This is the component that displays the main pot at the middle of table
 
-const MainPot = ({ mainPot, gameTurn, winner }) => {
+interface IProps {
+  mainPot: number;
+  gameTurn: number;
+  winner: string;
+}
+
+const MainPot: React.FunctionComponent<IProps> = ({
+  mainPot,
+  gameTurn,
+  winner
+}) => {
   const [winnerCoordinates, setWinnerCoordinates]: [
     { left: number | string; top: string },
     Function
