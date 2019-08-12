@@ -18,6 +18,8 @@ import { StateContext, DispatchContext } from "../store/context";
 import StartupModal from "../StartupModal";
 import DeveloperMode from "../DeveloperMode";
 
+// This is the current Main component
+
 const Table: React.SFC = () => {
   const [state, dispatch]: [IState, Function] = useReducer(
     reducer,
