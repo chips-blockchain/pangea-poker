@@ -1,3 +1,3 @@
-import Board from "./Board.tsx";
+import Board from "./Board";
 
 export default Board;

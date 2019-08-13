@@ -1,5 +1,5 @@
 import { css } from "@emotion/core";
-import Chip from "./Chip.jsx";
+import Chip from "./Chip";
 
 const Stack = props => {
   // This component calculates how many of each chips should be rendered based on the bet amount, and renders one or more stacks as a result

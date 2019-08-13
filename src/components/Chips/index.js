@@ -1,5 +1,5 @@
-import ChipGrid from "./ChipGrid.jsx";
-import Bet from "./Bet.jsx";
-import Stack from "./Stack.jsx";
+import ChipGrid from "./ChipGrid";
+import Bet from "./Bet";
+import Stack from "./Stack";
 
 export { ChipGrid, Bet, Stack };
