@@ -1,7 +1,14 @@
 import { css } from "@emotion/core";
 import Card, { CardFlip } from "../Card";
 
-const Board = ({ boardCards, gameTurn }) => {
+// This component renders the boardcards (the flop, turn and river)
+
+interface IProps {
+  boardCards: string[];
+  gameTurn: 0 | 1 | 2 | 3 | 4;
+}
+
+const Board: React.FunctionComponent<IProps> = ({ boardCards, gameTurn }) => {
   return (
     <div
       css={css`
