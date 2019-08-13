@@ -1,12 +1,19 @@
 import { css } from "@emotion/core";
 import "./chips-svg-sprite.css";
 
-const Chip = props => {
+// This component renders a single chip.
+
+interface IProps {
+  chip: string;
+  zIndex: number;
+}
+
+const Chip: React.FunctionComponent<IProps> = ({ chip, zIndex }) => {
   return (
     <div
-      className={`icon chip-${props.chip} chip-${props.chip}-dims`}
+      className={`icon chip-${chip} chip-${chip}-dims`}
       css={css`
-        z-index: ${props.zIndex};
+        z-index: ${zIndex};
       `}
     />
   );

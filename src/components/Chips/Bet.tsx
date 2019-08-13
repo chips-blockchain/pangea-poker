@@ -3,7 +3,21 @@ import theme from "../../styles/theme";
 import numberWithCommas from "../../lib/numberWithCommas";
 import Stack from "./Stack";
 
-const Bet = ({ betAmount, chipsCollected, forPlayer, playerBet }) => {
+// This component shows a stack of chips and the corresponding amount next to it. Used to show player bets and the main pot.
+
+interface IProps {
+  betAmount: number;
+  chipsCollected: boolean;
+  forPlayer: string;
+  playerBet: boolean;
+}
+
+const Bet: React.FunctionComponent<IProps> = ({
+  betAmount,
+  chipsCollected,
+  forPlayer,
+  playerBet
+}) => {
   return (
     <span
       css={css`
