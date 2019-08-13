@@ -1,3 +1,3 @@
-import Game from "./Game.tsx";
+import Game from "./Game";
 
 export default Game;
