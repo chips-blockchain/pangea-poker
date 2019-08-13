@@ -5,7 +5,7 @@ import "./chips-svg-sprite.css";
 
 interface IProps {
   chip: string;
-  zIndex: number;
+  zIndex?: number;
 }
 
 const Chip: React.FunctionComponent<IProps> = ({ chip, zIndex }) => {
