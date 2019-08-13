@@ -1,5 +1,12 @@
 import { css } from "@emotion/core";
 
+// This component sets up a grid where the Bets are being rendered for each player.
+
+interface IProps {
+  chipsCollected: boolean;
+  children: React.ReactNode;
+}
+
 const ChipsGrid = ({ chipsCollected, children }) => {
   return (
     <div
