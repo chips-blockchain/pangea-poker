@@ -2,7 +2,14 @@ import { css } from "@emotion/core";
 import Card from "./Card";
 import cardBg from "./cards/bg-red.svg";
 
-const CardFlip = ({ card, dealt }) => {
+// This is a special card component for the flipping turn and river cards
+
+interface IProps {
+  card: string;
+  dealt: boolean;
+}
+
+const CardFlip: React.FunctionComponent<IProps> = ({ card, dealt }) => {
   return (
     <div
       css={css`

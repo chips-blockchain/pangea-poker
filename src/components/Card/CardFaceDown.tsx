@@ -1,7 +1,19 @@
 import { css } from "@emotion/core";
 import cardBg from "./cards/bg-red.svg";
 
-const CardFaceDown = ({ centered, second, seat, seats }) => {
+interface IProps {
+  centered: boolean;
+  second: boolean;
+  seat: string;
+  seats: number;
+}
+
+const CardFaceDown: React.FunctionComponent<IProps> = ({
+  centered,
+  second,
+  seat,
+  seats
+}) => {
   return (
     <img
       src={cardBg}
