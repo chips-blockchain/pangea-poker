@@ -5,19 +5,21 @@ import {
   devStart,
   dealCards,
   nextTurn,
-  sendMessage,
   setActivePlayer,
   setUserSeat,
   showControls
 } from "../store/actions";
 import { DispatchContext, StateContext } from "../store/context";
+import { IState } from "../store/initialState";
 
-const DeveloperMode = () => {
-  const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
+const DeveloperMode: React.FunctionComponent = () => {
+  const dispatch: Function = useContext(DispatchContext);
+  const state: IState = useContext(StateContext);
+  const { activePlayer } = state;
 
   const nextPlayer = () => {
-    const nextPlayer = state.activePlayer === "player1" ? "player2" : "player1";
+    const nextPlayer: string =
+      activePlayer === "player1" ? "player2" : "player1";
     setUserSeat(nextPlayer, dispatch);
     setActivePlayer(nextPlayer, dispatch);
     showControls(true, dispatch);
@@ -45,7 +47,6 @@ const DeveloperMode = () => {
       <Button
         label="Deal Cards"
         onClick={() => {
-          console.log(state);
           dealCards(dispatch);
         }}
       />

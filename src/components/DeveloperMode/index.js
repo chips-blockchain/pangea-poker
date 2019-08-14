@@ -1,3 +1,3 @@
-import DeveloperMode from "./DeveloperMode.jsx";
+import DeveloperMode from "./DeveloperMode";
 
 export default DeveloperMode;
