@@ -2,38 +2,56 @@ import { css } from "@emotion/core";
 import theme from "../../styles/theme";
 import numberWithCommas from "../../lib/numberWithCommas";
 
-const Button = ({ amount, disabled, label, onClick, small }) => {
+// This component renders a Button
+
+interface IProps {
+  amount?: number;
+  disabled?: boolean;
+  label: string;
+  onClick?: React.MouseEventHandler;
+  small?: boolean;
+}
+
+const { accent, background, primary, text } = theme.moon.colors;
+
+const Button: React.FunctionComponent<IProps> = ({
+  amount,
+  disabled,
+  label,
+  onClick,
+  small
+}) => {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       css={css`
-        background: ${theme.moon.colors.background};
-        border: 0.0625rem solid ${theme.moon.colors.primary};
+        background: ${background};
+        border: 0.0625rem solid ${primary};
         border-radius: 0.125rem;
-        color: ${theme.moon.colors.text};
+        color: ${text};
         font-size: ${small ? ".75rem" : "1rem"};
         height: ${small ? "1.75rem" : "2.5rem"};
         margin: 0.125rem;
+        opacity: ${disabled && "0.5"};
         line-height: 1rem;
         transition: 0.1s ease;
         width: ${small ? "3.625rem" : "7.5rem"};
-        opacity: ${disabled && "0.5"};
 
         ${!disabled &&
           `
         &:hover {
-          color: ${theme.moon.colors.accent};
+          color: ${accent};
           cursor: pointer;
-          border-color: ${theme.moon.colors.accent};
+          border-color: ${accent};
         }
         &:focus {
-          border-color: ${theme.moon.colors.accent};
-          color: ${theme.moon.colors.accent};
+          border-color: ${accent};
+          color: ${accent};
         }
         &:active {
-          background: ${theme.moon.colors.accent};
-          color: ${theme.moon.colors.background};
+          background: ${accent};
+          color: ${background};
         }
         
         `}
@@ -61,6 +79,7 @@ const Button = ({ amount, disabled, label, onClick, small }) => {
         `}
       >
         {label} <br />
+        {/* Show an amount for the Raise and Call buttons */}
         {amount && numberWithCommas(amount)}
       </div>
     </button>
