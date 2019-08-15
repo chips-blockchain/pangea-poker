@@ -4,7 +4,7 @@ import playerIdToString from "../../lib/playerIdToString";
 import { IState } from "./initialState";
 
 export interface IMessage {
-  method: string;
+  method?: string;
   [key: string]: any;
 }
 
@@ -38,7 +38,7 @@ export const bet = (
 };
 
 // A colored console.log
-export const log = (text: string, color: string, message: IMessage): void => {
+export const log = (text: string, color: string, message?: IMessage): void => {
   console.log(
     "%c" + text,
     `color: ${
@@ -287,7 +287,7 @@ export const setHoleCards = (holeCards: string[], dispatch: Function): void => {
 
 export const setLastAction = (
   player: number,
-  action: string | null,
+  action: string | IMessage | null,
   dispatch: Function
 ): void => {
   dispatch({

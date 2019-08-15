@@ -14,28 +14,24 @@ import {
   setLastAction,
   showControls
 } from "../store/actions";
+import { IState } from "../store/initialState";
+import { IMessage } from "../store/actions";
 
-const Controls = () => {
-  const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
-  const {
-    blinds,
-    gameTurn,
-    lastMessage,
-    minRaise,
-    players,
-    toCall,
-    totalPot,
-    userSeat
-  } = state;
+// This component displays all the controls (buttons and slider) at the bottom left
+// when the player is active
+
+const Controls: React.FunctionComponent = () => {
+  const dispatch: Function = useContext(DispatchContext);
+  const state: IState = useContext(StateContext);
+  const { lastMessage, minRaise, players, toCall, totalPot, userSeat } = state;
 
   const betAmount = players[userSeat].betAmount;
 
   const [raiseAmount, setRaiseAmount] = useState(minRaise);
-  const canCheck = toCall - betAmount === 0;
-  const callAmount = toCall - betAmount;
-  const chips = players[userSeat].chips;
-  const totalChips = betAmount + chips;
+  const canCheck: boolean = toCall - betAmount === 0;
+  const callAmount: number = toCall - betAmount;
+  const chips: number = players[userSeat].chips;
+  const totalChips: number = betAmount + chips;
 
   useEffect(() => {
     if (raiseAmount > totalChips) {
@@ -55,9 +51,14 @@ const Controls = () => {
   //   7: "fold"
   // };
 
-  const handleButtonClick = (action, player, amount, lastAction) => {
+  const handleButtonClick = (
+    action: number,
+    player: string,
+    amount: number,
+    lastAction: string
+  ) => {
     // Update the previous message with the new data and send it
-    let nextAction = lastMessage;
+    let nextAction: IMessage = lastMessage;
     nextAction.playerid = playerStringToId(player);
 
     // Check
@@ -88,7 +89,7 @@ const Controls = () => {
     sendMessage(nextAction, userSeat, state, dispatch);
   };
 
-  const handleSmallButtonClick = buttonType => {
+  const handleSmallButtonClick = (buttonType: string) => {
     // 1/2 Pot Button
     if (buttonType === "halfPot") {
       const halfPotRaise = toCall + totalPot + betAmount;
