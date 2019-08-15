@@ -3,7 +3,17 @@ import moonBg2x from "../images/background-moon@2x.jpg";
 import tableDefault from "../images/table-default.png";
 import tableDefault2x from "../images/table-default@2x.png";
 
-const theme = {
+interface ITheme {
+  [key: string]: {
+    colors: {
+      [key: string]: string;
+    };
+    background: { regular: string; retina: string };
+    table: { regular: string; retina: string };
+  };
+}
+
+const theme: ITheme = {
   moon: {
     colors: {
       accent: "#FCAA2A",
