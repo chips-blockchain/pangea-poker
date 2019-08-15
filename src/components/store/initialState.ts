@@ -1,5 +1,5 @@
 // Object of all players at the table
-const initialState = {
+const initialState: IState = {
   players: {
     player1: {
       isPlaying: true,
@@ -137,7 +137,7 @@ export interface IState {
     player2: string;
     echo: string;
   };
-  controls: { showControls: boolean; hadowRoot: boolean };
+  controls: { showControls: boolean; showFirstRow: boolean };
   cardsDealt: boolean;
   chipsCollected: boolean;
   dealer: number;
