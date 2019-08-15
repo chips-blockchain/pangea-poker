@@ -1,7 +1,6 @@
 import { css } from "@emotion/core";
 import { useEffect, useState } from "react";
 import { Bet } from "../Chips";
-import { setWinner } from "../../store/actions";
 
 // This is the component that displays the main pot at the middle of table
 
