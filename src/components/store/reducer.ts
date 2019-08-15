@@ -1,4 +1,11 @@
-const reducer = (state, action) => {
+import { IState } from "./initialState";
+
+interface IAction {
+  payload: any;
+  type: string;
+}
+
+const reducer: Function = (state: IState, action: IAction): object => {
   switch (action.type) {
     case "bet": {
       return {

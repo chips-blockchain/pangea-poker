@@ -126,7 +126,7 @@ export interface IPlayer {
 }
 
 export interface IState {
-  players: IPlayer;
+  players: { player1: IPlayer; player2: IPlayer };
   activePlayer: string;
   blinds: [number, number];
   boardCards: string[];
