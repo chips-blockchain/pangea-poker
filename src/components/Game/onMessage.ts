@@ -2,6 +2,7 @@ import {
   bet,
   deal,
   dealCards,
+  fold,
   game,
   log,
   nextHand,
@@ -16,7 +17,8 @@ import {
   setWinner,
   updateTotalPot,
   showControls,
-  setDealer
+  setDealer,
+  setToCall
 } from "../../store/actions";
 import playerStringToId from "../../lib/playerStringToId";
 
@@ -225,23 +227,60 @@ export const onMessage_player = (
       break;
 
     case "betting":
+      const guiPlayer: number = message["playerid"];
+      const betAmount: number = message["bet_amount"];
+      const opponent: number = guiPlayer === 0 ? 1 : 0;
+
       switch (message["action"]) {
         case "small_blind_bet":
-          bet(message["playerid"], message["amount"], state, dispatch);
-          setLastAction(message["playerid"], "Small Blind", dispatch);
-          log("Small Blind has been posted.", "info", undefined);
+          bet(playerId, message["amount"], state, dispatch);
+          setLastAction(playerId, "Small Blind", dispatch);
+          log("Small Blind has been posted.", "info");
+
+          // Update the opponent's big blind
+          bet(opponent, message["amount"] * 2, state, dispatch);
+          setLastAction(opponent, "Big Blind", dispatch);
+          log("Big Blind has been posted.", "info");
           break;
 
         case "big_blind_bet":
-          bet(message["playerid"], message["amount"], state, dispatch);
-          setLastAction(message["playerid"], "Big Blind", dispatch);
-          log("Big Blind has been posted.", "info", undefined);
+          // Update the opponent's small blind
+          bet(opponent, message["amount"] / 2, state, dispatch);
+          setLastAction(opponent, "Small Blind", dispatch);
+          log("Small blind has been posted.", "info");
+
+          bet(playerId, message["amount"], state, dispatch);
+          setLastAction(playerId, "Big Blind", dispatch);
+          log("Big Blind has been posted.", "info");
+
           break;
 
         case "round_betting":
           setActivePlayer(player, dispatch);
           updateTotalPot(message["pot"], dispatch);
           showControls(true, dispatch);
+          break;
+
+        // Update other players actions
+        case "check":
+          setLastAction(guiPlayer, "check", dispatch);
+          break;
+        case "call":
+          bet(guiPlayer, betAmount, state, dispatch);
+          setLastAction(guiPlayer, "call", dispatch);
+          break;
+        case "raise":
+          bet(guiPlayer, betAmount, state, dispatch);
+          setToCall(betAmount, dispatch);
+          setLastAction(guiPlayer, "raise", dispatch);
+          break;
+        case "fold":
+          setLastAction(guiPlayer, "raise", dispatch);
+
+        case "allin":
+          bet(guiPlayer, betAmount, state, dispatch);
+          setToCall(betAmount, dispatch);
+          setLastAction(guiPlayer, "all-in", dispatch);
           break;
 
         default:
@@ -272,19 +311,6 @@ export const onMessage_player = (
       break;
 
     default:
-      switch (message["action"]) {
-        /* Here we receive the other players action information*/
-        case "check":
-        case "call":
-        case "raise":
-        case "fold":
-        case "allin":
-          //message["gui_playerID"] = 0;
-          //sendMessage(message, "dcv", state, dispatch);
-          break;
-
-        default:
-          sendMessage(message, "dcv", state, dispatch);
-      }
+      sendMessage(message, "dcv", state, dispatch);
   }
 };
