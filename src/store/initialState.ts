@@ -140,16 +140,7 @@ export interface IState {
   controls: { showControls: boolean; showFirstRow: boolean };
   cardsDealt: boolean;
   chipsCollected: boolean;
-  dealer:
-    | "player1"
-    | "player2"
-    | "player3"
-    | "player4"
-    | "player5"
-    | "player6"
-    | "player7"
-    | "player8"
-    | "player9";
+  dealer: number;
   gameStarted: boolean;
   gameTurn: 0 | 1 | 2 | 3 | 4;
   gameType: string;
