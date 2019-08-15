@@ -7,9 +7,9 @@ import Stack from "./Stack";
 
 interface IProps {
   betAmount: number;
-  chipsCollected: boolean;
-  forPlayer: string;
-  playerBet: boolean;
+  chipsCollected?: boolean;
+  forPlayer?: string;
+  playerBet?: boolean;
 }
 
 const Bet: React.FunctionComponent<IProps> = ({
