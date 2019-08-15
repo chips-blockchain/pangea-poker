@@ -1,4 +1,4 @@
-const emojis = [
+const emojis: string[] = [
   "😄",
   "😃",
   "😀",
@@ -213,7 +213,7 @@ const emojis = [
   "🐾"
 ];
 
-const randomEmoji = () => {
+const randomEmoji: Function = (): string => {
   return emojis[Math.floor(Math.random() * emojis.length)];
 };
 
