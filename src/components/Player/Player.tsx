@@ -6,10 +6,10 @@ import randomEmoji from "../../lib/randomEmoji";
 import useInterval from "../../lib/useInterval";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
-import { DispatchContext, StateContext } from "../store/context";
-import { playerJoin } from "../store/actions";
+import { DispatchContext, StateContext } from "../../store/context";
+import { playerJoin } from "../../store/actions";
 import playerIdToString from "../../lib/playerIdToString";
-import { IPlayer, IState } from "../store/initialState";
+import { IPlayer, IState } from "../../store/initialState";
 
 // This is the Player widget that shows the player avatar, the chips amount, wether the player has cards, etc
 

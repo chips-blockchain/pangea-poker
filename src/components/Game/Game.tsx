@@ -1,10 +1,10 @@
 import { css } from "@emotion/core";
 import { useState, useContext, useEffect } from "react";
 import WebSocket from "./WebSocket";
-import { DispatchContext, StateContext } from "../store/context";
+import { DispatchContext, StateContext } from "../../store/context";
 import { Button } from "../Controls";
-import { sendMessage } from "../store/actions";
-import { IState } from "../store/initialState";
+import { sendMessage } from "../../store/actions";
+import { IState } from "../../store/initialState";
 
 // This component is responsible for the WebSocket connections, as well as displaying the main Start button
 

@@ -2,7 +2,7 @@ import { css } from "@emotion/core";
 import { useState, useContext, useEffect } from "react";
 import Button from "./Button";
 import Slider from "./Slider";
-import { DispatchContext, StateContext } from "../store/context";
+import { DispatchContext, StateContext } from "../../store/context";
 import playerStringToId from "../../lib/playerStringToId";
 import {
   bet,
@@ -13,9 +13,9 @@ import {
   setToCall,
   setLastAction,
   showControls
-} from "../store/actions";
-import { IState } from "../store/initialState";
-import { IMessage } from "../store/actions";
+} from "../../store/actions";
+import { IState } from "../../store/initialState";
+import { IMessage } from "../../store/actions";
 
 // This component displays all the controls (buttons and slider) at the bottom left
 // when the player is active

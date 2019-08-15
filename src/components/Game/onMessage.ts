@@ -17,10 +17,10 @@ import {
   updateTotalPot,
   showControls,
   setDealer
-} from "../store/actions";
+} from "../../store/actions";
 
-import { IState } from "../store/initialState";
-import { IMessage } from "../store/actions";
+import { IState } from "../../store/initialState";
+import { IMessage } from "../../store/actions";
 
 export const onMessage = (
   message: IMessage,

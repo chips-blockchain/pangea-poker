@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
-import theme from "../../styles/theme";
-import playerIdToString from "../../lib/playerIdToString";
+import theme from "../styles/theme";
+import playerIdToString from "../lib/playerIdToString";
 import { IState } from "./initialState";
 
 export interface IMessage {

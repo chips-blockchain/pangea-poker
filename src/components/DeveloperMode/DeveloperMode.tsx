@@ -8,9 +8,9 @@ import {
   setActivePlayer,
   setUserSeat,
   showControls
-} from "../store/actions";
-import { DispatchContext, StateContext } from "../store/context";
-import { IState } from "../store/initialState";
+} from "../../store/actions";
+import { DispatchContext, StateContext } from "../../store/context";
+import { IState } from "../../store/initialState";
 
 const DeveloperMode: React.FunctionComponent = () => {
   const dispatch: Function = useContext(DispatchContext);

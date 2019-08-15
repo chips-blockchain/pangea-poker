@@ -1,8 +1,8 @@
 import { css } from "@emotion/core";
 import { useContext } from "react";
-import { StateContext } from "../store/context";
+import { StateContext } from "../../store/context";
 import theme from "../../styles/theme";
-import { IState } from "../store/initialState";
+import { IState } from "../../store/initialState";
 
 // This component is responsible for displaying the state of the WebSocket connections
 

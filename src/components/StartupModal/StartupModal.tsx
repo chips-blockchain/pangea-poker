@@ -1,10 +1,10 @@
 import { css } from "@emotion/core";
 import { useContext, useState } from "react";
 import theme from "../../styles/theme";
-import { DispatchContext, StateContext } from "../store/context";
+import { DispatchContext, StateContext } from "../../store/context";
 import Button from "../Controls/Button";
-import { game, updateStateValue, setUserSeat } from "../store/actions";
-import { IState } from "../store/initialState";
+import { game, updateStateValue, setUserSeat } from "../../store/actions";
+import { IState } from "../../store/initialState";
 
 // This is the modal that appears at the startup and prompts the user to type in the
 // IP addresses for the nodes. Used for testing purposes only.

@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import useWebSocket from "react-use-websocket";
-import { DispatchContext, StateContext } from "../store/context";
+import { DispatchContext, StateContext } from "../../store/context";
 import {
   onMessage,
   onMessage_bvv,
   onMessage_player1,
   onMessage_player2
 } from "./onMessage";
-import { log } from "../store/actions";
-import { IState } from "../store/initialState";
-import { IMessage } from "../store/actions";
+import { log } from "../../store/actions";
+import { IState } from "../../store/initialState";
+import { IMessage } from "../../store/actions";
 
 // This component is responsible for the WebSocket connection. It doesn't return and
 
