@@ -1,6 +1,10 @@
 import { css } from "@emotion/core";
 
-const PlayerGrid9Max = props => {
+interface IProps {
+  children: React.ReactNode;
+}
+
+const PlayerGrid9Max: React.FunctionComponent<IProps> = ({ children }) => {
   return (
     <div
       css={css`
@@ -18,16 +22,16 @@ const PlayerGrid9Max = props => {
         padding: 6rem 0 0 2rem;
       `}
     >
-      {props.children}
+      {children}
     </div>
   );
 };
 
-const PlayerGrid6Max = props => {
+const PlayerGrid6Max: React.FunctionComponent<IProps> = ({ children }) => {
   return (
     <div>
       {/* TODO: Set up 6-max grid */}
-      {props.children}
+      {children}
     </div>
   );
 };
