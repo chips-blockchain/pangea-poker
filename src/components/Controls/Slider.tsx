@@ -4,9 +4,12 @@ import { StateContext } from "../store/context";
 import theme from "../../styles/theme";
 import RCSlider from "rc-slider";
 import "./slider.css";
+import { IState } from "../store/initialState";
+
+// This is the Slider component used in Controls to set bet/raise amount
 
 const Slider = ({ raiseAmount, setRaiseAmount }) => {
-  const state = useContext(StateContext);
+  const state: IState = useContext(StateContext);
   const { minRaise, players, toCall, userSeat } = state;
 
   // Reset the raise amount on the slider when the minimum raise changes
@@ -22,30 +25,19 @@ const Slider = ({ raiseAmount, setRaiseAmount }) => {
     >
       <div
         css={css`
-          background: ${theme.moon.colors.background};
-          justify-content: flex-start;
           align-items: center;
+          background: ${theme.moon.colors.background};
           border: 0.0625rem solid ${theme.moon.colors.primary};
-          border-radius: 0.125rem;
           display: inline-block;
           display: flex;
+          border-radius: 0.125rem;
           height: 1.6rem;
+          justify-content: flex-start;
         `}
       >
         <RCSlider
           onChange={e => {
             setRaiseAmount(e);
-            // if (e >= players[userSeat].chips) {
-            //   setRaiseAmount(e);
-            // } else {
-            //   const roundedValue =
-            //     Math.round(e / (minRaise - toCall)) * (minRaise - toCall);
-            //   setRaiseAmount(
-            //     roundedValue > players[userSeat].chips
-            //       ? players[userSeat].chips
-            //       : roundedValue
-            //   );
-            // }
           }}
           min={minRaise}
           step={minRaise - toCall}
