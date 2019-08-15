@@ -7,7 +7,10 @@ interface IProps {
   children: React.ReactNode;
 }
 
-const ChipsGrid = ({ chipsCollected, children }) => {
+const ChipsGrid: React.FunctionComponent<IProps> = ({
+  chipsCollected,
+  children
+}) => {
   return (
     <div
       css={css`
