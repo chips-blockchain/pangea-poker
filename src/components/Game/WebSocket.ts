@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import useWebSocket from "react-use-websocket";
 import { DispatchContext, StateContext } from "../../store/context";
-import {
-  onMessage,
-  onMessage_bvv,
-  onMessage_player1,
-  onMessage_player2
-} from "./onMessage";
+import { onMessage, onMessage_bvv, onMessage_player } from "./onMessage";
 import { log } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import { IMessage } from "../../store/actions";
@@ -61,16 +56,12 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
           onMessage_bvv(lastMessage.data, state, dispatch);
           break;
         }
-        case "player1": {
-          onMessage_player1(lastMessage.data, state, dispatch);
-          break;
-        }
-        case "player2": {
-          onMessage_player2(lastMessage.data, state, dispatch);
-          break;
-        }
         case "echo": {
           onMessage(lastMessage.data, state, dispatch);
+        }
+        default: {
+          onMessage_player(lastMessage.data, nodeName, state, dispatch);
+          break;
         }
       }
     }
