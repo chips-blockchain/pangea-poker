@@ -4,12 +4,23 @@ import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../store/context";
 import Button from "../Controls/Button";
 import { game, updateStateValue, setUserSeat } from "../store/actions";
+import { IState } from "../store/initialState";
+
+// This is the modal that appears at the startup and prompts the user to type in the
+// IP addresses for the nodes. Used for testing purposes only.
 
 const Modal = () => {
-  const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
+  const dispatch: Function = useContext(DispatchContext);
+  const state: IState = useContext(StateContext);
 
-  const nodesToInput = [
+  interface INodesToInput {
+    name: "dcv" | "bvv" | "player1" | "player2";
+    id: "dealer" | "player1" | "player2";
+    type: "dealer" | "player";
+    devAddress: string;
+  }
+
+  const nodesToInput: INodesToInput[] = [
     {
       name: "dcv",
       id: "dealer",
@@ -45,14 +56,17 @@ const Modal = () => {
     });
   };
 
-  const hanldeTabClick = (e, nodeType, id) => {
+  const hanldeTabClick: Function = (
+    e: React.FormEvent<EventTarget>,
+    nodeType: "dealer" | "player"
+  ): void => {
     setNodes({});
     e.preventDefault();
     setNodeType(nodeType);
   };
 
-  const handleSubmit = () => {
-    const nodeTypeToSet =
+  const handleSubmit: Function = (): void => {
+    const nodeTypeToSet: string =
       nodeType === "dealer" ? "dealer" : nodeType.slice(0, -1);
     updateStateValue("nodes", nodes, dispatch);
     updateStateValue("nodeType", nodeTypeToSet, dispatch);
@@ -60,10 +74,10 @@ const Modal = () => {
     nodeTypeToSet === "player" &&
       game({ gametype: "test", pot: [0] }, state, dispatch);
     setUserSeat(nodeType, dispatch);
-    closeStartupModal(dispatch);
+    closeStartupModal();
   };
 
-  const setDevNodeTypes = node => {
+  const setDevNodeTypes = (node: "dealer" | "player1" | "player2") => {
     switch (node) {
       case "dealer":
         setNodes({
@@ -204,7 +218,6 @@ const Modal = () => {
                         [node.name]: e.target.value
                       });
                     }}
-                    name={`nodeAddress-${key}`}
                   />
                 </div>
               );
