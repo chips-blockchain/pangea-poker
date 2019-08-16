@@ -159,7 +159,7 @@ const Modal = () => {
               label="Dealer"
               onClick={e => {
                 hanldeTabClick(e, "dealer");
-                state.isDeveloperMode && setDevNodeTypes("dealer");
+                process.env && setDevNodeTypes("dealer");
               }}
             />
             <Button
@@ -167,7 +167,7 @@ const Modal = () => {
               label="Player1"
               onClick={e => {
                 hanldeTabClick(e, "player1");
-                state.isDeveloperMode && setDevNodeTypes("player1");
+                process.env && setDevNodeTypes("player1");
               }}
             />
             <Button
@@ -175,7 +175,7 @@ const Modal = () => {
               label="Player2"
               onClick={e => {
                 hanldeTabClick(e, "player2");
-                state.isDeveloperMode && setDevNodeTypes("player2");
+                process.env && setDevNodeTypes("player2");
               }}
             />
           </div>
@@ -213,7 +213,7 @@ const Modal = () => {
                     `}
                     name={node.name}
                     placeholder={`192.168.101.234`}
-                    defaultValue={state.isDeveloperMode ? node.devAddress : ""}
+                    defaultValue={process.env ? node.devAddress : ""}
                     onChange={e => {
                       setNodes({
                         ...nodes,
