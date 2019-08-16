@@ -78,16 +78,18 @@ const initialState: IState = {
   },
   nodeType: "player",
   nodes: {
-    dcv: "0.0.0.0.",
-    bvv: "0.0.0.0.",
-    player1: "0.0.0.0.",
-    player2: "0.0.0.0."
+    dcv: "0.0.0.0",
+    bvv: "0.0.0.0",
+    player1: "0.0.0.0",
+    player2: "0.0.0.0",
+    echo: "0.0.0.0"
   },
   message: {
     dcv: null,
     bvv: null,
     player1: null,
-    player2: null
+    player2: null,
+    echo: null
   },
   // Amount of the minimum raise
   minRaise: 4000000,
@@ -155,6 +157,7 @@ export interface IState {
     bvv: string | null;
     player1: string | null;
     player2: string | null;
+    echo: string | null;
   };
   nodeType: string;
   message: {
@@ -162,6 +165,7 @@ export interface IState {
     bvv: string | null;
     player1: string | null;
     player2: string | null;
+    echo: string | null;
   };
   minRaise: number;
   options: {

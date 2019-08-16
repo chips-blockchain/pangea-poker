@@ -14,18 +14,25 @@ const SOCKET_URL_ECHO = "wss://echo.websocket.org";
 const Game: React.FunctionComponent = () => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
-  const { gameStarted, isDeveloperMode, nodes, nodeType, message } = state;
+  const {
+    gameStarted,
+    isDeveloperMode,
+    isStartupModal,
+    nodes,
+    nodeType,
+    message
+  } = state;
 
   const SOCKET_URL_DCV = `ws://${nodes.dcv}:9000`;
   const SOCKET_URL_BVV = `ws://${nodes.bvv}:9000`;
   const SOCKET_URL_PLAYER1 = `ws://${[Object.values(nodes)[0]]}:9000`;
 
-  const [webSocketKey, setWebSocketKey] = useState(0);
+  // const [webSocketKey, setWebSocketKey] = useState(0);
 
   // Rerender the WebSocket components and thus reconnect when the nodes in state get updated
-  useEffect(() => {
-    setWebSocketKey(Math.random());
-  }, [nodes]);
+  // useEffect(() => {
+  //   setWebSocketKey(Math.random());
+  // }, [isStartupModal]);
 
   return (
     <div>
@@ -70,29 +77,33 @@ const Game: React.FunctionComponent = () => {
           key={webSocketKey + key}
         />;
       })} */}
-      {nodeType === "dealer" && (
+      {!isStartupModal && nodeType === "dealer" && (
         <div>
           <WebSocket
             nodeName="dcv"
             server={SOCKET_URL_DCV}
             message={message.dcv}
-            key={webSocketKey + 1}
           />
           <WebSocket
             nodeName="bvv"
             server={SOCKET_URL_BVV}
             message={message.bvv}
-            key={webSocketKey + 2}
           />
         </div>
       )}
 
-      {nodeType === "player" && (
+      {!isStartupModal && nodeType === "player" && (
         <WebSocket
           nodeName={Object.keys(nodes)[0]}
           server={SOCKET_URL_PLAYER1}
           message={message[Object.keys(nodes)[0]]}
-          key={webSocketKey + 3}
+        />
+      )}
+      {!isStartupModal && isDeveloperMode && (
+        <WebSocket
+          nodeName="echo"
+          server={SOCKET_URL_ECHO}
+          message={message.echo}
         />
       )}
     </div>

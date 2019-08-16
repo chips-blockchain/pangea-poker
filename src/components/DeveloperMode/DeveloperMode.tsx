@@ -7,7 +7,8 @@ import {
   nextTurn,
   setActivePlayer,
   setUserSeat,
-  showControls
+  showControls,
+  sendMessage
 } from "../../store/actions";
 import { DispatchContext, StateContext } from "../../store/context";
 import { IState } from "../../store/initialState";
@@ -45,9 +46,22 @@ const DeveloperMode: React.FunctionComponent = () => {
         onClick={() => showControls(true, dispatch)}
       />
       <Button
-        label="Deal Cards"
+        label="Final Info"
         onClick={() => {
-          dealCards(dispatch);
+          sendMessage(
+            {
+              method: "finalInfo",
+              showInfo: {
+                allHoleCardsInfo: [["5D", "3H"], ["2C", "7D"]],
+                boardCardInfo: ["9S", "4D", "KD", "5H", "AC"]
+              },
+              win_amount: 4000000,
+              winners: [0]
+            },
+            "echo",
+            state,
+            dispatch
+          );
         }}
       />
     </div>
