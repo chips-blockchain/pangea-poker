@@ -66,12 +66,13 @@ const Controls: React.FunctionComponent = () => {
       log(`${player} checks`, "info");
       // Call
     } else if (amount + betAmount === toCall) {
+      nextAction.bet_amount = amount + betAmount;
       log(`${player} calls ${amount}`, "info");
       bet(player, amount + betAmount, state, dispatch);
       // Raise
-    } else if (amount + betAmount > toCall) {
+    } else if (amount > toCall) {
       log(`${player} raises to ${amount}`, "info");
-      nextAction.bet_amount = amount - betAmount;
+      nextAction.bet_amount = amount;
       bet(player, amount, state, dispatch);
       setMinRaise(amount + amount - toCall, dispatch);
       setToCall(amount, dispatch);

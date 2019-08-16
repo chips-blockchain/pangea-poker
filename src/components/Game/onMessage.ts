@@ -11,14 +11,15 @@ import {
   sendMessage,
   setActivePlayer,
   setBalance,
+  setDealer,
   setLastAction,
   setLastMessage,
+  setMinRaise,
+  setToCall,
   setUserSeat,
   setWinner,
   updateTotalPot,
-  showControls,
-  setDealer,
-  setToCall
+  showControls
 } from "../../store/actions";
 import playerStringToId from "../../lib/playerStringToId";
 
@@ -266,16 +267,19 @@ export const onMessage_player = (
           setLastAction(guiPlayer, "check", dispatch);
           break;
         case "call":
-          bet(guiPlayer, betAmount, state, dispatch);
+          bet(guiPlayer, state.toCall, state, dispatch);
           setLastAction(guiPlayer, "call", dispatch);
           break;
         case "raise":
           bet(guiPlayer, betAmount, state, dispatch);
           setToCall(betAmount, dispatch);
+          setMinRaise(betAmount + betAmount - state.toCall, dispatch);
           setLastAction(guiPlayer, "raise", dispatch);
           break;
         case "fold":
-          setLastAction(guiPlayer, "raise", dispatch);
+          fold(player, dispatch);
+          setLastAction(guiPlayer, "fold", dispatch);
+          break;
 
         case "allin":
           bet(guiPlayer, betAmount, state, dispatch);
