@@ -1,5 +1,5 @@
 import { css } from "@emotion/core";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../../store/context";
 import Button from "../Controls/Button";
@@ -48,7 +48,7 @@ const Modal = () => {
   ];
   const [nodes, setNodes] = useState({});
   const [nodeType, setNodeType] = useState("");
-  // const [canSetNodes, setCanSetNodes] = useState(false);
+  const [canSetNodes, setCanSetNodes] = useState(false);
 
   const closeStartupModal = () => {
     dispatch({
@@ -95,15 +95,17 @@ const Modal = () => {
   };
 
   // Validates wether all four input fields have data
-  // useEffect(() => {
-  //   nodeType === "dealer" &&
-  //     Object.keys(nodes).length === 2 &&
-  //     setCanSetNodes(true);
-  //   nodeType === "player1" ||
-  //     (nodeType === "player2" &&
-  //       Object.keys(nodes).length === 1 &&
-  //       setCanSetNodes(true));
-  // });
+  useEffect(() => {
+    nodeType === "dealer" &&
+      Object.keys(nodes).length === 2 &&
+      setCanSetNodes(true);
+    nodeType === "player1" &&
+      Object.keys(nodes).length === 1 &&
+      setCanSetNodes(true);
+    nodeType === "player2" &&
+      Object.keys(nodes).length === 1 &&
+      setCanSetNodes(true);
+  }, [nodes]);
 
   return (
     <div
@@ -230,7 +232,7 @@ const Modal = () => {
           >
             <Button
               label="Set Nodes"
-              // disabled={!canSetNodes}
+              disabled={!canSetNodes}
               onClick={e => {
                 e.preventDefault();
                 handleSubmit();
