@@ -56,7 +56,7 @@ const DeveloperMode: React.FunctionComponent = () => {
                 boardCardInfo: ["9S", "4D", "KD", "5H", "AC"]
               },
               win_amount: 4000000,
-              winners: [0]
+              winners: [1]
             },
             "echo",
             state,
