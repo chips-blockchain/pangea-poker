@@ -21,7 +21,8 @@ import {
   updateTotalPot,
   showControls,
   setBlinds,
-  updateStateValue
+  updateStateValue,
+  showDown
 } from "../../store/actions";
 import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
@@ -312,6 +313,7 @@ export const onMessage_player = (
 
     case "finalInfo":
       setWinner(message.winners[0], state, dispatch);
+      showDown(message.showInfo.allHoleCardsInfo, dispatch);
       break;
 
     default:

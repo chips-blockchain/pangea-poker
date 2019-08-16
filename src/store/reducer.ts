@@ -222,6 +222,24 @@ const reducer: Function = (state: IState, action: IAction): object => {
     case "setWinner": {
       return { ...state, winner: action.payload };
     }
+    case "showDown": {
+      return {
+        ...state,
+        players: {
+          ...state.players,
+          player1: {
+            ...state.players.player1,
+            playerCards: action.payload[0],
+            showCards: true
+          },
+          player2: {
+            ...state.players.player2,
+            playerCards: action.payload[1],
+            showCards: true
+          }
+        }
+      };
+    }
     case "toggleMainPot": {
       return {
         ...state,

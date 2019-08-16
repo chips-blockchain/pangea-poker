@@ -131,6 +131,7 @@ const Player: React.FunctionComponent<IProps> = ({
             bottom: 0.875rem;
             left: 1.75rem;
             position: absolute;
+            opacity: ${gameTurn === 4 && winner !== seat ? "0.5" : "1"};
             z-index: 1;
           `}
         >
@@ -145,7 +146,7 @@ const Player: React.FunctionComponent<IProps> = ({
           {userSeat !== seat && gameTurn === 4 && (
             <div
               css={css`
-                opacity: ${winner !== userName ? "0.5" : "1"};
+                opacity: ${gameTurn === 4 && winner !== seat ? "0.5" : "1"};
               `}
             >
               <Card card={playerCards[0]} />

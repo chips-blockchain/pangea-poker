@@ -343,6 +343,13 @@ export const showControls = (show: boolean, dispatch: Function) => {
   });
 };
 
+export const showDown = (allHoleCardsInfo: string[], dispatch: Function) => {
+  dispatch({
+    type: "showDown",
+    payload: allHoleCardsInfo
+  });
+};
+
 export const toggleMainPot = (dispatch: Function) => {
   dispatch({
     type: "toggleMainPot"
