@@ -72,7 +72,7 @@ const Modal = () => {
     updateStateValue("nodeType", nodeTypeToSet, dispatch);
 
     nodeTypeToSet === "player" &&
-      game({ gametype: "test", pot: [0] }, state, dispatch);
+      game({ gametype: "", pot: [0] }, state, dispatch);
     setUserSeat(nodeType, dispatch);
     closeStartupModal();
   };

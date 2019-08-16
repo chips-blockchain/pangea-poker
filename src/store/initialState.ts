@@ -27,7 +27,7 @@ const initialState: IState = {
   // Which seat is the active player
   activePlayer: null,
   // Current blinds - small and big one
-  blinds: [1000000, 2000000],
+  blinds: [0, 0],
   // Board Cards
   boardCards: [],
   // Connection status dispalyed at the top

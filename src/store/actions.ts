@@ -212,6 +212,23 @@ export const seats = (
   });
 };
 
+export const sendMessage = (
+  message: IMessage,
+  node: string,
+  state: IState,
+  dispatch: Function
+): void => {
+  if (state.connection[node] === "Connected") {
+    dispatch({
+      type: "setMessage",
+      payload: {
+        node: [node],
+        message: JSON.stringify(message)
+      }
+    });
+  } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
+};
+
 export const setActivePlayer = (player: string, dispatch: Function): void => {
   dispatch({
     type: "setActivePlayer",
@@ -230,6 +247,13 @@ export const setBalance = (
   });
 };
 
+export const setBlinds = (blinds: [number, number], dispatch: Function) => {
+  dispatch({
+    type: "setBlinds",
+    payload: blinds
+  });
+};
+
 export const setBoardCards = (
   boardCards: string[],
   dispatch: Function
@@ -237,37 +261,6 @@ export const setBoardCards = (
   dispatch({
     type: "setBoardCards",
     payload: boardCards
-  });
-};
-
-export const sendMessage = (
-  message: IMessage,
-  node: string,
-  state: IState,
-  dispatch: Function
-): void => {
-  if (state.connection[node] === "Connected") {
-    dispatch({
-      type: "setMessage",
-      payload: {
-        node: [node],
-        message: JSON.stringify(message)
-      }
-    });
-  } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
-};
-
-export const setMinRaise = (amount: number, dispatch: Function): void => {
-  dispatch({
-    type: "setMinRaise",
-    payload: amount
-  });
-};
-
-export const setToCall = (amount: number, dispatch: Function): void => {
-  dispatch({
-    type: "setToCall",
-    payload: amount
   });
 };
 
@@ -303,6 +296,20 @@ export const setLastMessage = (message: IMessage, dispatch: Function): void => {
   dispatch({
     type: "setLastMessage",
     payload: message
+  });
+};
+
+export const setMinRaise = (amount: number, dispatch: Function): void => {
+  dispatch({
+    type: "setMinRaise",
+    payload: amount
+  });
+};
+
+export const setToCall = (amount: number, dispatch: Function): void => {
+  dispatch({
+    type: "setToCall",
+    payload: amount
   });
 };
 

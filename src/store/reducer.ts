@@ -134,12 +134,6 @@ const reducer: Function = (state: IState, action: IAction): object => {
         }
       };
     }
-    case "setNodeAdresses": {
-      return {
-        ...state,
-        nodes: action.payload
-      };
-    }
     case "setActivePlayer": {
       return {
         ...state,
@@ -159,6 +153,12 @@ const reducer: Function = (state: IState, action: IAction): object => {
         }
       };
     }
+    case "setBlinds": {
+      return {
+        ...state,
+        blinds: action.payload
+      };
+    }
     case "setBoardCards": {
       return {
         ...state,
@@ -167,6 +167,12 @@ const reducer: Function = (state: IState, action: IAction): object => {
     }
     case "setMinRaise": {
       return { ...state, minRaise: action.payload };
+    }
+    case "setNodeAdresses": {
+      return {
+        ...state,
+        nodes: action.payload
+      };
     }
     case "setToCall": {
       return { ...state, toCall: action.payload };

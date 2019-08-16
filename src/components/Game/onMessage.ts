@@ -19,9 +19,12 @@ import {
   setUserSeat,
   setWinner,
   updateTotalPot,
-  showControls
+  showControls,
+  setBlinds,
+  updateStateValue
 } from "../../store/actions";
 import playerStringToId from "../../lib/playerStringToId";
+import numberWithCommas from "../../lib/numberWithCommas";
 
 import { IState } from "../../store/initialState";
 import { IMessage } from "../../store/actions";
@@ -310,8 +313,15 @@ export const onMessage_player = (
       break;
 
     case "blindsInfo":
-      /*update small_blind and big_blind values received from backend to the gui here*/
-      console.log(message);
+      const blinds: [number, number] = [message.small_blind, message.big_blind];
+      setBlinds(blinds, dispatch);
+      updateStateValue(
+        "gameType",
+        `NL Hold'Em | Blinds: ${numberWithCommas(blinds[0])}/${numberWithCommas(
+          blinds[1]
+        )}`,
+        dispatch
+      );
       break;
 
     default:
