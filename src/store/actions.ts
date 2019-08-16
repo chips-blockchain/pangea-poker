@@ -321,11 +321,11 @@ export const setUserSeat = (player: string, dispatch: Function): void => {
 };
 
 export const setWinner = (
-  player: IMessage,
+  player: number,
   state: IState,
   dispatch: Function
 ): void => {
-  const winner = playerIdToString(player.playerID);
+  const winner = playerIdToString(player);
   console.log(`The winner is ${winner}.`);
   nextTurn(4, state, dispatch);
   setTimeout(() => {

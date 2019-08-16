@@ -113,20 +113,6 @@ export const onMessage = (
       }
       break;
 
-    case "winningInvoiceRequest":
-      switch (message["playerID"]) {
-        case 0:
-          message["gui_playerID"] = 0;
-          sendMessage(message, "player1", state, dispatch);
-          break;
-        case 1:
-          message["gui_playerID"] = 1;
-          sendMessage(message, "player2", state, dispatch);
-          break;
-      }
-      setWinner(message, state, dispatch);
-      break;
-
     case "reset":
       message["method"] = "player_reset";
       message["gui_playerID"] = 0;
@@ -322,6 +308,10 @@ export const onMessage_player = (
         )}`,
         dispatch
       );
+      break;
+
+    case "finalInfo":
+      setWinner(message.winners[0], state, dispatch);
       break;
 
     default:

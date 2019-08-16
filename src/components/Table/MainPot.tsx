@@ -29,11 +29,9 @@ const MainPot: React.FunctionComponent<IProps> = ({
   useEffect(() => {
     if (gameTurn === 4 && winner) {
       if (winner === "player1") {
-        winnerCoordinates.left = "25rem";
-        winnerCoordinates.top = "9.5rem";
+        setWinnerCoordinates({ left: "25rem", top: "9.5rem" });
       } else if (winner === "player2") {
-        winnerCoordinates.left = "27rem";
-        winnerCoordinates.top = "14rem";
+        setWinnerCoordinates({ left: "27rem", top: "14rem" });
       } else throw new Error("The winner is unclear");
     }
   }, [winner]);
