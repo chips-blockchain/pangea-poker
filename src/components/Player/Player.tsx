@@ -150,7 +150,7 @@ const Player: React.FunctionComponent<IProps> = ({
               `}
             >
               <Card card={playerCards[0]} />
-              <Card card={playerCards[0]} />
+              <Card card={playerCards[1]} />
             </div>
           )}
         </div>
