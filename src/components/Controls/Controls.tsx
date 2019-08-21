@@ -74,8 +74,6 @@ const Controls: React.FunctionComponent = () => {
       log(`${player} raises to ${amount}`, "info");
       nextAction.bet_amount = amount;
       bet(player, amount, state, dispatch);
-      setMinRaise(amount + amount - toCall, dispatch);
-      setToCall(amount, dispatch);
       // Fold
     } else if (action === 7) {
       fold(player, dispatch);

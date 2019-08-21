@@ -249,6 +249,8 @@ export const onMessage_player = (
         case "round_betting":
           setActivePlayer(player, dispatch);
           updateTotalPot(message["pot"], dispatch);
+          setMinRaise(message["toRaise"], dispatch);
+          setToCall(message["toCall"], dispatch);
           showControls(true, dispatch);
           break;
 
@@ -262,8 +264,6 @@ export const onMessage_player = (
           break;
         case "raise":
           bet(guiPlayer, betAmount, state, dispatch);
-          setToCall(betAmount, dispatch);
-          setMinRaise(betAmount + betAmount - state.toCall, dispatch);
           setLastAction(guiPlayer, "raise", dispatch);
           break;
         case "fold":
