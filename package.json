@@ -50,6 +50,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
     "@emotion/babel-preset-css-prop": "^10.0.14",
+    "@types/jest": "^24.0.18",
     "babel-loader": "^8.0.6",
     "babel-plugin-jsx-pragmatic": "^1.0.2",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
@@ -57,6 +58,7 @@
     "jest": "^24.9.0",
     "parcel-bundler": "^1.12.3",
     "prettier": "^1.17.1",
+    "ts-jest": "^24.0.2",
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.5.3"
   }
