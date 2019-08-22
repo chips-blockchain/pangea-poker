@@ -25,6 +25,7 @@ const Button: React.FunctionComponent<IProps> = ({
     <button
       onClick={onClick}
       disabled={disabled}
+      data-testid="button"
       css={css`
         background: ${background};
         border: 0.0625rem solid ${primary};
