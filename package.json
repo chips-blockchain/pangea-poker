@@ -7,7 +7,7 @@
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
     "start": "NODE_ENV=development parcel src/index.html --open",
-    "test": "NODE_ENV=test jest --watch",
+    "test": "NODE_ENV=test jest --watch --silent",
     "lint:fix": "eslint './src/**/*.{ts,tsx}'"
   },
   "repository": {
