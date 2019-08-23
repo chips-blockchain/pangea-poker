@@ -10,6 +10,7 @@ interface IProps {
   label: string;
   onClick?: React.MouseEventHandler;
   small?: boolean;
+  testId?: string;
 }
 
 const { accent, background, primary, text } = theme.moon.colors;
@@ -19,13 +20,14 @@ const Button: React.FunctionComponent<IProps> = ({
   disabled,
   label,
   onClick,
-  small
+  small,
+  testId
 }) => {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      data-testid="button"
+      data-testid={testId}
       css={css`
         background: ${background};
         border: 0.0625rem solid ${primary};
