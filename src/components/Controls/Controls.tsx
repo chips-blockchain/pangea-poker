@@ -9,7 +9,7 @@ import {
   fold,
   log,
   sendMessage,
-  setMinRaise,
+  setMinRaiseTo,
   setToCall,
   setLastAction,
   showControls
@@ -23,11 +23,18 @@ import { IMessage } from "../../store/actions";
 const Controls: React.FunctionComponent = () => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
-  const { lastMessage, minRaise, players, toCall, totalPot, userSeat } = state;
+  const {
+    lastMessage,
+    minRaiseTo,
+    players,
+    toCall,
+    totalPot,
+    userSeat
+  } = state;
 
   const betAmount = players[userSeat].betAmount;
 
-  const [raiseAmount, setRaiseAmount] = useState(minRaise);
+  const [raiseAmount, setRaiseAmount] = useState(minRaiseTo);
   const canCheck: boolean = toCall - betAmount === 0;
   const callAmount: number = toCall - betAmount;
   const chips: number = players[userSeat].chips;
@@ -162,9 +169,11 @@ const Controls: React.FunctionComponent = () => {
             ? "Bet"
             : "Raise to"
         }
-        amount={minRaise >= chips || toCall >= chips ? totalChips : raiseAmount}
+        amount={
+          minRaiseTo >= chips || toCall >= chips ? totalChips : raiseAmount
+        }
         onClick={() =>
-          minRaise >= chips || toCall >= chips
+          minRaiseTo >= chips || toCall >= chips
             ? handleButtonClick(6, userSeat, totalChips, "ALL-IN")
             : handleButtonClick(4, userSeat, raiseAmount, "RAISE")
         }

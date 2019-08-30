@@ -10,12 +10,12 @@ import { IState } from "../../store/initialState";
 
 const Slider = ({ raiseAmount, setRaiseAmount }) => {
   const state: IState = useContext(StateContext);
-  const { minRaise, players, toCall, userSeat } = state;
+  const { minRaiseTo, players, toCall, userSeat } = state;
 
   // Reset the raise amount on the slider when the minimum raise changes
   useEffect(() => {
-    setRaiseAmount(minRaise);
-  }, [minRaise]);
+    setRaiseAmount(minRaiseTo);
+  }, [minRaiseTo]);
 
   return (
     <div
@@ -39,8 +39,8 @@ const Slider = ({ raiseAmount, setRaiseAmount }) => {
           onChange={e => {
             setRaiseAmount(e);
           }}
-          min={minRaise}
-          step={minRaise - toCall}
+          min={minRaiseTo}
+          step={minRaiseTo - toCall}
           value={raiseAmount}
           max={players[userSeat].chips + players[userSeat].betAmount}
         />

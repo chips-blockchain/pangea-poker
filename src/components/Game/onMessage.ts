@@ -14,7 +14,7 @@ import {
   setDealer,
   setLastAction,
   setLastMessage,
-  setMinRaise,
+  setMinRaiseTo,
   setToCall,
   setUserSeat,
   setWinner,
@@ -249,7 +249,7 @@ export const onMessage_player = (
         case "round_betting":
           setActivePlayer(player, dispatch);
           updateTotalPot(message["pot"], dispatch);
-          setMinRaise(message["toRaise"], dispatch);
+          setMinRaiseTo(message["minRaiseTo"], dispatch);
           setToCall(message["toCall"], dispatch);
           showControls(true, dispatch);
           break;

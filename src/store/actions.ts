@@ -299,9 +299,9 @@ export const setLastMessage = (message: IMessage, dispatch: Function): void => {
   });
 };
 
-export const setMinRaise = (amount: number, dispatch: Function): void => {
+export const setMinRaiseTo = (amount: number, dispatch: Function): void => {
   dispatch({
-    type: "setMinRaise",
+    type: "setMinRaiseTo",
     payload: amount
   });
 };

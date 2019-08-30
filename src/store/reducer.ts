@@ -95,7 +95,7 @@ const reducer: Function = (state: IState, action: IAction): object => {
         ...state,
         chipsCollected: false,
         toCall: 0,
-        minRaise: action.payload,
+        minRaiseTo: action.payload,
         players: {
           ...state.players,
           player1: {
@@ -118,7 +118,7 @@ const reducer: Function = (state: IState, action: IAction): object => {
         cardsDealt: false,
         dealer: state.dealer === 0 ? 1 : 0,
         handsPlayed: state.handsPlayed + 1,
-        minRaise: state.blinds[1] * 2,
+        minRaiseTo: state.blinds[1] * 2,
         holeCards: [],
         pot: [0],
         lastAction: { player: 0, action: null },
@@ -165,8 +165,8 @@ const reducer: Function = (state: IState, action: IAction): object => {
         boardCards: action.payload
       };
     }
-    case "setMinRaise": {
-      return { ...state, minRaise: action.payload };
+    case "setMinRaiseTo": {
+      return { ...state, minRaiseTo: action.payload };
     }
     case "setNodeAdresses": {
       return {
