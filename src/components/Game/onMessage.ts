@@ -175,48 +175,6 @@ export const onMessage_player = (
   log(`Received from ${player}: `, "received", message);
 
   switch (message["method"]) {
-    case "deal":
-      dealCards(dispatch);
-      setUserSeat(player, dispatch);
-      deal(message, state, dispatch);
-      break;
-
-    case "dealer":
-      setDealer(message.playerid, dispatch);
-      break;
-
-    case "requestShare":
-      if (message["toPlayer"] == 0) {
-        message["gui_playerID"] = 0;
-        sendMessage(message, "player1", state, dispatch);
-      } else if (message["toPlayer"] == 1) {
-        message["gui_playerID"] = 1;
-        sendMessage(message, "player2", state, dispatch);
-      }
-      break;
-
-    case "share_info":
-      if (message["toPlayer"] == 0) {
-        message["gui_playerID"] = 0;
-        sendMessage(message, "player1", state, dispatch);
-      } else if (message["toPlayer"] == 1) {
-        message["gui_playerID"] = 1;
-        sendMessage(message, "player2", state, dispatch);
-      }
-      break;
-
-    case "playerCardInfo":
-      console.log("playerCardInfo");
-      sendMessage(message, "dcv", state, dispatch);
-      break;
-
-    case "replay":
-      message["method"] = "betting";
-      message["gui_playerID"] = playerId;
-      setActivePlayer(player, dispatch);
-      showControls(true, dispatch);
-      break;
-
     case "betting":
       const guiPlayer: number = message["playerid"];
       const betAmount: number = message["bet_amount"];
@@ -290,15 +248,6 @@ export const onMessage_player = (
       }
       break;
 
-    case "seats":
-      seats(message["seats"], dispatch);
-      break;
-
-    case "join_req":
-      setBalance(player, message.balance, dispatch);
-      sendMessage(message, "dcv", state, dispatch);
-      break;
-
     case "blindsInfo":
       const blinds: [number, number] = [message.small_blind, message.big_blind];
       setBlinds(blinds, dispatch);
@@ -311,9 +260,60 @@ export const onMessage_player = (
       );
       break;
 
+    case "deal":
+      dealCards(dispatch);
+      setUserSeat(player, dispatch);
+      deal(message, state, dispatch);
+      break;
+
+    case "dealer":
+      setDealer(message.playerid, dispatch);
+      break;
+
     case "finalInfo":
       setWinner(message.winners[0], state, dispatch);
       showDown(message.showInfo.allHoleCardsInfo, dispatch);
+      break;
+
+    case "join_req":
+      setBalance(player, message.balance, dispatch);
+      sendMessage(message, "dcv", state, dispatch);
+      break;
+
+    case "playerCardInfo":
+      console.log("playerCardInfo");
+      sendMessage(message, "dcv", state, dispatch);
+      break;
+
+    case "replay":
+      message["method"] = "betting";
+      message["gui_playerID"] = playerId;
+      setActivePlayer(player, dispatch);
+      showControls(true, dispatch);
+      break;
+
+    case "requestShare":
+      if (message["toPlayer"] == 0) {
+        message["gui_playerID"] = 0;
+        sendMessage(message, "player1", state, dispatch);
+      } else if (message["toPlayer"] == 1) {
+        message["gui_playerID"] = 1;
+        sendMessage(message, "player2", state, dispatch);
+      }
+      break;
+
+    case "seats":
+      seats(message["seats"], dispatch);
+      break;
+
+    case "share_info":
+      if (message["toPlayer"] == 0) {
+        message["gui_playerID"] = 0;
+        sendMessage(message, "player1", state, dispatch);
+      } else if (message["toPlayer"] == 1) {
+        message["gui_playerID"] = 1;
+        sendMessage(message, "player2", state, dispatch);
+      }
       break;
 
     default:
