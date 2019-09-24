@@ -43,7 +43,7 @@ const Game: React.FunctionComponent = () => {
           top: 4;
         `}
       >
-        {!gameStarted && (
+        {nodeType === "dealer" && (
           <div
             css={css`
               display: grid;
