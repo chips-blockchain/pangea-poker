@@ -113,25 +113,6 @@ export const onMessage = (
           break;
       }
       break;
-
-    case "reset":
-      message["method"] = "player_reset";
-      message["gui_playerID"] = 0;
-      sendMessage(message, "player1", state, dispatch);
-
-      message["gui_playerID"] = 1;
-      sendMessage(message, "player2", state, dispatch);
-
-      message["method"] = "bvv_reset";
-      sendMessage(message, "bvv", state, dispatch);
-
-      setTimeout(() => {
-        setUserSeat(null, dispatch);
-        nextHand(state, dispatch);
-        playerJoin("player1", state, dispatch);
-        playerJoin("player2", state, dispatch);
-      }, 5000);
-      break;
     case "blindsInfo":
     /*update small_blind and big_blind values received from backend to the gui here*/
   }
@@ -291,6 +272,12 @@ export const onMessage_player = (
       setActivePlayer(player, dispatch);
       showControls(true, dispatch);
       break;
+
+    case "reset":
+      setTimeout(() => {
+        setUserSeat(null, dispatch);
+        nextHand(state, dispatch);
+      }, 3000);
 
     case "requestShare":
       if (message["toPlayer"] == 0) {
