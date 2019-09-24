@@ -36,6 +36,12 @@ const DeveloperMode: React.FunctionComponent = () => {
         z-index: 999;
       `}
     >
+      <Button
+        label="Reset"
+        onClick={() => {
+          sendMessage({ method: "reset" }, "dcv", state, dispatch);
+        }}
+      />
       <Button label="Pre-Flop" onClick={() => devStart(dispatch)} />
       <Button label="Flop" onClick={() => nextTurn(1, state, dispatch)} />
       <Button label="Turn" onClick={() => nextTurn(2, state, dispatch)} />
