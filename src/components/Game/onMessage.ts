@@ -277,6 +277,7 @@ export const onMessage_player = (
       setTimeout(() => {
         setUserSeat(null, dispatch);
         nextHand(state, dispatch);
+        playerJoin(player, state, dispatch);
       }, 3000);
 
     case "requestShare":
