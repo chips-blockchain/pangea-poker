@@ -220,7 +220,19 @@ const reducer: Function = (state: IState, action: IAction): object => {
       };
     }
     case "setWinner": {
-      return { ...state, winner: action.payload };
+      return {
+        ...state,
+        players: {
+          ...state.players,
+          [action.payload.winner]: {
+            ...state.players[action.payload.winner],
+            chips:
+              state.players[action.payload.winner].chips +
+              action.payload.winAmount
+          }
+        },
+        winner: action.payload.winner
+      };
     }
     case "showDown": {
       return {

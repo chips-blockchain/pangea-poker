@@ -322,6 +322,7 @@ export const setUserSeat = (player: string, dispatch: Function): void => {
 
 export const setWinner = (
   player: number,
+  winAmount: number,
   state: IState,
   dispatch: Function
 ): void => {
@@ -331,7 +332,7 @@ export const setWinner = (
   setTimeout(() => {
     dispatch({
       type: "setWinner",
-      payload: winner
+      payload: { winner, winAmount }
     });
   }, 1000);
 };

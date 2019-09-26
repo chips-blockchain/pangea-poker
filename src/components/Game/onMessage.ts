@@ -252,7 +252,7 @@ export const onMessage_player = (
       break;
 
     case "finalInfo":
-      setWinner(message.winners[0], state, dispatch);
+      setWinner(message.winners[0], message["win_amount"], state, dispatch);
       showDown(message.showInfo.allHoleCardsInfo, dispatch);
       break;
 
