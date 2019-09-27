@@ -70,6 +70,24 @@ const DeveloperMode: React.FunctionComponent = () => {
           );
         }}
       />
+      <Button
+        label="setBalance"
+        onClick={() => {
+          sendMessage(
+            {
+              method: "deal",
+              deal: {
+                dealer: 1,
+                balance: 200,
+                holecards: [null, null]
+              }
+            },
+            "echo",
+            state,
+            dispatch
+          );
+        }}
+      />
     </div>
   );
 };
