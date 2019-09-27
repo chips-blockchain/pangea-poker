@@ -92,7 +92,7 @@ const initialState: IState = {
     echo: null
   },
   // Amount of the minimum raise
-  minRaiseTo: 4000000,
+  minRaiseTo: 4,
   // Options for the pot
   options: {
     showPotCounter: false
@@ -108,7 +108,7 @@ const initialState: IState = {
   // The calculated value of the pot and all the bets
   totalPot: 0,
   // Amount to call
-  toCall: 2000000,
+  toCall: 2,
   // Where does the user sit
   userSeat: null,
   // The player that won the game
