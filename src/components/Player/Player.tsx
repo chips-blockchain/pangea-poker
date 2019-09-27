@@ -45,7 +45,7 @@ const Player: React.FunctionComponent<IProps> = ({
   // Miliseconds for each active player to act
   let timeAllowance = 30000;
 
-  const [balanceMessage, setBalanceMessage] = useState("CLICK TO SIT");
+  const [seatMessage, setSeatMessage] = useState("SIT HERE");
   const [timeLeftToAct, setTimeLeftToAct] = useState(timeAllowance);
   const [percentLeft, setPercentLeft] = useState(100);
   const [userAvatar, setUserAvater] = useState(randomEmoji());
@@ -53,6 +53,19 @@ const Player: React.FunctionComponent<IProps> = ({
     text: seat,
     color: theme.moon.colors.superLightGray
   });
+
+  const isUserSeat = userSeat === seat;
+
+  // Rules to change the colors
+  const colorChange = () => {
+    return percentLeft > 75
+      ? theme.moon.colors.primary
+      : percentLeft > 25
+      ? theme.moon.colors.accent
+      : theme.moon.colors.danger;
+  };
+
+  const transitionSpeed = "0";
 
   const Balance = styled.div`
     color: ${theme.moon.colors.primaryLight};
@@ -75,7 +88,7 @@ const Player: React.FunctionComponent<IProps> = ({
     left: 3rem;
     position: absolute;
     z-index: 1;
-    display: ${userSeat === seat && holeCards[0] ? "none" : "block"};
+    display: ${isUserSeat && holeCards[0] ? "none" : "block"};
   `;
 
   const PlayerInfo = styled.div`
@@ -87,13 +100,17 @@ const Player: React.FunctionComponent<IProps> = ({
     box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.1);
     /* ${isActive && "border: 2px solid " + colorChange() + ";"} */
     border: 2px solid ${isActive ? theme.moon.colors.accent : "transparent"};
-    grid-template-columns: 1fr 0.5fr;
+    ${connected && "grid-template-columns: 1fr 0.5fr;"}
     height: 100%;
     justify-content: center;
     transition: ${transitionSpeed};
     position: absolute;
     width: 100%;
     z-index: 2;
+
+    &:hover div {
+      ${!connected && `color: ${theme.moon.colors.accent}`};
+    }
   `;
 
   const PlayerEmoji = styled.span`
@@ -105,7 +122,7 @@ const Player: React.FunctionComponent<IProps> = ({
     color: ${lastAction.action && seat == playerIdToString(lastAction.player)
       ? theme.moon.colors.accent
       : userName.color};
-    font-size: 0.625rem;
+    font-size: ${connected ? "0.625rem" : "1rem"};
     line-height: 0.875rem;
     text-align: center;
     text-transform: uppercase;
@@ -165,28 +182,17 @@ const Player: React.FunctionComponent<IProps> = ({
   //   );
   // });
 
-  // Rules to change the colors
-  const colorChange = () => {
-    return percentLeft > 75
-      ? theme.moon.colors.primary
-      : percentLeft > 25
-      ? theme.moon.colors.accent
-      : theme.moon.colors.danger;
-  };
-
-  const transitionSpeed = "0";
-
   return (
     <PlayerWidget
       onClick={() => {
         playerJoin(seat, state, dispatch);
-        setBalanceMessage("SITTING...");
+        setSeatMessage("SITTING...");
       }}
     >
       {cardsDealt && showCards && hasCards && (
         <CardsWrapper>
           {/* Player's face up cards */}
-          {userSeat === seat && holeCards[0] && (
+          {isUserSeat && holeCards[0] && (
             <span>
               <Card card={holeCards[0]} />
               <Card card={holeCards[1]} />
@@ -219,20 +225,20 @@ const Player: React.FunctionComponent<IProps> = ({
       <PlayerInfo>
         <span
           css={css`
-            margin-left: 1rem;
+            ${connected && "margin-left: 1rem"};
           `}
         >
           <PlayerName>
             {/* Show the player's name or the last action */}
-            {lastAction.action && seat == playerIdToString(lastAction.player)
+            {!connected
+              ? seatMessage
+              : lastAction.action && seat == playerIdToString(lastAction.player)
               ? lastAction.action
               : userName.text}
           </PlayerName>
-          <Balance>
-            {connected ? numberWithCommas(chips) : balanceMessage}
-          </Balance>
+          {connected && <Balance>{numberWithCommas(chips)}</Balance>}
         </span>
-        <PlayerEmoji>{userAvatar}</PlayerEmoji>
+        {connected && <PlayerEmoji>{userAvatar}</PlayerEmoji>}
       </PlayerInfo>
       {/* The timer is temporarily disabled */}
       {/* Active player countdown */}
