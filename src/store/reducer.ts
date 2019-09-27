@@ -42,6 +42,18 @@ const reducer: Function = (state: IState, action: IAction): object => {
         }
       };
     }
+    case "connectPlayer": {
+      return {
+        ...state,
+        players: {
+          ...state.players,
+          [action.payload]: {
+            ...state.players[action.payload],
+            connected: true
+          }
+        }
+      };
+    }
     case "dealCards": {
       return {
         ...state,

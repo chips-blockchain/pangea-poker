@@ -3,8 +3,14 @@ import { useContext, useState, useEffect } from "react";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../../store/context";
 import Button from "../Controls/Button";
-import { game, updateStateValue, setUserSeat } from "../../store/actions";
+import {
+  connectPlayer,
+  game,
+  updateStateValue,
+  setUserSeat
+} from "../../store/actions";
 import { IState } from "../../store/initialState";
+import { connect } from "net";
 
 // This is the modal that appears at the startup and prompts the user to type in the
 // IP addresses for the nodes. Used for testing purposes only.
@@ -66,14 +72,16 @@ const Modal = () => {
   };
 
   const handleSubmit: Function = (): void => {
-    const nodeTypeToSet: string =
-      nodeType === "dealer" ? "dealer" : nodeType.slice(0, -1);
+    const isDealer = nodeType === "dealer";
+    const nodeTypeToSet: string = isDealer ? "dealer" : nodeType.slice(0, -1);
     updateStateValue("nodes", nodes, dispatch);
     updateStateValue("nodeType", nodeTypeToSet, dispatch);
 
     nodeTypeToSet === "player" &&
       game({ gametype: "", pot: [0] }, state, dispatch);
     setUserSeat(nodeType, dispatch);
+    const opponent = nodeType === "player1" ? "player2" : "player1";
+    !isDealer && connectPlayer(opponent, dispatch);
     closeStartupModal();
   };
 

@@ -65,6 +65,13 @@ export const collectChips = (state: IState, dispatch: Function): void => {
   !state.showMainPot && setTimeout(() => toggleMainPot(dispatch), 400);
 };
 
+export const connectPlayer = (player: string, dispatch: Function): void => {
+  dispatch({
+    type: "connectPlayer",
+    payload: player
+  });
+};
+
 // Process the deal message from the backend. It's responsible for setting up the board cards.
 export const deal = (
   message: IMessage,
