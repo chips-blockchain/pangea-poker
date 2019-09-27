@@ -3,7 +3,7 @@ import cardBg from "./cards/bg-red.svg";
 
 interface IProps {
   centered: boolean;
-  second: boolean;
+  second?: boolean;
   seat: string;
   seats: number;
 }
