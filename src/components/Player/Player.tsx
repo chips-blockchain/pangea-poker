@@ -83,12 +83,11 @@ const Player: React.FunctionComponent<IProps> = ({
     z-index: 1;
   `;
 
-  const FaceDownCards = styled.div`
+  const faceDownCards = css`
     bottom: 0;
     left: 3rem;
     position: absolute;
     z-index: 1;
-    display: ${isUserSeat && holeCards[0] ? "none" : "block"};
   `;
 
   const PlayerInfo = styled.div`
@@ -128,8 +127,7 @@ const Player: React.FunctionComponent<IProps> = ({
     text-transform: uppercase;
   `;
 
-  const PlayerWidget = styled.div`
-    grid-area: ${seat};
+  const playerWidget = css`
     position: relative;
     cursor: pointer;
   `;
@@ -183,10 +181,16 @@ const Player: React.FunctionComponent<IProps> = ({
   // });
 
   return (
-    <PlayerWidget
+    <div
+      css={css`
+        ${playerWidget}
+        grid-area: ${seat};
+      `}
       onClick={() => {
-        playerJoin(seat, state, dispatch);
-        setSeatMessage("SITTING...");
+        if (!connected) {
+          playerJoin(seat, state, dispatch);
+          setSeatMessage("SITTING...");
+        }
       }}
     >
       {cardsDealt && showCards && hasCards && (
@@ -212,7 +216,10 @@ const Player: React.FunctionComponent<IProps> = ({
         </CardsWrapper>
       )}
       {hasCards && gameTurn !== 4 && (
-        <FaceDownCards>
+        <div
+          css={css`${faceDownCards}
+          display: ${isUserSeat && holeCards[0] ? "none" : "block"};`}
+        >
           <CardFaceDown centered={!cardsDealt} seat={seat} seats={seats} />
           <CardFaceDown
             second
@@ -220,7 +227,7 @@ const Player: React.FunctionComponent<IProps> = ({
             seat={seat}
             seats={seats}
           />
-        </FaceDownCards>
+        </div>
       )}
       <PlayerInfo>
         <span
@@ -265,7 +272,7 @@ const Player: React.FunctionComponent<IProps> = ({
           />
         </div>
       )} */}
-    </PlayerWidget>
+    </div>
   );
 };
 
