@@ -243,9 +243,11 @@ export const onMessage_player = (
 
     case "deal":
       dealCards(dispatch);
-      setBalance(player, message.deal.balance, dispatch);
+      message.deal.balance &&
+        setBalance(player, message.deal.balance, dispatch);
       setUserSeat(player, dispatch);
       deal(message, state, dispatch);
+
       break;
 
     case "dealer":
