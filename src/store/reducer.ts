@@ -106,7 +106,7 @@ const reducer: Function = (state: IState, action: IAction): object => {
       return {
         ...state,
         chipsCollected: false,
-        toCall: 0,
+        toCall: action.payload,
         minRaiseTo: action.payload,
         players: {
           ...state.players,
@@ -134,7 +134,7 @@ const reducer: Function = (state: IState, action: IAction): object => {
         holeCards: [],
         pot: [0],
         lastAction: { player: 0, action: null },
-        toCall: 2000000
+        toCall: state.blinds[1]
       };
     }
     case "setMessage": {
