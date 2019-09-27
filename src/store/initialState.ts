@@ -4,24 +4,24 @@ const initialState: IState = {
     player1: {
       isPlaying: true,
       seat: "player1",
-      chips: 20000000,
+      chips: 200,
       hasCards: true,
       showCards: true,
       isBetting: false,
       betAmount: 0,
       playerCards: [],
-      connected: true
+      connected: false
     },
     player2: {
       isPlaying: true,
       seat: "player2",
-      chips: 20000000,
+      chips: 200,
       hasCards: true,
       showCards: true,
       isBetting: false,
       betAmount: 0,
       playerCards: [],
-      connected: true
+      connected: false
     }
   },
   // Which seat is the active player
@@ -110,7 +110,7 @@ const initialState: IState = {
   // Amount to call
   toCall: 2000000,
   // Where does the user sit
-  userSeat: "player1",
+  userSeat: null,
   // The player that won the game
   winner: null
 };
@@ -167,7 +167,7 @@ export interface IState {
     player2: string | null;
     echo: string | null;
   };
-  minRaise: number;
+  minRaiseTo: number;
   options: {
     showPotCounter: boolean;
   };
