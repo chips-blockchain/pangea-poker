@@ -92,7 +92,7 @@ const initialState: IState = {
     echo: null
   },
   // Amount of the minimum raise
-  minRaise: 4000000,
+  minRaiseTo: 4000000,
   // Options for the pot
   options: {
     showPotCounter: false
