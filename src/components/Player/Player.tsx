@@ -1,4 +1,5 @@
 import { css } from "@emotion/core";
+import styled from "@emotion/styled";
 import React, { useState, useEffect, useContext } from "react";
 import Card from "../Card";
 import { CardFaceDown } from "../Card";
@@ -52,6 +53,69 @@ const Player: React.FunctionComponent<IProps> = ({
     text: seat,
     color: theme.moon.colors.superLightGray
   });
+
+  const Balance = styled.div`
+    color: ${theme.moon.colors.primaryLight};
+    font-size: 0.75rem;
+    line-height: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+  `;
+
+  const CardsWrapper = styled.div`
+    bottom: 0.875rem;
+    left: 1.75rem;
+    position: absolute;
+    opacity: ${gameTurn === 4 && winner !== seat ? "0.5" : "1"};
+    z-index: 1;
+  `;
+
+  const FaceDownCards = styled.div`
+    bottom: 0;
+    left: 3rem;
+    position: absolute;
+    z-index: 1;
+    display: ${userSeat === seat && holeCards[0] ? "none" : "block"};
+  `;
+
+  const PlayerInfo = styled.div`
+   align-items: center;
+    display: grid;
+    background: ${theme.moon.colors.background};
+    border-radius: 10rem;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.1);
+    /* ${isActive && "border: 2px solid " + colorChange() + ";"} */
+    border: 2px solid ${isActive ? theme.moon.colors.accent : "transparent"};
+    grid-template-columns: 1fr 0.5fr;
+    height: 100%;
+    justify-content: center;
+    transition: ${transitionSpeed};
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+  `;
+
+  const PlayerEmoji = styled.span`
+    font-size: 1.875rem;
+    margin-right: 1rem;
+  `;
+
+  const PlayerName = styled.div`
+    color: ${lastAction.action && seat == playerIdToString(lastAction.player)
+      ? theme.moon.colors.accent
+      : userName.color};
+    font-size: 0.625rem;
+    line-height: 0.875rem;
+    text-align: center;
+    text-transform: uppercase;
+  `;
+
+  const PlayerWidget = styled.div`
+    grid-area: ${seat};
+    position: relative;
+    cursor: pointer;
+  `;
 
   // Timer Logic that has been disabled for now
 
@@ -113,36 +177,22 @@ const Player: React.FunctionComponent<IProps> = ({
   const transitionSpeed = "0";
 
   return (
-    <div
+    <PlayerWidget
       onClick={() => {
         playerJoin(seat, state, dispatch);
         setBalanceMessage("SITTING...");
       }}
-      css={css`
-        grid-area: ${seat};
-        position: relative;
-        cursor: pointer;
-      `}
     >
-      {/* Wether or not to to show current cards */}
       {cardsDealt && showCards && hasCards && (
-        <div
-          css={css`
-            bottom: 0.875rem;
-            left: 1.75rem;
-            position: absolute;
-            opacity: ${gameTurn === 4 && winner !== seat ? "0.5" : "1"};
-            z-index: 1;
-          `}
-        >
-          {/* User's cards */}
+        <CardsWrapper>
+          {/* Player's face up cards */}
           {userSeat === seat && holeCards[0] && (
             <span>
               <Card card={holeCards[0]} />
               <Card card={holeCards[1]} />
             </span>
           )}
-          {/* Other player's cards */}
+          {/* Other player's face up cards */}
           {userSeat !== seat && gameTurn === 4 && (
             <div
               css={css`
@@ -153,19 +203,10 @@ const Player: React.FunctionComponent<IProps> = ({
               <Card card={playerCards[1]} />
             </div>
           )}
-        </div>
+        </CardsWrapper>
       )}
-      {/* Whether or not the player has cards */}
       {hasCards && gameTurn !== 4 && (
-        <div
-          css={css`
-            bottom: 0;
-            left: 3rem;
-            position: absolute;
-            z-index: 1;
-            display: ${userSeat === seat && holeCards[0] ? "none" : "block"};
-          `}
-        >
+        <FaceDownCards>
           <CardFaceDown centered={!cardsDealt} seat={seat} seats={seats} />
           <CardFaceDown
             second
@@ -173,76 +214,26 @@ const Player: React.FunctionComponent<IProps> = ({
             seat={seat}
             seats={seats}
           />
-        </div>
+        </FaceDownCards>
       )}
-      {/* Player info widget */}
-      <div
-        css={css`
-          align-items: center;
-          display: grid;
-          background: ${theme.moon.colors.background};
-          border-radius: 10rem;
-          box-sizing: border-box;
-          box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.1);
-          /* ${isActive && "border: 2px solid " + colorChange() + ";"} */
-          border: 2px solid ${
-            isActive ? theme.moon.colors.accent : "transparent"
-          };
-          grid-template-columns: 1fr 0.5fr;
-          height: 100%;
-          justify-content: center;
-          transition: ${transitionSpeed};
-          position: absolute;
-          width: 100%;
-          z-index: 2;
-        `}
-      >
+      <PlayerInfo>
         <span
           css={css`
             margin-left: 1rem;
           `}
         >
-          {/* Player name area */}
-          <div
-            css={css`
-              color: ${lastAction.action &&
-              seat == playerIdToString(lastAction.player)
-                ? theme.moon.colors.accent
-                : userName.color};
-              font-size: 0.625rem;
-              line-height: 0.875rem;
-              text-align: center;
-              text-transform: uppercase;
-            `}
-          >
+          <PlayerName>
             {/* Show the player's name or the last action */}
             {lastAction.action && seat == playerIdToString(lastAction.player)
               ? lastAction.action
               : userName.text}
-          </div>
-          {/* Available chips */}
-          <div
-            css={css`
-              color: ${theme.moon.colors.primaryLight};
-              font-size: 0.75rem;
-              line-height: 1rem;
-              text-align: center;
-              text-transform: uppercase;
-            `}
-          >
+          </PlayerName>
+          <Balance>
             {connected ? numberWithCommas(chips) : balanceMessage}
-          </div>
+          </Balance>
         </span>
-        {/* Player emoji */}
-        <span
-          css={css`
-            font-size: 1.875rem;
-            margin-right: 1rem;
-          `}
-        >
-          {userAvatar}
-        </span>
-      </div>
+        <PlayerEmoji>{userAvatar}</PlayerEmoji>
+      </PlayerInfo>
       {/* The timer is temporarily disabled */}
       {/* Active player countdown */}
       {/* {isActive && (
@@ -268,7 +259,7 @@ const Player: React.FunctionComponent<IProps> = ({
           />
         </div>
       )} */}
-    </div>
+    </PlayerWidget>
   );
 };
 
