@@ -106,7 +106,6 @@ const reducer: Function = (state: IState, action: IAction): object => {
       return {
         ...state,
         chipsCollected: false,
-        toCall: action.payload,
         minRaiseTo: action.payload,
         players: {
           ...state.players,
