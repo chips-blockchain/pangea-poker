@@ -26,10 +26,7 @@ const Stack: React.FunctionComponent<IProps> = ({ chips }) => {
   };
 
   // Merge the nested arrays, so we only have a single array of numbers
-  // Temporarily rounds down chips to 1ms
-  let chipsCountArray: number[][] = countChips(
-    Math.floor(chips / 1000000) * 1000000
-  );
+  let chipsCountArray: number[][] = countChips(chips);
   // Merge the nested arrays, so we only have a single array of numbers
   let mergedArray: number[] = [].concat.apply([], chipsCountArray);
 
