@@ -198,7 +198,7 @@ export const onMessage_player = (
           setLastAction(guiPlayer, "check", dispatch);
           break;
         case "call":
-          bet(guiPlayer, state.toCall, state, dispatch);
+          bet(guiPlayer, betAmount, state, dispatch);
           setLastAction(guiPlayer, "call", dispatch);
           break;
         case "raise":
