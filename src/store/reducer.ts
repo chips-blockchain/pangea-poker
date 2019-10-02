@@ -57,7 +57,18 @@ const reducer: Function = (state: IState, action: IAction): object => {
     case "dealCards": {
       return {
         ...state,
-        cardsDealt: true
+        cardsDealt: true,
+        players: {
+          ...state.players,
+          player1: {
+            ...state.players.player1,
+            hasCards: true
+          },
+          player2: {
+            ...state.players.player2,
+            hasCards: true
+          }
+        }
       };
     }
     case "devStart": {
