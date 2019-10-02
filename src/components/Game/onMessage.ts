@@ -206,7 +206,7 @@ export const onMessage_player = (
           setLastAction(guiPlayer, "raise", dispatch);
           break;
         case "fold":
-          fold(player, dispatch);
+          fold(`player${guiPlayer + 1}`, dispatch);
           setLastAction(guiPlayer, "fold", dispatch);
           break;
 
