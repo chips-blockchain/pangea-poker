@@ -29,6 +29,7 @@ import numberWithCommas from "../../lib/numberWithCommas";
 
 import { IState } from "../../store/initialState";
 import { IMessage } from "../../store/actions";
+import playerIdToString from "../../lib/playerIdToString";
 
 export const onMessage = (
   message: IMessage,
@@ -186,6 +187,12 @@ export const onMessage_player = (
           break;
 
         case "round_betting":
+          message["player_funds"] &&
+            message["player_funds"].forEach(
+              (balance: number, index: number) => {
+                setBalance(playerIdToString(index), balance, dispatch);
+              }
+            );
           setActivePlayer(player, dispatch);
           updateTotalPot(message["pot"], dispatch);
           setMinRaiseTo(message["minRaiseTo"], dispatch);
