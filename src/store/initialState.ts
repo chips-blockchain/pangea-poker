@@ -59,7 +59,7 @@ const initialState: IState = {
   // Cards of the user
   holeCards: [],
   // Wether the app should run in developer mode
-  isDeveloperMode: true,
+  isDeveloperMode: false,
   // Wether the Startup Modal shows at the beginning of the game
   isStartupModal: true,
   // Wether players has gone all-in and the showDown is active
@@ -78,7 +78,7 @@ const initialState: IState = {
     min_amount: 0,
     gui_playerID: 1
   },
-  nodeType: "player",
+  nodeType: null,
   nodes: {
     dcv: "0.0.0.0",
     bvv: "0.0.0.0",
