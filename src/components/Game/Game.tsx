@@ -57,6 +57,12 @@ const Game: React.FunctionComponent = () => {
                 sendMessage({ method: "game" }, "dcv", state, dispatch);
               }}
             />
+            <Button
+              label="Reset"
+              onClick={() => {
+                sendMessage({ method: "reset" }, "dcv", state, dispatch);
+              }}
+            />
           </div>
         )}
       </div>
