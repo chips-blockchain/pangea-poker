@@ -3,12 +3,12 @@ import { useContext } from "react";
 import { Button } from "../Controls";
 import {
   devStart,
-  dealCards,
   nextTurn,
   setActivePlayer,
   setUserSeat,
   showControls,
-  sendMessage
+  sendMessage,
+  playerJoin
 } from "../../store/actions";
 import { DispatchContext, StateContext } from "../../store/context";
 import { IState } from "../../store/initialState";
@@ -16,7 +16,7 @@ import { IState } from "../../store/initialState";
 const DeveloperMode: React.FunctionComponent = () => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
-  const { activePlayer } = state;
+  const { activePlayer, userSeat } = state;
 
   const nextPlayer = () => {
     const nextPlayer: string =
@@ -36,12 +36,6 @@ const DeveloperMode: React.FunctionComponent = () => {
         z-index: 999;
       `}
     >
-      <Button
-        label="Reset"
-        onClick={() => {
-          sendMessage({ method: "reset" }, "dcv", state, dispatch);
-        }}
-      />
       <Button label="Pre-Flop" onClick={() => devStart(dispatch)} />
       <Button label="Flop" onClick={() => nextTurn(1, state, dispatch)} />
       <Button label="Turn" onClick={() => nextTurn(2, state, dispatch)} />
@@ -71,21 +65,9 @@ const DeveloperMode: React.FunctionComponent = () => {
         }}
       />
       <Button
-        label="setBalance"
+        label="playerJoin"
         onClick={() => {
-          sendMessage(
-            {
-              method: "deal",
-              deal: {
-                dealer: 1,
-                balance: 200,
-                holecards: [null, null]
-              }
-            },
-            "echo",
-            state,
-            dispatch
-          );
+          playerJoin("player2", state, dispatch);
         }}
       />
     </div>
