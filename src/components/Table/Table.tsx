@@ -34,6 +34,7 @@ const Table: React.FunctionComponent = () => {
     gameType,
     gameTurn,
     isDeveloperMode,
+    nodeType,
     players,
     pot,
     options,
@@ -92,23 +93,24 @@ const Table: React.FunctionComponent = () => {
             )}
             <Board boardCards={boardCards} gameTurn={gameTurn} />
             <PlayerGrid9Max>
-              {Object.values(players).map(
-                (player: IPlayer) =>
-                  player.isPlaying && (
-                    <Player
-                      chips={player.chips}
-                      connected={player.connected}
-                      hasCards={player.hasCards}
-                      isActive={activePlayer && activePlayer == player.seat}
-                      playerCards={player.playerCards}
-                      players={players}
-                      seat={player.seat}
-                      showCards={player.showCards}
-                      key={player.seat}
-                      winner={winner}
-                    />
-                  )
-              )}
+              {nodeType === "player" &&
+                Object.values(players).map(
+                  (player: IPlayer) =>
+                    player.isPlaying && (
+                      <Player
+                        chips={player.chips}
+                        connected={player.connected}
+                        hasCards={player.hasCards}
+                        isActive={activePlayer && activePlayer == player.seat}
+                        playerCards={player.playerCards}
+                        players={players}
+                        seat={player.seat}
+                        showCards={player.showCards}
+                        key={player.seat}
+                        winner={winner}
+                      />
+                    )
+                )}
             </PlayerGrid9Max>
             <ChipGrid chipsCollected={chipsCollected}>
               {Object.values(players).map(
