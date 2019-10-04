@@ -1,5 +1,6 @@
 import {
   bet,
+  collectChips,
   deal,
   dealCards,
   fold,
@@ -21,8 +22,9 @@ import {
   updateTotalPot,
   showControls,
   setBlinds,
-  updateStateValue,
-  showDown
+  showDown,
+  updateGameTurn,
+  updateStateValue
 } from "../../store/actions";
 import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
@@ -261,8 +263,29 @@ export const onMessage_player = (
       break;
 
     case "finalInfo":
-      setWinner(message.winners[0], message["win_amount"], state, dispatch);
+      let currentGameTurn = state.gameTurn;
+      setActivePlayer(null, dispatch);
+      collectChips(state, dispatch);
+
+      const progressShowDown = (): void => {
+        if (currentGameTurn === 4) {
+          setWinner(message.winners[0], message["win_amount"], state, dispatch);
+          return;
+        }
+        setTimeout(
+          () => {
+            updateGameTurn(currentGameTurn + 1, dispatch);
+            currentGameTurn += 1;
+            progressShowDown();
+          },
+          currentGameTurn === 0 ? 400 : 1500
+        );
+      };
+
       showDown(message.showInfo.allHoleCardsInfo, dispatch);
+      updateStateValue("isShowDown", true, dispatch);
+      progressShowDown();
+
       break;
 
     case "join_req":

@@ -38,6 +38,7 @@ const Player: React.FunctionComponent<IProps> = ({
     cardsDealt,
     gameTurn,
     holeCards,
+    isShowDown,
     lastAction,
     seats,
     userSeat
@@ -79,7 +80,7 @@ const Player: React.FunctionComponent<IProps> = ({
     bottom: 0.875rem;
     left: 1.75rem;
     position: absolute;
-    opacity: ${gameTurn === 4 && winner !== seat ? "0.5" : "1"};
+    opacity: ${winner && gameTurn === 4 && winner !== seat ? "0.5" : "1"};
     z-index: 1;
   `;
 
@@ -203,19 +204,15 @@ const Player: React.FunctionComponent<IProps> = ({
             </span>
           )}
           {/* Other player's face up cards */}
-          {userSeat !== seat && gameTurn === 4 && (
-            <div
-              css={css`
-                opacity: ${gameTurn === 4 && winner !== seat ? "0.5" : "1"};
-              `}
-            >
+          {userSeat !== seat && (gameTurn === 4 || isShowDown) && (
+            <div>
               <Card card={playerCards[0]} />
               <Card card={playerCards[1]} />
             </div>
           )}
         </CardsWrapper>
       )}
-      {hasCards && gameTurn !== 4 && (
+      {hasCards && gameTurn !== 4 && !isShowDown && (
         <div
           css={css`${faceDownCards}
           display: ${isUserSeat && holeCards[0] ? "none" : "block"};`}

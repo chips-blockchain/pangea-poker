@@ -50,7 +50,7 @@ const initialState: IState = {
   dealer: 0,
   // Wether the game has started
   gameStarted: false,
-  // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river
+  // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river, 4:
   gameTurn: 0,
   // Game type at the top left corner
   gameType: "",
@@ -62,6 +62,8 @@ const initialState: IState = {
   isDeveloperMode: true,
   // Wether the Startup Modal shows at the beginning of the game
   isStartupModal: true,
+  // Wether players has gone all-in and the showDown is active
+  isShowDown: false,
   // Object that stores the last action so we can dispaly it on the UI
   lastAction: { player: 0, action: null },
   // Messages to send to the nodes - when updated, the message will be sent
@@ -149,6 +151,7 @@ export interface IState {
   handsPlayed: number;
   holeCards: string[];
   isDeveloperMode: boolean;
+  isShowDown: boolean;
   isStartupModal: boolean;
   lastAction: { player: number; action: string | null };
   lastMessage: object;
