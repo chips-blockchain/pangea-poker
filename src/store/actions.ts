@@ -182,16 +182,12 @@ export const playerJoin = (
   );
 };
 
-export const resetMessage = (
-  message: IMessage,
-  node: string,
-  dispatch: Function
-): void => {
+export const resetMessage = (node: string, dispatch: Function): void => {
   dispatch({
     type: "setMessage",
     payload: {
       node: [node],
-      message: JSON.stringify(message)
+      message: null
     }
   });
 };

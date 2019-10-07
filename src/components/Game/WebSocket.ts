@@ -4,7 +4,7 @@ import { DispatchContext, StateContext } from "../../store/context";
 import { onMessage, onMessage_bvv, onMessage_player } from "./onMessage";
 import { log } from "../../store/actions";
 import { IState } from "../../store/initialState";
-import { IMessage } from "../../store/actions";
+import { IMessage, resetMessage } from "../../store/actions";
 
 // This component is responsible for the WebSocket connection. It doesn't return and
 
@@ -31,6 +31,7 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
     if (message && readyState === 1) {
       log(`Sent to ${nodeName}: `, "sent", JSON.parse(message));
       sendMessage(message);
+      resetMessage(nodeName, dispatch);
     }
   }, [message]);
 
