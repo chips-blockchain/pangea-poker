@@ -1,12 +1,16 @@
 import React from "react";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { shallow } from "enzyme";
 import Button from "../Button";
 
-test("<Button />", () => {
-  const { getByTestId } = render(
-    <Button label="Call" amount="10000" testId="button" />
-  );
-  const button = getByTestId("button");
-  expect(button.tagName).toBe("BUTTON");
-  expect(button.textContent).toBe("Call 10,000");
+describe("Button", () => {
+  test("displays the label", () => {
+    const button = shallow(<Button label="Start" />);
+
+    expect(
+      button
+        .find("ButtonInnerWrapper")
+        .childAt(0)
+        .text()
+    ).toBe("Start");
+  });
 });
