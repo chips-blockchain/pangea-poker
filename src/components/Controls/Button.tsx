@@ -1,4 +1,5 @@
 import { css } from "@emotion/core";
+import styled from "@emotion/styled";
 import theme from "../../styles/theme";
 import numberWithCommas from "../../lib/numberWithCommas";
 
@@ -23,53 +24,46 @@ const Button: React.FunctionComponent<IProps> = ({
   small,
   testId
 }) => {
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      data-testid={testId}
-      css={css`
-        background: ${background};
-        border: 0.0625rem solid ${primary};
-        border-radius: 0.125rem;
-        color: ${text};
-        font-size: ${small ? ".75rem" : "1rem"};
-        height: ${small ? "1.75rem" : "2.5rem"};
-        margin: 0.125rem;
-        opacity: ${disabled && "0.5"};
-        line-height: 1rem;
-        transition: 0.1s ease;
-        width: ${small ? "3.625rem" : "7.5rem"};
+  const ButtonStyle = styled.button`
+    background: ${background};
+    border: 0.0625rem solid ${primary};
+    border-radius: 0.125rem;
+    color: ${text};
+    font-size: ${small ? ".75rem" : "1rem"};
+    height: ${small ? "1.75rem" : "2.5rem"};
+    margin: 0.125rem;
+    opacity: ${disabled && "0.5"};
+    line-height: 1rem;
+    transition: 0.1s ease;
+    width: ${small ? "3.625rem" : "7.5rem"};
 
-        ${!disabled &&
-          `
-        &:hover {
-          color: ${accent};
-          cursor: pointer;
-          border-color: ${accent};
-        }
-        &:focus {
-          border-color: ${accent};
-          color: ${accent};
-        }
-        &:active {
-          background: ${accent};
-          color: ${background};
-        }
-        
-        `}
-      `}
-    >
-      <div
-        css={css`
-          display: flex;
-          align-items: center;
-          font-family: "PT Sans", serif;
-          text-align: center;
-          justify-content: center;
-          /* Crop line height */
-          ${amount &&
-            `
+    ${!disabled &&
+      `
+&:hover {
+  color: ${accent};
+  cursor: pointer;
+  border-color: ${accent};
+}
+&:focus {
+  border-color: ${accent};
+  color: ${accent};
+}
+&:active {
+  background: ${accent};
+  color: ${background};
+}
+
+`}
+  `;
+  const ButtonInnerWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    font-family: "PT Sans", serif;
+    text-align: center;
+    justify-content: center;
+    /* Crop line height */
+    ${amount &&
+      `
           &:before {
             content: "";
             display: block;
@@ -79,13 +73,15 @@ const Button: React.FunctionComponent<IProps> = ({
           }
          
           `}
-        `}
-      >
+  `;
+  return (
+    <ButtonStyle onClick={onClick} disabled={disabled} data-testid={testId}>
+      <ButtonInnerWrapper>
         {label} <br />
         {/* Show an amount for the Raise and Call buttons */}
         {amount && numberWithCommas(amount)}
-      </div>
-    </button>
+      </ButtonInnerWrapper>
+    </ButtonStyle>
   );
 };
 
