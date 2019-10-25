@@ -1,26 +1,23 @@
 import React from "react";
 import { css } from "@emotion/core";
 import theme from "../../styles/theme";
+import moonBg from "./background-moon@2x.jpg";
+import moonBg2x from "./background-moon@2x.jpg";
+import tableDefault from "./table-default.svg";
 
 const Backgrounds: React.FunctionComponent = () => {
   return (
     <div>
       {/* Background images as srcSet for better responsive support */}
       <img
-        srcSet={`
-            ${theme.moon.background.regular} 1x,
-            ${theme.moon.background.retina} 2x,
-        `}
+        srcSet={`${moonBg} 1x, ${moonBg2x} 2x, `}
         css={css`
           position: absolute;
         `}
         alt="Watching the Earth from the Moon"
       />
       <img
-        srcSet={`
-            ${theme.moon.table.regular} 1x,
-            ${theme.moon.table.retina} 2x,
-        `}
+        src={tableDefault}
         css={css`
           position: absolute;
           top: 6rem;
