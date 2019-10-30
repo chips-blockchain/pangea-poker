@@ -16,6 +16,7 @@ import {
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import { IMessage } from "../../store/actions";
+import { getConsoleOutput } from "@jest/console";
 
 // This component displays all the controls (buttons and slider) at the bottom left
 // when the player is active
@@ -78,7 +79,11 @@ const Controls: React.FunctionComponent = () => {
       bet(player, amount + betAmount, state, dispatch);
       // Raise
     } else if (amount > toCall) {
-      log(`${player} raises to ${amount}`, "info");
+      log(
+        `${player} raises to ${amount} ${lastAction === "ALL-IN" &&
+          " and is All-in"}`,
+        "info"
+      );
       nextAction.bet_amount = amount;
       bet(player, amount, state, dispatch);
       // Fold
@@ -89,6 +94,7 @@ const Controls: React.FunctionComponent = () => {
     // Hide Controls
     showControls(false, dispatch);
     // Update the player's name with the last action
+    console.log(lastAction);
     setLastAction(nextAction.playerid, lastAction, dispatch);
     // Send the message to the back-end
     nextAction.possibilities = [action];
@@ -161,23 +167,22 @@ const Controls: React.FunctionComponent = () => {
         }
       />
       {/* Raise/All-In Button */}
-      <Button
-        label={
-          raiseAmount >= chips || toCall >= chips
-            ? "All-In"
-            : toCall === 0
-            ? "Bet"
-            : "Raise to"
-        }
-        amount={
-          minRaiseTo >= chips || toCall >= chips ? totalChips : raiseAmount
-        }
-        onClick={() =>
-          minRaiseTo >= chips || toCall >= chips
-            ? handleButtonClick(6, userSeat, totalChips, "ALL-IN")
-            : handleButtonClick(4, userSeat, raiseAmount, "RAISE")
-        }
-      />
+      {toCall < chips && (
+        <Button
+          label={
+            raiseAmount >= chips ? "All-In" : toCall === 0 ? "Bet" : "Raise to"
+          }
+          amount={
+            minRaiseTo >= chips || toCall >= chips ? totalChips : raiseAmount
+          }
+          // Need to create an isAllIn Hook and evaluate based on that
+          onClick={() =>
+            minRaiseTo >= chips || toCall >= chips
+              ? handleButtonClick(6, userSeat, totalChips, "ALL-IN")
+              : handleButtonClick(4, userSeat, raiseAmount, "RAISE")
+          }
+        />
+      )}
     </div>
   );
 };
