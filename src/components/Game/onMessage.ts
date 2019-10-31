@@ -24,7 +24,8 @@ import {
   setBlinds,
   showDown,
   updateGameTurn,
-  updateStateValue
+  updateStateValue,
+  setBoardCards
 } from "../../store/actions";
 import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
@@ -266,6 +267,7 @@ export const onMessage_player = (
       let currentGameTurn = state.gameTurn;
       setActivePlayer(null, dispatch);
       collectChips(state, dispatch);
+      setBoardCards(message.showInfo.boardCardInfo, dispatch);
 
       const progressShowDown = (): void => {
         if (currentGameTurn === 4) {
