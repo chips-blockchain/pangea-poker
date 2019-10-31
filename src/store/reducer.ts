@@ -74,7 +74,7 @@ const reducer: Function = (state: IState, action: IAction): object => {
     case "devStart": {
       return {
         ...state,
-        boardCards: ["Ad", "5c", "6c", "7d", "8d"],
+        boardCards: [],
         cardsDealt: true,
         holeCards: ["Ac", "Ad"],
         showDealer: true,
