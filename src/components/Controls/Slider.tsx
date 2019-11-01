@@ -12,10 +12,24 @@ const Slider = ({ raiseAmount, setRaiseAmount }) => {
   const state: IState = useContext(StateContext);
   const { minRaiseTo, players, toCall, userSeat } = state;
 
+  const chips = players[userSeat].chips;
+  const betAmount = players[userSeat].betAmount;
+  const totalStack = chips + betAmount;
+  const step = minRaiseTo - toCall;
+
+  // Have to round up total stack to a value that is a step increment of the slider so the All-in can be rounded down accordingly
+  const roundedMax = totalStack - (totalStack % step) + toCall;
+
   // Reset the raise amount on the slider when the minimum raise changes
   useEffect(() => {
     setRaiseAmount(minRaiseTo);
   }, [minRaiseTo]);
+
+  // Round the top step of the slider down to the total stack of the player
+  const handleSliderAmount = sliderStep => {
+    if (sliderStep > totalStack) setRaiseAmount(totalStack);
+    else return setRaiseAmount(sliderStep);
+  };
 
   return (
     <div
@@ -37,12 +51,11 @@ const Slider = ({ raiseAmount, setRaiseAmount }) => {
       >
         <RCSlider
           onChange={e => {
-            setRaiseAmount(e);
+            handleSliderAmount(e);
           }}
           min={minRaiseTo}
-          step={minRaiseTo - toCall}
-          value={raiseAmount}
-          max={players[userSeat].chips + players[userSeat].betAmount}
+          step={step}
+          max={roundedMax}
         />
       </div>
     </div>

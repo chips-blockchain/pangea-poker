@@ -25,6 +25,7 @@ const Controls: React.FunctionComponent = () => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const {
+    controls,
     lastMessage,
     minRaiseTo,
     players,
@@ -36,16 +37,26 @@ const Controls: React.FunctionComponent = () => {
   const betAmount = players[userSeat].betAmount;
 
   const [raiseAmount, setRaiseAmount] = useState(minRaiseTo);
+
   const canCheck: boolean = toCall - betAmount === 0;
   const callAmount: number = toCall - betAmount;
   const chips: number = players[userSeat].chips;
   const totalChips: number = betAmount + chips;
+  const [showFirstRow, setShowFirstRow] = useState(true);
 
   useEffect(() => {
     if (raiseAmount > totalChips) {
       setRaiseAmount(totalChips);
     }
   }, [raiseAmount]);
+
+  useEffect(() => {
+    if (toCall >= totalChips) {
+      setShowFirstRow(false);
+    } else if (minRaiseTo >= totalChips) {
+      setShowFirstRow(false);
+    } else setShowFirstRow(true);
+  }, [controls.showControls]);
 
   // The back-end uses these numbers to interpret player actions
   // const allPossibilities = {
@@ -128,29 +139,31 @@ const Controls: React.FunctionComponent = () => {
         right: 1rem;
       `}
     >
-      <div
-        css={css`
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr 3fr;
-        `}
-      >
-        <Button
-          label="1/2 Pot"
-          small
-          onClick={() => handleSmallButtonClick("halfPot")}
-        />
-        <Button
-          label="Pot"
-          small
-          onClick={() => handleSmallButtonClick("pot")}
-        />
-        <Button
-          label="Max"
-          small
-          onClick={() => handleSmallButtonClick("max")}
-        />
-        <Slider raiseAmount={raiseAmount} setRaiseAmount={setRaiseAmount} />
-      </div>
+      {showFirstRow && (
+        <div
+          css={css`
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 3fr;
+          `}
+        >
+          <Button
+            label="1/2 Pot"
+            small
+            onClick={() => handleSmallButtonClick("halfPot")}
+          />
+          <Button
+            label="Pot"
+            small
+            onClick={() => handleSmallButtonClick("pot")}
+          />
+          <Button
+            label="Max"
+            small
+            onClick={() => handleSmallButtonClick("max")}
+          />
+          <Slider raiseAmount={raiseAmount} setRaiseAmount={setRaiseAmount} />
+        </div>
+      )}
       {/* Fold Button */}
       <Button
         label="Fold"
