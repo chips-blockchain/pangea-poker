@@ -50,6 +50,7 @@ const Controls: React.FunctionComponent = () => {
     }
   }, [raiseAmount]);
 
+  // Hide the top row if incremental raise is not possible
   useEffect(() => {
     if (toCall >= totalChips) {
       setShowFirstRow(false);
