@@ -38,10 +38,10 @@ const Controls: React.FunctionComponent = () => {
 
   const [raiseAmount, setRaiseAmount] = useState(minRaiseTo);
 
-  const canCheck: boolean = toCall - betAmount === 0;
-  const callAmount: number = toCall - betAmount;
   const chips: number = players[userSeat].chips;
   const totalStack: number = betAmount + chips;
+  const canCheck: boolean = toCall - betAmount === 0;
+  const callAmount: number = toCall <= totalStack ? toCall - betAmount : chips;
   const [showFirstRow, setShowFirstRow] = useState(true);
 
   useEffect(() => {
