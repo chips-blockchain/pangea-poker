@@ -41,20 +41,20 @@ const Controls: React.FunctionComponent = () => {
   const canCheck: boolean = toCall - betAmount === 0;
   const callAmount: number = toCall - betAmount;
   const chips: number = players[userSeat].chips;
-  const totalChips: number = betAmount + chips;
+  const totalStack: number = betAmount + chips;
   const [showFirstRow, setShowFirstRow] = useState(true);
 
   useEffect(() => {
-    if (raiseAmount > totalChips) {
-      setRaiseAmount(totalChips);
+    if (raiseAmount > totalStack) {
+      setRaiseAmount(totalStack);
     }
   }, [raiseAmount]);
 
   // Hide the top row if incremental raise is not possible
   useEffect(() => {
-    if (toCall >= totalChips) {
+    if (toCall >= totalStack) {
       setShowFirstRow(false);
-    } else if (minRaiseTo >= totalChips) {
+    } else if (minRaiseTo >= totalStack) {
       setShowFirstRow(false);
     } else setShowFirstRow(true);
   }, [controls.showControls]);
@@ -117,18 +117,18 @@ const Controls: React.FunctionComponent = () => {
     // 1/2 Pot Button
     if (buttonType === "halfPot") {
       const halfPotRaise = toCall + totalPot + betAmount;
-      const raiseToSet = halfPotRaise > totalChips ? totalChips : halfPotRaise;
+      const raiseToSet = halfPotRaise > totalStack ? totalStack : halfPotRaise;
       setRaiseAmount(raiseToSet);
     }
     // Pot Button
     else if (buttonType === "pot") {
       const potRaise = toCall + totalPot + betAmount;
-      const raiseToSet = potRaise > totalChips ? totalChips : potRaise;
+      const raiseToSet = potRaise > totalStack ? totalStack : potRaise;
       setRaiseAmount(raiseToSet);
     }
     // Max button
     else if (buttonType === "max") {
-      setRaiseAmount(totalChips);
+      setRaiseAmount(totalStack);
     } else throw new Error("No such small  button type.");
   };
 
@@ -187,12 +187,12 @@ const Controls: React.FunctionComponent = () => {
             raiseAmount >= chips ? "All-In" : toCall === 0 ? "Bet" : "Raise to"
           }
           amount={
-            minRaiseTo >= chips || toCall >= chips ? totalChips : raiseAmount
+            minRaiseTo >= chips || toCall >= chips ? totalStack : raiseAmount
           }
           // Need to create an isAllIn Hook and evaluate based on that
           onClick={() =>
             minRaiseTo >= chips || toCall >= chips
-              ? handleButtonClick(6, userSeat, totalChips, "ALL-IN")
+              ? handleButtonClick(6, userSeat, totalStack, "ALL-IN")
               : handleButtonClick(4, userSeat, raiseAmount, "RAISE")
           }
         />
