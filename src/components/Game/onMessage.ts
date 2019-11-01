@@ -265,9 +265,13 @@ export const onMessage_player = (
 
     case "finalInfo":
       let currentGameTurn = state.gameTurn;
+      const boardCardInfo = message.showInfo.boardCardInfo;
+      const isShowDown = boardCardInfo.every(x => x !== null);
+
       setActivePlayer(null, dispatch);
       collectChips(state, dispatch);
-      setBoardCards(message.showInfo.boardCardInfo, dispatch);
+
+      isShowDown && setBoardCards(boardCardInfo, dispatch);
 
       const progressShowDown = (): void => {
         if (currentGameTurn === 4) {
@@ -284,9 +288,13 @@ export const onMessage_player = (
         );
       };
 
-      showDown(message.showInfo.allHoleCardsInfo, dispatch);
-      updateStateValue("isShowDown", true, dispatch);
-      progressShowDown();
+      if (isShowDown) {
+        showDown(message.showInfo.allHoleCardsInfo, dispatch);
+        updateStateValue("isShowDown", true, dispatch);
+        progressShowDown();
+      } else {
+        setWinner(message.winners[0], message["win_amount"], state, dispatch);
+      }
 
       break;
 
