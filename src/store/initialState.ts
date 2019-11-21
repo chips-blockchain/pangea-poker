@@ -48,18 +48,29 @@ const initialState: IState = {
   chipsCollected: false,
   // Which player is the dealer
   dealer: 0,
-  // Wether the game has started
+  // Wether the game has started]
   gameStarted: false,
   // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river, 4:
   gameTurn: 0,
   // Game type at the top left corner
   gameType: "",
+  // Log of all palyer actions
+  handHistory: [
+    "Player1 rasies to 300.",
+    "Player2 calls.",
+    "Flop is Kd, Kc, 8c",
+    "Player1 checks.",
+    "Player2 bets 300.",
+    "Player1 calls."
+  ],
   // Total number of hands played in this session
   handsPlayed: 0,
   // Cards of the user
   holeCards: [],
   // Wether the app should run in developer mode
-  isDeveloperMode: false,
+  isDeveloperMode: true,
+  // Wether to show the LogBox component
+  isLogBox: true,
   // Wether the Startup Modal shows at the beginning of the game
   isStartupModal: true,
   // Wether players has gone all-in and the showDown is active
@@ -148,9 +159,11 @@ export interface IState {
   gameStarted: boolean;
   gameTurn: 0 | 1 | 2 | 3 | 4;
   gameType: string;
+  handHistory: string[];
   handsPlayed: number;
   holeCards: string[];
   isDeveloperMode: boolean;
+  isLogBox: boolean;
   isShowDown: boolean;
   isStartupModal: boolean;
   lastAction: { player: number; action: string | null };
