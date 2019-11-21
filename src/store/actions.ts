@@ -8,6 +8,17 @@ export interface IMessage {
   [key: string]: any;
 }
 
+// Collect the chips from the player before a new turn
+export const addToHandHistory = (
+  lastAction: string,
+  dispatch: Function
+): void => {
+  dispatch({
+    type: "addToHandHistory",
+    payload: lastAction
+  });
+};
+
 // Update the player's current betAmount
 export const bet = (
   player: string | number,
