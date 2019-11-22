@@ -89,25 +89,29 @@ export const deal = (
   state: IState,
   dispatch: Function
 ): void => {
+  const { holecards, board } = message.deal;
+  const { gameTurn } = state;
+
   // Set the holecards
-  if (message.deal.holecards.length === 2)
-    setHoleCards(message.deal.holecards, dispatch);
-  if (message.deal.board) {
+  if (holecards.length === 2) setHoleCards(holecards, dispatch);
+  if (board) {
     // Flop
-    if (state.gameTurn === 0 && message.deal.board.length === 3) {
-      setBoardCards(message.deal.board, dispatch);
+    if (gameTurn === 0 && board.length === 3) {
+      setBoardCards(board, dispatch);
       nextTurn(1, state, dispatch);
       log(`Here's the flop.`, "info", undefined);
     }
+
     // Turn
-    if (state.gameTurn === 1 && message.deal.board.length === 4) {
-      setBoardCards(message.deal.board, dispatch);
+    if (gameTurn === 1 && board.length === 4) {
+      setBoardCards(board, dispatch);
       nextTurn(2, state, dispatch);
       log(`Here's the turn.`, "info", undefined);
     }
+
     // River
-    if (state.gameTurn === 2 && message.deal.board.length === 5) {
-      setBoardCards(message.deal.board, dispatch);
+    if (gameTurn === 2 && board.length === 5) {
+      setBoardCards(board, dispatch);
       nextTurn(3, state, dispatch);
       log(`Here's the river.`, "info", undefined);
     }
@@ -341,7 +345,6 @@ export const setWinner = (
   dispatch: Function
 ): void => {
   const winner = playerIdToString(player);
-  console.log(`The winner is ${winner}.`);
   nextTurn(4, state, dispatch);
   setTimeout(() => {
     dispatch({
