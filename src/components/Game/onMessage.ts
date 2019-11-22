@@ -167,15 +167,26 @@ export const onMessage_player = (
       const opponent: number = guiPlayer === 0 ? 1 : 0;
 
       switch (message["action"]) {
+        // Update the current player's small blind
         case "small_blind_bet":
           bet(playerId, message["amount"], state, dispatch);
           setLastAction(playerId, "Small Blind", dispatch);
           log("Small Blind has been posted.", "info");
+          addToHandHistory(
+            `Player${guiPlayer + 1} posts the Small Blind of ${
+              state.blinds[0]
+            }.`,
+            dispatch
+          );
 
           // Update the opponent's big blind
           bet(opponent, message["amount"] * 2, state, dispatch);
           setLastAction(opponent, "Big Blind", dispatch);
           log("Big Blind has been posted.", "info");
+          addToHandHistory(
+            `Player${opponent + 1} posts the Big Blind of ${state.blinds[1]}.`,
+            dispatch
+          );
           break;
 
         case "big_blind_bet":
@@ -183,10 +194,21 @@ export const onMessage_player = (
           bet(opponent, message["amount"] / 2, state, dispatch);
           setLastAction(opponent, "Small Blind", dispatch);
           log("Small blind has been posted.", "info");
+          addToHandHistory(
+            `Player${opponent + 1} posts the Small Blind of ${
+              state.blinds[0]
+            }.`,
+            dispatch
+          );
 
+          // Update the current player's big blind
           bet(playerId, message["amount"], state, dispatch);
           setLastAction(playerId, "Big Blind", dispatch);
           log("Big Blind has been posted.", "info");
+          addToHandHistory(
+            `Player${guiPlayer + 1} posts the Big Blind of ${state.blinds[1]}.`,
+            dispatch
+          );
 
           break;
 
