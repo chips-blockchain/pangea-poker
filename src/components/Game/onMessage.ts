@@ -1,4 +1,5 @@
 import {
+  addToHandHistory,
   bet,
   collectChips,
   deal,
@@ -206,24 +207,35 @@ export const onMessage_player = (
         // Update other players actions
         case "check":
           setLastAction(guiPlayer, "check", dispatch);
+          addToHandHistory(`Player${guiPlayer + 1} checks.`, dispatch);
           break;
         case "call":
           bet(guiPlayer, betAmount, state, dispatch);
           setLastAction(guiPlayer, "call", dispatch);
+          addToHandHistory(`Player${guiPlayer + 1} calls.`, dispatch);
           break;
         case "raise":
           bet(guiPlayer, betAmount, state, dispatch);
           setLastAction(guiPlayer, "raise", dispatch);
+          addToHandHistory(
+            `Player${guiPlayer + 1} raises to ${betAmount}.`,
+            dispatch
+          );
           break;
         case "fold":
           fold(`player${guiPlayer + 1}`, dispatch);
           setLastAction(guiPlayer, "fold", dispatch);
+          addToHandHistory(`Player${guiPlayer + 1} folds.`, dispatch);
           break;
 
         case "allin":
           bet(guiPlayer, betAmount, state, dispatch);
           setToCall(betAmount, dispatch);
           setLastAction(guiPlayer, "all-in", dispatch);
+          addToHandHistory(
+            `Player${guiPlayer + 1} is All-In with ${betAmount}.`,
+            dispatch
+          );
           break;
 
         default:
@@ -268,6 +280,14 @@ export const onMessage_player = (
       const boardCardInfo = message.showInfo.boardCardInfo;
       const isShowDown = boardCardInfo.every(x => x !== null);
 
+      const handleWinner = () => {
+        setWinner(message.winners[0], message["win_amount"], state, dispatch);
+        addToHandHistory(
+          `Player${message.winners[0] + 1} wins ${message["win_amount"]}.`,
+          dispatch
+        );
+      };
+
       setActivePlayer(null, dispatch);
       collectChips(state, dispatch);
 
@@ -275,7 +295,7 @@ export const onMessage_player = (
 
       const progressShowDown = (): void => {
         if (currentGameTurn === 4) {
-          setWinner(message.winners[0], message["win_amount"], state, dispatch);
+          handleWinner();
           return;
         }
         setTimeout(
@@ -293,7 +313,7 @@ export const onMessage_player = (
         updateStateValue("isShowDown", true, dispatch);
         progressShowDown();
       } else {
-        setWinner(message.winners[0], message["win_amount"], state, dispatch);
+        handleWinner();
       }
 
       break;
@@ -304,7 +324,6 @@ export const onMessage_player = (
       break;
 
     case "playerCardInfo":
-      console.log("playerCardInfo");
       sendMessage(message, "dcv", state, dispatch);
       break;
 
