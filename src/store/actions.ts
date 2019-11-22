@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 import theme from "../styles/theme";
 import playerIdToString from "../lib/playerIdToString";
+import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
 
 export interface IMessage {
@@ -99,21 +100,32 @@ export const deal = (
     if (gameTurn === 0 && board.length === 3) {
       setBoardCards(board, dispatch);
       nextTurn(1, state, dispatch);
-      log(`Here's the flop.`, "info", undefined);
+      addToHandHistory(
+        `The flop is ${lowerCaseLastLetter(board[0])}, ${lowerCaseLastLetter(
+          board[1]
+        )}, ${lowerCaseLastLetter(board[2])}.`,
+        dispatch
+      );
     }
 
     // Turn
     if (gameTurn === 1 && board.length === 4) {
       setBoardCards(board, dispatch);
       nextTurn(2, state, dispatch);
-      log(`Here's the turn.`, "info", undefined);
+      addToHandHistory(
+        `The turn is ${lowerCaseLastLetter(board[3])}.`,
+        dispatch
+      );
     }
 
     // River
     if (gameTurn === 2 && board.length === 5) {
       setBoardCards(board, dispatch);
       nextTurn(3, state, dispatch);
-      log(`Here's the river.`, "info", undefined);
+      addToHandHistory(
+        `The river is ${lowerCaseLastLetter(board[4])}.`,
+        dispatch
+      );
     }
   }
 };
