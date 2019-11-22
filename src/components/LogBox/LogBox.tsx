@@ -25,17 +25,20 @@ const Log = styled.div`
 `;
 
 export const LogBox = ({ handHistory }) => {
-  const logBoxRef = useRef(null);
+  const logRef = useRef(null);
 
   useEffect(() => {
-    logBoxRef.current.scrollIntoView({ behavior: "smooth" });
+    handHistory.length > 0 && logRef.current.scrollIntoView();
   }, [handHistory]);
 
   return (
     <LogBoxSection>
-      <div ref={logBoxRef}></div>
-      {handHistory.map((log: string) => {
-        return <Log key={handHistory.indexOf(log)}>{log}</Log>;
+      {handHistory.map((log: string, index: number) => {
+        return (
+          <div ref={logRef} key={index}>
+            <Log>{log}</Log>
+          </div>
+        );
       })}
     </LogBoxSection>
   );
