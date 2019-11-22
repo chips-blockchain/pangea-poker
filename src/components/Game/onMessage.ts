@@ -295,6 +295,11 @@ export const onMessage_player = (
 
     case "dealer":
       setDealer(message.playerid, dispatch);
+      addToHandHistory(`A new hand is being dealt.`, dispatch);
+      addToHandHistory(
+        `The dealer is Player${message.playerid + 1}.`,
+        dispatch
+      );
       break;
 
     case "finalInfo":
