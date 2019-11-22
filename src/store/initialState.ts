@@ -55,14 +55,7 @@ const initialState: IState = {
   // Game type at the top left corner
   gameType: "",
   // Log of all palyer actions
-  handHistory: [
-    "Player1 rasies to 300.",
-    "Player2 calls.",
-    "Flop is Kd, Kc, 8c",
-    "Player1 checks.",
-    "Player2 bets 300.",
-    "Player1 calls."
-  ],
+  handHistory: [],
   // Total number of hands played in this session
   handsPlayed: 0,
   // Cards of the user
