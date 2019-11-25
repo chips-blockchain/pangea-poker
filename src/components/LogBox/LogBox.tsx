@@ -24,6 +24,11 @@ const Log = styled.div`
   margin: 0.125rem;
 `;
 
+interface ILog {
+  action: string;
+  timeStamp: string;
+}
+
 export const LogBox = ({ handHistory }) => {
   const logRef = useRef(null);
 
@@ -33,10 +38,10 @@ export const LogBox = ({ handHistory }) => {
 
   return (
     <LogBoxSection>
-      {handHistory.map((log: string, index: number) => {
+      {handHistory.map(({ action, timeStamp }: ILog) => {
         return (
-          <div ref={logRef} key={index}>
-            <Log>{log}</Log>
+          <div ref={logRef} key={action + timeStamp}>
+            <Log>{action}</Log>
           </div>
         );
       })}

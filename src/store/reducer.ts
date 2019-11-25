@@ -10,7 +10,10 @@ const reducer: Function = (state: IState, action: IAction): object => {
     case "addToHandHistory": {
       return {
         ...state,
-        handHistory: [...state.handHistory, action.payload]
+        handHistory: [
+          ...state.handHistory,
+          { action: action.payload, timeStamp: Date.now() }
+        ]
       };
     }
     case "bet": {
