@@ -45,14 +45,14 @@ export const onMessage = (
   log("Received from DCV", "received", message);
   setLastMessage(message, dispatch);
 
-  switch (message["method"]) {
+  switch (message.method) {
     case "game":
-      game(message["game"], state, dispatch);
+      game(message.game, state, dispatch);
       sendMessage({ method: "seats" }, "dcv", state, dispatch);
       break;
 
     case "seats":
-      seats(message["seats"], dispatch);
+      seats(message.seats, dispatch);
       break;
 
     case "bvv_join":
@@ -64,42 +64,42 @@ export const onMessage = (
       break;
 
     case "init_d":
-      message["method"] = "init_d_bvv";
+      message.method = "init_d_bvv";
       sendMessage(message, "bvv", state, dispatch);
 
-      message["method"] = "init_d_player";
-      message["gui_playerID"] = 0;
+      message.method = "init_d_player";
+      message.gui_playerID = 0;
       sendMessage(message, "player1", state, dispatch);
 
-      message["gui_playerID"] = 1;
+      message.gui_playerID = 1;
       sendMessage(message, "player2", state, dispatch);
       break;
 
     case "turn":
       console.log("Received the turn info");
 
-      if (message["playerid"] == 0) {
-        message["gui_playerID"] = 0;
+      if (message.playerid == 0) {
+        message.gui_playerID = 0;
         sendMessage(message, "player1", state, dispatch);
       } else {
-        message["gui_playerID"] = 1;
+        message.gui_playerID = 1;
         sendMessage(message, "player2", state, dispatch);
       }
       break;
 
     case "betting":
-      switch (message["action"]) {
+      switch (message.action) {
         case "check":
         case "call":
         case "raise":
         case "fold":
         case "allin":
-          message["action"] = message["action"] + "_player";
-          if (message["gui_playerID"] == 0) {
-            message["gui_playerID"] = 1;
+          message.action = message.action + "_player";
+          if (message.gui_playerID == 0) {
+            message.gui_playerID = 1;
             sendMessage(message, "player2", state, dispatch);
-          } else if (message["gui_playerID"] == 1) {
-            message["gui_playerID"] = 0;
+          } else if (message.gui_playerID == 1) {
+            message.gui_playerID = 0;
             sendMessage(message, "player1", state, dispatch);
           }
           break;
@@ -107,13 +107,13 @@ export const onMessage = (
       break;
 
     case "invoice":
-      switch (message["playerID"]) {
+      switch (message.playerID) {
         case 0:
-          message["gui_playerID"] = 0;
+          message.gui_playerID = 0;
           sendMessage(message, "player1", state, dispatch);
           break;
         case 1:
-          message["gui_playerID"] = 1;
+          message.gui_playerID = 1;
           sendMessage(message, "player2", state, dispatch);
           break;
       }
@@ -131,15 +131,15 @@ export const onMessage_bvv = (
   message = JSON.parse(message);
   setLastMessage(message, dispatch);
   log("Received from BVV: ", "received", message);
-  log(message["method"], "info", undefined);
+  log(message.method, "info", undefined);
 
-  switch (message["method"]) {
+  switch (message.method) {
     case "init_b":
-      message["method"] = "init_b_player";
-      message["gui_playerID"] = 0;
+      message.method = "init_b_player";
+      message.gui_playerID = 0;
       sendMessage(message, "player1", state, dispatch);
 
-      message["gui_playerID"] = 1;
+      message.gui_playerID = 1;
       sendMessage(message, "player2", state, dispatch);
       break;
 
@@ -160,16 +160,16 @@ export const onMessage_player = (
   setLastMessage(message, dispatch);
   log(`Received from ${player}: `, "received", message);
 
-  switch (message["method"]) {
+  switch (message.method) {
     case "betting":
-      const guiPlayer: number = message["playerid"];
-      const betAmount: number = message["bet_amount"];
+      const guiPlayer: number = message.playerid;
+      const betAmount: number = message.bet_amount;
       const opponent: number = guiPlayer === 0 ? 1 : 0;
 
-      switch (message["action"]) {
+      switch (message.action) {
         // Update the current player's small blind
         case "small_blind_bet":
-          bet(playerId, message["amount"], state, dispatch);
+          bet(playerId, message.amount, state, dispatch);
           setLastAction(playerId, "Small Blind", dispatch);
           log("Small Blind has been posted.", "info");
           addToHandHistory(
@@ -180,7 +180,7 @@ export const onMessage_player = (
           );
 
           // Update the opponent's big blind
-          bet(opponent, message["amount"] * 2, state, dispatch);
+          bet(opponent, message.amount * 2, state, dispatch);
           setLastAction(opponent, "Big Blind", dispatch);
           log("Big Blind has been posted.", "info");
           addToHandHistory(
@@ -191,7 +191,7 @@ export const onMessage_player = (
 
         case "big_blind_bet":
           // Update the opponent's small blind
-          bet(opponent, message["amount"] / 2, state, dispatch);
+          bet(opponent, message.amount / 2, state, dispatch);
           setLastAction(opponent, "Small Blind", dispatch);
           log("Small blind has been posted.", "info");
           addToHandHistory(
@@ -202,7 +202,7 @@ export const onMessage_player = (
           );
 
           // Update the current player's big blind
-          bet(playerId, message["amount"], state, dispatch);
+          bet(playerId, message.amount, state, dispatch);
           setLastAction(playerId, "Big Blind", dispatch);
           log("Big Blind has been posted.", "info");
           addToHandHistory(
@@ -213,16 +213,14 @@ export const onMessage_player = (
           break;
 
         case "round_betting":
-          message["player_funds"] &&
-            message["player_funds"].forEach(
-              (balance: number, index: number) => {
-                setBalance(playerIdToString(index), balance, dispatch);
-              }
-            );
+          message.player_funds &&
+            message.player_funds.forEach((balance: number, index: number) => {
+              setBalance(playerIdToString(index), balance, dispatch);
+            });
           setActivePlayer(player, dispatch);
-          updateTotalPot(message["pot"], dispatch);
-          setMinRaiseTo(message["minRaiseTo"], dispatch);
-          setToCall(message["toCall"], dispatch);
+          updateTotalPot(message.pot, dispatch);
+          setMinRaiseTo(message.minRaiseTo, dispatch);
+          setToCall(message.toCall, dispatch);
           showControls(true, dispatch);
           break;
 
@@ -261,11 +259,11 @@ export const onMessage_player = (
           break;
 
         default:
-          if (message["playerid"] === 0) {
-            message["gui_playerID"] = 0;
+          if (message.playerid === 0) {
+            message.gui_playerID = 0;
             sendMessage(message, "player1", state, dispatch);
-          } else if (message["playerid"] === 1) {
-            message["gui_playerID"] = 1;
+          } else if (message.playerid === 1) {
+            message.gui_playerID = 1;
             sendMessage(message, "player2", state, dispatch);
           }
 
@@ -308,9 +306,9 @@ export const onMessage_player = (
       const isShowDown = boardCardInfo.every(x => x !== null);
 
       const handleWinner = () => {
-        setWinner(message.winners[0], message["win_amount"], state, dispatch);
+        setWinner(message.winners[0], message.win_amount, state, dispatch);
         addToHandHistory(
-          `Player${message.winners[0] + 1} wins ${message["win_amount"]}.`,
+          `Player${message.winners[0] + 1} wins ${message.win_amount}.`,
           dispatch
         );
       };
@@ -355,8 +353,8 @@ export const onMessage_player = (
       break;
 
     case "replay":
-      message["method"] = "betting";
-      message["gui_playerID"] = playerId;
+      message.method = "betting";
+      message.gui_playerID = playerId;
       setActivePlayer(player, dispatch);
       showControls(true, dispatch);
       break;
@@ -369,25 +367,25 @@ export const onMessage_player = (
       }, 3000);
 
     case "requestShare":
-      if (message["toPlayer"] == 0) {
-        message["gui_playerID"] = 0;
+      if (message.toPlayer == 0) {
+        message.gui_playerID = 0;
         sendMessage(message, "player1", state, dispatch);
-      } else if (message["toPlayer"] == 1) {
-        message["gui_playerID"] = 1;
+      } else if (message.toPlayer == 1) {
+        message.gui_playerID = 1;
         sendMessage(message, "player2", state, dispatch);
       }
       break;
 
     case "seats":
-      seats(message["seats"], dispatch);
+      seats(message.seats, dispatch);
       break;
 
     case "share_info":
-      if (message["toPlayer"] == 0) {
-        message["gui_playerID"] = 0;
+      if (message.toPlayer == 0) {
+        message.gui_playerID = 0;
         sendMessage(message, "player1", state, dispatch);
-      } else if (message["toPlayer"] == 1) {
-        message["gui_playerID"] = 1;
+      } else if (message.toPlayer == 1) {
+        message.gui_playerID = 1;
         sendMessage(message, "player2", state, dispatch);
       }
       break;
