@@ -42,13 +42,13 @@ const initialState: IState = {
     showControls: false,
     showFirstRow: true
   },
-  // Wether the cards have been dealt
+  // Whether the cards have been dealt
   cardsDealt: false,
-  // Wether the chips have been collected to the middle
+  // Whether the chips have been collected to the middle
   chipsCollected: false,
   // Which player is the dealer
   dealer: 0,
-  // Wether the game has started]
+  // Whether the game has started
   gameStarted: false,
   // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river, 4:
   gameTurn: 0,
@@ -60,13 +60,13 @@ const initialState: IState = {
   handsPlayed: 0,
   // Cards of the user
   holeCards: [],
-  // Wether the app should run in developer mode
-  isDeveloperMode: true,
-  // Wether to show the LogBox component
+  // Whether the app should run in developer mode
+  isDeveloperMode: false,
+  // Whether to show the LogBox component
   isLogBox: true,
-  // Wether the Startup Modal shows at the beginning of the game
+  // Whether the Startup Modal shows at the beginning of the game
   isStartupModal: true,
-  // Wether players has gone all-in and the showDown is active
+  // Whether players has gone all-in and the showDown is active
   isShowDown: false,
   // Object that stores the last action so we can dispaly it on the UI
   lastAction: { player: 0, action: null },
@@ -107,9 +107,9 @@ const initialState: IState = {
   pot: [0],
   // Number of seats at the table
   seats: 2,
-  // Wether to show the dealer button
+  // Whether to show the dealer button
   showDealer: false,
-  // Wether to show the main pot at the center of the table
+  // Whether to show the main pot at the center of the table
   showMainPot: true,
   // The calculated value of the pot and all the bets
   totalPot: 0,
