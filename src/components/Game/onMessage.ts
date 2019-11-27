@@ -34,6 +34,7 @@ import numberWithCommas from "../../lib/numberWithCommas";
 import { IState } from "../../store/initialState";
 import { IMessage } from "../../store/actions";
 import playerIdToString from "../../lib/playerIdToString";
+import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 
 export const onMessage = (
   message: IMessage,
@@ -313,6 +314,32 @@ export const onMessage_player = (
         );
       };
 
+      // Log board cards when players go All-In
+      const logAllInBoardCards = () => {
+        // Flop
+        currentGameTurn === 0 &&
+          addToHandHistory(
+            `The flop is ${lowerCaseLastLetter(
+              boardCardInfo[0]
+            )}, ${lowerCaseLastLetter(boardCardInfo[1])}, ${lowerCaseLastLetter(
+              boardCardInfo[2]
+            )}.`,
+            dispatch
+          );
+        // Turn
+        currentGameTurn === 1 &&
+          addToHandHistory(
+            `The turn is ${lowerCaseLastLetter(boardCardInfo[3])}.`,
+            dispatch
+          );
+        // River
+        currentGameTurn === 2 &&
+          addToHandHistory(
+            `The river is ${lowerCaseLastLetter(boardCardInfo[4])}.`,
+            dispatch
+          );
+      };
+
       setActivePlayer(null, dispatch);
       collectChips(state, dispatch);
 
@@ -326,6 +353,7 @@ export const onMessage_player = (
         setTimeout(
           () => {
             updateGameTurn(currentGameTurn + 1, dispatch);
+            logAllInBoardCards();
             currentGameTurn += 1;
             progressShowDown();
           },
