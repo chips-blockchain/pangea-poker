@@ -87,17 +87,17 @@ const Controls: React.FunctionComponent = () => {
       // Call
     } else if (amount + betAmount === toCall) {
       nextAction.bet_amount = amount + betAmount;
-      log(`${player} calls ${amount}`, "info");
       bet(player, amount + betAmount, state, dispatch);
+      log(`${player} calls ${amount}`, "info");
       // Raise
     } else if (amount > toCall) {
+      nextAction.bet_amount = amount;
+      bet(player, amount, state, dispatch);
       log(
         `${player} raises to ${amount} ${lastAction === "ALL-IN" &&
           " and is All-in"}`,
         "info"
       );
-      nextAction.bet_amount = amount;
-      bet(player, amount, state, dispatch);
       // Fold
     } else if (action === 7) {
       fold(player, dispatch);
@@ -106,7 +106,6 @@ const Controls: React.FunctionComponent = () => {
     // Hide Controls
     showControls(false, dispatch);
     // Update the player's name with the last action
-    console.log(lastAction);
     setLastAction(nextAction.playerid, lastAction, dispatch);
     // Send the message to the back-end
     nextAction.possibilities = [action];

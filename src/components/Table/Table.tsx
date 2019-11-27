@@ -1,6 +1,9 @@
 import { css } from "@emotion/core";
 import { useReducer, useEffect } from "react";
 import theme from "../../styles/theme";
+import reducer from "../../store/reducer";
+import { StateContext, DispatchContext } from "../../store/context";
+import initialState, { IPlayer, IState } from "../../store/initialState";
 import Backgrounds from "./Backgrounds";
 import { PlayerGrid9Max } from "../PlayerGrid";
 import Player from "../Player";
@@ -10,13 +13,11 @@ import TotalPot from "./TotalPot";
 import { ChipGrid, Bet } from "../Chips";
 import Controls from "../Controls";
 import MainPot from "./MainPot";
-import initialState, { IPlayer, IState } from "../../store/initialState";
-import reducer from "../../store/reducer";
 import Game from "../Game";
 import Connections from "./Connections";
-import { StateContext, DispatchContext } from "../../store/context";
 import StartupModal from "../StartupModal";
 import DeveloperMode from "../DeveloperMode";
+import LogBox from "../LogBox";
 
 // This is the current Main component
 
@@ -33,7 +34,9 @@ const Table: React.FunctionComponent = () => {
     dealer,
     gameType,
     gameTurn,
+    handHistory,
     isDeveloperMode,
+    isLogBox,
     nodeType,
     players,
     pot,
@@ -134,6 +137,7 @@ const Table: React.FunctionComponent = () => {
               />
             )}
             {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
+            {isLogBox && <LogBox handHistory={handHistory} />}
             {controls.showControls && (
               <div>
                 <Controls />

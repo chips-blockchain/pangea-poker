@@ -7,6 +7,15 @@ interface IAction {
 
 const reducer: Function = (state: IState, action: IAction): object => {
   switch (action.type) {
+    case "addToHandHistory": {
+      return {
+        ...state,
+        handHistory: [
+          ...state.handHistory,
+          { action: action.payload, timeStamp: Date.now() }
+        ]
+      };
+    }
     case "bet": {
       return {
         ...state,
