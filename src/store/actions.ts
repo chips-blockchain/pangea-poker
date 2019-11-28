@@ -9,7 +9,7 @@ export interface IMessage {
   [key: string]: any;
 }
 
-// Collect the chips from the player before a new turn
+// Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (
   lastAction: string,
   dispatch: Function
