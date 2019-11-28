@@ -1,5 +1,7 @@
-// Object of all players at the table
+import { IState } from "./initialState";
+
 const initialState: IState = {
+  // Object of all players at the table
   players: {
     player1: {
       isPlaying: true,
@@ -56,10 +58,27 @@ const initialState: IState = {
   gameType: "",
   // Total number of hands played in this session
   handsPlayed: 0,
+  // Log of all palyer actions
+  handHistory: [
+    {
+      action: "A new hand is being dealt.",
+      timeStamp: 1574855758300
+    },
+    {
+      action: "The dealer is Player1.",
+      timeStamp: 1574855758300
+    },
+    {
+      action: "Player1 posts the Small Blind of 1.",
+      timeStamp: 1574855765400
+    }
+  ],
   // Cards of the user
   holeCards: [],
   // Wether the app should run in developer mode
   isDeveloperMode: true,
+  // Whether to show the LogBox component
+  isLogBox: true,
   // Wether the Startup Modal shows at the beginning of the game
   isStartupModal: true,
   // Wether players has gone all-in and the showDown is active
@@ -117,72 +136,4 @@ const initialState: IState = {
   winner: null
 };
 
-export interface IPlayer {
-  isPlaying: boolean;
-  seat: string;
-  chips: number;
-  hasCards: boolean;
-  showCards: boolean;
-  isBetting: boolean;
-  betAmount: number;
-  playerCards: string[];
-  connected: boolean;
-}
-
-export interface IState {
-  players: { player1: IPlayer; player2: IPlayer };
-  activePlayer: string;
-  blinds: [number, number];
-  boardCards: string[];
-  connection: {
-    dcv: string;
-    bvv: string;
-    player1: string;
-    player2: string;
-    echo: string;
-  };
-  controls: { showControls: boolean; showFirstRow: boolean };
-  cardsDealt: boolean;
-  chipsCollected: boolean;
-  dealer: number;
-  gameStarted: boolean;
-  gameTurn: 0 | 1 | 2 | 3 | 4;
-  gameType: string;
-  handsPlayed: number;
-  holeCards: string[];
-  isDeveloperMode: boolean;
-  isShowDown: boolean;
-  isStartupModal: boolean;
-  lastAction: { player: number; action: string | null };
-  lastMessage: object;
-  nodes: {
-    dcv: string | null;
-    bvv: string | null;
-    player1: string | null;
-    player2: string | null;
-    echo: string | null;
-  };
-  nodeType: string;
-  message: {
-    dcv: string | null;
-    bvv: string | null;
-    player1: string | null;
-    player2: string | null;
-    echo: string | null;
-  };
-  minRaiseTo: number;
-  options: {
-    showPotCounter: boolean;
-  };
-  pot: number[];
-  seats: number;
-  showDealer: boolean;
-  showMainPot: boolean;
-  totalPot: number;
-  toCall: number;
-  userSeat: string;
-  winner: string | null;
-}
-
-// export default initialState;
 export default initialState;
