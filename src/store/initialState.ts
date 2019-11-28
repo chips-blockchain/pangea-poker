@@ -1,5 +1,5 @@
-// Object of all players at the table
 const initialState: IState = {
+  // Object of all players at the table
   players: {
     player1: {
       isPlaying: true,
@@ -152,7 +152,7 @@ export interface IState {
   gameStarted: boolean;
   gameTurn: 0 | 1 | 2 | 3 | 4;
   gameType: string;
-  handHistory: string[];
+  handHistory: { action: string; timeStamp: number }[];
   handsPlayed: number;
   holeCards: string[];
   isDeveloperMode: boolean;
