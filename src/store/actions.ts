@@ -3,11 +3,7 @@ import theme from "../styles/theme";
 import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
-
-export interface IMessage {
-  method?: string;
-  [key: string]: any;
-}
+import { IMessage } from "../components/Game/onMessage";
 
 // Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (

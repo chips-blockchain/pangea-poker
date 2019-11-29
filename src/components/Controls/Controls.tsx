@@ -15,7 +15,7 @@ import {
   showControls
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
-import { IMessage } from "../../store/actions";
+import { IMessage } from "../Game/onMessage";
 import { getConsoleOutput } from "@jest/console";
 
 // This component displays all the controls (buttons and slider) at the bottom left
