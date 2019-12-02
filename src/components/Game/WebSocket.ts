@@ -4,7 +4,7 @@ import { DispatchContext, StateContext } from "../../store/context";
 import { onMessage, onMessage_bvv, onMessage_player } from "./onMessage";
 import { log } from "../../store/actions";
 import { IState } from "../../store/initialState";
-import { IMessage, resetMessage } from "../../store/actions";
+import { resetMessage } from "../../store/actions";
 
 // This component is responsible for the WebSocket connection. It doesn't return and
 
@@ -12,7 +12,7 @@ const STATIC_OPTIONS = {};
 const READY_STATE_OPEN = 1;
 
 interface IProps {
-  message: IMessage;
+  message: string;
   nodeName: string;
   server: string;
 }

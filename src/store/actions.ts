@@ -1,12 +1,20 @@
 /* eslint-disable no-use-before-define */
 import theme from "../styles/theme";
 import playerIdToString from "../lib/playerIdToString";
+import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
+import { IMessage } from "../components/Game/onMessage";
 
-export interface IMessage {
-  method?: string;
-  [key: string]: any;
-}
+// Add logs to the hand history to display them in the LogBox
+export const addToHandHistory = (
+  lastAction: string,
+  dispatch: Function
+): void => {
+  dispatch({
+    type: "addToHandHistory",
+    payload: lastAction
+  });
+};
 
 // Update the player's current betAmount
 export const bet = (
@@ -78,27 +86,42 @@ export const deal = (
   state: IState,
   dispatch: Function
 ): void => {
+  const { holecards, board } = message.deal;
+  const { gameTurn } = state;
+
   // Set the holecards
-  if (message.deal.holecards.length === 2)
-    setHoleCards(message.deal.holecards, dispatch);
-  if (message.deal.board) {
+  if (holecards.length === 2) setHoleCards(holecards, dispatch);
+  if (board) {
     // Flop
-    if (state.gameTurn === 0 && message.deal.board.length === 3) {
-      setBoardCards(message.deal.board, dispatch);
+    if (gameTurn === 0 && board.length === 3) {
+      setBoardCards(board, dispatch);
       nextTurn(1, state, dispatch);
-      log(`Here's the flop.`, "info", undefined);
+      addToHandHistory(
+        `The flop is ${lowerCaseLastLetter(board[0])}, ${lowerCaseLastLetter(
+          board[1]
+        )}, ${lowerCaseLastLetter(board[2])}.`,
+        dispatch
+      );
     }
+
     // Turn
-    if (state.gameTurn === 1 && message.deal.board.length === 4) {
-      setBoardCards(message.deal.board, dispatch);
+    if (gameTurn === 1 && board.length === 4) {
+      setBoardCards(board, dispatch);
       nextTurn(2, state, dispatch);
-      log(`Here's the turn.`, "info", undefined);
+      addToHandHistory(
+        `The turn is ${lowerCaseLastLetter(board[3])}.`,
+        dispatch
+      );
     }
+
     // River
-    if (state.gameTurn === 2 && message.deal.board.length === 5) {
-      setBoardCards(message.deal.board, dispatch);
+    if (gameTurn === 2 && board.length === 5) {
+      setBoardCards(board, dispatch);
       nextTurn(3, state, dispatch);
-      log(`Here's the river.`, "info", undefined);
+      addToHandHistory(
+        `The river is ${lowerCaseLastLetter(board[4])}.`,
+        dispatch
+      );
     }
   }
 };
@@ -330,7 +353,6 @@ export const setWinner = (
   dispatch: Function
 ): void => {
   const winner = playerIdToString(player);
-  console.log(`The winner is ${winner}.`);
   nextTurn(4, state, dispatch);
   setTimeout(() => {
     dispatch({
