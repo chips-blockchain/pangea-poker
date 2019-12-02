@@ -39,4 +39,20 @@ describe("reducer", () => {
       ]
     });
   });
+
+  test("handles processControls", () => {
+    const action = {
+      payload: { canCheck: false, canRaise: false },
+      type: "processControls"
+    };
+
+    expect(reducer(state, action)).toEqual({
+      ...initialState,
+      controls: {
+        ...initialState.controls,
+        canCheck: false,
+        canRaise: false
+      }
+    });
+  });
 });
