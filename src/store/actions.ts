@@ -3,13 +3,9 @@ import theme from "../styles/theme";
 import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
+import { IMessage } from "../components/Game/onMessage";
 
-export interface IMessage {
-  method?: string;
-  [key: string]: any;
-}
-
-// Collect the chips from the player before a new turn
+// Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (
   lastAction: string,
   dispatch: Function

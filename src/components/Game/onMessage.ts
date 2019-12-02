@@ -32,15 +32,46 @@ import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
 
 import { IState } from "../../store/initialState";
-import { IMessage } from "../../store/actions";
 import playerIdToString from "../../lib/playerIdToString";
+import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
+
+export interface IMessage {
+  action?: string;
+  amount?: number;
+  balance?: number;
+  bet_amount?: number;
+  big_blind?: number;
+  deal?: {
+    balance?: number;
+    board?: string[];
+    holecards?: [string, string];
+  };
+  game?: { gametype: string; pot: number[] };
+  gui_playerID?: number;
+  method?: string;
+  minRaiseTo?: number;
+  player_funds?: number[];
+  playerid?: number;
+  pot?: number;
+  seats?: [{ name: string; playing: number; seat: number }];
+  showInfo?: {
+    allHoleCardsInfo?: string[];
+    boardCardInfo?: string[];
+  };
+  small_blind?: number;
+  possibilities?: number[];
+  toPlayer?: number;
+  toCall?: number;
+  win_amount?: number;
+  winners?: number;
+}
 
 export const onMessage = (
-  message: IMessage,
+  messageString: string,
   state: IState,
   dispatch: Function
 ): void => {
-  message = JSON.parse(message);
+  const message: IMessage = JSON.parse(messageString);
 
   log("Received from DCV", "received", message);
   setLastMessage(message, dispatch);
@@ -107,7 +138,7 @@ export const onMessage = (
       break;
 
     case "invoice":
-      switch (message.playerID) {
+      switch (message.playerid) {
         case 0:
           message.gui_playerID = 0;
           sendMessage(message, "player1", state, dispatch);
@@ -124,11 +155,12 @@ export const onMessage = (
 };
 
 export const onMessage_bvv = (
-  message: IMessage,
+  messageString: string,
   state: IState,
   dispatch: Function
 ): void => {
-  message = JSON.parse(message);
+  const message: IMessage = JSON.parse(messageString);
+
   setLastMessage(message, dispatch);
   log("Received from BVV: ", "received", message);
   log(message.method, "info", undefined);
@@ -149,14 +181,14 @@ export const onMessage_bvv = (
 };
 
 export const onMessage_player = (
-  message: IMessage,
+  messageString: string,
   player: string,
   state: IState,
   dispatch: Function
 ) => {
   const playerId: number = playerStringToId(player);
 
-  message = JSON.parse(message);
+  const message: IMessage = JSON.parse(messageString);
   setLastMessage(message, dispatch);
   log(`Received from ${player}: `, "received", message);
 
@@ -313,6 +345,32 @@ export const onMessage_player = (
         );
       };
 
+      // Log board cards when players go All-In
+      const logAllInBoardCards = () => {
+        // Flop
+        currentGameTurn === 0 &&
+          addToHandHistory(
+            `The flop is ${lowerCaseLastLetter(
+              boardCardInfo[0]
+            )}, ${lowerCaseLastLetter(boardCardInfo[1])}, ${lowerCaseLastLetter(
+              boardCardInfo[2]
+            )}.`,
+            dispatch
+          );
+        // Turn
+        currentGameTurn === 1 &&
+          addToHandHistory(
+            `The turn is ${lowerCaseLastLetter(boardCardInfo[3])}.`,
+            dispatch
+          );
+        // River
+        currentGameTurn === 2 &&
+          addToHandHistory(
+            `The river is ${lowerCaseLastLetter(boardCardInfo[4])}.`,
+            dispatch
+          );
+      };
+
       setActivePlayer(null, dispatch);
       collectChips(state, dispatch);
 
@@ -326,6 +384,7 @@ export const onMessage_player = (
         setTimeout(
           () => {
             updateGameTurn(currentGameTurn + 1, dispatch);
+            logAllInBoardCards();
             currentGameTurn += 1;
             progressShowDown();
           },
