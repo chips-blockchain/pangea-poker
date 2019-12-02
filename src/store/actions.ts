@@ -205,6 +205,23 @@ export const playerJoin = (
   );
 };
 
+// Defines which buttons to show in Controls by processsing the possibilities array
+export const processControls = (
+  possibilities: number[],
+  dispatch: Function
+) => {
+  const canCheck = possibilities.some(e => e === 3);
+  const canRaise = possibilities.some(e => e === 4);
+
+  dispatch({
+    type: "processControls",
+    payload: {
+      canCheck,
+      canRaise
+    }
+  });
+};
+
 export const resetMessage = (node: string, dispatch: Function): void => {
   dispatch({
     type: "setMessage",

@@ -9,14 +9,11 @@ import {
   fold,
   log,
   sendMessage,
-  setMinRaiseTo,
-  setToCall,
   setLastAction,
   showControls
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import { IMessage } from "../Game/onMessage";
-import { getConsoleOutput } from "@jest/console";
 
 // This component displays all the controls (buttons and slider) at the bottom left
 // when the player is active
@@ -34,13 +31,14 @@ const Controls: React.FunctionComponent = () => {
     userSeat
   } = state;
 
+  const { canCheck, canRaise } = controls;
+
   const betAmount = players[userSeat].betAmount;
 
   const [raiseAmount, setRaiseAmount] = useState(minRaiseTo);
 
   const chips: number = players[userSeat].chips;
   const totalStack: number = betAmount + chips;
-  const canCheck: boolean = toCall - betAmount === 0;
   const callAmount: number = toCall <= totalStack ? toCall - betAmount : chips;
   const [showFirstRow, setShowFirstRow] = useState(true);
 
@@ -180,7 +178,7 @@ const Controls: React.FunctionComponent = () => {
         }
       />
       {/* Raise/All-In Button */}
-      {toCall < chips && (
+      {canRaise && (
         <Button
           label={
             raiseAmount >= chips ? "All-In" : toCall === 0 ? "Bet" : "Raise to"
@@ -188,7 +186,6 @@ const Controls: React.FunctionComponent = () => {
           amount={
             minRaiseTo >= chips || toCall >= chips ? totalStack : raiseAmount
           }
-          // Need to create an isAllIn Hook and evaluate based on that
           onClick={() =>
             minRaiseTo >= chips || toCall >= chips
               ? handleButtonClick(6, userSeat, totalStack, "ALL-IN")
