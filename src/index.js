@@ -1,10 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import * as Sentry from "@sentry/browser";
 import { Global, css } from "@emotion/core";
 import Main from "./components/Table";
 import "normalize.css";
 import NoticiaBold from "./fonts/NoticiaText-Bold.ttf";
 import PTSansBold from "./fonts/PT_Sans-Web-Bold.ttf";
+
+Sentry.init({
+  dsn: "https://294dbaf87a92469398cac4a9ba3c1106@sentry.io/1841547"
+});
 
 const App = () => {
   return (
