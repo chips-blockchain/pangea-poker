@@ -14,6 +14,7 @@ import {
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import { IMessage } from "../Game/onMessage";
+import { Possibilities } from "../../lib/constants";
 
 // This component displays all the controls (buttons and slider) at the bottom left
 // when the player is active
@@ -56,18 +57,6 @@ const Controls: React.FunctionComponent = () => {
       setShowFirstRow(false);
     } else setShowFirstRow(true);
   }, [controls.showControls]);
-
-  // The back-end uses these numbers to interpret player actions
-  // const allPossibilities = {
-  //   0: "",
-  //   1: "small_blind",
-  //   2: "big_blind",
-  //   3: "check",
-  //   4: "raise",
-  //   5: "call",
-  //   6: "allin",
-  //   7: "fold"
-  // };
 
   const handleButtonClick = (
     action: number,
@@ -165,7 +154,9 @@ const Controls: React.FunctionComponent = () => {
       {/* Fold Button */}
       <Button
         label="Fold"
-        onClick={() => handleButtonClick(7, userSeat, null, "FOLD")}
+        onClick={() =>
+          handleButtonClick(Possibilities.fold, userSeat, null, "FOLD")
+        }
       />
       {/* Check/Call Button */}
       <Button
@@ -173,8 +164,18 @@ const Controls: React.FunctionComponent = () => {
         amount={!canCheck && callAmount}
         onClick={() =>
           canCheck
-            ? handleButtonClick(3, userSeat, callAmount, "CHECK")
-            : handleButtonClick(5, userSeat, callAmount, "CALL")
+            ? handleButtonClick(
+                Possibilities.check,
+                userSeat,
+                callAmount,
+                "CHECK"
+              )
+            : handleButtonClick(
+                Possibilities.call,
+                userSeat,
+                callAmount,
+                "CALL"
+              )
         }
       />
       {/* Raise/All-In Button */}
@@ -188,8 +189,18 @@ const Controls: React.FunctionComponent = () => {
           }
           onClick={() =>
             minRaiseTo >= chips || toCall >= chips
-              ? handleButtonClick(6, userSeat, totalStack, "ALL-IN")
-              : handleButtonClick(4, userSeat, raiseAmount, "RAISE")
+              ? handleButtonClick(
+                  Possibilities.allIn,
+                  userSeat,
+                  totalStack,
+                  "ALL-IN"
+                )
+              : handleButtonClick(
+                  Possibilities.raise,
+                  userSeat,
+                  raiseAmount,
+                  "RAISE"
+                )
           }
         />
       )}

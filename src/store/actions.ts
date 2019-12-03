@@ -4,6 +4,7 @@ import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
 import { IMessage } from "../components/Game/onMessage";
+import { Possibilities } from "../lib/constants";
 
 // Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (
@@ -207,11 +208,11 @@ export const playerJoin = (
 
 // Defines which buttons to show in Controls by processsing the possibilities array
 export const processControls = (
-  possibilities: number[],
+  receivedPossibilities: number[],
   dispatch: Function
 ) => {
-  const canCheck = possibilities.some(e => e === 3);
-  const canRaise = possibilities.some(e => e === 4);
+  const canCheck = receivedPossibilities.some(e => e === Possibilities.check);
+  const canRaise = receivedPossibilities.some(e => e === Possibilities.raise);
 
   dispatch({
     type: "processControls",
