@@ -4,6 +4,7 @@ import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
 import { IMessage } from "../components/Game/onMessage";
+import { Possibilities } from "../lib/constants";
 
 // Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (
@@ -203,6 +204,27 @@ export const playerJoin = (
     state,
     dispatch
   );
+};
+
+// Defines which buttons to show in Controls by processsing the possibilities array
+export const processControls = (
+  receivedPossibilities: number[],
+  dispatch: Function
+) => {
+  const canCheck = receivedPossibilities.some(
+    poss => poss === Possibilities.check
+  );
+  const canRaise = receivedPossibilities.some(
+    poss => poss === Possibilities.raise
+  );
+
+  dispatch({
+    type: "processControls",
+    payload: {
+      canCheck,
+      canRaise
+    }
+  });
 };
 
 export const resetMessage = (node: string, dispatch: Function): void => {

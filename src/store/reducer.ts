@@ -122,6 +122,16 @@ const reducer: Function = (state: IState, action: IAction): object => {
         }
       };
     }
+    case "processControls": {
+      return {
+        ...state,
+        controls: {
+          ...state.controls,
+          canCheck: action.payload.canCheck,
+          canRaise: action.payload.canRaise
+        }
+      };
+    }
     case "resetTurn": {
       return {
         ...state,

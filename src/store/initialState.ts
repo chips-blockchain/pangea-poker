@@ -27,7 +27,7 @@ const initialState: IState = {
   // Which seat is the active player
   activePlayer: null,
   // Current blinds - small and big one
-  blinds: [0, 0],
+  blinds: [1, 2],
   // Board Cards
   boardCards: [],
   // Connection status dispalyed at the top
@@ -40,7 +40,9 @@ const initialState: IState = {
   },
   controls: {
     showControls: false,
-    showFirstRow: true
+    showFirstRow: true,
+    canCheck: false,
+    canRaise: true
   },
   // Whether the cards have been dealt
   cardsDealt: false,
@@ -145,7 +147,12 @@ export interface IState {
     player2: string;
     echo: string;
   };
-  controls: { showControls: boolean; showFirstRow: boolean };
+  controls: {
+    canCheck: boolean;
+    canRaise: boolean;
+    showControls: boolean;
+    showFirstRow: boolean;
+  };
   cardsDealt: boolean;
   chipsCollected: boolean;
   dealer: number;

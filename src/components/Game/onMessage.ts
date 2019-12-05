@@ -26,7 +26,8 @@ import {
   showDown,
   updateGameTurn,
   updateStateValue,
-  setBoardCards
+  setBoardCards,
+  processControls
 } from "../../store/actions";
 import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
@@ -253,6 +254,7 @@ export const onMessage_player = (
           updateTotalPot(message.pot, dispatch);
           setMinRaiseTo(message.minRaiseTo, dispatch);
           setToCall(message.toCall, dispatch);
+          processControls(message.possibilities, dispatch);
           showControls(true, dispatch);
           break;
 

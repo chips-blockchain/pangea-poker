@@ -9,14 +9,12 @@ import {
   fold,
   log,
   sendMessage,
-  setMinRaiseTo,
-  setToCall,
   setLastAction,
   showControls
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import { IMessage } from "../Game/onMessage";
-import { getConsoleOutput } from "@jest/console";
+import { Possibilities } from "../../lib/constants";
 
 // This component displays all the controls (buttons and slider) at the bottom left
 // when the player is active
@@ -34,13 +32,14 @@ const Controls: React.FunctionComponent = () => {
     userSeat
   } = state;
 
+  const { canCheck, canRaise } = controls;
+
   const betAmount = players[userSeat].betAmount;
 
   const [raiseAmount, setRaiseAmount] = useState(minRaiseTo);
 
   const chips: number = players[userSeat].chips;
   const totalStack: number = betAmount + chips;
-  const canCheck: boolean = toCall - betAmount === 0;
   const callAmount: number = toCall <= totalStack ? toCall - betAmount : chips;
   const [showFirstRow, setShowFirstRow] = useState(true);
 
@@ -58,18 +57,6 @@ const Controls: React.FunctionComponent = () => {
       setShowFirstRow(false);
     } else setShowFirstRow(true);
   }, [controls.showControls]);
-
-  // The back-end uses these numbers to interpret player actions
-  // const allPossibilities = {
-  //   0: "",
-  //   1: "small_blind",
-  //   2: "big_blind",
-  //   3: "check",
-  //   4: "raise",
-  //   5: "call",
-  //   6: "allin",
-  //   7: "fold"
-  // };
 
   const handleButtonClick = (
     action: number,
@@ -150,16 +137,19 @@ const Controls: React.FunctionComponent = () => {
             label="1/2 Pot"
             small
             onClick={() => handleSmallButtonClick("halfPot")}
+            data-test="table-controls-half-pot-button"
           />
           <Button
             label="Pot"
             small
             onClick={() => handleSmallButtonClick("pot")}
+            data-test="table-controls-pot-button"
           />
           <Button
             label="Max"
             small
             onClick={() => handleSmallButtonClick("max")}
+            data-test="table-controls-max-button"
           />
           <Slider raiseAmount={raiseAmount} setRaiseAmount={setRaiseAmount} />
         </div>
@@ -167,7 +157,10 @@ const Controls: React.FunctionComponent = () => {
       {/* Fold Button */}
       <Button
         label="Fold"
-        onClick={() => handleButtonClick(7, userSeat, null, "FOLD")}
+        onClick={() =>
+          handleButtonClick(Possibilities.fold, userSeat, null, "FOLD")
+        }
+        data-test="table-controls-fold-button"
       />
       {/* Check/Call Button */}
       <Button
@@ -175,12 +168,23 @@ const Controls: React.FunctionComponent = () => {
         amount={!canCheck && callAmount}
         onClick={() =>
           canCheck
-            ? handleButtonClick(3, userSeat, callAmount, "CHECK")
-            : handleButtonClick(5, userSeat, callAmount, "CALL")
+            ? handleButtonClick(
+                Possibilities.check,
+                userSeat,
+                callAmount,
+                "CHECK"
+              )
+            : handleButtonClick(
+                Possibilities.call,
+                userSeat,
+                callAmount,
+                "CALL"
+              )
         }
+        data-test="table-controls-check/call-button"
       />
       {/* Raise/All-In Button */}
-      {toCall < chips && (
+      {canRaise && (
         <Button
           label={
             raiseAmount >= chips ? "All-In" : toCall === 0 ? "Bet" : "Raise to"
@@ -188,12 +192,22 @@ const Controls: React.FunctionComponent = () => {
           amount={
             minRaiseTo >= chips || toCall >= chips ? totalStack : raiseAmount
           }
-          // Need to create an isAllIn Hook and evaluate based on that
           onClick={() =>
             minRaiseTo >= chips || toCall >= chips
-              ? handleButtonClick(6, userSeat, totalStack, "ALL-IN")
-              : handleButtonClick(4, userSeat, raiseAmount, "RAISE")
+              ? handleButtonClick(
+                  Possibilities.allIn,
+                  userSeat,
+                  totalStack,
+                  "ALL-IN"
+                )
+              : handleButtonClick(
+                  Possibilities.raise,
+                  userSeat,
+                  raiseAmount,
+                  "RAISE"
+                )
           }
+          data-test="table-controls-raise-button"
         />
       )}
     </div>

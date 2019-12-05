@@ -41,6 +41,8 @@ const initialState: IState = {
     echo: "Not connected"
   },
   controls: {
+    canCheck: true,
+    canRaise: true,
     showControls: false,
     showFirstRow: true
   },
