@@ -1,40 +1,38 @@
-import { IReceivedMessage, onMessage_player } from "../onMessage";
+import { IMessage, onMessage_player } from "../onMessage";
 import state from "../../../store/initialState";
 import * as actions from "../../../store/actions";
 
-describe("onMessage ", () => {
-  const dispatch = jest.fn();
+const dispatch = jest.fn();
 
-  const addToHandHistorySpy = jest.spyOn(actions, "addToHandHistory");
+const receiveMessage = (message: IMessage) => {
+  const {
+    action,
+    showInfo,
+    method,
+    playerid,
+    bet_amount,
+    winners,
+    win_amount
+  } = message;
 
-  const receiveMessage = (message: IReceivedMessage) => {
-    const {
+  onMessage_player(
+    JSON.stringify({
       action,
-      showInfo,
+      bet_amount,
       method,
       playerid,
-      bet_amount,
-      winners,
-      win_amount
-    } = message;
+      showInfo,
+      win_amount,
+      winners
+    }),
+    `player${playerid + 1}`,
+    state,
+    dispatch
+  );
+};
 
-    onMessage_player(
-      JSON.stringify({
-        action,
-        bet_amount,
-        method,
-        playerid,
-        showInfo,
-        win_amount,
-        winners
-      }),
-      `player${playerid + 1}`,
-      state,
-      dispatch
-    );
-  };
-
-  // Tests for Hand History
+describe("handHistory", () => {
+  const addToHandHistorySpy = jest.spyOn(actions, "addToHandHistory");
 
   test("logs posting the blinds from the Small Blind's perspective", () => {
     receiveMessage({
