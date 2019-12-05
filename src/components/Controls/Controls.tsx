@@ -137,16 +137,19 @@ const Controls: React.FunctionComponent = () => {
             label="1/2 Pot"
             small
             onClick={() => handleSmallButtonClick("halfPot")}
+            data-test="table-controls-half-pot-button"
           />
           <Button
             label="Pot"
             small
             onClick={() => handleSmallButtonClick("pot")}
+            data-test="table-controls-pot-button"
           />
           <Button
             label="Max"
             small
             onClick={() => handleSmallButtonClick("max")}
+            data-test="table-controls-max-button"
           />
           <Slider raiseAmount={raiseAmount} setRaiseAmount={setRaiseAmount} />
         </div>
@@ -157,6 +160,7 @@ const Controls: React.FunctionComponent = () => {
         onClick={() =>
           handleButtonClick(Possibilities.fold, userSeat, null, "FOLD")
         }
+        data-test="table-controls-fold-button"
       />
       {/* Check/Call Button */}
       <Button
@@ -177,6 +181,7 @@ const Controls: React.FunctionComponent = () => {
                 "CALL"
               )
         }
+        data-test="table-controls-check/call-button"
       />
       {/* Raise/All-In Button */}
       {canRaise && (
@@ -202,6 +207,7 @@ const Controls: React.FunctionComponent = () => {
                   "RAISE"
                 )
           }
+          data-test="table-controls-raise-button"
         />
       )}
     </div>
