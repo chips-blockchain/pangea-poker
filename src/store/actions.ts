@@ -211,8 +211,12 @@ export const processControls = (
   receivedPossibilities: number[],
   dispatch: Function
 ) => {
-  const canCheck = receivedPossibilities.some(e => e === Possibilities.check);
-  const canRaise = receivedPossibilities.some(e => e === Possibilities.raise);
+  const canCheck = receivedPossibilities.some(
+    poss => poss === Possibilities.check
+  );
+  const canRaise = receivedPossibilities.some(
+    poss => poss === Possibilities.raise
+  );
 
   dispatch({
     type: "processControls",
