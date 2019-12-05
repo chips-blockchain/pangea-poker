@@ -64,7 +64,7 @@ export interface IMessage {
   toPlayer?: number;
   toCall?: number;
   win_amount?: number;
-  winners?: number;
+  winners?: number[];
 }
 
 export const onMessage = (
