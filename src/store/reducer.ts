@@ -142,12 +142,14 @@ const reducer: Function = (state: IState, action: IAction): object => {
           player1: {
             ...state.players.player1,
             isBetting: false,
-            betAmount: 0
+            betAmount: 0,
+            playerCards: []
           },
           player2: {
             ...state.players.player2,
             isBetting: false,
-            betAmount: 0
+            betAmount: 0,
+            playerCards: []
           }
         }
       };
