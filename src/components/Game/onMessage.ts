@@ -64,7 +64,7 @@ export interface IMessage {
   toPlayer?: number;
   toCall?: number;
   win_amount?: number;
-  winners?: number;
+  winners?: number[];
 }
 
 export const onMessage = (
@@ -250,12 +250,17 @@ export const onMessage_player = (
             message.player_funds.forEach((balance: number, index: number) => {
               setBalance(playerIdToString(index), balance, dispatch);
             });
-          setActivePlayer(player, dispatch);
+
+          setActivePlayer(playerIdToString(guiPlayer), dispatch);
           updateTotalPot(message.pot, dispatch);
           setMinRaiseTo(message.minRaiseTo, dispatch);
           setToCall(message.toCall, dispatch);
-          processControls(message.possibilities, dispatch);
-          showControls(true, dispatch);
+
+          // Turn on controls if it's the current player's turn
+          if (playerId === guiPlayer) {
+            processControls(message.possibilities, dispatch);
+            showControls(true, dispatch);
+          }
           break;
 
         // Update other players actions
