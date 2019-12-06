@@ -137,6 +137,7 @@ const reducer: Function = (state: IState, action: IAction): object => {
         ...state,
         chipsCollected: false,
         minRaiseTo: action.payload,
+        isShowDown: false,
         players: {
           ...state.players,
           player1: {

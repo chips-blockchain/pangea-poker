@@ -66,6 +66,7 @@ describe("reducer", () => {
       ...initialState,
       chipsCollected: false,
       minRaiseTo: action.payload,
+      isShowDown: false,
       players: {
         ...state.players,
         player1: {
