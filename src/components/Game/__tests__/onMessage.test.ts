@@ -177,7 +177,7 @@ describe("Active player handling", () => {
   const setActivePlayerSpy = jest.spyOn(actions, "setActivePlayer");
   const showControlsSpy = jest.spyOn(actions, "showControls");
 
-  test("reveals the controls for the player at userSeat", () => {
+  test("reveal the controls for the player at userSeat", () => {
     receiveMessage(
       {
         action: "round_betting",
@@ -192,7 +192,7 @@ describe("Active player handling", () => {
     expect(showControlsSpy).toHaveBeenCalledWith(true, dispatch);
   });
 
-  test("does not reveals the controls when it's the opponent's turn", () => {
+  test("does not reveal the controls when it's the opponent's turn", () => {
     receiveMessage(
       {
         action: "round_betting",
