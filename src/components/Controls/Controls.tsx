@@ -195,7 +195,7 @@ const Controls: React.FunctionComponent = () => {
                 "CALL"
               )
         }
-        data-test="table-controls-check/call-button"
+        data-test={`table-controls-${canCheck ? "check" : "call"}-button`}
       />
       {/* Raise/All-In Button */}
       {canRaise && (

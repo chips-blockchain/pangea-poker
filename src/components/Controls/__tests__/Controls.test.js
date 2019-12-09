@@ -35,7 +35,7 @@ describe("Controls", () => {
       wrapper.find(`[data-test="table-controls-fold-button"]`)
     ).toHaveLength(1);
     expect(
-      wrapper.find(`[data-test="table-controls-check/call-button"]`)
+      wrapper.find(`[data-test="table-controls-check-button"]`)
     ).toHaveLength(1);
     expect(
       wrapper.find(`[data-test="table-controls-raise-button"]`)
@@ -50,10 +50,10 @@ describe("Controls", () => {
     const wrapper = buildWrapper(state);
 
     expect(
-      wrapper.find(`[data-test="table-controls-check/call-button"]`)
+      wrapper.find(`[data-test="table-controls-call-button"]`)
     ).toHaveLength(1);
     expect(
-      wrapper.find(`[data-test="table-controls-check/call-button"]`).text()
+      wrapper.find(`[data-test="table-controls-call-button"]`).text()
     ).toBe("Call 100");
   });
 
@@ -78,10 +78,10 @@ describe("Controls", () => {
     const wrapper = buildWrapper(state);
 
     expect(
-      wrapper.find(`[data-test="table-controls-check/call-button"]`)
+      wrapper.find(`[data-test="table-controls-check-button"]`)
     ).toHaveLength(1);
     expect(
-      wrapper.find(`[data-test="table-controls-check/call-button"]`).text()
+      wrapper.find(`[data-test="table-controls-check-button"]`).text()
     ).toBe("Check ");
   });
 
