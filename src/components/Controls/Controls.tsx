@@ -86,7 +86,7 @@ const Controls: React.FunctionComponent = () => {
         "info"
       );
       // Fold
-    } else if (action === 7) {
+    } else if (action === Possibilities.fold) {
       fold(player, dispatch);
       log(`${player} folds`, "info");
     } else throw new Error("Something is wrong with the betamount.");
