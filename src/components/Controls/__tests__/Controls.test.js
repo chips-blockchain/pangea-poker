@@ -134,7 +134,7 @@ describe("Button clicks", () => {
 
   test("handles Fold button when clicked", () => {
     const state = testState;
-    state.showControls = true;
+    state.controls.showControls = true;
     state.userSeat = "player1";
     state.players.player1.betAmount = 0;
 
@@ -165,7 +165,7 @@ describe("Button clicks", () => {
 
   test("handles Check button when clicked", () => {
     const state = testState;
-    state.showControls = true;
+    state.controls.showControls = true;
     state.userSeat = "player1";
     state.players.player1.betAmount = 0;
 
@@ -191,7 +191,7 @@ describe("Button clicks", () => {
 
   test("handles Call button when clicked", () => {
     const state = testState;
-    state.showControls = true;
+    state.controls.showControls = true;
     state.userSeat = "player1";
     state.controls.canCheck = false;
     state.toCall = 100;
@@ -227,7 +227,7 @@ describe("Button clicks", () => {
 
   test("handles Raise button when clicked", () => {
     const state = testState;
-    state.showControls = true;
+    state.controls.showControls = true;
     state.userSeat = "player1";
     state.minRaiseTo = 50;
     state.controls.canCheck = false;
@@ -263,7 +263,7 @@ describe("Button clicks", () => {
 
   test("handles AllIn button when clicked", () => {
     const state = testState;
-    state.showControls = true;
+    state.controls.showControls = true;
     state.userSeat = "player1";
     state.minRaiseTo = 200;
     state.players.player1.chips = 200;
