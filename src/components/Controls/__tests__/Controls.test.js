@@ -129,8 +129,9 @@ describe("Button clicks", () => {
   jest.spyOn(actions, "sendMessage");
   jest.spyOn(actions, "showControls");
   jest.spyOn(actions, "bet");
+  jest.spyOn(actions, "setLastAction");
 
-  const { bet, fold, sendMessage, showControls } = actions;
+  const { bet, fold, sendMessage, setLastAction, showControls } = actions;
 
   test("handles Fold button when clicked", () => {
     const state = testState;
@@ -146,6 +147,9 @@ describe("Button clicks", () => {
     expect(fold).toHaveBeenCalled();
     expect(fold).toHaveBeenCalledTimes(1);
     expect(fold).toHaveBeenCalledWith("player1", expect.anything());
+    expect(setLastAction).toHaveBeenCalled();
+    expect(setLastAction).toHaveBeenCalledTimes(1);
+    expect(setLastAction).toHaveBeenCalledWith(0, "FOLD", expect.anything());
 
     // Sends Fold to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -172,6 +176,11 @@ describe("Button clicks", () => {
     const wrapper = buildWrapper(state);
 
     wrapper.find(`[data-test="table-controls-check-button"]`).simulate("click");
+
+    // Send Check to the GUI
+    expect(setLastAction).toHaveBeenCalled();
+    expect(setLastAction).toHaveBeenCalledTimes(1);
+    expect(setLastAction).toHaveBeenCalledWith(0, "CHECK", expect.anything());
 
     // Sends Check to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -205,6 +214,9 @@ describe("Button clicks", () => {
     expect(bet).toHaveBeenCalled();
     expect(bet).toHaveBeenCalledTimes(1);
     expect(bet).toHaveBeenCalledWith("player1", 100, state, expect.anything());
+    expect(setLastAction).toHaveBeenCalled();
+    expect(setLastAction).toHaveBeenCalledTimes(1);
+    expect(setLastAction).toHaveBeenCalledWith(0, "CALL", expect.anything());
 
     // Sends Call to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -241,6 +253,9 @@ describe("Button clicks", () => {
     expect(bet).toHaveBeenCalled();
     expect(bet).toHaveBeenCalledTimes(1);
     expect(bet).toHaveBeenCalledWith("player1", 50, state, expect.anything());
+    expect(setLastAction).toHaveBeenCalled();
+    expect(setLastAction).toHaveBeenCalledTimes(1);
+    expect(setLastAction).toHaveBeenCalledWith(0, "RAISE", expect.anything());
 
     // Sends Raise to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -278,6 +293,9 @@ describe("Button clicks", () => {
     expect(bet).toHaveBeenCalled();
     expect(bet).toHaveBeenCalledTimes(1);
     expect(bet).toHaveBeenCalledWith("player1", 200, state, expect.anything());
+    expect(setLastAction).toHaveBeenCalled();
+    expect(setLastAction).toHaveBeenCalledTimes(1);
+    expect(setLastAction).toHaveBeenCalledWith(0, "ALL-IN", expect.anything());
 
     // Sends All-In to the backend
     expect(sendMessage).toHaveBeenCalled();
