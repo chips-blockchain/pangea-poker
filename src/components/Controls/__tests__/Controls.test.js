@@ -128,8 +128,9 @@ describe("Button clicks", () => {
   jest.spyOn(actions, "fold");
   jest.spyOn(actions, "sendMessage");
   jest.spyOn(actions, "showControls");
+  jest.spyOn(actions, "bet");
 
-  const { fold, sendMessage, showControls } = actions;
+  const { bet, fold, sendMessage, showControls } = actions;
 
   test("handles Fold button when clicked", () => {
     const state = testState;
@@ -177,6 +178,42 @@ describe("Button clicks", () => {
     expect(sendMessage).toHaveBeenCalledTimes(1);
     expect(sendMessage).toHaveBeenCalledWith(
       expect.objectContaining({ possibilities: [Possibilities.check] }),
+      "player1",
+      state,
+      expect.anything()
+    );
+
+    // Hides the Controls
+    expect(showControls).toHaveBeenCalled();
+    expect(showControls).toHaveBeenCalledTimes(1);
+    expect(showControls).toHaveBeenCalledWith(false, expect.anything());
+  });
+
+  test("handles Call button when clicked", () => {
+    const state = testState;
+    state.showControls = true;
+    state.userSeat = "player1";
+    state.controls.canCheck = false;
+    state.toCall = 100;
+    state.players.player1.betAmount = 0;
+
+    const wrapper = buildWrapper(state);
+
+    wrapper.find(`[data-test="table-controls-call-button"]`).simulate("click");
+
+    // Sends fold to the GUI
+    expect(bet).toHaveBeenCalled();
+    expect(bet).toHaveBeenCalledTimes(1);
+    expect(bet).toHaveBeenCalledWith("player1", 100, state, expect.anything());
+
+    // Sends call to the backend
+    expect(sendMessage).toHaveBeenCalled();
+    expect(sendMessage).toHaveBeenCalledTimes(1);
+    expect(sendMessage).toHaveBeenCalledWith(
+      expect.objectContaining({
+        possibilities: [Possibilities.call],
+        bet_amount: 100
+      }),
       "player1",
       state,
       expect.anything()
