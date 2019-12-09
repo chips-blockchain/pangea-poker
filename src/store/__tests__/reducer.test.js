@@ -55,4 +55,33 @@ describe("reducer", () => {
       }
     });
   });
+
+  test("handles resetTurn", () => {
+    const action = {
+      payload: 100,
+      type: "resetTurn"
+    };
+
+    expect(reducer(state, action)).toEqual({
+      ...initialState,
+      chipsCollected: false,
+      minRaiseTo: action.payload,
+      isShowDown: false,
+      players: {
+        ...state.players,
+        player1: {
+          ...state.players.player1,
+          isBetting: false,
+          betAmount: 0,
+          playerCards: []
+        },
+        player2: {
+          ...state.players.player2,
+          isBetting: false,
+          betAmount: 0,
+          playerCards: []
+        }
+      }
+    });
+  });
 });

@@ -47,4 +47,16 @@ describe("processControls", () => {
       type
     });
   });
+
+  describe("resetTurn", () => {
+    const dispatch = jest.fn();
+
+    test("dispatches the hand history with the last action", () => {
+      const bigBlind = 100;
+      const type = "resetTurn";
+
+      actions.resetTurn(bigBlind, dispatch);
+      expect(dispatch).toHaveBeenCalledWith({ payload: bigBlind, type });
+    });
+  });
 });
