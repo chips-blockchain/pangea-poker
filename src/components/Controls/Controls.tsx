@@ -88,8 +88,9 @@ const Controls: React.FunctionComponent = () => {
         nextAction.bet_amount = amount;
         bet(player, amount, state, dispatch);
         log(
-          `${player} raises to ${amount} ${lastAction === "ALL-IN" &&
-            " and is All-in"}`,
+          `${player} raises to ${amount} ${
+            lastAction === "ALL-IN" ? "and is All-in" : ""
+          }`,
           "info"
         );
         break;
