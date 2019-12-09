@@ -84,6 +84,7 @@ const Controls: React.FunctionComponent = () => {
 
       // Raise
       case Possibilities.raise:
+      case Possibilities.allIn:
         nextAction.bet_amount = amount;
         bet(player, amount, state, dispatch);
         log(
