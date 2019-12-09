@@ -161,4 +161,30 @@ describe("Button clicks", () => {
     expect(showControls).toHaveBeenCalledTimes(1);
     expect(showControls).toHaveBeenCalledWith(false, expect.anything());
   });
+
+  test("handles Check button when clicked", () => {
+    const state = testState;
+    state.showControls = true;
+    state.userSeat = "player1";
+    state.players.player1.betAmount = 0;
+
+    const wrapper = buildWrapper(state);
+
+    wrapper.find(`[data-test="table-controls-check-button"]`).simulate("click");
+
+    // Sends fold to the backend
+    expect(sendMessage).toHaveBeenCalled();
+    expect(sendMessage).toHaveBeenCalledTimes(1);
+    expect(sendMessage).toHaveBeenCalledWith(
+      expect.objectContaining({ possibilities: [Possibilities.check] }),
+      "player1",
+      state,
+      expect.anything()
+    );
+
+    // Hides the Controls
+    expect(showControls).toHaveBeenCalled();
+    expect(showControls).toHaveBeenCalledTimes(1);
+    expect(showControls).toHaveBeenCalledWith(false, expect.anything());
+  });
 });
