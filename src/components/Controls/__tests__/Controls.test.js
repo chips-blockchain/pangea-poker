@@ -142,12 +142,12 @@ describe("Button clicks", () => {
 
     wrapper.find(`[data-test="table-controls-fold-button"]`).simulate("click");
 
-    // Sends fold to the GUI
+    // Sends Fold to the GUI
     expect(fold).toHaveBeenCalled();
     expect(fold).toHaveBeenCalledTimes(1);
     expect(fold).toHaveBeenCalledWith("player1", expect.anything());
 
-    // Sends fold to the backend
+    // Sends Fold to the backend
     expect(sendMessage).toHaveBeenCalled();
     expect(sendMessage).toHaveBeenCalledTimes(1);
     expect(sendMessage).toHaveBeenCalledWith(
@@ -173,7 +173,7 @@ describe("Button clicks", () => {
 
     wrapper.find(`[data-test="table-controls-check-button"]`).simulate("click");
 
-    // Sends fold to the backend
+    // Sends Check to the backend
     expect(sendMessage).toHaveBeenCalled();
     expect(sendMessage).toHaveBeenCalledTimes(1);
     expect(sendMessage).toHaveBeenCalledWith(
@@ -201,12 +201,12 @@ describe("Button clicks", () => {
 
     wrapper.find(`[data-test="table-controls-call-button"]`).simulate("click");
 
-    // Sends fold to the GUI
+    // Sends Call to the GUI
     expect(bet).toHaveBeenCalled();
     expect(bet).toHaveBeenCalledTimes(1);
     expect(bet).toHaveBeenCalledWith("player1", 100, state, expect.anything());
 
-    // Sends call to the backend
+    // Sends Call to the backend
     expect(sendMessage).toHaveBeenCalled();
     expect(sendMessage).toHaveBeenCalledTimes(1);
     expect(sendMessage).toHaveBeenCalledWith(
@@ -237,12 +237,12 @@ describe("Button clicks", () => {
 
     wrapper.find(`[data-test="table-controls-raise-button"]`).simulate("click");
 
-    // Sends fold to the GUI
+    // Sends Raise to the GUI
     expect(bet).toHaveBeenCalled();
     expect(bet).toHaveBeenCalledTimes(1);
     expect(bet).toHaveBeenCalledWith("player1", 50, state, expect.anything());
 
-    // Sends call to the backend
+    // Sends Raise to the backend
     expect(sendMessage).toHaveBeenCalled();
     expect(sendMessage).toHaveBeenCalledTimes(1);
     expect(sendMessage).toHaveBeenCalledWith(
@@ -261,7 +261,7 @@ describe("Button clicks", () => {
     expect(showControls).toHaveBeenCalledWith(false, expect.anything());
   });
 
-  test("handles AllIn button when clicked", () => {
+  test("handles All-In button when clicked", () => {
     const state = testState;
     state.controls.showControls = true;
     state.userSeat = "player1";
@@ -274,12 +274,12 @@ describe("Button clicks", () => {
 
     wrapper.find(`[data-test="table-controls-raise-button"]`).simulate("click");
 
-    // Sends fold to the GUI
+    // Sends All-In to the GUI
     expect(bet).toHaveBeenCalled();
     expect(bet).toHaveBeenCalledTimes(1);
     expect(bet).toHaveBeenCalledWith("player1", 200, state, expect.anything());
 
-    // Sends call to the backend
+    // Sends All-In to the backend
     expect(sendMessage).toHaveBeenCalled();
     expect(sendMessage).toHaveBeenCalledTimes(1);
     expect(sendMessage).toHaveBeenCalledWith(
