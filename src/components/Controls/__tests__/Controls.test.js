@@ -224,4 +224,77 @@ describe("Button clicks", () => {
     expect(showControls).toHaveBeenCalledTimes(1);
     expect(showControls).toHaveBeenCalledWith(false, expect.anything());
   });
+
+  test("handles Raise button when clicked", () => {
+    const state = testState;
+    state.showControls = true;
+    state.userSeat = "player1";
+    state.minRaiseTo = 50;
+    state.controls.canCheck = false;
+    state.players.player1.betAmount = 0;
+
+    const wrapper = buildWrapper(state);
+
+    wrapper.find(`[data-test="table-controls-raise-button"]`).simulate("click");
+
+    // Sends fold to the GUI
+    expect(bet).toHaveBeenCalled();
+    expect(bet).toHaveBeenCalledTimes(1);
+    expect(bet).toHaveBeenCalledWith("player1", 50, state, expect.anything());
+
+    // Sends call to the backend
+    expect(sendMessage).toHaveBeenCalled();
+    expect(sendMessage).toHaveBeenCalledTimes(1);
+    expect(sendMessage).toHaveBeenCalledWith(
+      expect.objectContaining({
+        possibilities: [Possibilities.raise],
+        bet_amount: 50
+      }),
+      "player1",
+      state,
+      expect.anything()
+    );
+
+    // Hides the Controls
+    expect(showControls).toHaveBeenCalled();
+    expect(showControls).toHaveBeenCalledTimes(1);
+    expect(showControls).toHaveBeenCalledWith(false, expect.anything());
+  });
+
+  test("handles AllIn button when clicked", () => {
+    const state = testState;
+    state.showControls = true;
+    state.userSeat = "player1";
+    state.minRaiseTo = 200;
+    state.players.player1.chips = 200;
+    state.controls.canCheck = false;
+    state.players.player1.betAmount = 0;
+
+    const wrapper = buildWrapper(state);
+
+    wrapper.find(`[data-test="table-controls-raise-button"]`).simulate("click");
+
+    // Sends fold to the GUI
+    expect(bet).toHaveBeenCalled();
+    expect(bet).toHaveBeenCalledTimes(1);
+    expect(bet).toHaveBeenCalledWith("player1", 200, state, expect.anything());
+
+    // Sends call to the backend
+    expect(sendMessage).toHaveBeenCalled();
+    expect(sendMessage).toHaveBeenCalledTimes(1);
+    expect(sendMessage).toHaveBeenCalledWith(
+      expect.objectContaining({
+        possibilities: [Possibilities.allIn],
+        bet_amount: 200
+      }),
+      "player1",
+      state,
+      expect.anything()
+    );
+
+    // Hides the Controls
+    expect(showControls).toHaveBeenCalled();
+    expect(showControls).toHaveBeenCalledTimes(1);
+    expect(showControls).toHaveBeenCalledWith(false, expect.anything());
+  });
 });
