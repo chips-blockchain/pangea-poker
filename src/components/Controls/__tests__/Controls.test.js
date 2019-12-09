@@ -1,18 +1,23 @@
 import React from "react";
 import { mount } from "enzyme";
 import Controls from "../Controls";
-import { StateContext } from "../../../store/context";
+import { StateContext, DispatchContext } from "../../../store/context";
 import testState from "../../../store/testState";
+import * as actions from "../../../store/actions";
+import { Possibilities } from "../../../lib/constants";
 
-describe("Controls", () => {
-  const buildWrapper = stateToTest => {
-    return mount(
+const buildWrapper = stateToTest => {
+  const dispatch = jest.fn();
+  return mount(
+    <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={stateToTest}>
         <Controls />
       </StateContext.Provider>
-    );
-  };
+    </DispatchContext.Provider>
+  );
+};
 
+describe("Controls", () => {
   test("displays all the controls by default", () => {
     const state = testState;
     const wrapper = buildWrapper(state);
@@ -116,5 +121,44 @@ describe("Controls", () => {
     expect(
       wrapper.find(`[data-test="table-controls-raise-button"]`).text()
     ).toBe("All-In 200");
+  });
+});
+
+describe("Button clicks", () => {
+  jest.spyOn(actions, "fold");
+  jest.spyOn(actions, "sendMessage");
+  jest.spyOn(actions, "showControls");
+
+  const { fold, sendMessage, showControls } = actions;
+
+  test("handles Fold button when clicked", () => {
+    const state = testState;
+    state.showControls = true;
+    state.userSeat = "player1";
+    state.players.player1.betAmount = 0;
+
+    const wrapper = buildWrapper(state);
+
+    wrapper.find(`[data-test="table-controls-fold-button"]`).simulate("click");
+
+    // Sends fold to the GUI
+    expect(fold).toHaveBeenCalled();
+    expect(fold).toHaveBeenCalledTimes(1);
+    expect(fold).toHaveBeenCalledWith("player1", expect.anything());
+
+    // Sends fold to the backend
+    expect(sendMessage).toHaveBeenCalled();
+    expect(sendMessage).toHaveBeenCalledTimes(1);
+    expect(sendMessage).toHaveBeenCalledWith(
+      expect.objectContaining({ possibilities: [Possibilities.fold] }),
+      "player1",
+      state,
+      expect.anything()
+    );
+
+    // Hides the Controls
+    expect(showControls).toHaveBeenCalled();
+    expect(showControls).toHaveBeenCalledTimes(1);
+    expect(showControls).toHaveBeenCalledWith(false, expect.anything());
   });
 });
