@@ -19,7 +19,7 @@ const buildWrapper = stateToTest => {
 
 describe("Controls", () => {
   test("displays all the controls by default", () => {
-    const state = testState;
+    const state = { ...testState };
     const wrapper = buildWrapper(state);
 
     expect(
@@ -44,9 +44,12 @@ describe("Controls", () => {
   });
 
   test("shows the Call button and the call amount", () => {
-    const state = testState;
-    state.toCall = 100;
-    state.controls.canCheck = false;
+    const state = {
+      ...testState,
+      toCall: 100,
+      controls: { ...testState.controls, canCheck: false }
+    };
+
     const wrapper = buildWrapper(state);
 
     expect(
@@ -58,9 +61,11 @@ describe("Controls", () => {
   });
 
   test("shows the Raise button with the amount when Raise is not All-In", () => {
-    const state = testState;
-    state.minRaiseTo = 100;
-    state.controls.canRaise = true;
+    const state = {
+      ...testState,
+      minRaiseTo: 100,
+      controls: { ...testState.controls, canRaise: true }
+    };
     const wrapper = buildWrapper(state);
 
     expect(
@@ -72,9 +77,11 @@ describe("Controls", () => {
   });
 
   test("shows the Check button instead of the Call button", () => {
-    const state = testState;
-    state.toCall = 100;
-    state.controls.canCheck = true;
+    const state = {
+      ...testState,
+      toCall: 100,
+      controls: { ...testState.controls, canCheck: true }
+    };
     const wrapper = buildWrapper(state);
 
     expect(
@@ -86,8 +93,10 @@ describe("Controls", () => {
   });
 
   test("hides the Raise/All-In button", () => {
-    const state = testState;
-    state.controls.canRaise = false;
+    const state = {
+      ...testState,
+      controls: { ...testState.controls, canRaise: false }
+    };
     const wrapper = buildWrapper(state);
 
     expect(
@@ -97,11 +106,12 @@ describe("Controls", () => {
 
   test("shows All-In button instead of Raise button when raise would be an all in", () => {
     // The player's stack is 200
-    const state = testState;
-
-    // Minimum raise is more than the player's stack
-    state.minRaiseTo = 300;
-    state.controls.canRaise = true;
+    const state = {
+      ...testState,
+      // Minimum raise is more than the player's stack
+      minRaiseTo: 300,
+      controls: { ...testState.controls, canRaise: true }
+    };
     let wrapper = buildWrapper(state);
 
     expect(
@@ -134,10 +144,15 @@ describe("Button clicks", () => {
   const { bet, fold, sendMessage, setLastAction, showControls } = actions;
 
   test("handles Fold button when clicked", () => {
-    const state = testState;
-    state.controls.showControls = true;
-    state.userSeat = "player1";
-    state.players.player1.betAmount = 0;
+    const state = {
+      ...testState,
+      controls: { ...testState.controls, showControls: true },
+      userSeat: "player1",
+      players: {
+        ...testState.players,
+        player1: { ...testState.players.player1, betAmount: 0 }
+      }
+    };
 
     const wrapper = buildWrapper(state);
 
@@ -168,10 +183,15 @@ describe("Button clicks", () => {
   });
 
   test("handles Check button when clicked", () => {
-    const state = testState;
-    state.controls.showControls = true;
-    state.userSeat = "player1";
-    state.players.player1.betAmount = 0;
+    const state = {
+      ...testState,
+      controls: { ...testState.controls, showControls: true },
+      userSeat: "player1",
+      players: {
+        ...testState.players,
+        player1: { ...testState.players.player1, betAmount: 0 }
+      }
+    };
 
     const wrapper = buildWrapper(state);
 
@@ -199,12 +219,16 @@ describe("Button clicks", () => {
   });
 
   test("handles Call button when clicked", () => {
-    const state = testState;
-    state.controls.showControls = true;
-    state.userSeat = "player1";
-    state.controls.canCheck = false;
-    state.toCall = 100;
-    state.players.player1.betAmount = 0;
+    const state = {
+      ...testState,
+      controls: { ...testState.controls, showControls: true, canCheck: false },
+      userSeat: "player1",
+      players: {
+        ...testState.players,
+        player1: { ...testState.players.player1, betAmount: 0 }
+      },
+      toCall: 100
+    };
 
     const wrapper = buildWrapper(state);
 
@@ -238,12 +262,16 @@ describe("Button clicks", () => {
   });
 
   test("handles Raise button when clicked", () => {
-    const state = testState;
-    state.controls.showControls = true;
-    state.userSeat = "player1";
-    state.minRaiseTo = 50;
-    state.controls.canCheck = false;
-    state.players.player1.betAmount = 0;
+    const state = {
+      ...testState,
+      controls: { ...testState.controls, showControls: true, canCheck: false },
+      userSeat: "player1",
+      players: {
+        ...testState.players,
+        player1: { ...testState.players.player1, betAmount: 0 }
+      },
+      minRaiseTo: 50
+    };
 
     const wrapper = buildWrapper(state);
 
@@ -277,13 +305,16 @@ describe("Button clicks", () => {
   });
 
   test("handles All-In button when clicked", () => {
-    const state = testState;
-    state.controls.showControls = true;
-    state.userSeat = "player1";
-    state.minRaiseTo = 200;
-    state.players.player1.chips = 200;
-    state.controls.canCheck = false;
-    state.players.player1.betAmount = 0;
+    const state = {
+      ...testState,
+      controls: { ...testState.controls, showControls: true, canCheck: false },
+      userSeat: "player1",
+      players: {
+        ...testState.players,
+        player1: { ...testState.players.player1, betAmount: 0 }
+      },
+      minRaiseTo: 200
+    };
 
     const wrapper = buildWrapper(state);
 
