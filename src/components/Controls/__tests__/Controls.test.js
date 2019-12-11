@@ -6,11 +6,12 @@ import testState from "../../../store/testState";
 import * as actions from "../../../store/actions";
 import { Possibilities } from "../../../lib/constants";
 
-const buildWrapper = stateToTest => {
-  const dispatch = jest.fn();
+const dispatch = jest.fn();
+
+const buildWrapper = (dispatch, state) => {
   return mount(
     <DispatchContext.Provider value={dispatch}>
-      <StateContext.Provider value={stateToTest}>
+      <StateContext.Provider value={state}>
         <Controls />
       </StateContext.Provider>
     </DispatchContext.Provider>
@@ -20,7 +21,7 @@ const buildWrapper = stateToTest => {
 describe("Controls", () => {
   test("displays all the controls by default", () => {
     const state = { ...testState };
-    const wrapper = buildWrapper(state);
+    const wrapper = buildWrapper(dispatch, state);
 
     expect(
       wrapper.find(`[data-test="table-controls-half-pot-button"]`)
@@ -50,7 +51,7 @@ describe("Controls", () => {
       controls: { ...testState.controls, canCheck: false }
     };
 
-    const wrapper = buildWrapper(state);
+    const wrapper = buildWrapper(dispatch, state);
 
     expect(
       wrapper.find(`[data-test="table-controls-call-button"]`)
@@ -66,7 +67,7 @@ describe("Controls", () => {
       minRaiseTo: 100,
       controls: { ...testState.controls, canRaise: true }
     };
-    const wrapper = buildWrapper(state);
+    const wrapper = buildWrapper(dispatch, state);
 
     expect(
       wrapper.find(`[data-test="table-controls-raise-button"]`)
@@ -82,7 +83,7 @@ describe("Controls", () => {
       toCall: 100,
       controls: { ...testState.controls, canCheck: true }
     };
-    const wrapper = buildWrapper(state);
+    const wrapper = buildWrapper(dispatch, state);
 
     expect(
       wrapper.find(`[data-test="table-controls-check-button"]`)
@@ -97,7 +98,7 @@ describe("Controls", () => {
       ...testState,
       controls: { ...testState.controls, canRaise: false }
     };
-    const wrapper = buildWrapper(state);
+    const wrapper = buildWrapper(dispatch, state);
 
     expect(
       wrapper.find(`[data-test="table-controls-raise-button"]`)
@@ -112,7 +113,7 @@ describe("Controls", () => {
       minRaiseTo: 300,
       controls: { ...testState.controls, canRaise: true }
     };
-    let wrapper = buildWrapper(state);
+    let wrapper = buildWrapper(dispatch, state);
 
     expect(
       wrapper.find(`[data-test="table-controls-raise-button"]`)
@@ -123,7 +124,7 @@ describe("Controls", () => {
 
     // Minimum raise is equals the player's stack
     state.minRaiseTo = 200;
-    wrapper = buildWrapper(state);
+    wrapper = buildWrapper(dispatch, state);
 
     expect(
       wrapper.find(`[data-test="table-controls-raise-button"]`)
@@ -154,17 +155,17 @@ describe("Button clicks", () => {
       }
     };
 
-    const wrapper = buildWrapper(state);
+    const wrapper = buildWrapper(dispatch, state);
 
     wrapper.find(`[data-test="table-controls-fold-button"]`).simulate("click");
 
     // Sends Fold to the GUI
     expect(fold).toHaveBeenCalled();
     expect(fold).toHaveBeenCalledTimes(1);
-    expect(fold).toHaveBeenCalledWith("player1", expect.anything());
+    expect(fold).toHaveBeenCalledWith("player1", dispatch);
     expect(setLastAction).toHaveBeenCalled();
     expect(setLastAction).toHaveBeenCalledTimes(1);
-    expect(setLastAction).toHaveBeenCalledWith(0, "FOLD", expect.anything());
+    expect(setLastAction).toHaveBeenCalledWith(0, "FOLD", dispatch);
 
     // Sends Fold to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -173,13 +174,13 @@ describe("Button clicks", () => {
       expect.objectContaining({ possibilities: [Possibilities.fold] }),
       "player1",
       state,
-      expect.anything()
+      dispatch
     );
 
     // Hides the Controls
     expect(showControls).toHaveBeenCalled();
     expect(showControls).toHaveBeenCalledTimes(1);
-    expect(showControls).toHaveBeenCalledWith(false, expect.anything());
+    expect(showControls).toHaveBeenCalledWith(false, dispatch);
   });
 
   test("handles Check button when clicked", () => {
@@ -193,14 +194,14 @@ describe("Button clicks", () => {
       }
     };
 
-    const wrapper = buildWrapper(state);
+    const wrapper = buildWrapper(dispatch, state);
 
     wrapper.find(`[data-test="table-controls-check-button"]`).simulate("click");
 
     // Send Check to the GUI
     expect(setLastAction).toHaveBeenCalled();
     expect(setLastAction).toHaveBeenCalledTimes(1);
-    expect(setLastAction).toHaveBeenCalledWith(0, "CHECK", expect.anything());
+    expect(setLastAction).toHaveBeenCalledWith(0, "CHECK", dispatch);
 
     // Sends Check to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -209,13 +210,13 @@ describe("Button clicks", () => {
       expect.objectContaining({ possibilities: [Possibilities.check] }),
       "player1",
       state,
-      expect.anything()
+      dispatch
     );
 
     // Hides the Controls
     expect(showControls).toHaveBeenCalled();
     expect(showControls).toHaveBeenCalledTimes(1);
-    expect(showControls).toHaveBeenCalledWith(false, expect.anything());
+    expect(showControls).toHaveBeenCalledWith(false, dispatch);
   });
 
   test("handles Call button when clicked", () => {
@@ -230,17 +231,17 @@ describe("Button clicks", () => {
       toCall: 100
     };
 
-    const wrapper = buildWrapper(state);
+    const wrapper = buildWrapper(dispatch, state);
 
     wrapper.find(`[data-test="table-controls-call-button"]`).simulate("click");
 
     // Sends Call to the GUI
     expect(bet).toHaveBeenCalled();
     expect(bet).toHaveBeenCalledTimes(1);
-    expect(bet).toHaveBeenCalledWith("player1", 100, state, expect.anything());
+    expect(bet).toHaveBeenCalledWith("player1", 100, state, dispatch);
     expect(setLastAction).toHaveBeenCalled();
     expect(setLastAction).toHaveBeenCalledTimes(1);
-    expect(setLastAction).toHaveBeenCalledWith(0, "CALL", expect.anything());
+    expect(setLastAction).toHaveBeenCalledWith(0, "CALL", dispatch);
 
     // Sends Call to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -252,13 +253,13 @@ describe("Button clicks", () => {
       }),
       "player1",
       state,
-      expect.anything()
+      dispatch
     );
 
     // Hides the Controls
     expect(showControls).toHaveBeenCalled();
     expect(showControls).toHaveBeenCalledTimes(1);
-    expect(showControls).toHaveBeenCalledWith(false, expect.anything());
+    expect(showControls).toHaveBeenCalledWith(false, dispatch);
   });
 
   test("handles Raise button when clicked", () => {
@@ -273,17 +274,17 @@ describe("Button clicks", () => {
       minRaiseTo: 50
     };
 
-    const wrapper = buildWrapper(state);
+    const wrapper = buildWrapper(dispatch, state);
 
     wrapper.find(`[data-test="table-controls-raise-button"]`).simulate("click");
 
     // Sends Raise to the GUI
     expect(bet).toHaveBeenCalled();
     expect(bet).toHaveBeenCalledTimes(1);
-    expect(bet).toHaveBeenCalledWith("player1", 50, state, expect.anything());
+    expect(bet).toHaveBeenCalledWith("player1", 50, state, dispatch);
     expect(setLastAction).toHaveBeenCalled();
     expect(setLastAction).toHaveBeenCalledTimes(1);
-    expect(setLastAction).toHaveBeenCalledWith(0, "RAISE", expect.anything());
+    expect(setLastAction).toHaveBeenCalledWith(0, "RAISE", dispatch);
 
     // Sends Raise to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -295,13 +296,13 @@ describe("Button clicks", () => {
       }),
       "player1",
       state,
-      expect.anything()
+      dispatch
     );
 
     // Hides the Controls
     expect(showControls).toHaveBeenCalled();
     expect(showControls).toHaveBeenCalledTimes(1);
-    expect(showControls).toHaveBeenCalledWith(false, expect.anything());
+    expect(showControls).toHaveBeenCalledWith(false, dispatch);
   });
 
   test("handles All-In button when clicked", () => {
@@ -316,17 +317,17 @@ describe("Button clicks", () => {
       minRaiseTo: 200
     };
 
-    const wrapper = buildWrapper(state);
+    const wrapper = buildWrapper(dispatch, state);
 
     wrapper.find(`[data-test="table-controls-raise-button"]`).simulate("click");
 
     // Sends All-In to the GUI
     expect(bet).toHaveBeenCalled();
     expect(bet).toHaveBeenCalledTimes(1);
-    expect(bet).toHaveBeenCalledWith("player1", 200, state, expect.anything());
+    expect(bet).toHaveBeenCalledWith("player1", 200, state, dispatch);
     expect(setLastAction).toHaveBeenCalled();
     expect(setLastAction).toHaveBeenCalledTimes(1);
-    expect(setLastAction).toHaveBeenCalledWith(0, "ALL-IN", expect.anything());
+    expect(setLastAction).toHaveBeenCalledWith(0, "ALL-IN", dispatch);
 
     // Sends All-In to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -338,12 +339,12 @@ describe("Button clicks", () => {
       }),
       "player1",
       state,
-      expect.anything()
+      dispatch
     );
 
     // Hides the Controls
     expect(showControls).toHaveBeenCalled();
     expect(showControls).toHaveBeenCalledTimes(1);
-    expect(showControls).toHaveBeenCalledWith(false, expect.anything());
+    expect(showControls).toHaveBeenCalledWith(false, dispatch);
   });
 });
