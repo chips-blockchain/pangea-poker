@@ -4,7 +4,7 @@ import Controls from "../Controls";
 import { StateContext, DispatchContext } from "../../../store/context";
 import testState from "../../../store/testState";
 import * as actions from "../../../store/actions";
-import { Possibilities } from "../../../lib/constants";
+import { Possibilities, PlayerActions } from "../../../lib/constants";
 
 const dispatch = jest.fn();
 
@@ -165,7 +165,7 @@ describe("Button clicks", () => {
     expect(fold).toHaveBeenCalledWith("player1", dispatch);
     expect(setLastAction).toHaveBeenCalled();
     expect(setLastAction).toHaveBeenCalledTimes(1);
-    expect(setLastAction).toHaveBeenCalledWith(0, "FOLD", dispatch);
+    expect(setLastAction).toHaveBeenCalledWith(0, PlayerActions.fold, dispatch);
 
     // Sends Fold to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -241,7 +241,7 @@ describe("Button clicks", () => {
     expect(bet).toHaveBeenCalledWith("player1", 100, state, dispatch);
     expect(setLastAction).toHaveBeenCalled();
     expect(setLastAction).toHaveBeenCalledTimes(1);
-    expect(setLastAction).toHaveBeenCalledWith(0, "CALL", dispatch);
+    expect(setLastAction).toHaveBeenCalledWith(0, PlayerActions.call, dispatch);
 
     // Sends Call to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -284,7 +284,11 @@ describe("Button clicks", () => {
     expect(bet).toHaveBeenCalledWith("player1", 50, state, dispatch);
     expect(setLastAction).toHaveBeenCalled();
     expect(setLastAction).toHaveBeenCalledTimes(1);
-    expect(setLastAction).toHaveBeenCalledWith(0, "RAISE", dispatch);
+    expect(setLastAction).toHaveBeenCalledWith(
+      0,
+      PlayerActions.raise,
+      dispatch
+    );
 
     // Sends Raise to the backend
     expect(sendMessage).toHaveBeenCalled();
@@ -327,7 +331,11 @@ describe("Button clicks", () => {
     expect(bet).toHaveBeenCalledWith("player1", 200, state, dispatch);
     expect(setLastAction).toHaveBeenCalled();
     expect(setLastAction).toHaveBeenCalledTimes(1);
-    expect(setLastAction).toHaveBeenCalledWith(0, "ALL-IN", dispatch);
+    expect(setLastAction).toHaveBeenCalledWith(
+      0,
+      PlayerActions.allIn,
+      dispatch
+    );
 
     // Sends All-In to the backend
     expect(sendMessage).toHaveBeenCalled();

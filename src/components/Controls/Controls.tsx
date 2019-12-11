@@ -14,7 +14,7 @@ import {
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import { IMessage } from "../Game/onMessage";
-import { Possibilities } from "../../lib/constants";
+import { Possibilities, PlayerActions } from "../../lib/constants";
 
 // This component displays all the controls (buttons and slider) at the bottom left
 // when the player is active
@@ -89,7 +89,7 @@ const Controls: React.FunctionComponent = () => {
         bet(player, amount, state, dispatch);
         log(
           `${player} raises to ${amount} ${
-            lastAction === "ALL-IN" ? "and is All-in" : ""
+            lastAction === PlayerActions.allIn ? "and is All-in" : ""
           }`,
           "info"
         );
@@ -174,7 +174,12 @@ const Controls: React.FunctionComponent = () => {
       <Button
         label="Fold"
         onClick={() =>
-          handleButtonClick(Possibilities.fold, userSeat, null, "FOLD")
+          handleButtonClick(
+            Possibilities.fold,
+            userSeat,
+            null,
+            PlayerActions.fold
+          )
         }
         data-test="table-controls-fold-button"
       />
@@ -188,13 +193,13 @@ const Controls: React.FunctionComponent = () => {
                 Possibilities.check,
                 userSeat,
                 callAmount,
-                "CHECK"
+                PlayerActions.check
               )
             : handleButtonClick(
                 Possibilities.call,
                 userSeat,
                 callAmount,
-                "CALL"
+                PlayerActions.call
               )
         }
         data-test={`table-controls-${canCheck ? "check" : "call"}-button`}
@@ -214,13 +219,13 @@ const Controls: React.FunctionComponent = () => {
                   Possibilities.allIn,
                   userSeat,
                   totalStack,
-                  "ALL-IN"
+                  PlayerActions.allIn
                 )
               : handleButtonClick(
                   Possibilities.raise,
                   userSeat,
                   raiseAmount,
-                  "RAISE"
+                  PlayerActions.raise
                 )
           }
           data-test="table-controls-raise-button"
