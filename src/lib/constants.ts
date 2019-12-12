@@ -7,3 +7,13 @@ export enum Possibilities {
   "allIn" = 6,
   "fold" = 7
 }
+
+export enum PlayerActions {
+  fold = "FOLD",
+  check = "CHDCK",
+  raise = "RAISE",
+  call = "CALL",
+  smallBlind = "SMALL BLIND",
+  bigBlind = "BIG BLIND",
+  allIn = "ALL-IN"
+}

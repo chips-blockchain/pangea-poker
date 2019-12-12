@@ -14,7 +14,7 @@ import {
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import { IMessage } from "../Game/onMessage";
-import { Possibilities } from "../../lib/constants";
+import { Possibilities, PlayerActions } from "../../lib/constants";
 
 // This component displays all the controls (buttons and slider) at the bottom left
 // when the player is active
@@ -68,28 +68,44 @@ const Controls: React.FunctionComponent = () => {
     let nextAction: IMessage = lastMessage;
     nextAction.playerid = playerStringToId(player);
 
-    // Check
-    if (amount === 0) {
-      log(`${player} checks`, "info");
+    // Match action to possibilities
+    switch (action) {
+      // Check
+      case Possibilities.check:
+        log(`${player} checks`, "info");
+        break;
+
       // Call
-    } else if (amount + betAmount === toCall) {
-      nextAction.bet_amount = amount + betAmount;
-      bet(player, amount + betAmount, state, dispatch);
-      log(`${player} calls ${amount}`, "info");
+      case Possibilities.call:
+        nextAction.bet_amount = amount + betAmount;
+        bet(player, amount + betAmount, state, dispatch);
+        log(`${player} calls ${amount}`, "info");
+        break;
+
       // Raise
-    } else if (amount > toCall) {
-      nextAction.bet_amount = amount;
-      bet(player, amount, state, dispatch);
-      log(
-        `${player} raises to ${amount} ${lastAction === "ALL-IN" &&
-          " and is All-in"}`,
-        "info"
-      );
+      case Possibilities.raise:
+      case Possibilities.allIn:
+        nextAction.bet_amount = amount;
+        bet(player, amount, state, dispatch);
+        log(
+          `${player} raises to ${amount} ${
+            lastAction === PlayerActions.allIn ? "and is All-in" : ""
+          }`,
+          "info"
+        );
+        break;
+
       // Fold
-    } else if (action === 7) {
-      fold(player, dispatch);
-      log(`${player} folds`, "info");
-    } else throw new Error("Something is wrong with the betamount.");
+      case Possibilities.fold:
+        fold(player, dispatch);
+        log(`${player} folds`, "info");
+        break;
+
+      // Error
+      default:
+        throw new Error(`Invalid possibility value: ${action}`);
+    }
+
     // Hide Controls
     showControls(false, dispatch);
     // Update the player's name with the last action
@@ -158,7 +174,12 @@ const Controls: React.FunctionComponent = () => {
       <Button
         label="Fold"
         onClick={() =>
-          handleButtonClick(Possibilities.fold, userSeat, null, "FOLD")
+          handleButtonClick(
+            Possibilities.fold,
+            userSeat,
+            null,
+            PlayerActions.fold
+          )
         }
         data-test="table-controls-fold-button"
       />
@@ -172,16 +193,16 @@ const Controls: React.FunctionComponent = () => {
                 Possibilities.check,
                 userSeat,
                 callAmount,
-                "CHECK"
+                PlayerActions.check
               )
             : handleButtonClick(
                 Possibilities.call,
                 userSeat,
                 callAmount,
-                "CALL"
+                PlayerActions.call
               )
         }
-        data-test="table-controls-check/call-button"
+        data-test={`table-controls-${canCheck ? "check" : "call"}-button`}
       />
       {/* Raise/All-In Button */}
       {canRaise && (
@@ -198,13 +219,13 @@ const Controls: React.FunctionComponent = () => {
                   Possibilities.allIn,
                   userSeat,
                   totalStack,
-                  "ALL-IN"
+                  PlayerActions.allIn
                 )
               : handleButtonClick(
                   Possibilities.raise,
                   userSeat,
                   raiseAmount,
-                  "RAISE"
+                  PlayerActions.raise
                 )
           }
           data-test="table-controls-raise-button"
