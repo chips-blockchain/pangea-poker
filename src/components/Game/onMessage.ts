@@ -267,11 +267,13 @@ export const onMessage_player = (
         case "check":
           setLastAction(guiPlayer, "check", dispatch);
           addToHandHistory(`Player${guiPlayer + 1} checks.`, dispatch);
+          setActivePlayer(null, dispatch);
           break;
         case "call":
           bet(guiPlayer, betAmount, state, dispatch);
           setLastAction(guiPlayer, "call", dispatch);
           addToHandHistory(`Player${guiPlayer + 1} calls.`, dispatch);
+          setActivePlayer(null, dispatch);
           break;
         case "raise":
           bet(guiPlayer, betAmount, state, dispatch);
@@ -280,11 +282,13 @@ export const onMessage_player = (
             `Player${guiPlayer + 1} raises to ${betAmount}.`,
             dispatch
           );
+          setActivePlayer(null, dispatch);
           break;
         case "fold":
           fold(`player${guiPlayer + 1}`, dispatch);
           setLastAction(guiPlayer, "fold", dispatch);
           addToHandHistory(`Player${guiPlayer + 1} folds.`, dispatch);
+          setActivePlayer(null, dispatch);
           break;
 
         case "allin":
@@ -295,6 +299,7 @@ export const onMessage_player = (
             `Player${guiPlayer + 1} is All-In with ${betAmount}.`,
             dispatch
           );
+          setActivePlayer(null, dispatch);
           break;
 
         default:
