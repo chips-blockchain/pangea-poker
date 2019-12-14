@@ -8,9 +8,18 @@ import useInterval from "../../lib/useInterval";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../../store/context";
-import { playerJoin } from "../../store/actions";
+import {
+  playerJoin,
+  showControls,
+  setLastAction,
+  sendMessage,
+  setActivePlayer
+} from "../../store/actions";
 import playerIdToString from "../../lib/playerIdToString";
+import playerStringToId from "../../lib/playerStringToId";
 import { IPlayer, IState } from "../../store/initialState";
+import { IMessage } from "../Game/onMessage";
+import { Possibilities, PlayerActions } from "../../lib/constants";
 
 // This is the Player widget that shows the player avatar, the chips amount, wether the player has cards, etc
 
@@ -35,38 +44,47 @@ const Player: React.FunctionComponent<IProps> = ({
   const state: IState = useContext(StateContext);
 
   const {
+    activePlayer,
     cardsDealt,
+    controls,
     gameTurn,
     holeCards,
     isShowDown,
     lastAction,
+    lastMessage,
     seats,
     userSeat
   } = state;
-  // Miliseconds for each active player to act
-  let timeAllowance = 30000;
 
   const [seatMessage, setSeatMessage] = useState("SIT HERE");
-  const [timeLeftToAct, setTimeLeftToAct] = useState(timeAllowance);
-  const [percentLeft, setPercentLeft] = useState(100);
   const [userAvatar, setUserAvater] = useState(randomEmoji());
   const [userName, setUserName] = useState({
     text: seat,
     color: theme.moon.colors.superLightGray
   });
 
+  // Calculate which widget is the current player
   const isUserSeat = userSeat === seat;
 
-  // Rules to change the colors
+  // Player Animation Setup
+
+  // Time Allowance for each player to act in milliseconds
+  const timeAllowance = 30000;
+
+  // Transition speed for the timer animation in seconds
+  const transitionSpeed = 0.1;
+
+  // State for counting the seconds
+  const [secondsLeft, setSecondsLeft] = useState(timeAllowance);
+
+  // Styles
+
+  // Rules to change the colors when the time is low
   const colorChange = () => {
-    return percentLeft > 75
-      ? theme.moon.colors.primary
-      : percentLeft > 25
+    return secondsLeft > timeAllowance * 0.25
       ? theme.moon.colors.accent
       : theme.moon.colors.danger;
   };
-
-  const transitionSpeed = "0";
 
   const Balance = styled.div`
     color: ${theme.moon.colors.primaryLight};
@@ -99,7 +117,7 @@ const Player: React.FunctionComponent<IProps> = ({
     box-sizing: border-box;
     box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.1);
     /* ${isActive && "border: 2px solid " + colorChange() + ";"} */
-    border: 2px solid ${isActive ? theme.moon.colors.accent : "transparent"};
+    border: 2px solid ${isActive ? colorChange() : "transparent"};
     ${connected && "grid-template-columns: 1fr 0.5fr;"}
     height: 100%;
     justify-content: center;
@@ -133,53 +151,56 @@ const Player: React.FunctionComponent<IProps> = ({
     cursor: pointer;
   `;
 
-  // Timer Logic that has been disabled for now
+  // Player Timer
 
-  // // Set deadline for the to active player
-  // let deadlineToAct = new Date();
-  // deadlineToAct.setSeconds(deadlineToAct.getSeconds() + timeLeftToAct / 1000);
+  // Timer
+  useEffect(() => {
+    if (activePlayer) {
+      // Reset time allowance
+      setSecondsLeft(timeAllowance);
 
-  // // Countdown
-  // useInterval(
-  //   () => {
-  //     const now = new Date().getTime();
-  //     if (timeLeftToAct > 0) {
-  //       let timeLeft = Math.floor(deadlineToAct - now);
-  //       setTimeLeftToAct(Math.max(0, timeLeft));
-  //     }
-  //   },
-  //   timeLeftToAct > 0 ? 1000 : null
-  // );
+      // Countdown
+      const interval = setInterval(() => {
+        setSecondsLeft(secondsLeft => secondsLeft - 100);
+      }, 100);
+      return () => clearInterval(interval);
+    }
+  }, [activePlayer]);
 
-  // // Function to execute when time is up
-  // useEffect(() => {
-  //   if (timeLeftToAct <= 0) {
-  //     setTimeout(() => {
-  //       setUserName({ text: "Fold", color: theme.moon.colors.accent });
-  //       // Have to use useReducer instead
-  //       // setPlayers({
-  //       //   ...players,
-  //       //   player5: {
-  //       //     isPlaying: true,
-  //       //     seat: "player5",
-  //       //     chips: 783900,
-  //       //     hasCards: false,
-  //       //     showCards: false,
-  //       //     isBetting: false,
-  //       //     betAmount: 27500
-  //       //   }
-  //       // });
-  //       console.log(seat + "'s time is up.");
-  //     }, 1500);
-  //   }
-  // }, []);
+  // Check or fold if time is up
+  useEffect(() => {
+    if (!secondsLeft) {
+      if (userSeat === activePlayer) {
+        const nextAction: IMessage = lastMessage;
+        nextAction.playerid = playerStringToId(userSeat);
 
-  // // Update the percentage of time left
-  // useEffect(() => {
-  //   setPercentLeft(
-  //     ((timeAllowance - (timeAllowance - timeLeftToAct)) / timeAllowance) * 100
-  //   );
-  // });
+        // The action that the player will be forced to take once the time is over
+        const action = controls.canCheck
+          ? Possibilities.check
+          : Possibilities.fold;
+
+        // The action that will be displayed on the player widget
+        const lastAction = controls.canCheck
+          ? PlayerActions.check
+          : PlayerActions.fold;
+
+        // Hide Controls
+        showControls(false, dispatch);
+
+        // Update the player's name with the last action
+        setLastAction(nextAction.playerid, lastAction, dispatch);
+
+        // Disable active player highlighting
+        setActivePlayer(null, dispatch);
+
+        // Send the message to the back-end
+        nextAction.possibilities = [action];
+        sendMessage(nextAction, userSeat, state, dispatch);
+      }
+
+      setActivePlayer(null, dispatch);
+    }
+  }, [secondsLeft]);
 
   return (
     <div
@@ -244,9 +265,8 @@ const Player: React.FunctionComponent<IProps> = ({
         </span>
         {connected && <PlayerEmoji>{userAvatar}</PlayerEmoji>}
       </PlayerInfo>
-      {/* The timer is temporarily disabled */}
       {/* Active player countdown */}
-      {/* {isActive && (
+      {isActive && (
         <div
           css={css`
             background: ${theme.moon.colors.background};
@@ -255,7 +275,7 @@ const Player: React.FunctionComponent<IProps> = ({
             margin: auto;
             position: relative;
             top: 2.875rem;
-            transition: ${transitionSpeed};
+            transition: ${transitionSpeed}s;
             width: 6.75rem;
           `}
         >
@@ -263,12 +283,12 @@ const Player: React.FunctionComponent<IProps> = ({
             css={css`
               background-color: ${colorChange()};
               height: 0.5rem;
-              width: ${percentLeft}%;
-              transition: ${transitionSpeed};
+              width: ${(secondsLeft / timeAllowance) * 100}%;
+              transition: ${transitionSpeed}s;
             `}
           />
         </div>
-      )} */}
+      )}
     </div>
   );
 };
