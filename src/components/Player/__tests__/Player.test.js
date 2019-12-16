@@ -32,7 +32,7 @@ const defaultProps = {
   connected: true,
   hasCards: true,
   isActive: true,
-  playerCards: ["Ac", "Ad"],
+  playerCards: [],
   seat: "player1",
   showCards: false,
   winner: "player1"
@@ -68,6 +68,49 @@ describe("Player", () => {
     expect(playerJoin).toHaveBeenCalled();
     expect(playerJoin).toHaveBeenCalledTimes(1);
     expect(playerJoin).toHaveBeenCalledWith(seat, state, dispatch);
+  });
+
+  test("shows the facedown cards", () => {
+    const state = {
+      ...testState,
+      userSeat: "player1"
+    };
+    const wrapper = buildWrapper(defaultProps, dispatch, state);
+
+    expect(wrapper.find(`CardFaceDown`).exists()).toEqual(true);
+    expect(wrapper.find(`CardFaceDown`)).toHaveLength(2);
+  });
+
+  test("shows the player cards", () => {
+    const state = {
+      ...testState,
+      cardsDealt: true,
+      userSeat: "player1",
+      holeCards: ["Ac", "Ad"]
+    };
+    const wrapper = buildWrapper(
+      { ...defaultProps, showCards: true },
+      dispatch,
+      state
+    );
+
+    expect(wrapper.find(`CardsWrapper`).exists()).toEqual(true);
+    expect(wrapper.find(`Card`).exists()).toEqual(true);
+    expect(wrapper.find(`Card`)).toHaveLength(2);
+    expect(
+      wrapper
+        .find(`Card`)
+        .at(0)
+        .html()
+        .includes(`Ac`)
+    ).toBe(true);
+    expect(
+      wrapper
+        .find(`Card`)
+        .at(1)
+        .html()
+        .includes(`Ad`)
+    ).toBe(true);
   });
 
   test("is highlighted when active", () => {
