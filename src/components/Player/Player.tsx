@@ -214,6 +214,7 @@ const Player: React.FunctionComponent<IProps> = ({
           setSeatMessage("SITTING...");
         }
       }}
+      data-test={`player-widget-${seat}`}
     >
       {cardsDealt && showCards && hasCards && (
         <CardsWrapper>
