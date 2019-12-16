@@ -278,6 +278,7 @@ const Player: React.FunctionComponent<IProps> = ({
             transition: ${transitionSpeed}s;
             width: 6.75rem;
           `}
+          data-test="player-highlight"
         >
           <div
             css={css`
@@ -286,6 +287,7 @@ const Player: React.FunctionComponent<IProps> = ({
               width: ${(secondsLeft / timeAllowance) * 100}%;
               transition: ${transitionSpeed}s;
             `}
+            data-test="player-timer-bar"
           />
         </div>
       )}
