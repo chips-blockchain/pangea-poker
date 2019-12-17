@@ -9,6 +9,7 @@ import {
   fold,
   log,
   sendMessage,
+  setActivePlayer,
   setLastAction,
   showControls
 } from "../../store/actions";
@@ -108,8 +109,13 @@ const Controls: React.FunctionComponent = () => {
 
     // Hide Controls
     showControls(false, dispatch);
+
+    // Disable active player highlighting
+    setActivePlayer(null, dispatch);
+
     // Update the player's name with the last action
     setLastAction(nextAction.playerid, lastAction, dispatch);
+
     // Send the message to the back-end
     nextAction.possibilities = [action];
     sendMessage(nextAction, userSeat, state, dispatch);
