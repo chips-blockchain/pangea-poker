@@ -1,197 +1,97 @@
 import { css } from "@emotion/core";
-import { useContext, useState, useEffect } from "react";
-import theme from "../../styles/theme";
-import { DispatchContext, StateContext } from "../../store/context";
-import Button from "../Controls/Button";
-import {
-  connectPlayer,
-  game,
-  updateStateValue,
-  setUserSeat
-} from "../../store/actions";
-import { IState } from "../../store/initialState";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Modal from "./Modal";
+import CustomIP from "./CustomIP";
+import TableSelect from "./TableSelect";
+import theme from "../../styles/theme";
 
-// This is the modal that appears at the startup and prompts the user to type in the
-// IP addresses for the nodes. Used for testing purposes only.
+// This is the modal that appears at the startup and let's the user to join a table
 
-const StartupModal = () => {
-  const dispatch: Function = useContext(DispatchContext);
-  const state: IState = useContext(StateContext);
-
-  interface INodesToInput {
-    name: "dcv" | "bvv" | "player1" | "player2";
-    id: "dealer" | "player1" | "player2";
-    type: "dealer" | "player";
-    devAddress: string;
+const tabsStyle = css`
+  .react-tabs {
+    -webkit-tap-highlight-color: transparent;
   }
 
-  const nodesToInput: INodesToInput[] = [
-    {
-      name: "dcv",
-      id: "dealer",
-      type: "dealer",
-      devAddress: process.env.DEV_SOCKET_URL_DCV
-    },
-    {
-      name: "bvv",
-      id: "dealer",
-      type: "dealer",
-      devAddress: process.env.DEV_SOCKET_URL_BVV
-    },
-    {
-      name: "player1",
-      id: "player1",
-      type: "player",
-      devAddress: process.env.DEV_SOCKET_URL_PLAYER1
-    },
-    {
-      name: "player2",
-      id: "player2",
-      type: "player",
-      devAddress: process.env.DEV_SOCKET_URL_PLAYER2
-    }
-  ];
-  const [nodes, setNodes] = useState({});
-  const [nodeType, setNodeType] = useState("");
-  const [canSetNodes, setCanSetNodes] = useState(false);
+  .react-tabs__tab-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0 0 10px;
+    padding: 0;
+  }
 
-  const closeStartupModal = () => {
-    dispatch({
-      type: "closeStartupModal"
-    });
-  };
+  .react-tabs__tab {
+    display: inline-block;
+    border-top: 2px solid transparent;
+    position: relative;
+    list-style: none;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
 
-  const hanldeTabClick: Function = (
-    e: React.FormEvent<EventTarget>,
-    nodeType: "dealer" | "player"
-  ): void => {
-    setNodes({});
-    e.preventDefault();
-    setNodeType(nodeType);
-  };
+  .react-tabs__tab:hover:not(.react-tabs__tab--selected) {
+    color: ${theme.moon.colors.accent};
+  }
 
-  const handleSubmit: Function = (): void => {
-    const isDealer = nodeType === "dealer";
-    const nodeTypeToSet: string = isDealer ? "dealer" : nodeType.slice(0, -1);
-    updateStateValue("nodes", nodes, dispatch);
-    updateStateValue("nodeType", nodeTypeToSet, dispatch);
+  .react-tabs__tab--selected {
+    border-top: 2px solid ${theme.moon.colors.primaryLight};
+    background: linear-gradient(
+      180deg,
+      rgba(109, 171, 171, 0.2) 0%,
+      rgba(109, 171, 171, 0) 100%
+    );
+  }
 
-    nodeTypeToSet === "player" &&
-      game({ gametype: "", pot: [0] }, state, dispatch);
-    setUserSeat(nodeType, dispatch);
-    const opponent = nodeType === "player1" ? "player2" : "player1";
-    !isDealer && connectPlayer(opponent, dispatch);
-    closeStartupModal();
-  };
+  .react-tabs__tab--disabled {
+    color: GrayText;
+    cursor: default;
+  }
 
-  const setDevNodeTypes = (node: "dealer" | "player1" | "player2") => {
-    switch (node) {
-      case "dealer":
-        setNodes({
-          dcv: process.env.DEV_SOCKET_URL_DCV,
-          bvv: process.env.DEV_SOCKET_URL_BVV
-        });
-        break;
-      case "player1":
-        setNodes({ player1: process.env.DEV_SOCKET_URL_PLAYER1 });
-        break;
-      case "player2":
-        setNodes({ player2: process.env.DEV_SOCKET_URL_PLAYER2 });
-        break;
-    }
-  };
+  .react-tabs__tab:focus {
+    box-shadow: 0 0 5px ${theme.moon.colors.primaryLight};
+    border-color: ${theme.moon.colors.primaryLight};
+    outline: none;
+  }
 
-  // Validates wether all four input fields have data
-  useEffect(() => {
-    nodeType === "dealer" &&
-      Object.keys(nodes).length === 2 &&
-      setCanSetNodes(true);
-    nodeType === "player1" &&
-      Object.keys(nodes).length === 1 &&
-      setCanSetNodes(true);
-    nodeType === "player2" &&
-      Object.keys(nodes).length === 1 &&
-      setCanSetNodes(true);
-  }, [nodes]);
+  .react-tabs__tab:focus:after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    left: -4px;
+    right: -4px;
+    bottom: -2px;
+    background: ${theme.moon.colors.primary};
+  }
 
+  .react-tabs__tab-panel {
+    display: none;
+  }
+
+  .react-tabs__tab-panel--selected {
+    display: block;
+  }
+`;
+
+const StartupModal = () => {
   return (
-    <Modal
-      title="Please enter the node addresses"
-      isDisabled={!canSetNodes}
-      handleSubmit={handleSubmit}
-    >
-      <div>
-        <Button
-          small
-          label="Dealer"
-          onClick={e => {
-            hanldeTabClick(e, "dealer");
-            process.env && setDevNodeTypes("dealer");
-          }}
-        />
-        <Button
-          small
-          label="Player1"
-          onClick={e => {
-            hanldeTabClick(e, "player1");
-            process.env && setDevNodeTypes("player1");
-          }}
-        />
-        <Button
-          small
-          label="Player2"
-          onClick={e => {
-            hanldeTabClick(e, "player2");
-            process.env && setDevNodeTypes("player2");
-          }}
-        />
-      </div>
-      <div id="Dealer" />
-      {nodesToInput
-        .filter(node => node.id === nodeType)
-        .map((node, key) => {
-          return (
-            <div key={key}>
-              {/* Label*/}
-              <div
-                css={css`
-                  color: ${theme.moon.colors.text};
-                  padding: 1rem 0 0.5rem 0;
-                  font-size: 0.875rem;
-                `}
-              >
-                {node.name}
-              </div>
-              {/* Input field */}
-              <input
-                css={css`
-                  background: none;
-                  border: 1px solid ${theme.moon.colors.primary};
-                  color: white;
-                  font-family: sans-serif;
-                  font-weight: 500;
-                  text-align: center;
-                  padding: 0.5rem 0.25rem;
-                  width: 100%;
+    <Modal>
+      {/* TabsWrapper */}
+      <Tabs css={tabsStyle}>
+        <TabList>
+          <Tab>Table List</Tab>
+          <Tab>Custom IP</Tab>
+        </TabList>
 
-                  &:focus {
-                    border: 1px solid ${theme.moon.colors.accent};
-                  }
-                `}
-                name={node.name}
-                placeholder={`192.168.101.234`}
-                defaultValue={process.env ? node.devAddress : ""}
-                onChange={e => {
-                  setNodes({
-                    ...nodes,
-                    [node.name]: e.target.value
-                  });
-                }}
-              />
-            </div>
-          );
-        })}
+        <TabPanel>
+          <TableSelect />
+        </TabPanel>
+        <TabPanel>
+          <CustomIP />
+        </TabPanel>
+      </Tabs>
     </Modal>
   );
 };
