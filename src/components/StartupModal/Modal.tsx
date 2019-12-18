@@ -36,7 +36,7 @@ const Modal: React.FunctionComponent = ({ children }) => {
           transform: translate(-50%, -50%);
           text-align: center;
           top: 50%;
-          padding: 2rem 5.5rem;
+          padding: 2rem 2rem;
           position: absolute;
           right: 0;
         `}
