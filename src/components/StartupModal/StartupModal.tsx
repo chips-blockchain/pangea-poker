@@ -75,7 +75,7 @@ const tabsStyle = css`
   }
 `;
 
-const StartupModal = () => {
+const StartupModal = ({ dispatch }) => {
   return (
     <Modal>
       {/* TabsWrapper */}
@@ -86,7 +86,7 @@ const StartupModal = () => {
         </TabList>
 
         <TabPanel>
-          <TableSelect />
+          <TableSelect dispatch={dispatch} />
         </TabPanel>
         <TabPanel>
           <CustomIP />
