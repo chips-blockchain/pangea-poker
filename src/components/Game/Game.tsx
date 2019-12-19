@@ -23,9 +23,9 @@ const Game: React.FunctionComponent = () => {
     message
   } = state;
 
-  const SOCKET_URL_DCV = `ws://${nodes.dcv}:9000`;
-  const SOCKET_URL_BVV = `ws://${nodes.bvv}:9000`;
-  const SOCKET_URL_PLAYER1 = `ws://${[Object.values(nodes)[0]]}:9000`;
+  const SOCKET_URL_DCV = `wss://${nodes.dcv}:9000`;
+  const SOCKET_URL_BVV = `wss://${nodes.bvv}:9000`;
+  const SOCKET_URL_PLAYER1 = `wss://${[Object.values(nodes)[0]]}:9000`;
 
   // const [webSocketKey, setWebSocketKey] = useState(0);
 
