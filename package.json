@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
-    "start": "NODE_ENV=development parcel src/index.html --open",
+    "start": "NODE_ENV=development parcel src/index.html --cert localhost-100y.cert --key localhost-100y.key --open",
     "test": "jest",
     "lint:fix": "eslint './src/**/*.{ts,tsx}'"
   },
