@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import theme from "../../styles/theme";
 
-const { background, primary, primaryLight, text } = theme.moon.colors;
+const { background, primary, primaryLight } = theme.moon.colors;
 
 const LogBoxSection = styled.section`
   background: ${background};
@@ -18,8 +18,8 @@ const LogBoxSection = styled.section`
 
 const Log = styled.div`
   color: ${primaryLight};
-  font-family: "PT Sans", serif;
-  /* TODO: Use less heavy font weights */
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
   font-size: 0.875rem;
   margin: 0.125rem;
 `;
