@@ -30,6 +30,7 @@ const Button: React.FunctionComponent<IProps> = ({
     border-radius: 0.125rem;
     color: ${text};
     font-size: ${small ? ".75rem" : "1rem"};
+    font-weight: 700;
     height: ${small ? "1.75rem" : "2.5rem"};
     margin: 0.125rem;
     opacity: ${disabled && "0.5"};
