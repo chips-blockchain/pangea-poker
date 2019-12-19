@@ -6,7 +6,7 @@ import { Button } from "../Controls";
 import { sendMessage } from "../../store/actions";
 import { IState } from "../../store/initialState";
 
-// This component is responsible for the WebSocket connections, as well as displaying the main Start button
+// This component is responsible for Secure WebSocket connections, as well as displaying the main Start button
 
 // For testing
 const SOCKET_URL_ECHO = "wss://echo.websocket.org";
