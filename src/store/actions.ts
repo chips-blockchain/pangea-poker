@@ -81,6 +81,13 @@ export const connectPlayer = (player: string, dispatch: Function): void => {
   });
 };
 
+// Closes the Startup Modal
+export const closeStartupModal = (dispatch: Function) => {
+  dispatch({
+    type: "closeStartupModal"
+  });
+};
+
 // Process the deal message from the backend. It's responsible for setting up the board cards.
 export const deal = (
   message: IMessage,

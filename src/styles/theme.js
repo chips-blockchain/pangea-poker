@@ -7,7 +7,8 @@ const theme = {
       primary: "#4D8484",
       primaryLight: "#6DABAB",
       text: "#ffffff",
-      superLightGray: "#eeeeee"
+      superLightGray: "#eeeeee",
+      darkGray: "#1e1f24"
     }
   }
 };

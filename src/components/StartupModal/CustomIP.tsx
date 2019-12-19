@@ -6,6 +6,7 @@ import { DispatchContext, StateContext } from "../../store/context";
 import Button from "../Controls/Button";
 import {
   connectPlayer,
+  closeStartupModal,
   game,
   updateStateValue,
   setUserSeat
@@ -53,12 +54,6 @@ const CustomIP = () => {
   const [nodeType, setNodeType] = useState("");
   const [canSetNodes, setCanSetNodes] = useState(false);
 
-  const closeStartupModal = () => {
-    dispatch({
-      type: "closeStartupModal"
-    });
-  };
-
   const hanldeTabClick: Function = (
     e: React.FormEvent<EventTarget>,
     nodeType: "dealer" | "player"
@@ -79,7 +74,7 @@ const CustomIP = () => {
     setUserSeat(nodeType, dispatch);
     const opponent = nodeType === "player1" ? "player2" : "player1";
     !isDealer && connectPlayer(opponent, dispatch);
-    closeStartupModal();
+    closeStartupModal(dispatch);
   };
 
   const setDevNodeTypes = (node: "dealer" | "player1" | "player2") => {
