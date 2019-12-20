@@ -150,7 +150,7 @@ const Table: React.FunctionComponent = () => {
           </div>
           <Backgrounds />
         </div>
-        {state.isStartupModal && <StartupModal />}
+        {state.isStartupModal && <StartupModal dispatch={dispatch} />}
       </StateContext.Provider>
     </DispatchContext.Provider>
   );
