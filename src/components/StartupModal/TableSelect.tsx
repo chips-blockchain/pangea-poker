@@ -6,6 +6,7 @@ import Button from "../Controls/Button";
 import {
   connectPlayer,
   closeStartupModal,
+  game,
   updateStateValue,
   setUserSeat
 } from "../../store/actions";
@@ -61,13 +62,13 @@ const TableArea = styled.div`
   overflow: scroll;
 `;
 
-const TableSelect = ({ dispatch }) => {
+const TableSelect = ({ dispatch, state }) => {
   const [tableList, setTalbeList] = useState([]);
   const [selectedTable, setSelectedTable] = useState();
 
   // API call to retrieve the list of tables
   useEffect(() => {
-    const endpoint = process.env.TABLE_LIST_ENDPOINT
+    const endpoint = process.env.TABLE_LIST_ENDPOINT;
 
     if (endpoint) {
       axios.get(endpoint).then(res => {
@@ -110,6 +111,9 @@ const TableSelect = ({ dispatch }) => {
 
     // Close the startup modal
     closeStartupModal(dispatch);
+
+    // Initialize game
+    game({ gametype: "", pot: [0] }, state, dispatch);
   };
 
   const isSelected = index => {
