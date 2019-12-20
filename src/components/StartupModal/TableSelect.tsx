@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import axios from "axios";
 import theme from "../../styles/theme";
 import Button from "../Controls/Button";
 import {
@@ -8,36 +9,6 @@ import {
   updateStateValue,
   setUserSeat
 } from "../../store/actions";
-
-// The table list is temporarily hardcoded
-const tableList: {
-  address: string;
-  gameType: string;
-  maxPlayers: number;
-  name: string;
-  players: number;
-  seat: string;
-  stakes: string;
-}[] = [
-  {
-    address: "78.141.203.106",
-    gameType: "NL Hold'Em",
-    maxPlayers: 2,
-    name: "Public Beta 1",
-    players: 0,
-    stakes: "1/2",
-    seat: "player1"
-  },
-  {
-    address: "217.69.12.238",
-    gameType: "NL Hold'Em",
-    maxPlayers: 2,
-    name: "Public Beta 2",
-    players: 0,
-    stakes: "1/2",
-    seat: "player2"
-  }
-];
 
 const ButtonWrapper = styled.div`
   text-align: center;
@@ -91,7 +62,23 @@ const TableArea = styled.div`
 `;
 
 const TableSelect = ({ dispatch }) => {
+  const [tableList, setTalbeList] = useState([]);
   const [selectedTable, setSelectedTable] = useState();
+
+  // API call to retrieve the list of tables
+  useEffect(() => {
+    const endpoint = process.env.TABLE_LIST_ENDPOINT
+
+    if (endpoint) {
+      axios.get(endpoint).then(res => {
+        const tables = res.data.sheet1;
+        setTalbeList(tables);
+      });
+    } else
+      console.warn(
+        "No Table List API endpoint has been specified in the .env file."
+      );
+  }, [process.env.endpoint]);
 
   const handleSelect = (index: number) => {
     setSelectedTable(tableList[index]);
