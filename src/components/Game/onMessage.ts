@@ -432,7 +432,6 @@ export const onMessage_player = (
 
     case "reset":
       setTimeout(() => {
-        setUserSeat(null, dispatch);
         nextHand(state, dispatch);
         playerJoin(player, state, dispatch);
       }, 3000);
