@@ -1,5 +1,6 @@
 import { css } from "@emotion/core";
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useState } from "react";
+import diff from "deep-diff";
 import theme from "../../styles/theme";
 import reducer from "../../store/reducer";
 import { StateContext, DispatchContext } from "../../store/context";
@@ -22,6 +23,7 @@ import LogBox from "../LogBox";
 // This is the current Main component
 
 const Table: React.FunctionComponent = () => {
+  const [previousState, setPreviousState] = useState();
   const [state, dispatch]: [IState, Function] = useReducer(
     reducer,
     initialState
@@ -46,11 +48,13 @@ const Table: React.FunctionComponent = () => {
     winner
   } = state;
 
-  // For debugging purposes log the state when it changes
-  // useEffect(() => {
-  //   console.log("The state has changed");
-  //   console.log(state);
-  // }, [state]);
+  // For debugging purposes log the difference betweeen the last and current state
+  useEffect(() => {
+    const difference = diff(previousState, state);
+    difference && difference.push(state);
+    console.log(difference);
+    setPreviousState(state);
+  }, [state]);
 
   return (
     <DispatchContext.Provider value={dispatch}>

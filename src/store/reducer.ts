@@ -133,29 +133,29 @@ const reducer: Function = (state: IState, action: IAction): object => {
       };
     }
     case "resetTurn": {
+      console.log("RESET TURN");
       return {
         ...state,
         chipsCollected: false,
         minRaiseTo: action.payload,
-        isShowDown: false,
+
         players: {
           ...state.players,
           player1: {
             ...state.players.player1,
             isBetting: false,
-            betAmount: 0,
-            playerCards: []
+            betAmount: 0
           },
           player2: {
             ...state.players.player2,
             isBetting: false,
-            betAmount: 0,
-            playerCards: []
+            betAmount: 0
           }
         }
       };
     }
     case "resetHand": {
+      console.log("RESET HAND");
       return {
         ...state,
         boardCards: [],
