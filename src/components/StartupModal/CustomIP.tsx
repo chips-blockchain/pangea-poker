@@ -54,7 +54,7 @@ const CustomIP = () => {
   const [nodeType, setNodeType] = useState("");
   const [canSetNodes, setCanSetNodes] = useState(false);
 
-  const hanldeTabClick: Function = (
+  const handleTabClick: Function = (
     e: React.FormEvent<EventTarget>,
     nodeType: "dealer" | "player"
   ): void => {
@@ -114,7 +114,7 @@ const CustomIP = () => {
           small
           label="Dealer"
           onClick={e => {
-            hanldeTabClick(e, "dealer");
+            handleTabClick(e, "dealer");
             process.env && setDevNodeTypes("dealer");
           }}
         />
@@ -122,7 +122,7 @@ const CustomIP = () => {
           small
           label="Player1"
           onClick={e => {
-            hanldeTabClick(e, "player1");
+            handleTabClick(e, "player1");
             process.env && setDevNodeTypes("player1");
           }}
         />
@@ -130,7 +130,7 @@ const CustomIP = () => {
           small
           label="Player2"
           onClick={e => {
-            hanldeTabClick(e, "player2");
+            handleTabClick(e, "player2");
             process.env && setDevNodeTypes("player2");
           }}
         />
