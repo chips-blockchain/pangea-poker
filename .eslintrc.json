@@ -12,9 +12,18 @@
     "jasmine": true,
     "jest": true
   },
+  "globals": {
+    "process": true
+  },
   "rules": {
     "prettier/prettier": ["error"],
-    "no-use-before-define": off
+    "react/jsx-no-bind": ["warn", { "allowArrowFunctions": false }],
+    "@typescript-eslint/interface-name-prefix": [
+      "error",
+      {
+        "prefixWithI": "always"
+      }
+    ]
   },
   "settings": {
     "react": {
