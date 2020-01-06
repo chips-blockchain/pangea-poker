@@ -102,7 +102,7 @@ const TableSelect = ({ dispatch, state }) => {
     );
 
     // Choose the player's seat
-    // TODO: Needs to be set later, when the palyer clicks on the Player Widget with "SIT HERE"
+    // TODO: Needs to be set later, when the player clicks on the Player Widget with "SIT HERE"
     setUserSeat(seat, dispatch);
 
     // Connect the opponent player
