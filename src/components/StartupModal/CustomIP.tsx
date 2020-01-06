@@ -14,7 +14,7 @@ import {
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
 
-const CustomIP = () => {
+const CustomIP: React.FunctionComponent = (): React.ReactElement => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
 
@@ -105,7 +105,7 @@ const CustomIP = () => {
     closeStartupModal(dispatch);
   };
 
-  const setDevNodeTypes = (node: "dealer" | "player1" | "player2") => {
+  const setDevNodeTypes = (node: "dealer" | "player1" | "player2"): void => {
     switch (node) {
       case "dealer":
         setNodes({
@@ -123,7 +123,7 @@ const CustomIP = () => {
   };
 
   // Validates wether all four input fields have data
-  useEffect(() => {
+  useEffect((): void => {
     nodeType === "dealer" &&
       Object.keys(nodes).length === 2 &&
       setCanSetNodes(true);
