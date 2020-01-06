@@ -1,5 +1,6 @@
 import React from "react";
 import { css } from "@emotion/core";
+import styled from "@emotion/styled";
 import { useContext, useState, useEffect } from "react";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../../store/context";
@@ -16,6 +17,33 @@ import { IState } from "../../store/initialState";
 const CustomIP = () => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
+
+  // Styles
+  const ButtonWrapper = styled.div`
+    text-align: center;
+    padding-top: 2rem;
+  `;
+
+  const inputStyle = css`
+    background: none;
+    border: 1px solid ${theme.moon.colors.primary};
+    color: white;
+    font-family: sans-serif;
+    font-weight: 500;
+    text-align: center;
+    padding: 0.5rem 0.25rem;
+    width: 100%;
+
+    &:focus {
+      border: 1px solid ${theme.moon.colors.accent};
+    }
+  `;
+
+  const Label = styled.div`
+    color: ${theme.moon.colors.text};
+    padding: 1rem 0 0.5rem 0;
+    font-size: 0.875rem;
+  `;
 
   interface INodesToInput {
     name: "dcv" | "bvv" | "player1" | "player2";
@@ -106,6 +134,7 @@ const CustomIP = () => {
       Object.keys(nodes).length === 1 &&
       setCanSetNodes(true);
   }, [nodes]);
+
   return (
     <form>
       <div>
@@ -141,32 +170,9 @@ const CustomIP = () => {
         .map((node, key) => {
           return (
             <div key={key}>
-              {/* Label*/}
-              <div
-                css={css`
-                  color: ${theme.moon.colors.text};
-                  padding: 1rem 0 0.5rem 0;
-                  font-size: 0.875rem;
-                `}
-              >
-                {node.name}
-              </div>
-              {/* Input field */}
+              <Label>{node.name}</Label>
               <input
-                css={css`
-                  background: none;
-                  border: 1px solid ${theme.moon.colors.primary};
-                  color: white;
-                  font-family: sans-serif;
-                  font-weight: 500;
-                  text-align: center;
-                  padding: 0.5rem 0.25rem;
-                  width: 100%;
-
-                  &:focus {
-                    border: 1px solid ${theme.moon.colors.accent};
-                  }
-                `}
+                css={inputStyle}
                 name={node.name}
                 placeholder={`192.168.101.234`}
                 defaultValue={process.env ? node.devAddress : ""}
@@ -180,12 +186,7 @@ const CustomIP = () => {
             </div>
           );
         })}
-      <div
-        css={css`
-          text-align: center;
-          padding-top: 2rem;
-        `}
-      >
+      <ButtonWrapper>
         <Button
           label="Set Nodes"
           disabled={!canSetNodes}
@@ -194,7 +195,7 @@ const CustomIP = () => {
             handleSubmit();
           }}
         />
-      </div>
+      </ButtonWrapper>
     </form>
   );
 };
