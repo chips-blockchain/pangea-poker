@@ -1,10 +1,11 @@
+import React from "react";
 import { css } from "@emotion/core";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Modal from "./Modal";
 import CustomIP from "./CustomIP";
 import TableSelect from "./TableSelect";
 import theme from "../../styles/theme";
-
+import { IState } from "../../store/initialState";
 // This is the modal that appears at the startup and let's the user to join a table
 
 const tabsStyle = css`
@@ -75,7 +76,15 @@ const tabsStyle = css`
   }
 `;
 
-const StartupModal = ({ dispatch, state }) => {
+interface IProps {
+  dispatch: Function;
+  state: IState;
+}
+
+const StartupModal: React.FunctionComponent<IProps> = ({
+  dispatch,
+  state
+}): React.ReactElement => {
   return (
     <Modal>
       {/* TabsWrapper */}
