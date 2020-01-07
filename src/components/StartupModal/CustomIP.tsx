@@ -45,14 +45,15 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
     font-size: 0.875rem;
   `;
 
-  interface INodesToInput {
+  // Nodes to input
+  interface INode {
     name: "dcv" | "bvv" | "player1" | "player2";
     id: "dealer" | "player1" | "player2";
     type: "dealer" | "player";
     devAddress: string;
   }
 
-  const nodesToInput: INodesToInput[] = [
+  const nodesToInput: INode[] = [
     {
       name: "dcv",
       id: "dealer",
@@ -82,29 +83,6 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
   const [nodeType, setNodeType] = useState("");
   const [canSetNodes, setCanSetNodes] = useState(false);
 
-  const handleTabClick: Function = (
-    e: React.FormEvent<EventTarget>,
-    nodeType: "dealer" | "player"
-  ): void => {
-    setNodes({});
-    e.preventDefault();
-    setNodeType(nodeType);
-  };
-
-  const handleSubmit: Function = (): void => {
-    const isDealer = nodeType === "dealer";
-    const nodeTypeToSet: string = isDealer ? "dealer" : nodeType.slice(0, -1);
-    updateStateValue("nodes", nodes, dispatch);
-    updateStateValue("nodeType", nodeTypeToSet, dispatch);
-
-    nodeTypeToSet === "player" &&
-      game({ gametype: "", pot: [0] }, state, dispatch);
-    setUserSeat(nodeType, dispatch);
-    const opponent = nodeType === "player1" ? "player2" : "player1";
-    !isDealer && connectPlayer(opponent, dispatch);
-    closeStartupModal(dispatch);
-  };
-
   const setDevNodeTypes = (node: "dealer" | "player1" | "player2"): void => {
     switch (node) {
       case "dealer":
@@ -120,6 +98,44 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
         setNodes({ player2: process.env.DEV_SOCKET_URL_PLAYER2 });
         break;
     }
+  };
+
+  // Event handlers
+  const handleTabClick: Function = (
+    nodeType: "dealer" | "player1" | "player2"
+  ) => (e: React.FormEvent<EventTarget>): void => {
+    setNodes({});
+    e.preventDefault();
+    setNodeType(nodeType);
+    process.env && setDevNodeTypes(nodeType);
+  };
+
+  const handleSubmit: Function = () => (
+    e: React.FormEvent<EventTarget>
+  ): void => {
+    e.preventDefault();
+
+    const isDealer = nodeType === "dealer";
+    const nodeTypeToSet: string = isDealer ? "dealer" : nodeType.slice(0, -1);
+    updateStateValue("nodes", nodes, dispatch);
+    updateStateValue("nodeType", nodeTypeToSet, dispatch);
+
+    nodeTypeToSet === "player" &&
+      game({ gametype: "", pot: [0] }, state, dispatch);
+    setUserSeat(nodeType, dispatch);
+    const opponent = nodeType === "player1" ? "player2" : "player1";
+    !isDealer && connectPlayer(opponent, dispatch);
+    closeStartupModal(dispatch);
+  };
+
+  const handleInputChange: Function = (node: INode) => (
+    e: React.FormEvent<HTMLInputElement>
+  ): void => {
+    const target = e.target as HTMLInputElement;
+    setNodes({
+      ...nodes,
+      [node.name]: target.value
+    });
   };
 
   // Validates wether all four input fields have data
@@ -139,30 +155,9 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
     <form>
       <div>
         <h2>Please enter the node addresses</h2>
-        <Button
-          small
-          label="Dealer"
-          onClick={e => {
-            handleTabClick(e, "dealer");
-            process.env && setDevNodeTypes("dealer");
-          }}
-        />
-        <Button
-          small
-          label="Player1"
-          onClick={e => {
-            handleTabClick(e, "player1");
-            process.env && setDevNodeTypes("player1");
-          }}
-        />
-        <Button
-          small
-          label="Player2"
-          onClick={e => {
-            handleTabClick(e, "player2");
-            process.env && setDevNodeTypes("player2");
-          }}
-        />
+        <Button small label="Dealer" onClick={handleTabClick("dealer")} />
+        <Button small label="Player1" onClick={handleTabClick("player1")} />
+        <Button small label="Player2" onClick={handleTabClick("player2")} />
       </div>
       <div id="Dealer" />
       {nodesToInput
@@ -176,12 +171,7 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
                 name={node.name}
                 placeholder={`192.168.101.234`}
                 defaultValue={process.env ? node.devAddress : ""}
-                onChange={e => {
-                  setNodes({
-                    ...nodes,
-                    [node.name]: e.target.value
-                  });
-                }}
+                onChange={handleInputChange(node)}
               />
             </div>
           );
@@ -190,10 +180,7 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
         <Button
           label="Set Nodes"
           disabled={!canSetNodes}
-          onClick={e => {
-            e.preventDefault();
-            handleSubmit();
-          }}
+          onClick={handleSubmit()}
         />
       </ButtonWrapper>
     </form>
