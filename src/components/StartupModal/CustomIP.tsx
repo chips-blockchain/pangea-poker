@@ -2,6 +2,7 @@ import React from "react";
 import { css } from "@emotion/core";
 import styled from "@emotion/styled";
 import { useContext, useState, useEffect } from "react";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../../store/context";
 import Button from "../Controls/Button";
@@ -53,31 +54,37 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
     devAddress: string;
   }
 
-  const nodesToInput: INode[] = [
-    {
-      name: "dcv",
-      id: "dealer",
-      type: "dealer",
-      devAddress: process.env.DEV_SOCKET_URL_DCV
-    },
-    {
-      name: "bvv",
-      id: "dealer",
-      type: "dealer",
-      devAddress: process.env.DEV_SOCKET_URL_BVV
-    },
-    {
-      name: "player1",
-      id: "player1",
-      type: "player",
-      devAddress: process.env.DEV_SOCKET_URL_PLAYER1
-    },
-    {
-      name: "player2",
-      id: "player2",
-      type: "player",
-      devAddress: process.env.DEV_SOCKET_URL_PLAYER2
-    }
+  const nodesToInput: INode[][] = [
+    [
+      {
+        name: "dcv",
+        id: "dealer",
+        type: "dealer",
+        devAddress: process.env.DEV_SOCKET_URL_DCV
+      },
+      {
+        name: "bvv",
+        id: "dealer",
+        type: "dealer",
+        devAddress: process.env.DEV_SOCKET_URL_BVV
+      }
+    ],
+    [
+      {
+        name: "player1",
+        id: "player1",
+        type: "player",
+        devAddress: process.env.DEV_SOCKET_URL_PLAYER1
+      }
+    ],
+    [
+      {
+        name: "player2",
+        id: "player2",
+        type: "player",
+        devAddress: process.env.DEV_SOCKET_URL_PLAYER2
+      }
+    ]
   ];
   const [nodes, setNodes] = useState({});
   const [nodeType, setNodeType] = useState("");
@@ -153,29 +160,35 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
 
   return (
     <form>
-      <div>
-        <h2>Please enter the node addresses</h2>
-        <Button small label="Dealer" onClick={handleTabClick("dealer")} />
-        <Button small label="Player1" onClick={handleTabClick("player1")} />
-        <Button small label="Player2" onClick={handleTabClick("player2")} />
-      </div>
-      <div id="Dealer" />
-      {nodesToInput
-        .filter(node => node.id === nodeType)
-        .map((node, key) => {
+      <h2>Please enter the node addresses</h2>
+      <Tabs>
+        <TabList>
+          <Tab onClick={handleTabClick("dealer")}>Dealer</Tab>
+          <Tab onClick={handleTabClick("player1")}>Player1</Tab>
+          <Tab onClick={handleTabClick("player2")}>Player2</Tab>
+        </TabList>
+
+        {nodesToInput.map((nodeType, key) => {
           return (
-            <div key={key}>
-              <Label>{node.name}</Label>
-              <input
-                css={inputStyle}
-                name={node.name}
-                placeholder={`192.168.101.234`}
-                defaultValue={process.env ? node.devAddress : ""}
-                onChange={handleInputChange(node)}
-              />
-            </div>
+            <TabPanel key={key}>
+              {nodeType.map((node, j) => {
+                return (
+                  <div key={j}>
+                    <Label>{node.name}</Label>
+                    <input
+                      css={inputStyle}
+                      name={node.name}
+                      placeholder={`192.168.101.234`}
+                      defaultValue={process.env ? node.devAddress : ""}
+                      onChange={handleInputChange(node)}
+                    />
+                  </div>
+                );
+              })}
+            </TabPanel>
           );
         })}
+      </Tabs>
       <ButtonWrapper>
         <Button
           label="Set Nodes"
