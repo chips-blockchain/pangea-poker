@@ -31,8 +31,9 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
     color: white;
     font-family: sans-serif;
     font-weight: 500;
-    text-align: center;
+    max-width: 14rem;
     padding: 0.5rem 0.25rem;
+    text-align: center;
     width: 100%;
 
     &:focus {
