@@ -88,9 +88,10 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
     ]
   ];
   const [nodes, setNodes] = useState({});
-  const [nodeType, setNodeType] = useState("");
+  const [nodeType, setNodeType] = useState("dealer");
   const [canSetNodes, setCanSetNodes] = useState(false);
 
+  // Function to set node addresses from the .env file
   const setDevNodeTypes = (node: "dealer" | "player1" | "player2"): void => {
     switch (node) {
       case "dealer":
@@ -111,10 +112,14 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
   // Event handlers
   const handleTabClick: Function = (
     nodeType: "dealer" | "player1" | "player2"
-  ) => (e: React.FormEvent<EventTarget>): void => {
+  ) => (): void => {
+    // Clear previously set nodes
     setNodes({});
-    e.preventDefault();
+
+    // Update the node type
     setNodeType(nodeType);
+
+    // Set node addresses as placeholder if specified in the .env file
     process.env && setDevNodeTypes(nodeType);
   };
 
@@ -123,16 +128,23 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
   ): void => {
     e.preventDefault();
 
+    // Set the node addresses and the node type
     const isDealer = nodeType === "dealer";
-    const nodeTypeToSet: string = isDealer ? "dealer" : nodeType.slice(0, -1);
+    const nodeTypeToSet: string = isDealer ? "dealer" : "player";
     updateStateValue("nodes", nodes, dispatch);
     updateStateValue("nodeType", nodeTypeToSet, dispatch);
 
-    nodeTypeToSet === "player" &&
-      game({ gametype: "", pot: [0] }, state, dispatch);
-    setUserSeat(nodeType, dispatch);
+    // Start the game if it's a player node
+    !isDealer && game({ gametype: "", pot: [0] }, state, dispatch);
+
+    // Set the user seat if it's a player node
+    !isDealer && setUserSeat(nodeType, dispatch);
+
+    // Connect the opponent (temporary)
     const opponent = nodeType === "player1" ? "player2" : "player1";
     !isDealer && connectPlayer(opponent, dispatch);
+
+    // Close the Startup Modal
     closeStartupModal(dispatch);
   };
 
@@ -146,7 +158,7 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
     });
   };
 
-  // Validates wether all four input fields have data
+  // Validates wether all required input fields have data
   useEffect((): void => {
     nodeType === "dealer" &&
       Object.keys(nodes).length === 2 &&
@@ -164,9 +176,15 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
       <h2>Please enter the node addresses</h2>
       <Tabs>
         <TabList>
-          <Tab onClick={handleTabClick("dealer")}>Dealer</Tab>
-          <Tab onClick={handleTabClick("player1")}>Player1</Tab>
-          <Tab onClick={handleTabClick("player2")}>Player2</Tab>
+          <Tab onClick={handleTabClick("dealer")} data-test="tab-dealer">
+            Dealer
+          </Tab>
+          <Tab onClick={handleTabClick("player1")} data-test="tab-player1">
+            Player1
+          </Tab>
+          <Tab onClick={handleTabClick("player2")} data-test="tab-player2">
+            Player2
+          </Tab>
         </TabList>
 
         {nodesToInput.map((nodeType, key) => {
@@ -195,6 +213,7 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
           label="Set Nodes"
           disabled={!canSetNodes}
           onClick={handleSubmit()}
+          data-test="set-nodes-button"
         />
       </ButtonWrapper>
     </form>
