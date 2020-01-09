@@ -86,7 +86,7 @@ const Label = styled.div`
   font-size: 0.875rem;
 `;
 
-const CustomIP: React.FunctionComponent = (): React.ReactElement => {
+const CustomIP: React.FunctionComponent = () => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
 

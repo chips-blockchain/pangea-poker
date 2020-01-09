@@ -21,10 +21,7 @@ const modalTopTabs = css`
   }
 `;
 
-const StartupModal: React.FunctionComponent<IProps> = ({
-  dispatch,
-  state
-}): React.ReactElement => {
+const StartupModal: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
   return (
     <Modal>
       <Tabs
