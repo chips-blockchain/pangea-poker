@@ -22,72 +22,74 @@ interface INode {
   devAddress: string;
 }
 
+// Nodes to input
+
+const nodesToInput: INode[][] = [
+  [
+    {
+      name: "dcv",
+      id: "dealer",
+      type: "dealer",
+      devAddress: process.env.DEV_SOCKET_URL_DCV
+    },
+    {
+      name: "bvv",
+      id: "dealer",
+      type: "dealer",
+      devAddress: process.env.DEV_SOCKET_URL_BVV
+    }
+  ],
+  [
+    {
+      name: "player1",
+      id: "player1",
+      type: "player",
+      devAddress: process.env.DEV_SOCKET_URL_PLAYER1
+    }
+  ],
+  [
+    {
+      name: "player2",
+      id: "player2",
+      type: "player",
+      devAddress: process.env.DEV_SOCKET_URL_PLAYER2
+    }
+  ]
+];
+
+// Styles
+
+const ButtonWrapper = styled.div`
+  text-align: center;
+  padding-top: 2rem;
+`;
+
+const inputStyle = css`
+  background: none;
+  border: 1px solid ${theme.moon.colors.primary};
+  color: white;
+  font-family: sans-serif;
+  font-weight: 500;
+  max-width: 14rem;
+  padding: 0.5rem 0.25rem;
+  text-align: center;
+  width: 100%;
+
+  &:focus {
+    border: 1px solid ${theme.moon.colors.accent};
+  }
+`;
+
+const Label = styled.div`
+  color: ${theme.moon.colors.text};
+  padding: 1rem 0 0.5rem 0;
+  font-size: 0.875rem;
+`;
+
 const CustomIP: React.FunctionComponent = (): React.ReactElement => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
 
-  // Styles
-  const ButtonWrapper = styled.div`
-    text-align: center;
-    padding-top: 2rem;
-  `;
-
-  const inputStyle = css`
-    background: none;
-    border: 1px solid ${theme.moon.colors.primary};
-    color: white;
-    font-family: sans-serif;
-    font-weight: 500;
-    max-width: 14rem;
-    padding: 0.5rem 0.25rem;
-    text-align: center;
-    width: 100%;
-
-    &:focus {
-      border: 1px solid ${theme.moon.colors.accent};
-    }
-  `;
-
-  const Label = styled.div`
-    color: ${theme.moon.colors.text};
-    padding: 1rem 0 0.5rem 0;
-    font-size: 0.875rem;
-  `;
-
-  // Nodes to input
-
-  const nodesToInput: INode[][] = [
-    [
-      {
-        name: "dcv",
-        id: "dealer",
-        type: "dealer",
-        devAddress: process.env.DEV_SOCKET_URL_DCV
-      },
-      {
-        name: "bvv",
-        id: "dealer",
-        type: "dealer",
-        devAddress: process.env.DEV_SOCKET_URL_BVV
-      }
-    ],
-    [
-      {
-        name: "player1",
-        id: "player1",
-        type: "player",
-        devAddress: process.env.DEV_SOCKET_URL_PLAYER1
-      }
-    ],
-    [
-      {
-        name: "player2",
-        id: "player2",
-        type: "player",
-        devAddress: process.env.DEV_SOCKET_URL_PLAYER2
-      }
-    ]
-  ];
   const [nodes, setNodes] = useState({});
   const [nodeType, setNodeType] = useState("dealer");
   const [canSetNodes, setCanSetNodes] = useState(false);
