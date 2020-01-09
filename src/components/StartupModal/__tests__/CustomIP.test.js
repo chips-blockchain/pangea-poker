@@ -42,8 +42,6 @@ describe("CustomIP", () => {
   });
 
   test("Handles tab switching properly", () => {
-    const handleTabClick = jest.fn();
-    CustomIP.prototype.handleSubmit = handleTabClick;
     const state = { ...testState };
     const wrapper = buildWrapper(state);
 
