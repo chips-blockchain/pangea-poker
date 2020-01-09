@@ -85,7 +85,7 @@ const TableSelect: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
       console.warn(
         "No Table List API endpoint has been specified in the .env file."
       );
-  }, [process.env.endpoint]);
+  }, []);
 
   const handleSelect = (index: number) => (): void => {
     setSelectedTable(tableList[index]);
