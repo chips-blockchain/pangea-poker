@@ -10,6 +10,12 @@ import {
   updateStateValue,
   setUserSeat
 } from "../../store/actions";
+import { IState } from "../../store/initialState";
+
+interface IProps {
+  dispatch: Function;
+  state: IState;
+}
 
 const ButtonWrapper = styled.div`
   text-align: center;
@@ -62,7 +68,7 @@ const TableArea = styled.div`
   overflow: scroll;
 `;
 
-const TableSelect = ({ dispatch, state }) => {
+const TableSelect: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
   const [tableList, setTableList] = useState([]);
   const [selectedTable, setSelectedTable] = useState();
 
@@ -81,11 +87,11 @@ const TableSelect = ({ dispatch, state }) => {
       );
   }, [process.env.endpoint]);
 
-  const handleSelect = (index: number) => {
+  const handleSelect = (index: number): void => {
     setSelectedTable(tableList[index]);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     const { address, seat } = selectedTable;
     const opponent = seat === "player1" ? "player2" : "player1";
 
@@ -116,7 +122,7 @@ const TableSelect = ({ dispatch, state }) => {
     game({ gametype: "", pot: [0] }, state, dispatch);
   };
 
-  const isSelected = index => {
+  const isSelected = (index: number): boolean => {
     return tableList[index] === selectedTable;
   };
 
