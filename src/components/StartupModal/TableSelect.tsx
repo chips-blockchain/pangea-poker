@@ -87,13 +87,15 @@ const TableSelect: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
       );
   }, [process.env.endpoint]);
 
-  const handleSelect = (index: number): void => {
+  const handleSelect = (index: number) => (): void => {
     setSelectedTable(tableList[index]);
   };
 
-  const handleSubmit = (): void => {
+  const handleSubmit = () => (e: React.FormEvent<EventTarget>): void => {
     const { address, seat } = selectedTable;
     const opponent = seat === "player1" ? "player2" : "player1";
+
+    e.preventDefault();
 
     // Set up the table as a player node
     updateStateValue("nodeType", "player", dispatch);
@@ -144,7 +146,7 @@ const TableSelect: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
               return (
                 <tr
                   key={index}
-                  onClick={() => handleSelect(index)}
+                  onClick={handleSelect(index)}
                   className={isSelected(index) ? "selected" : undefined}
                 >
                   <td>{table.name}</td>
@@ -164,10 +166,7 @@ const TableSelect: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
         <Button
           label="Join Table"
           disabled={!selectedTable}
-          onClick={e => {
-            e.preventDefault();
-            handleSubmit();
-          }}
+          onClick={handleSubmit()}
         />
       </ButtonWrapper>
     </section>
