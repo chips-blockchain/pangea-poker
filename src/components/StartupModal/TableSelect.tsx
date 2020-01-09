@@ -63,7 +63,7 @@ const TableArea = styled.div`
 `;
 
 const TableSelect = ({ dispatch, state }) => {
-  const [tableList, setTalbeList] = useState([]);
+  const [tableList, setTableList] = useState([]);
   const [selectedTable, setSelectedTable] = useState();
 
   // API call to retrieve the list of tables
@@ -73,7 +73,7 @@ const TableSelect = ({ dispatch, state }) => {
     if (endpoint) {
       axios.get(endpoint).then(res => {
         const tables = res.data.sheet1;
-        setTalbeList(tables);
+        setTableList(tables);
       });
     } else
       console.warn(
