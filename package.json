@@ -25,8 +25,6 @@
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
     "@sentry/browser": "^5.10.2",
-    "@typescript-eslint/eslint-plugin": "^2.14.0",
-    "@typescript-eslint/parser": "^2.14.0",
     "axios": "^0.19.0",
     "babel-jest": "^24.9.0",
     "cssnano": "^4.1.10",
@@ -37,9 +35,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-tabs": "^3.1.0",
-    "react-test-renderer": "^16.12.0",
-    "react-use-websocket": "^0.9.8",
-    "tslint": "^5.20.1"
+    "react-use-websocket": "^0.9.8"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
@@ -66,6 +62,8 @@
     "@types/react-tabs": "^2.3.1",
     "@types/react-test-renderer": "^16.9.1",
     "@types/react": "^16.9.17",
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "@typescript-eslint/parser": "^2.14.0",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-emotion": "^10.0.27",
@@ -88,8 +86,10 @@
     "jsdom": "15.2.0",
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1",
+    "react-test-renderer": "^16.12.0",
     "ts-jest": "^24.2.0",
     "tslint-eslint-rules": "^5.4.0",
+    "tslint": "^5.20.1",
     "typescript": "^3.7.4"
   }
 }
