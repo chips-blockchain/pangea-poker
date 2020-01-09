@@ -6,6 +6,9 @@ import Main from "./components/Table";
 import "normalize.css";
 import NoticiaBold from "./fonts/NoticiaText-Bold.ttf";
 import PTSansBold from "./fonts/PT_Sans-Web-Bold.ttf";
+import PTSansRegular from "./fonts/PTSans-Regular.ttf";
+import "./styles/variables.css";
+import "./styles/tabs.css";
 
 Sentry.init({
   dsn: "https://294dbaf87a92469398cac4a9ba3c1106@sentry.io/1841547"
@@ -31,6 +34,14 @@ const App = () => {
             font-display: swap;
             src: local("PT Sans Bold"), local("PT_Sans-Web-Bold"),
               url(${PTSansBold}) format("woff2");
+          }
+          @font-face {
+            font-family: "PT Sans";
+            font-style: bold;
+            font-weight: 400;
+            font-display: swap;
+            src: local("PT Sans Regular"), local("PTSans-Regular"),
+              url(${PTSansRegular}) format("woff2");
           }
           * {
             -webkit-font-smoothing: antialiased;
