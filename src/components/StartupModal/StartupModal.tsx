@@ -8,6 +8,11 @@ import { IState } from "../../store/initialState";
 
 // This is the modal that appears at the startup and let's the user to join a table
 
+interface IProps {
+  dispatch: Function;
+  state: IState;
+}
+
 const modalTopTabs = css`
   & > .react-tabs__tab-list {
     position: absolute;
@@ -15,11 +20,6 @@ const modalTopTabs = css`
     left: 0;
   }
 `;
-
-interface IProps {
-  dispatch: Function;
-  state: IState;
-}
 
 const StartupModal: React.FunctionComponent<IProps> = ({
   dispatch,

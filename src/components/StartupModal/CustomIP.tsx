@@ -15,6 +15,13 @@ import {
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
 
+interface INode {
+  name: "dcv" | "bvv" | "player1" | "player2";
+  id: "dealer" | "player1" | "player2";
+  type: "dealer" | "player";
+  devAddress: string;
+}
+
 const CustomIP: React.FunctionComponent = (): React.ReactElement => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
@@ -48,12 +55,6 @@ const CustomIP: React.FunctionComponent = (): React.ReactElement => {
   `;
 
   // Nodes to input
-  interface INode {
-    name: "dcv" | "bvv" | "player1" | "player2";
-    id: "dealer" | "player1" | "player2";
-    type: "dealer" | "player";
-    devAddress: string;
-  }
 
   const nodesToInput: INode[][] = [
     [
