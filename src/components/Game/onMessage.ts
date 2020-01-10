@@ -36,6 +36,7 @@ import { IState } from "../../store/initialState";
 import playerIdToString from "../../lib/playerIdToString";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 
+import sounds from "../../sounds/sounds";
 export interface IMessage {
   action?: string;
   amount?: number;
@@ -260,6 +261,7 @@ export const onMessage_player = (
           if (playerId === guiPlayer) {
             processControls(message.possibilities, dispatch);
             showControls(true, dispatch);
+            sounds.alert.play();
           }
           break;
 
@@ -268,12 +270,14 @@ export const onMessage_player = (
           setLastAction(guiPlayer, "check", dispatch);
           addToHandHistory(`Player${guiPlayer + 1} checks.`, dispatch);
           setActivePlayer(null, dispatch);
+          sounds.check.play();
           break;
         case "call":
           bet(guiPlayer, betAmount, state, dispatch);
           setLastAction(guiPlayer, "call", dispatch);
           addToHandHistory(`Player${guiPlayer + 1} calls.`, dispatch);
           setActivePlayer(null, dispatch);
+          sounds.call.play();
           break;
         case "raise":
           bet(guiPlayer, betAmount, state, dispatch);
@@ -283,12 +287,14 @@ export const onMessage_player = (
             dispatch
           );
           setActivePlayer(null, dispatch);
+          sounds.raise.play();
           break;
         case "fold":
           fold(`player${guiPlayer + 1}`, dispatch);
           setLastAction(guiPlayer, "fold", dispatch);
           addToHandHistory(`Player${guiPlayer + 1} folds.`, dispatch);
           setActivePlayer(null, dispatch);
+          sounds.fold.play();
           break;
 
         case "allin":
@@ -300,6 +306,7 @@ export const onMessage_player = (
             dispatch
           );
           setActivePlayer(null, dispatch);
+          sounds.raise.play();
           break;
 
         default:
@@ -385,12 +392,16 @@ export const onMessage_player = (
 
       setActivePlayer(null, dispatch);
       collectChips(state, dispatch);
+      sounds.collectChips.play();
 
       isShowDown && setBoardCards(boardCardInfo, dispatch);
 
       const progressShowDown = (): void => {
         if (currentGameTurn === 4) {
           handleWinner();
+          setTimeout(() => {
+            sounds.winnerSelect.play();
+          }, 1000);
           return;
         }
         setTimeout(
@@ -410,6 +421,9 @@ export const onMessage_player = (
         progressShowDown();
       } else {
         handleWinner();
+        setTimeout(() => {
+          sounds.winnerSelect.play();
+        }, 1000);
       }
 
       break;

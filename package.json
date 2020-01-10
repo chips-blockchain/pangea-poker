@@ -30,6 +30,7 @@
     "cssnano": "^4.1.10",
     "deep-diff": "^1.0.2",
     "emotion": "^10.0.27",
+    "howler": "^2.1.3",
     "normalize.css": "^8.0.1",
     "rc-slider": "^8.7.1",
     "react": "^16.12.0",
