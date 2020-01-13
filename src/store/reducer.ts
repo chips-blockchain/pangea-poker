@@ -133,7 +133,6 @@ const reducer: Function = (state: IState, action: IAction): object => {
       };
     }
     case "resetTurn": {
-      console.log("RESET TURN");
       return {
         ...state,
         chipsCollected: false,
@@ -155,7 +154,6 @@ const reducer: Function = (state: IState, action: IAction): object => {
       };
     }
     case "resetHand": {
-      console.log("RESET HAND");
       return {
         ...state,
         boardCards: [],
