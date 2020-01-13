@@ -160,11 +160,22 @@ const reducer: Function = (state: IState, action: IAction): object => {
         cardsDealt: false,
         dealer: state.dealer === 0 ? 1 : 0,
         handsPlayed: state.handsPlayed + 1,
-        minRaiseTo: state.blinds[1] * 2,
-        isShowDown: false,
         holeCards: [],
-        pot: [0],
+        isShowDown: false,
         lastAction: { player: 0, action: null },
+        minRaiseTo: state.blinds[1] * 2,
+        players: {
+          ...state.players,
+          player1: {
+            ...state.players.player1,
+            hasCards: true
+          },
+          player2: {
+            ...state.players.player2,
+            hasCards: true
+          }
+        },
+        pot: [0],
         toCall: state.blinds[1]
       };
     }
