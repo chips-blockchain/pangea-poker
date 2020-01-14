@@ -5,6 +5,7 @@ import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
 import { IMessage } from "../components/Game/onMessage";
 import { Possibilities } from "../lib/constants";
+import sounds from "../sounds/sounds";
 
 // Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (
@@ -72,6 +73,11 @@ export const collectChips = (state: IState, dispatch: Function): void => {
   });
   // Show the main pot with a slight delay, so it appears when the chips collection animation finishes
   !state.showMainPot && setTimeout(() => toggleMainPot(dispatch), 400);
+
+  // Playe the sound if there are bets
+  const playerStates = Object.entries(state.players).map(p => p[1]);
+  const noBets = playerStates.every(player => player["betAmount"] === 0);
+  !noBets && !state.chipsCollected && sounds.collectChips.play();
 };
 
 export const connectPlayer = (player: string, dispatch: Function): void => {

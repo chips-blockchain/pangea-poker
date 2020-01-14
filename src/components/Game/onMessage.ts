@@ -391,8 +391,6 @@ export const onMessage_player = (
       };
 
       setActivePlayer(null, dispatch);
-      collectChips(state, dispatch);
-      sounds.collectChips.play();
 
       isShowDown && setBoardCards(boardCardInfo, dispatch);
 
