@@ -400,7 +400,7 @@ export const onMessage_player = (
           handleWinner();
           setTimeout(() => {
             sounds.winnerSelect.play();
-          }, 1000);
+          }, 2000);
           return;
         }
         setTimeout(
@@ -422,7 +422,7 @@ export const onMessage_player = (
         handleWinner();
         setTimeout(() => {
           sounds.winnerSelect.play();
-        }, 1000);
+        }, 2000);
       }
 
       break;
