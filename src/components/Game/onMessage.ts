@@ -31,12 +31,11 @@ import {
 } from "../../store/actions";
 import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
-
 import { IState } from "../../store/initialState";
 import playerIdToString from "../../lib/playerIdToString";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
-
 import sounds from "../../sounds/sounds";
+import { GameTurns } from "../../lib/constants";
 export interface IMessage {
   action?: string;
   amount?: number;
@@ -67,6 +66,8 @@ export interface IMessage {
   win_amount?: number;
   winners?: number[];
 }
+
+const { preFlop, flop, turn } = GameTurns;
 
 export const onMessage = (
   messageString: string,
@@ -367,7 +368,7 @@ export const onMessage_player = (
       // Log board cards when players go All-In
       const logAllInBoardCards = () => {
         // Flop
-        currentGameTurn === 0 &&
+        currentGameTurn === preFlop &&
           addToHandHistory(
             `The flop is ${lowerCaseLastLetter(
               boardCardInfo[0]
@@ -377,13 +378,13 @@ export const onMessage_player = (
             dispatch
           );
         // Turn
-        currentGameTurn === 1 &&
+        currentGameTurn === flop &&
           addToHandHistory(
             `The turn is ${lowerCaseLastLetter(boardCardInfo[3])}.`,
             dispatch
           );
         // River
-        currentGameTurn === 2 &&
+        currentGameTurn === turn &&
           addToHandHistory(
             `The river is ${lowerCaseLastLetter(boardCardInfo[4])}.`,
             dispatch
@@ -395,7 +396,7 @@ export const onMessage_player = (
       isShowDown && setBoardCards(boardCardInfo, dispatch);
 
       const progressShowDown = (): void => {
-        if (currentGameTurn === 4) {
+        if (currentGameTurn === GameTurns.showDown) {
           handleWinner();
           setTimeout(() => {
             sounds.winnerSelect.play();
@@ -409,7 +410,7 @@ export const onMessage_player = (
             currentGameTurn += 1;
             progressShowDown();
           },
-          currentGameTurn === 0 ? 400 : 1500
+          currentGameTurn === preFlop ? 400 : 1500
         );
       };
 

@@ -19,7 +19,7 @@ import playerIdToString from "../../lib/playerIdToString";
 import playerStringToId from "../../lib/playerStringToId";
 import { IPlayer, IState } from "../../store/initialState";
 import { IMessage } from "../Game/onMessage";
-import { Possibilities, PlayerActions } from "../../lib/constants";
+import { Possibilities, PlayerActions, GameTurns } from "../../lib/constants";
 
 // This is the Player widget that shows the player avatar, the chips amount, wether the player has cards, etc
 
@@ -29,6 +29,8 @@ interface IProps extends IPlayer {
   isActive: boolean;
   winner: string;
 }
+
+const { showDown } = GameTurns;
 
 const Player: React.FunctionComponent<IProps> = ({
   chips,
@@ -98,7 +100,9 @@ const Player: React.FunctionComponent<IProps> = ({
     bottom: 0.875rem;
     left: 1.75rem;
     position: absolute;
-    opacity: ${winner && gameTurn === 4 && winner !== seat ? "0.5" : "1"};
+    opacity: ${winner && gameTurn === showDown && winner !== seat
+      ? "0.5"
+      : "1"};
     z-index: 1;
   `;
 
@@ -226,7 +230,7 @@ const Player: React.FunctionComponent<IProps> = ({
             </span>
           )}
           {/* Other player's face up cards */}
-          {userSeat !== seat && (gameTurn === 4 || isShowDown) && (
+          {userSeat !== seat && (gameTurn === showDown || isShowDown) && (
             <div>
               <Card card={playerCards[0]} />
               <Card card={playerCards[1]} />

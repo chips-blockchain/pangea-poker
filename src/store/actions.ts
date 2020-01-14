@@ -4,8 +4,10 @@ import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
 import { IMessage } from "../components/Game/onMessage";
-import { Possibilities } from "../lib/constants";
+import { Possibilities, GameTurns } from "../lib/constants";
 import sounds from "../sounds/sounds";
+
+const { preFlop, flop, turn } = GameTurns;
 
 // Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (
@@ -107,7 +109,7 @@ export const deal = (
   if (holecards.length === 2) setHoleCards(holecards, dispatch);
   if (board) {
     // Flop
-    if (gameTurn === 0 && board.length === 3) {
+    if (gameTurn === preFlop && board.length === 3) {
       setBoardCards(board, dispatch);
       nextTurn(1, state, dispatch);
       addToHandHistory(
@@ -119,7 +121,7 @@ export const deal = (
     }
 
     // Turn
-    if (gameTurn === 1 && board.length === 4) {
+    if (gameTurn === flop && board.length === 4) {
       setBoardCards(board, dispatch);
       nextTurn(2, state, dispatch);
       addToHandHistory(
@@ -129,7 +131,7 @@ export const deal = (
     }
 
     // River
-    if (gameTurn === 2 && board.length === 5) {
+    if (gameTurn === turn && board.length === 5) {
       setBoardCards(board, dispatch);
       nextTurn(3, state, dispatch);
       addToHandHistory(
