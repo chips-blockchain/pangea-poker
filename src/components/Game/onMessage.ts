@@ -87,24 +87,8 @@ export const onMessage = (
       seats(message.seats, dispatch);
       break;
 
-    case "bvv_join":
-      log("BVV has Joined", "info", undefined);
-      break;
-
     case "check_bvv_ready":
       sendMessage(message, "bvv", state, dispatch);
-      break;
-
-    case "init_d":
-      message.method = "init_d_bvv";
-      sendMessage(message, "bvv", state, dispatch);
-
-      message.method = "init_d_player";
-      message.gui_playerID = 0;
-      sendMessage(message, "player1", state, dispatch);
-
-      message.gui_playerID = 1;
-      sendMessage(message, "player2", state, dispatch);
       break;
 
     case "turn":
@@ -138,18 +122,6 @@ export const onMessage = (
       }
       break;
 
-    case "invoice":
-      switch (message.playerid) {
-        case 0:
-          message.gui_playerID = 0;
-          sendMessage(message, "player1", state, dispatch);
-          break;
-        case 1:
-          message.gui_playerID = 1;
-          sendMessage(message, "player2", state, dispatch);
-          break;
-      }
-      break;
     case "blindsInfo":
     /*update small_blind and big_blind values received from backend to the gui here*/
   }
