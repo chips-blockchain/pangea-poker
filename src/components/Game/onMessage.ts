@@ -407,6 +407,7 @@ export const onMessage_player = (
         nextHand(state, dispatch);
         playerJoin(player, state, dispatch);
       }, 3000);
+      break;
 
     case "requestShare":
       if (message.toPlayer == 0) {
