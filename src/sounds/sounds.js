@@ -10,28 +10,36 @@ import winnerSelect from "./samples/winnerSelect.mp3";
 
 const sounds = {
   alert: new Howl({
-    src: alert
+    src: alert,
+    format: ["mp3"]
   }),
   call: new Howl({
-    src: call
+    src: call,
+    format: ["mp3"]
   }),
   check: new Howl({
-    src: check
+    src: check,
+    format: ["mp3"]
   }),
   collectChips: new Howl({
-    src: collectChips
+    src: collectChips,
+    format: ["mp3"]
   }),
   dealCard: new Howl({
-    src: dealCard
+    src: dealCard,
+    format: ["mp3"]
   }),
   fold: new Howl({
-    src: fold
+    src: fold,
+    format: ["mp3"]
   }),
   raise: new Howl({
-    src: raise
+    src: raise,
+    format: ["mp3"]
   }),
   winnerSelect: new Howl({
-    src: winnerSelect
+    src: winnerSelect,
+    format: ["mp3"]
   })
 };
 
