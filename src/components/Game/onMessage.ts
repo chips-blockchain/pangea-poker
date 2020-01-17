@@ -169,66 +169,71 @@ export const onMessage_player = (
 
   switch (message.method) {
     case "betting":
-      const guiPlayer: number = message.playerid;
-      const betAmount: number = message.bet_amount;
-      const opponent: number = guiPlayer === 0 ? 1 : 0;
+      {
+        const guiPlayer: number = message.playerid;
+        const betAmount: number = message.bet_amount;
+        const opponent: number = guiPlayer === 0 ? 1 : 0;
 
-      switch (message.action) {
-        // Update the current player's small blind
-        case "small_blind_bet":
-          bet(playerId, message.amount, state, dispatch);
-          setLastAction(playerId, "Small Blind", dispatch);
-          log("Small Blind has been posted.", "info");
-          addToHandHistory(
-            `Player${guiPlayer + 1} posts the Small Blind of ${
-              state.blinds[0]
-            }.`,
-            dispatch
-          );
+        switch (message.action) {
+          // Update the current player's small blind
+          case "small_blind_bet":
+            bet(playerId, message.amount, state, dispatch);
+            setLastAction(playerId, "Small Blind", dispatch);
+            log("Small Blind has been posted.", "info");
+            addToHandHistory(
+              `Player${guiPlayer + 1} posts the Small Blind of ${
+                state.blinds[0]
+              }.`,
+              dispatch
+            );
 
-          // Update the opponent's big blind
-          bet(opponent, message.amount * 2, state, dispatch);
-          setLastAction(opponent, "Big Blind", dispatch);
-          log("Big Blind has been posted.", "info");
-          addToHandHistory(
-            `Player${opponent + 1} posts the Big Blind of ${state.blinds[1]}.`,
-            dispatch
-          );
-          break;
+            // Update the opponent's big blind
+            bet(opponent, message.amount * 2, state, dispatch);
+            setLastAction(opponent, "Big Blind", dispatch);
+            log("Big Blind has been posted.", "info");
+            addToHandHistory(
+              `Player${opponent + 1} posts the Big Blind of ${
+                state.blinds[1]
+              }.`,
+              dispatch
+            );
+            break;
 
-        case "big_blind_bet":
-          // Update the opponent's small blind
-          bet(opponent, message.amount / 2, state, dispatch);
-          setLastAction(opponent, "Small Blind", dispatch);
-          log("Small blind has been posted.", "info");
-          addToHandHistory(
-            `Player${opponent + 1} posts the Small Blind of ${
-              state.blinds[0]
-            }.`,
-            dispatch
-          );
+          case "big_blind_bet":
+            // Update the opponent's small blind
+            bet(opponent, message.amount / 2, state, dispatch);
+            setLastAction(opponent, "Small Blind", dispatch);
+            log("Small blind has been posted.", "info");
+            addToHandHistory(
+              `Player${opponent + 1} posts the Small Blind of ${
+                state.blinds[0]
+              }.`,
+              dispatch
+            );
 
-          // Update the current player's big blind
-          bet(playerId, message.amount, state, dispatch);
-          setLastAction(playerId, "Big Blind", dispatch);
-          log("Big Blind has been posted.", "info");
-          addToHandHistory(
-            `Player${guiPlayer + 1} posts the Big Blind of ${state.blinds[1]}.`,
-            dispatch
-          );
+            // Update the current player's big blind
+            bet(playerId, message.amount, state, dispatch);
+            setLastAction(playerId, "Big Blind", dispatch);
+            log("Big Blind has been posted.", "info");
+            addToHandHistory(
+              `Player${guiPlayer + 1} posts the Big Blind of ${
+                state.blinds[1]
+              }.`,
+              dispatch
+            );
 
-          break;
+            break;
 
-        case "round_betting":
-          message.player_funds &&
-            message.player_funds.forEach((balance: number, index: number) => {
-              setBalance(playerIdToString(index), balance, dispatch);
-            });
+          case "round_betting":
+            message.player_funds &&
+              message.player_funds.forEach((balance: number, index: number) => {
+                setBalance(playerIdToString(index), balance, dispatch);
+              });
 
-          setActivePlayer(playerIdToString(guiPlayer), dispatch);
-          updateTotalPot(message.pot, dispatch);
-          setMinRaiseTo(message.minRaiseTo, dispatch);
-          setToCall(message.toCall, dispatch);
+            setActivePlayer(playerIdToString(guiPlayer), dispatch);
+            updateTotalPot(message.pot, dispatch);
+            setMinRaiseTo(message.minRaiseTo, dispatch);
+            setToCall(message.toCall, dispatch);
 
           // Turn on controls if it's the current player's turn
           if (playerId === guiPlayer) {
@@ -282,29 +287,35 @@ export const onMessage_player = (
           sounds.raise.play();
           break;
 
-        default:
-          if (message.playerid === 0) {
-            message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
-            sendMessage(message, "player1", state, dispatch);
-          } else if (message.playerid === 1) {
-            message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
-            sendMessage(message, "player2", state, dispatch);
-          }
+          default:
+            if (message.playerid === 0) {
+              message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
+              sendMessage(message, "player1", state, dispatch);
+            } else if (message.playerid === 1) {
+              message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
+              sendMessage(message, "player2", state, dispatch);
+            }
 
-          break;
+            break;
+        }
       }
       break;
 
     case "blindsInfo":
-      const blinds: [number, number] = [message.small_blind, message.big_blind];
-      setBlinds(blinds, dispatch);
-      updateStateValue(
-        "gameType",
-        `NL Hold'Em | Blinds: ${numberWithCommas(blinds[0])}/${numberWithCommas(
-          blinds[1]
-        )}`,
-        dispatch
-      );
+      {
+        const blinds: [number, number] = [
+          message.small_blind,
+          message.big_blind
+        ];
+        setBlinds(blinds, dispatch);
+        updateStateValue(
+          "gameType",
+          `NL Hold'Em | Blinds: ${numberWithCommas(
+            blinds[0]
+          )}/${numberWithCommas(blinds[1])}`,
+          dispatch
+        );
+      }
       break;
 
     case "deal":
@@ -325,47 +336,46 @@ export const onMessage_player = (
       break;
 
     case "finalInfo":
-      let currentGameTurn = state.gameTurn;
-      const boardCardInfo = message.showInfo.boardCardInfo;
-      const isShowDown = boardCardInfo.every(x => x !== null);
+      {
+        let currentGameTurn = state.gameTurn;
+        const boardCardInfo = message.showInfo.boardCardInfo;
+        const isShowDown = boardCardInfo.every(x => x !== null);
 
-      const handleWinner = () => {
-        setWinner(message.winners[0], message.win_amount, state, dispatch);
-        addToHandHistory(
-          `Player${message.winners[0] + 1} wins ${message.win_amount}.`,
-          dispatch
-        );
-      };
-
-      // Log board cards when players go All-In
-      const logAllInBoardCards = () => {
-        // Flop
-        currentGameTurn === preFlop &&
+        const handleWinner = () => {
+          setWinner(message.winners[0], message.win_amount, state, dispatch);
           addToHandHistory(
-            `The flop is ${lowerCaseLastLetter(
-              boardCardInfo[0]
-            )}, ${lowerCaseLastLetter(boardCardInfo[1])}, ${lowerCaseLastLetter(
-              boardCardInfo[2]
-            )}.`,
+            `Player${message.winners[0] + 1} wins ${message.win_amount}.`,
             dispatch
           );
-        // Turn
-        currentGameTurn === flop &&
-          addToHandHistory(
-            `The turn is ${lowerCaseLastLetter(boardCardInfo[3])}.`,
-            dispatch
-          );
-        // River
-        currentGameTurn === turn &&
-          addToHandHistory(
-            `The river is ${lowerCaseLastLetter(boardCardInfo[4])}.`,
-            dispatch
-          );
-      };
+        };
 
-      setActivePlayer(null, dispatch);
+        // Log board cards when players go All-In
+        const logAllInBoardCards = () => {
+          // Flop
+          currentGameTurn === 0 &&
+            addToHandHistory(
+              `The flop is ${lowerCaseLastLetter(
+                boardCardInfo[0]
+              )}, ${lowerCaseLastLetter(
+                boardCardInfo[1]
+              )}, ${lowerCaseLastLetter(boardCardInfo[2])}.`,
+              dispatch
+            );
+          // Turn
+          currentGameTurn === 1 &&
+            addToHandHistory(
+              `The turn is ${lowerCaseLastLetter(boardCardInfo[3])}.`,
+              dispatch
+            );
+          // River
+          currentGameTurn === 2 &&
+            addToHandHistory(
+              `The river is ${lowerCaseLastLetter(boardCardInfo[4])}.`,
+              dispatch
+            );
+        };
 
-      isShowDown && setBoardCards(boardCardInfo, dispatch);
+        setActivePlayer(null, dispatch);
 
       const playWinnerSelectSound = () => {
         setTimeout(() => {
@@ -376,7 +386,6 @@ export const onMessage_player = (
       const progressShowDown = (): void => {
         if (currentGameTurn === showDown) {
           handleWinner();
-          playWinnerSelectSound();
           return;
         }
         setTimeout(
@@ -398,7 +407,6 @@ export const onMessage_player = (
         handleWinner();
         playWinnerSelectSound();
       }
-
       break;
 
     case "join_req":
