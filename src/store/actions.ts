@@ -79,7 +79,9 @@ export const collectChips = (state: IState, dispatch: Function): void => {
   // Playe the sound if there are bets
   const playerStates = Object.entries(state.players).map(p => p[1]);
   const noBets = playerStates.every(player => player["betAmount"] === 0);
-  !noBets && !state.chipsCollected && sounds.collectChips.play();
+  if (!noBets && !state.chipsCollected) {
+    sounds.collectChips.play();
+  }
 };
 
 export const connectPlayer = (player: string, dispatch: Function): void => {
