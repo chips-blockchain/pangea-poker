@@ -158,7 +158,7 @@ export const onMessage_player = (
   player: string,
   state: IState,
   dispatch: Function
-) => {
+): void => {
   const playerId: number = playerStringToId(player);
 
   const message: IMessage = JSON.parse(messageString);
@@ -333,7 +333,7 @@ export const onMessage_player = (
         const boardCardInfo = message.showInfo.boardCardInfo;
         const isShowDown = boardCardInfo.every(x => x !== null);
 
-        const handleWinner = () => {
+        const handleWinner = (): void => {
           setWinner(message.winners[0], message.win_amount, state, dispatch);
           addToHandHistory(
             `Player${message.winners[0] + 1} wins ${message.win_amount}.`,
@@ -342,7 +342,7 @@ export const onMessage_player = (
         };
 
         // Log board cards when players go All-In
-        const logAllInBoardCards = () => {
+        const logAllInBoardCards = (): void => {
           // Flop
           currentGameTurn === 0 &&
             addToHandHistory(
