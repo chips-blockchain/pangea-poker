@@ -23,7 +23,7 @@ import {
   updateTotalPot,
   showControls,
   setBlinds,
-  showDown,
+  doShowDown,
   updateGameTurn,
   updateStateValue,
   setBoardCards,
@@ -419,7 +419,7 @@ export const onMessage_player = (
       };
 
       if (isShowDown) {
-        showDown(message.showInfo.allHoleCardsInfo, dispatch);
+        doShowDown(message.showInfo.allHoleCardsInfo, dispatch);
         updateStateValue("isShowDown", true, dispatch);
         progressShowDown();
       } else {

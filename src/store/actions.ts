@@ -156,6 +156,14 @@ export const devStart = (dispatch: Function): void => {
   });
 };
 
+// Triggers the showDown
+export const doShowDown = (allHoleCardsInfo: string[], dispatch: Function) => {
+  dispatch({
+    type: "doShowDown",
+    payload: allHoleCardsInfo
+  });
+};
+
 // Fold player action
 export const fold = (player: string, dispatch: Function): void => {
   dispatch({
@@ -403,13 +411,6 @@ export const showControls = (show: boolean, dispatch: Function) => {
   dispatch({
     type: "showControls",
     payload: show
-  });
-};
-
-export const showDown = (allHoleCardsInfo: string[], dispatch: Function) => {
-  dispatch({
-    type: "showDown",
-    payload: allHoleCardsInfo
   });
 };
 

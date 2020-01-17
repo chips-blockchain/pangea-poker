@@ -288,7 +288,7 @@ const reducer: Function = (state: IState, action: IAction): object => {
         winner: action.payload.winner
       };
     }
-    case "showDown": {
+    case "doShowDown": {
       return {
         ...state,
         isShowDown: true,
