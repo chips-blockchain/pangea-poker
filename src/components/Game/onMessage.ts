@@ -97,10 +97,10 @@ export const onMessage = (
       console.log("Received the turn info");
 
       if (message.playerid == 0) {
-        message.gui_playerID = 0;
+        message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
         sendMessage(message, "player1", state, dispatch);
       } else {
-        message.gui_playerID = 1;
+        message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
         sendMessage(message, "player2", state, dispatch);
       }
       break;
@@ -114,10 +114,10 @@ export const onMessage = (
         case "allin":
           message.action = message.action + "_player";
           if (message.gui_playerID == 0) {
-            message.gui_playerID = 1;
+            message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
             sendMessage(message, "player2", state, dispatch);
           } else if (message.gui_playerID == 1) {
-            message.gui_playerID = 0;
+            message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
             sendMessage(message, "player1", state, dispatch);
           }
           break;
@@ -143,10 +143,10 @@ export const onMessage_bvv = (
   switch (message.method) {
     case "init_b":
       message.method = "init_b_player";
-      message.gui_playerID = 0;
+      message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
       sendMessage(message, "player1", state, dispatch);
 
-      message.gui_playerID = 1;
+      message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
       sendMessage(message, "player2", state, dispatch);
       break;
 
@@ -284,10 +284,10 @@ export const onMessage_player = (
 
         default:
           if (message.playerid === 0) {
-            message.gui_playerID = 0;
+            message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
             sendMessage(message, "player1", state, dispatch);
           } else if (message.playerid === 1) {
-            message.gui_playerID = 1;
+            message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
             sendMessage(message, "player2", state, dispatch);
           }
 
@@ -412,7 +412,7 @@ export const onMessage_player = (
 
     case "replay":
       message.method = "betting";
-      message.gui_playerID = playerId;
+      message.gui_playerID = playerId; //eslint-disable-line @typescript-eslint/camelcase
       setActivePlayer(player, dispatch);
       showControls(true, dispatch);
       break;
@@ -425,10 +425,10 @@ export const onMessage_player = (
 
     case "requestShare":
       if (message.toPlayer == 0) {
-        message.gui_playerID = 0;
+        message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
         sendMessage(message, "player1", state, dispatch);
       } else if (message.toPlayer == 1) {
-        message.gui_playerID = 1;
+        message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
         sendMessage(message, "player2", state, dispatch);
       }
       break;
@@ -439,10 +439,10 @@ export const onMessage_player = (
 
     case "share_info":
       if (message.toPlayer == 0) {
-        message.gui_playerID = 0;
+        message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
         sendMessage(message, "player1", state, dispatch);
       } else if (message.toPlayer == 1) {
-        message.gui_playerID = 1;
+        message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
         sendMessage(message, "player2", state, dispatch);
       }
       break;
