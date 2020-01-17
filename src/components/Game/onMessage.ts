@@ -67,7 +67,7 @@ export interface IMessage {
   winners?: number[];
 }
 
-const { preFlop, flop, turn } = GameTurns;
+const { preFlop, flop, turn, showDown } = GameTurns;
 
 export const onMessage = (
   messageString: string,
@@ -402,7 +402,7 @@ export const onMessage_player = (
       };
 
       const progressShowDown = (): void => {
-        if (currentGameTurn === GameTurns.showDown) {
+        if (currentGameTurn === showDown) {
           handleWinner();
           playWinnerSelectSound();
           return;
