@@ -395,12 +395,16 @@ export const onMessage_player = (
 
       isShowDown && setBoardCards(boardCardInfo, dispatch);
 
+      const playWinnerSelectSound = () => {
+        setTimeout(() => {
+          sounds.winnerSelect.play();
+        }, 2000);
+      };
+
       const progressShowDown = (): void => {
         if (currentGameTurn === GameTurns.showDown) {
           handleWinner();
-          setTimeout(() => {
-            sounds.winnerSelect.play();
-          }, 2000);
+          playWinnerSelectSound();
           return;
         }
         setTimeout(
@@ -420,9 +424,7 @@ export const onMessage_player = (
         progressShowDown();
       } else {
         handleWinner();
-        setTimeout(() => {
-          sounds.winnerSelect.play();
-        }, 2000);
+        playWinnerSelectSound();
       }
 
       break;
