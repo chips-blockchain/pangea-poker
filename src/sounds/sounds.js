@@ -1,11 +1,14 @@
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
 import alert from "./samples/alert.mp3";
 import call from "./samples/call.mp3";
+import cardDrop from "./samples/cardDrop.mp3";
 import check from "./samples/check.mp3";
 import collectChips from "./samples/collectChips.mp3";
 import dealCard from "./samples/dealCard.mp3";
 import fold from "./samples/fold.mp3";
 import raise from "./samples/raise.mp3";
+import timeAlert from "./samples/timeAlert.mp3";
+import showFlop from "./samples/showFlop.mp3";
 import winnerSelect from "./samples/winnerSelect.mp3";
 
 const sounds = {
@@ -15,6 +18,10 @@ const sounds = {
   }),
   call: new Howl({
     src: call,
+    format: ["mp3"]
+  }),
+  cardDrop: new Howl({
+    src: cardDrop,
     format: ["mp3"]
   }),
   check: new Howl({
@@ -35,6 +42,14 @@ const sounds = {
   }),
   raise: new Howl({
     src: raise,
+    format: ["mp3"]
+  }),
+  showFlop: new Howl({
+    src: showFlop,
+    format: ["mp3"]
+  }),
+  timeAlert: new Howl({
+    src: timeAlert,
     format: ["mp3"]
   }),
   winnerSelect: new Howl({
