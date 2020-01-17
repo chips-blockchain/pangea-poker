@@ -90,40 +90,31 @@ const CustomIP: React.FunctionComponent = () => {
   const dispatch: Function = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
 
-  const [nodes, setNodes] = useState({});
+  const [nodes, setNodes] = useState({
+    dcv: null,
+    bvv: null,
+    player1: null,
+    player2: null
+  });
   const [nodeType, setNodeType] = useState("dealer");
   const [canSetNodes, setCanSetNodes] = useState(false);
 
-  // Function to set node addresses from the .env file
-  const setDevNodeTypes = (node: "dealer" | "player1" | "player2"): void => {
-    switch (node) {
-      case "dealer":
-        setNodes({
-          dcv: process.env.DEV_SOCKET_URL_DCV,
-          bvv: process.env.DEV_SOCKET_URL_BVV
-        });
-        break;
-      case "player1":
-        setNodes({ player1: process.env.DEV_SOCKET_URL_PLAYER1 });
-        break;
-      case "player2":
-        setNodes({ player2: process.env.DEV_SOCKET_URL_PLAYER2 });
-        break;
-    }
-  };
+  // Set node addresses as placeholder if specified in the .env file for development
+  useEffect(() => {
+    setNodes({
+      dcv: process.env.DEV_SOCKET_URL_DCV,
+      bvv: process.env.DEV_SOCKET_URL_BVV,
+      player1: process.env.DEV_SOCKET_URL_PLAYER1,
+      player2: process.env.DEV_SOCKET_URL_PLAYER2
+    });
+  }, []);
 
   // Event handlers
   const handleTabClick: Function = (
     nodeType: "dealer" | "player1" | "player2"
   ) => (): void => {
-    // Clear previously set nodes
-    setNodes({});
-
     // Update the node type
     setNodeType(nodeType);
-
-    // Set node addresses as placeholder if specified in the .env file
-    process.env && setDevNodeTypes(nodeType);
   };
 
   const handleSubmit: Function = () => (
@@ -133,8 +124,12 @@ const CustomIP: React.FunctionComponent = () => {
 
     // Set the node addresses and the node type
     const isDealer = nodeType === "dealer";
+    const nodesToSet = isDealer
+      ? { dcv: nodes.dcv, bvv: nodes.bvv }
+      : { [nodeType]: nodes[nodeType] };
     const nodeTypeToSet: string = isDealer ? "dealer" : "player";
-    updateStateValue("nodes", nodes, dispatch);
+    console.log(nodesToSet);
+    updateStateValue("nodes", nodesToSet, dispatch);
     updateStateValue("nodeType", nodeTypeToSet, dispatch);
 
     // Start the game if it's a player node
@@ -161,18 +156,18 @@ const CustomIP: React.FunctionComponent = () => {
     });
   };
 
-  // Validates wether all required input fields have data
+  // Validates whether all required input fields have data
   useEffect((): void => {
-    nodeType === "dealer" &&
-      Object.keys(nodes).length === 2 &&
-      setCanSetNodes(true);
-    nodeType === "player1" &&
-      Object.keys(nodes).length === 1 &&
-      setCanSetNodes(true);
-    nodeType === "player2" &&
-      Object.keys(nodes).length === 1 &&
-      setCanSetNodes(true);
-  }, [nodes]);
+    if (nodeType === "dealer") {
+      nodes.dcv && nodes.bvv ? setCanSetNodes(true) : setCanSetNodes(false);
+    }
+    if (nodeType === "player1") {
+      nodes.player1 ? setCanSetNodes(true) : setCanSetNodes(false);
+    }
+    if (nodeType === "player2") {
+      nodes.player2 ? setCanSetNodes(true) : setCanSetNodes(false);
+    }
+  }, [nodes, nodeType]);
 
   return (
     <form>
