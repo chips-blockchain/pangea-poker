@@ -1,5 +1,6 @@
 import { css } from "@emotion/core";
 import Card, { CardFlip } from "../Card";
+import { GameTurns } from "../../lib/constants";
 
 // This component renders the boardcards (the flop, turn and river)
 
@@ -7,6 +8,8 @@ interface IProps {
   boardCards: string[];
   gameTurn: 0 | 1 | 2 | 3 | 4;
 }
+
+const { preFlop } = GameTurns;
 
 const Board: React.FunctionComponent<IProps> = ({ boardCards, gameTurn }) => {
   return (
@@ -21,7 +24,7 @@ const Board: React.FunctionComponent<IProps> = ({ boardCards, gameTurn }) => {
       {/* Flop */}
       <span
         css={css`
-          opacity: ${gameTurn == 0 ? "0" : "1"};
+          opacity: ${gameTurn === preFlop ? "0" : "1"};
           transition: 0s all;
           transition-delay: 0.5s;
         `}
@@ -32,7 +35,7 @@ const Board: React.FunctionComponent<IProps> = ({ boardCards, gameTurn }) => {
         <span
           css={css`
             position: relative;
-            right: ${gameTurn == 0 ? "3.25rem" : "0"};
+            right: ${gameTurn === preFlop ? "3.25rem" : "0"};
             transition: 0.5s ease all;
             transition-delay: 0.5s;
           `}
@@ -42,7 +45,7 @@ const Board: React.FunctionComponent<IProps> = ({ boardCards, gameTurn }) => {
         <span
           css={css`
             position: relative;
-            right: ${gameTurn == 0 ? "6.5rem" : "0"};
+            right: ${gameTurn === preFlop ? "6.5rem" : "0"};
             transition: 0.5s ease all;
             transition-delay: 0.5s;
           `}

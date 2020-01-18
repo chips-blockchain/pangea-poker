@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { css } from "@emotion/core";
 import cardBg from "./cards/bg-red.svg";
+import sounds from "../../sounds/sounds";
 
 interface IProps {
   centered: boolean;
@@ -14,6 +16,17 @@ const CardFaceDown: React.FunctionComponent<IProps> = ({
   seat,
   seats
 }) => {
+  // Calculate the offset in seconds between the first and second card for the animation and sound
+  const modifier = second ? seats : 0;
+  const cardOffset = (Number(seat.slice(-1)) + modifier - 1) * 0.1;
+
+  // Card deal sound effect
+  useEffect(() => {
+    if (!centered) {
+      setTimeout(() => sounds.dealCard.play(), cardOffset * 1000);
+    }
+  }, [centered]);
+
   return (
     <img
       src={cardBg}
@@ -51,12 +64,7 @@ const CardFaceDown: React.FunctionComponent<IProps> = ({
         /* Card deal animation speed */
         transition: transform 0.3s ease, opacity 0.1s;
         /* Delay for the cards */
-        ${
-          second
-            ? `transition-delay: ${(Number(seat.slice(-1)) + seats - 1) *
-                0.1}s;`
-            : `transition-delay: ${(Number(seat.slice(-1)) - 1) * 0.1}s; `
-        }
+        transition-delay: ${cardOffset}s;
       `}
     />
   );

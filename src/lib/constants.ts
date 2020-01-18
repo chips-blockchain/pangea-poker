@@ -17,3 +17,11 @@ export enum PlayerActions {
   bigBlind = "BIG BLIND",
   allIn = "ALL-IN"
 }
+
+export enum GameTurns {
+  "preFlop" = 0,
+  "flop" = 1,
+  "turn" = 2,
+  "river" = 3,
+  "showDown" = 4
+}

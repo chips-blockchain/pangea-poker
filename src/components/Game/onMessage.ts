@@ -23,7 +23,7 @@ import {
   updateTotalPot,
   showControls,
   setBlinds,
-  showDown,
+  doShowDown,
   updateGameTurn,
   updateStateValue,
   setBoardCards,
@@ -31,11 +31,11 @@ import {
 } from "../../store/actions";
 import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
-
 import { IState } from "../../store/initialState";
 import playerIdToString from "../../lib/playerIdToString";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
-
+import sounds from "../../sounds/sounds";
+import { GameTurns } from "../../lib/constants";
 export interface IMessage {
   action?: string;
   amount?: number;
@@ -66,6 +66,8 @@ export interface IMessage {
   win_amount?: number;
   winners?: number[];
 }
+
+const { preFlop, flop, turn, showDown } = GameTurns;
 
 export const onMessage = (
   messageString: string,
@@ -260,6 +262,7 @@ export const onMessage_player = (
           if (playerId === guiPlayer) {
             processControls(message.possibilities, dispatch);
             showControls(true, dispatch);
+            sounds.alert.play();
           }
           break;
 
@@ -268,12 +271,14 @@ export const onMessage_player = (
           setLastAction(guiPlayer, "check", dispatch);
           addToHandHistory(`Player${guiPlayer + 1} checks.`, dispatch);
           setActivePlayer(null, dispatch);
+          sounds.check.play();
           break;
         case "call":
           bet(guiPlayer, betAmount, state, dispatch);
           setLastAction(guiPlayer, "call", dispatch);
           addToHandHistory(`Player${guiPlayer + 1} calls.`, dispatch);
           setActivePlayer(null, dispatch);
+          sounds.call.play();
           break;
         case "raise":
           bet(guiPlayer, betAmount, state, dispatch);
@@ -283,12 +288,14 @@ export const onMessage_player = (
             dispatch
           );
           setActivePlayer(null, dispatch);
+          sounds.raise.play();
           break;
         case "fold":
           fold(`player${guiPlayer + 1}`, dispatch);
           setLastAction(guiPlayer, "fold", dispatch);
           addToHandHistory(`Player${guiPlayer + 1} folds.`, dispatch);
           setActivePlayer(null, dispatch);
+          sounds.fold.play();
           break;
 
         case "allin":
@@ -300,6 +307,7 @@ export const onMessage_player = (
             dispatch
           );
           setActivePlayer(null, dispatch);
+          sounds.raise.play();
           break;
 
         default:
@@ -360,7 +368,7 @@ export const onMessage_player = (
       // Log board cards when players go All-In
       const logAllInBoardCards = () => {
         // Flop
-        currentGameTurn === 0 &&
+        currentGameTurn === preFlop &&
           addToHandHistory(
             `The flop is ${lowerCaseLastLetter(
               boardCardInfo[0]
@@ -370,13 +378,13 @@ export const onMessage_player = (
             dispatch
           );
         // Turn
-        currentGameTurn === 1 &&
+        currentGameTurn === flop &&
           addToHandHistory(
             `The turn is ${lowerCaseLastLetter(boardCardInfo[3])}.`,
             dispatch
           );
         // River
-        currentGameTurn === 2 &&
+        currentGameTurn === turn &&
           addToHandHistory(
             `The river is ${lowerCaseLastLetter(boardCardInfo[4])}.`,
             dispatch
@@ -384,13 +392,19 @@ export const onMessage_player = (
       };
 
       setActivePlayer(null, dispatch);
-      collectChips(state, dispatch);
 
       isShowDown && setBoardCards(boardCardInfo, dispatch);
 
+      const playWinnerSelectSound = () => {
+        setTimeout(() => {
+          sounds.winnerSelect.play();
+        }, 2000);
+      };
+
       const progressShowDown = (): void => {
-        if (currentGameTurn === 4) {
+        if (currentGameTurn === showDown) {
           handleWinner();
+          playWinnerSelectSound();
           return;
         }
         setTimeout(
@@ -400,16 +414,17 @@ export const onMessage_player = (
             currentGameTurn += 1;
             progressShowDown();
           },
-          currentGameTurn === 0 ? 400 : 1500
+          currentGameTurn === preFlop ? 400 : 1500
         );
       };
 
       if (isShowDown) {
-        showDown(message.showInfo.allHoleCardsInfo, dispatch);
+        doShowDown(message.showInfo.allHoleCardsInfo, dispatch);
         updateStateValue("isShowDown", true, dispatch);
         progressShowDown();
       } else {
         handleWinner();
+        playWinnerSelectSound();
       }
 
       break;

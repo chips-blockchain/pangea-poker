@@ -4,7 +4,10 @@ import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
 import { IMessage } from "../components/Game/onMessage";
-import { Possibilities } from "../lib/constants";
+import { Possibilities, GameTurns } from "../lib/constants";
+import sounds from "../sounds/sounds";
+
+const { preFlop, flop, turn } = GameTurns;
 
 // Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (
@@ -72,6 +75,13 @@ export const collectChips = (state: IState, dispatch: Function): void => {
   });
   // Show the main pot with a slight delay, so it appears when the chips collection animation finishes
   !state.showMainPot && setTimeout(() => toggleMainPot(dispatch), 400);
+
+  // Playe the sound if there are bets
+  const playerStates = Object.entries(state.players).map(p => p[1]);
+  const noBets = playerStates.every(player => player["betAmount"] === 0);
+  if (!noBets && !state.chipsCollected) {
+    sounds.collectChips.play();
+  }
 };
 
 export const connectPlayer = (player: string, dispatch: Function): void => {
@@ -101,7 +111,7 @@ export const deal = (
   if (holecards.length === 2) setHoleCards(holecards, dispatch);
   if (board) {
     // Flop
-    if (gameTurn === 0 && board.length === 3) {
+    if (gameTurn === preFlop && board.length === 3) {
       setBoardCards(board, dispatch);
       nextTurn(1, state, dispatch);
       addToHandHistory(
@@ -113,7 +123,7 @@ export const deal = (
     }
 
     // Turn
-    if (gameTurn === 1 && board.length === 4) {
+    if (gameTurn === flop && board.length === 4) {
       setBoardCards(board, dispatch);
       nextTurn(2, state, dispatch);
       addToHandHistory(
@@ -123,7 +133,7 @@ export const deal = (
     }
 
     // River
-    if (gameTurn === 2 && board.length === 5) {
+    if (gameTurn === turn && board.length === 5) {
       setBoardCards(board, dispatch);
       nextTurn(3, state, dispatch);
       addToHandHistory(
@@ -145,6 +155,14 @@ export const dealCards = (dispatch: Function): void => {
 export const devStart = (dispatch: Function): void => {
   dispatch({
     type: "devStart"
+  });
+};
+
+// Triggers the showDown
+export const doShowDown = (allHoleCardsInfo: string[], dispatch: Function) => {
+  dispatch({
+    type: "doShowDown",
+    payload: allHoleCardsInfo
   });
 };
 
@@ -395,13 +413,6 @@ export const showControls = (show: boolean, dispatch: Function) => {
   dispatch({
     type: "showControls",
     payload: show
-  });
-};
-
-export const showDown = (allHoleCardsInfo: string[], dispatch: Function) => {
-  dispatch({
-    type: "showDown",
-    payload: allHoleCardsInfo
   });
 };
 

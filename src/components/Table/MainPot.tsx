@@ -1,6 +1,7 @@
 import { css } from "@emotion/core";
 import { useEffect, useState } from "react";
 import { Bet } from "../Chips";
+import { GameTurns } from "../../lib/constants";
 
 // This is the component that displays the main pot at the middle of table
 
@@ -9,6 +10,8 @@ interface IProps {
   gameTurn: number;
   winner: string;
 }
+
+const { showDown } = GameTurns;
 
 const MainPot: React.FunctionComponent<IProps> = ({
   mainPot,
@@ -27,7 +30,7 @@ const MainPot: React.FunctionComponent<IProps> = ({
   // TODO: Separate the logic for the winner selection
 
   useEffect(() => {
-    if (gameTurn === 4 && winner) {
+    if (gameTurn === showDown && winner) {
       if (winner === "player1") {
         setWinnerCoordinates({ left: "25rem", top: "9.5rem" });
       } else if (winner === "player2") {
@@ -40,12 +43,12 @@ const MainPot: React.FunctionComponent<IProps> = ({
     <div
       css={css`
         position: absolute;
-        left: ${gameTurn === 4 ? winnerCoordinates.left : "0"};
+        left: ${gameTurn === showDown ? winnerCoordinates.left : "0"};
         right: 4rem;
         margin: auto;
         display: flex;
         justify-content: center;
-        top: ${gameTurn === 4 ? winnerCoordinates.top : "19rem"};
+        top: ${gameTurn === showDown ? winnerCoordinates.top : "19rem"};
         transition: 0.5s ease-out;
         transition-delay: 1s;
       `}
