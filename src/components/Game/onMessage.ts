@@ -173,6 +173,7 @@ export const onMessage_player = (
         const guiPlayer: number = message.playerid;
         const betAmount: number = message.bet_amount;
         const opponent: number = guiPlayer === 0 ? 1 : 0;
+        const [smallBlind, bigBlind] = state.blinds;
 
         switch (message.action) {
           // Update the current player's small blind
@@ -181,9 +182,7 @@ export const onMessage_player = (
             setLastAction(playerId, "Small Blind", dispatch);
             log("Small Blind has been posted.", "info");
             addToHandHistory(
-              `Player${guiPlayer + 1} posts the Small Blind of ${
-                state.blinds[0]
-              }.`,
+              `Player${guiPlayer + 1} posts the Small Blind of ${smallBlind}.`,
               dispatch
             );
 
@@ -192,9 +191,7 @@ export const onMessage_player = (
             setLastAction(opponent, "Big Blind", dispatch);
             log("Big Blind has been posted.", "info");
             addToHandHistory(
-              `Player${opponent + 1} posts the Big Blind of ${
-                state.blinds[1]
-              }.`,
+              `Player${opponent + 1} posts the Big Blind of ${bigBlind}.`,
               dispatch
             );
             break;
@@ -205,9 +202,7 @@ export const onMessage_player = (
             setLastAction(opponent, "Small Blind", dispatch);
             log("Small blind has been posted.", "info");
             addToHandHistory(
-              `Player${opponent + 1} posts the Small Blind of ${
-                state.blinds[0]
-              }.`,
+              `Player${opponent + 1} posts the Small Blind of ${smallBlind}.`,
               dispatch
             );
 
@@ -216,9 +211,7 @@ export const onMessage_player = (
             setLastAction(playerId, "Big Blind", dispatch);
             log("Big Blind has been posted.", "info");
             addToHandHistory(
-              `Player${guiPlayer + 1} posts the Big Blind of ${
-                state.blinds[1]
-              }.`,
+              `Player${guiPlayer + 1} posts the Big Blind of ${bigBlind}.`,
               dispatch
             );
 
@@ -307,12 +300,13 @@ export const onMessage_player = (
           message.small_blind,
           message.big_blind
         ];
+        const [smallBlind, bigBlind] = blinds;
         setBlinds(blinds, dispatch);
         updateStateValue(
           "gameType",
           `NL Hold'Em | Blinds: ${numberWithCommas(
-            blinds[0]
-          )}/${numberWithCommas(blinds[1])}`,
+            smallBlind
+          )}/${numberWithCommas(bigBlind)}`,
           dispatch
         );
       }
@@ -351,28 +345,25 @@ export const onMessage_player = (
 
         // Log board cards when players go All-In
         const logAllInBoardCards = (): void => {
+          const [
+            firstFlop,
+            secondFlop,
+            thirdFlop,
+            turn,
+            river
+          ] = boardCardInfo.map(card => lowerCaseLastLetter(card));
           // Flop
           currentGameTurn === 0 &&
             addToHandHistory(
-              `The flop is ${lowerCaseLastLetter(
-                boardCardInfo[0]
-              )}, ${lowerCaseLastLetter(
-                boardCardInfo[1]
-              )}, ${lowerCaseLastLetter(boardCardInfo[2])}.`,
+              `The flop is ${firstFlop}, ${secondFlop}, ${thirdFlop}.`,
               dispatch
             );
           // Turn
           currentGameTurn === 1 &&
-            addToHandHistory(
-              `The turn is ${lowerCaseLastLetter(boardCardInfo[3])}.`,
-              dispatch
-            );
+            addToHandHistory(`The turn is ${turn}.`, dispatch);
           // River
           currentGameTurn === 2 &&
-            addToHandHistory(
-              `The river is ${lowerCaseLastLetter(boardCardInfo[4])}.`,
-              dispatch
-            );
+            addToHandHistory(`The river is ${river}.`, dispatch);
         };
 
         setActivePlayer(null, dispatch);
