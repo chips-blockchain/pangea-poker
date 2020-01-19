@@ -91,23 +91,13 @@ const CustomIP: React.FunctionComponent = () => {
   const state: IState = useContext(StateContext);
 
   const [nodes, setNodes] = useState({
-    dcv: null,
-    bvv: null,
-    player1: null,
-    player2: null
+    dcv: process.env.DEV_SOCKET_URL_DCV,
+    bvv: process.env.DEV_SOCKET_URL_BVV,
+    player1: process.env.DEV_SOCKET_URL_PLAYER1,
+    player2: process.env.DEV_SOCKET_URL_PLAYER2
   });
   const [nodeType, setNodeType] = useState("dealer");
   const [canSetNodes, setCanSetNodes] = useState(false);
-
-  // Set node addresses as placeholder if specified in the .env file for development
-  useEffect(() => {
-    setNodes({
-      dcv: process.env.DEV_SOCKET_URL_DCV,
-      bvv: process.env.DEV_SOCKET_URL_BVV,
-      player1: process.env.DEV_SOCKET_URL_PLAYER1,
-      player2: process.env.DEV_SOCKET_URL_PLAYER2
-    });
-  }, []);
 
   // Event handlers
   const handleTabClick: Function = (
