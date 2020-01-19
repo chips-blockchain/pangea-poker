@@ -118,7 +118,6 @@ const CustomIP: React.FunctionComponent = () => {
       ? { dcv: nodes.dcv, bvv: nodes.bvv }
       : { [nodeType]: nodes[nodeType] };
     const nodeTypeToSet: string = isDealer ? "dealer" : "player";
-    console.log(nodesToSet);
     updateStateValue("nodes", nodesToSet, dispatch);
     updateStateValue("nodeType", nodeTypeToSet, dispatch);
 
