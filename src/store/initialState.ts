@@ -197,5 +197,4 @@ export interface IState {
   winner: string | null;
 }
 
-// export default initialState;
 export default initialState;
