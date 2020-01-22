@@ -228,57 +228,57 @@ export const onMessage_player = (
             setMinRaiseTo(message.minRaiseTo, dispatch);
             setToCall(message.toCall, dispatch);
 
-          // Turn on controls if it's the current player's turn
-          if (playerId === guiPlayer) {
-            processControls(message.possibilities, dispatch);
-            showControls(true, dispatch);
-            sounds.alert.play();
-          }
-          break;
+            // Turn on controls if it's the current player's turn
+            if (playerId === guiPlayer) {
+              processControls(message.possibilities, dispatch);
+              showControls(true, dispatch);
+              sounds.alert.play();
+            }
+            break;
 
-        // Update other players actions
-        case "check":
-          setLastAction(guiPlayer, "check", dispatch);
-          addToHandHistory(`Player${guiPlayer + 1} checks.`, dispatch);
-          setActivePlayer(null, dispatch);
-          sounds.check.play();
-          break;
-        case "call":
-          bet(guiPlayer, betAmount, state, dispatch);
-          setLastAction(guiPlayer, "call", dispatch);
-          addToHandHistory(`Player${guiPlayer + 1} calls.`, dispatch);
-          setActivePlayer(null, dispatch);
-          sounds.call.play();
-          break;
-        case "raise":
-          bet(guiPlayer, betAmount, state, dispatch);
-          setLastAction(guiPlayer, "raise", dispatch);
-          addToHandHistory(
-            `Player${guiPlayer + 1} raises to ${betAmount}.`,
-            dispatch
-          );
-          setActivePlayer(null, dispatch);
-          sounds.raise.play();
-          break;
-        case "fold":
-          fold(`player${guiPlayer + 1}`, dispatch);
-          setLastAction(guiPlayer, "fold", dispatch);
-          addToHandHistory(`Player${guiPlayer + 1} folds.`, dispatch);
-          setActivePlayer(null, dispatch);
-          sounds.fold.play();
-          break;
+          // Update other players actions
+          case "check":
+            setLastAction(guiPlayer, "check", dispatch);
+            addToHandHistory(`Player${guiPlayer + 1} checks.`, dispatch);
+            setActivePlayer(null, dispatch);
+            sounds.check.play();
+            break;
+          case "call":
+            bet(guiPlayer, betAmount, state, dispatch);
+            setLastAction(guiPlayer, "call", dispatch);
+            addToHandHistory(`Player${guiPlayer + 1} calls.`, dispatch);
+            setActivePlayer(null, dispatch);
+            sounds.call.play();
+            break;
+          case "raise":
+            bet(guiPlayer, betAmount, state, dispatch);
+            setLastAction(guiPlayer, "raise", dispatch);
+            addToHandHistory(
+              `Player${guiPlayer + 1} raises to ${betAmount}.`,
+              dispatch
+            );
+            setActivePlayer(null, dispatch);
+            sounds.raise.play();
+            break;
+          case "fold":
+            fold(`player${guiPlayer + 1}`, dispatch);
+            setLastAction(guiPlayer, "fold", dispatch);
+            addToHandHistory(`Player${guiPlayer + 1} folds.`, dispatch);
+            setActivePlayer(null, dispatch);
+            sounds.fold.play();
+            break;
 
-        case "allin":
-          bet(guiPlayer, betAmount, state, dispatch);
-          setToCall(betAmount, dispatch);
-          setLastAction(guiPlayer, "all-in", dispatch);
-          addToHandHistory(
-            `Player${guiPlayer + 1} is All-In with ${betAmount}.`,
-            dispatch
-          );
-          setActivePlayer(null, dispatch);
-          sounds.raise.play();
-          break;
+          case "allin":
+            bet(guiPlayer, betAmount, state, dispatch);
+            setToCall(betAmount, dispatch);
+            setLastAction(guiPlayer, "all-in", dispatch);
+            addToHandHistory(
+              `Player${guiPlayer + 1} is All-In with ${betAmount}.`,
+              dispatch
+            );
+            setActivePlayer(null, dispatch);
+            sounds.raise.play();
+            break;
 
           default:
             if (message.playerid === 0) {
@@ -329,46 +329,45 @@ export const onMessage_player = (
       );
       break;
 
-    case "finalInfo":
-      {
-        let currentGameTurn = state.gameTurn;
-        const boardCardInfo = message.showInfo.boardCardInfo;
-        const isShowDown = boardCardInfo.every(x => x !== null);
+    case "finalInfo": {
+      let currentGameTurn = state.gameTurn;
+      const boardCardInfo = message.showInfo.boardCardInfo;
+      const isShowDown = boardCardInfo.every(x => x !== null);
 
-        const handleWinner = (): void => {
-          setWinner(message.winners[0], message.win_amount, state, dispatch);
+      const handleWinner = (): void => {
+        setWinner(message.winners[0], message.win_amount, state, dispatch);
+        addToHandHistory(
+          `Player${message.winners[0] + 1} wins ${message.win_amount}.`,
+          dispatch
+        );
+      };
+
+      // Log board cards when players go All-In
+      const logAllInBoardCards = (): void => {
+        const [
+          firstFlop,
+          secondFlop,
+          thirdFlop,
+          turn,
+          river
+        ] = boardCardInfo.map(card => lowerCaseLastLetter(card));
+        // Flop
+        currentGameTurn === 0 &&
           addToHandHistory(
-            `Player${message.winners[0] + 1} wins ${message.win_amount}.`,
+            `The flop is ${firstFlop}, ${secondFlop}, ${thirdFlop}.`,
             dispatch
           );
-        };
+        // Turn
+        currentGameTurn === 1 &&
+          addToHandHistory(`The turn is ${turn}.`, dispatch);
+        // River
+        currentGameTurn === 2 &&
+          addToHandHistory(`The river is ${river}.`, dispatch);
+      };
 
-        // Log board cards when players go All-In
-        const logAllInBoardCards = (): void => {
-          const [
-            firstFlop,
-            secondFlop,
-            thirdFlop,
-            turn,
-            river
-          ] = boardCardInfo.map(card => lowerCaseLastLetter(card));
-          // Flop
-          currentGameTurn === 0 &&
-            addToHandHistory(
-              `The flop is ${firstFlop}, ${secondFlop}, ${thirdFlop}.`,
-              dispatch
-            );
-          // Turn
-          currentGameTurn === 1 &&
-            addToHandHistory(`The turn is ${turn}.`, dispatch);
-          // River
-          currentGameTurn === 2 &&
-            addToHandHistory(`The river is ${river}.`, dispatch);
-        };
+      setActivePlayer(null, dispatch);
 
-        setActivePlayer(null, dispatch);
-
-      const playWinnerSelectSound = () => {
+      const playWinnerSelectSound = (): void => {
         setTimeout(() => {
           sounds.winnerSelect.play();
         }, 2000);
@@ -377,6 +376,7 @@ export const onMessage_player = (
       const progressShowDown = (): void => {
         if (currentGameTurn === showDown) {
           handleWinner();
+          playWinnerSelectSound();
           return;
         }
         setTimeout(
@@ -399,6 +399,7 @@ export const onMessage_player = (
         playWinnerSelectSound();
       }
       break;
+    }
 
     case "join_req":
       setBalance(player, message.balance, dispatch);
