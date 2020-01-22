@@ -1,4 +1,4 @@
-/* eslint-disable no-use-before-define */
+/* eslint no-use-before-define: 0 */
 import theme from "../styles/theme";
 import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
@@ -120,6 +120,9 @@ export const deal = (
         )}, ${lowerCaseLastLetter(board[2])}.`,
         dispatch
       );
+      setTimeout(() => {
+        sounds.showFlop.play();
+      }, 1000);
     }
 
     // Turn
@@ -130,6 +133,7 @@ export const deal = (
         `The turn is ${lowerCaseLastLetter(board[3])}.`,
         dispatch
       );
+      sounds.dealCard.play();
     }
 
     // River
@@ -140,6 +144,7 @@ export const deal = (
         `The river is ${lowerCaseLastLetter(board[4])}.`,
         dispatch
       );
+      sounds.dealCard.play();
     }
   }
 };

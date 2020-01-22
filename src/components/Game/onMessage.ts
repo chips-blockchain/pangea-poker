@@ -367,6 +367,11 @@ export const onMessage_player = (
 
       setActivePlayer(null, dispatch);
 
+      if (isShowDown) {
+        setBoardCards(boardCardInfo, dispatch);
+        collectChips(state, dispatch);
+      }
+
       const playWinnerSelectSound = (): void => {
         setTimeout(() => {
           sounds.winnerSelect.play();
@@ -383,6 +388,14 @@ export const onMessage_player = (
           () => {
             updateGameTurn(currentGameTurn + 1, dispatch);
             logAllInBoardCards();
+
+            // Play the sounds
+            if (currentGameTurn === preFlop) {
+              sounds.showFlop.play();
+            } else if (currentGameTurn === flop || currentGameTurn === turn) {
+              sounds.cardDrop.play();
+            }
+
             currentGameTurn += 1;
             progressShowDown();
           },
@@ -392,7 +405,6 @@ export const onMessage_player = (
 
       if (isShowDown) {
         doShowDown(message.showInfo.allHoleCardsInfo, dispatch);
-        updateStateValue("isShowDown", true, dispatch);
         progressShowDown();
       } else {
         handleWinner();
