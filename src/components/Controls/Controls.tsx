@@ -64,7 +64,7 @@ const Controls: React.FunctionComponent = () => {
     player: string,
     amount: number,
     lastAction: string
-  ) => {
+  ): void => {
     // Update the previous message with the new data and send it
     const nextAction: IMessage = lastMessage;
     nextAction.playerid = playerStringToId(player);
@@ -121,7 +121,7 @@ const Controls: React.FunctionComponent = () => {
     sendMessage(nextAction, userSeat, state, dispatch);
   };
 
-  const handleSmallButtonClick = (buttonType: string) => {
+  const handleSmallButtonClick = (buttonType: string): void => {
     // 1/2 Pot Button
     if (buttonType === "halfPot") {
       const halfPotRaise = toCall + totalPot + betAmount;
