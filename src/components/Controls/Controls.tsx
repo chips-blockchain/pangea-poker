@@ -66,7 +66,7 @@ const Controls: React.FunctionComponent = () => {
     lastAction: string
   ) => {
     // Update the previous message with the new data and send it
-    let nextAction: IMessage = lastMessage;
+    const nextAction: IMessage = lastMessage;
     nextAction.playerid = playerStringToId(player);
 
     // Match action to possibilities
