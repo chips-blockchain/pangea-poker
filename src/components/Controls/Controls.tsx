@@ -121,7 +121,7 @@ const Controls: React.FunctionComponent = () => {
     sendMessage(nextAction, userSeat, state, dispatch);
   };
 
-  const handleSmallButtonClick = (buttonType: string): void => {
+  const handleSmallButtonClick = (buttonType: string) => (): void => {
     // 1/2 Pot Button
     if (buttonType === "halfPot") {
       const halfPotRaise = toCall + totalPot + betAmount;
@@ -138,6 +138,45 @@ const Controls: React.FunctionComponent = () => {
     else if (buttonType === "max") {
       setRaiseAmount(totalStack);
     } else throw new Error("No such small  button type.");
+  };
+
+  // Fold Button
+  const handleFoldClick = () => (): void => {
+    handleButtonClick(Possibilities.fold, userSeat, null, PlayerActions.fold);
+  };
+
+  // Check/Call Button
+  const handleCheckCallClick = () => (): void => {
+    canCheck
+      ? handleButtonClick(
+          Possibilities.check,
+          userSeat,
+          callAmount,
+          PlayerActions.check
+        )
+      : handleButtonClick(
+          Possibilities.call,
+          userSeat,
+          callAmount,
+          PlayerActions.call
+        );
+  };
+
+  // Raise/All-in/Bet button
+  const handleRaiseClick = () => (): void => {
+    minRaiseTo >= chips || toCall >= chips
+      ? handleButtonClick(
+          Possibilities.allIn,
+          userSeat,
+          totalStack,
+          PlayerActions.allIn
+        )
+      : handleButtonClick(
+          Possibilities.raise,
+          userSeat,
+          raiseAmount,
+          PlayerActions.raise
+        );
   };
 
   return (
@@ -158,19 +197,19 @@ const Controls: React.FunctionComponent = () => {
           <Button
             label="1/2 Pot"
             small
-            onClick={() => handleSmallButtonClick("halfPot")}
+            onClick={handleSmallButtonClick("halfPot")}
             data-test="table-controls-half-pot-button"
           />
           <Button
             label="Pot"
             small
-            onClick={() => handleSmallButtonClick("pot")}
+            onClick={handleSmallButtonClick("pot")}
             data-test="table-controls-pot-button"
           />
           <Button
             label="Max"
             small
-            onClick={() => handleSmallButtonClick("max")}
+            onClick={handleSmallButtonClick("max")}
             data-test="table-controls-max-button"
           />
           <Slider raiseAmount={raiseAmount} setRaiseAmount={setRaiseAmount} />
@@ -179,35 +218,14 @@ const Controls: React.FunctionComponent = () => {
       {/* Fold Button */}
       <Button
         label="Fold"
-        onClick={() =>
-          handleButtonClick(
-            Possibilities.fold,
-            userSeat,
-            null,
-            PlayerActions.fold
-          )
-        }
+        onClick={handleFoldClick()}
         data-test="table-controls-fold-button"
       />
       {/* Check/Call Button */}
       <Button
         label={canCheck ? "Check" : "Call"}
         amount={!canCheck && callAmount}
-        onClick={() =>
-          canCheck
-            ? handleButtonClick(
-                Possibilities.check,
-                userSeat,
-                callAmount,
-                PlayerActions.check
-              )
-            : handleButtonClick(
-                Possibilities.call,
-                userSeat,
-                callAmount,
-                PlayerActions.call
-              )
-        }
+        onClick={handleCheckCallClick()}
         data-test={`table-controls-${canCheck ? "check" : "call"}-button`}
       />
       {/* Raise/All-In Button */}
@@ -219,21 +237,7 @@ const Controls: React.FunctionComponent = () => {
           amount={
             minRaiseTo >= chips || toCall >= chips ? totalStack : raiseAmount
           }
-          onClick={() =>
-            minRaiseTo >= chips || toCall >= chips
-              ? handleButtonClick(
-                  Possibilities.allIn,
-                  userSeat,
-                  totalStack,
-                  PlayerActions.allIn
-                )
-              : handleButtonClick(
-                  Possibilities.raise,
-                  userSeat,
-                  raiseAmount,
-                  PlayerActions.raise
-                )
-          }
+          onClick={handleRaiseClick()}
           data-test="table-controls-raise-button"
         />
       )}
