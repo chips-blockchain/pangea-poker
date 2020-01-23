@@ -250,16 +250,22 @@ export const onMessage_player = (
             setActivePlayer(null, dispatch);
             sounds.call.play();
             break;
-          case "raise":
+          case "raise": {
+            const isBet = state.toCall === 0;
+            const action = isBet ? "bet" : "raise";
+
             bet(guiPlayer, betAmount, state, dispatch);
-            setLastAction(guiPlayer, "raise", dispatch);
+            setLastAction(guiPlayer, action, dispatch);
             addToHandHistory(
-              `Player${guiPlayer + 1} raises to ${betAmount}.`,
+              `Player${guiPlayer + 1} ${action}s${
+                isBet ? "" : " to"
+              } ${betAmount}.`,
               dispatch
             );
             setActivePlayer(null, dispatch);
             sounds.raise.play();
             break;
+          }
           case "fold":
             fold(`player${guiPlayer + 1}`, dispatch);
             setLastAction(guiPlayer, "fold", dispatch);

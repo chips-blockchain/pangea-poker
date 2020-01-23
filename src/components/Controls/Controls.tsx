@@ -164,19 +164,20 @@ const Controls: React.FunctionComponent = () => {
 
   // Raise/All-in/Bet button
   const handleRaiseClick = () => (): void => {
-    minRaiseTo >= chips || toCall >= chips
-      ? handleButtonClick(
-          Possibilities.allIn,
-          userSeat,
-          totalStack,
-          PlayerActions.allIn
-        )
-      : handleButtonClick(
-          Possibilities.raise,
-          userSeat,
-          raiseAmount,
-          PlayerActions.raise
-        );
+    const isAllIn = minRaiseTo >= chips || toCall >= chips;
+    const isBet = toCall === 0;
+
+    const possibility = isAllIn ? Possibilities.allIn : Possibilities.raise;
+
+    const amount = isAllIn ? totalStack : raiseAmount;
+
+    const action = isAllIn
+      ? PlayerActions.allIn
+      : isBet
+      ? PlayerActions.bet
+      : PlayerActions.raise;
+
+    handleButtonClick(possibility, userSeat, amount, action);
   };
 
   return (
