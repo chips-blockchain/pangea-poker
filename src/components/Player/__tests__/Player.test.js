@@ -136,4 +136,6 @@ describe("Player", () => {
       true
     );
   });
+
+  // TODO: Add test for the playback timeAlert in Player.ts - it is tricky because inside a useEffect hook
 });
