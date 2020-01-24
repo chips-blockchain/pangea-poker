@@ -171,6 +171,29 @@ describe("handHistory", () => {
     );
   });
 
+  test("logs bet", () => {
+    const stateToTest = {
+      ...state,
+      toCall: 0
+    };
+    receiveMessage(
+      {
+        action: "raise",
+        method: "betting",
+        playerid: 1,
+        bet_amount: 100
+      },
+      1,
+      stateToTest
+    );
+
+    expect(addToHandHistorySpy).toHaveBeenCalledTimes(1);
+    expect(addToHandHistorySpy).toHaveBeenCalledWith(
+      `Player2 bets 100.`,
+      dispatch
+    );
+  });
+
   test("logs fold", () => {
     receiveMessage({ action: "fold", method: "betting", playerid: 0 }, 0);
 
