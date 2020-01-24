@@ -1,13 +1,20 @@
+/*eslint-disable @typescript-eslint/camelcase*/
+
 import { IMessage, onMessage_player } from "../onMessage";
-import state from "../../../store/initialState";
+import state, { IState } from "../../../store/initialState";
 import * as actions from "../../../store/actions";
 
 const dispatch = jest.fn();
 
-const receiveMessage = (message: IMessage, userSeat: number) => {
+export const receiveMessage = (
+  message: IMessage,
+  userSeat: number,
+  stateToTest: IState = state
+): void => {
   const {
     action,
     bet_amount,
+    deal,
     method,
     playerid,
     possibilities,
@@ -19,6 +26,7 @@ const receiveMessage = (message: IMessage, userSeat: number) => {
   onMessage_player(
     JSON.stringify({
       action,
+      deal,
       bet_amount,
       method,
       playerid,
@@ -28,11 +36,62 @@ const receiveMessage = (message: IMessage, userSeat: number) => {
       winners
     }),
     `player${userSeat + 1}`,
-    state,
+    stateToTest,
     dispatch
   );
 };
 
+// Active Player Handling
+describe("Active player handling", () => {
+  const setActivePlayerSpy = jest.spyOn(actions, "setActivePlayer");
+  const showControlsSpy = jest.spyOn(actions, "showControls");
+
+  test("reveal the controls for the player at userSeat", () => {
+    receiveMessage(
+      {
+        action: "round_betting",
+        method: "betting",
+        playerid: 1,
+        possibilities: [4, 5, 6]
+      },
+      1
+    );
+
+    expect(showControlsSpy).toHaveBeenCalledTimes(1);
+    expect(showControlsSpy).toHaveBeenCalledWith(true, dispatch);
+  });
+
+  test("does not reveal the controls when it's the opponent's turn", () => {
+    receiveMessage(
+      {
+        action: "round_betting",
+        method: "betting",
+        playerid: 0,
+        possibilities: [4, 5, 6]
+      },
+      1
+    );
+
+    expect(showControlsSpy).toHaveBeenCalledTimes(0);
+  });
+
+  test("highlights the correct active player", () => {
+    receiveMessage(
+      {
+        action: "round_betting",
+        method: "betting",
+        playerid: 0,
+        possibilities: [4, 5, 6]
+      },
+      1
+    );
+
+    expect(setActivePlayerSpy).toHaveBeenCalledTimes(1);
+    expect(setActivePlayerSpy).toHaveBeenCalledWith("player1", dispatch);
+  });
+});
+
+// Hand History
 describe("handHistory", () => {
   const addToHandHistorySpy = jest.spyOn(actions, "addToHandHistory");
 
@@ -170,54 +229,5 @@ describe("handHistory", () => {
       `Player1 wins 1000.`,
       dispatch
     );
-  });
-});
-
-describe("Active player handling", () => {
-  const setActivePlayerSpy = jest.spyOn(actions, "setActivePlayer");
-  const showControlsSpy = jest.spyOn(actions, "showControls");
-
-  test("reveal the controls for the player at userSeat", () => {
-    receiveMessage(
-      {
-        action: "round_betting",
-        method: "betting",
-        playerid: 1,
-        possibilities: [4, 5, 6]
-      },
-      1
-    );
-
-    expect(showControlsSpy).toHaveBeenCalledTimes(1);
-    expect(showControlsSpy).toHaveBeenCalledWith(true, dispatch);
-  });
-
-  test("does not reveal the controls when it's the opponent's turn", () => {
-    receiveMessage(
-      {
-        action: "round_betting",
-        method: "betting",
-        playerid: 0,
-        possibilities: [4, 5, 6]
-      },
-      1
-    );
-
-    expect(showControlsSpy).toHaveBeenCalledTimes(0);
-  });
-
-  test("highlights the correct active player", () => {
-    receiveMessage(
-      {
-        action: "round_betting",
-        method: "betting",
-        playerid: 0,
-        possibilities: [4, 5, 6]
-      },
-      1
-    );
-
-    expect(setActivePlayerSpy).toHaveBeenCalledTimes(1);
-    expect(setActivePlayerSpy).toHaveBeenCalledWith("player1", dispatch);
   });
 });
