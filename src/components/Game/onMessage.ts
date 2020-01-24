@@ -236,7 +236,7 @@ export const onMessage_player = (
             }
             break;
 
-          // Update other players actions
+          // Update player actions
           case "check":
             setLastAction(guiPlayer, "check", dispatch);
             addToHandHistory(`Player${guiPlayer + 1} checks.`, dispatch);
@@ -263,7 +263,7 @@ export const onMessage_player = (
               dispatch
             );
             setActivePlayer(null, dispatch);
-            sounds.raise.play();
+            isBet ? sounds.call.play() : sounds.raise.play();
             break;
           }
           case "fold":
