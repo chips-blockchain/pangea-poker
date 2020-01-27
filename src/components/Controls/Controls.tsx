@@ -121,21 +121,29 @@ const Controls: React.FunctionComponent = () => {
     sendMessage(nextAction, userSeat, state, dispatch);
   };
 
-  const handleSmallButtonClick = (buttonType: string) => (): void => {
+  enum buttonType {
+    halfPot = "halfPot",
+    pot = "pot",
+    max = "max"
+  }
+
+  const { halfPot, pot, max } = buttonType;
+
+  const handleSmallButtonClick = (buttonType: buttonType) => (): void => {
     // 1/2 Pot Button
-    if (buttonType === "halfPot") {
+    if (buttonType === halfPot) {
       const halfPotRaise = toCall + totalPot + betAmount;
       const raiseToSet = halfPotRaise > totalStack ? totalStack : halfPotRaise;
       setRaiseAmount(raiseToSet);
     }
     // Pot Button
-    else if (buttonType === "pot") {
+    else if (buttonType === pot) {
       const potRaise = toCall + totalPot + betAmount;
       const raiseToSet = potRaise > totalStack ? totalStack : potRaise;
       setRaiseAmount(raiseToSet);
     }
     // Max button
-    else if (buttonType === "max") {
+    else if (buttonType === max) {
       setRaiseAmount(totalStack);
     } else throw new Error("No such small  button type.");
   };
@@ -198,19 +206,19 @@ const Controls: React.FunctionComponent = () => {
           <Button
             label="1/2 Pot"
             small
-            onClick={handleSmallButtonClick("halfPot")}
+            onClick={handleSmallButtonClick(halfPot)}
             data-test="table-controls-half-pot-button"
           />
           <Button
             label="Pot"
             small
-            onClick={handleSmallButtonClick("pot")}
+            onClick={handleSmallButtonClick(pot)}
             data-test="table-controls-pot-button"
           />
           <Button
             label="Max"
             small
-            onClick={handleSmallButtonClick("max")}
+            onClick={handleSmallButtonClick(max)}
             data-test="table-controls-max-button"
           />
           <Slider raiseAmount={raiseAmount} setRaiseAmount={setRaiseAmount} />
