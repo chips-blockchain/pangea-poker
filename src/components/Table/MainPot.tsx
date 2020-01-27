@@ -1,4 +1,5 @@
 import { css } from "@emotion/core";
+import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { Bet } from "../Chips";
 import { GameTurns } from "../../lib/constants";
@@ -8,52 +9,71 @@ import { GameTurns } from "../../lib/constants";
 interface IProps {
   mainPot: number;
   gameTurn: number;
-  winner: string;
+  winners: string[];
 }
 
 const { showDown } = GameTurns;
 
+const winnerPotLocation = {
+  player1: {
+    left: "25rem",
+    top: "9.5rem"
+  },
+  player2: {
+    left: "27rem",
+    top: "14rem"
+  }
+};
+
 const MainPot: React.FunctionComponent<IProps> = ({
   mainPot,
   gameTurn,
-  winner
+  winners
 }) => {
-  const [winnerCoordinates, setWinnerCoordinates]: [
-    { left: number | string; top: string },
-    Function
-  ] = useState({
-    left: 0,
-    top: "19rem"
-  });
+  const potStyle = css`
+    display: flex;
+    justify-content: center;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 4rem;
+    top: 19rem;
+    transition-delay: 1s;
+    transition: 0.5s ease-out;
+  `;
 
-  // Temporarily way of determining the winner. Only works in heads up.
-  // TODO: Separate the logic for the winner selection
-
-  useEffect(() => {
-    if (gameTurn === showDown && winner) {
-      if (winner === "player1") {
-        setWinnerCoordinates({ left: "25rem", top: "9.5rem" });
-      } else if (winner === "player2") {
-        setWinnerCoordinates({ left: "27rem", top: "14rem" });
-      } else throw new Error("The winner is unclear");
-    }
-  }, [winner]);
+  const isWinnerSelect = gameTurn === showDown && winners;
 
   return (
-    <div
-      css={css`
-        position: absolute;
-        left: ${gameTurn === showDown ? winnerCoordinates.left : "0"};
-        right: 4rem;
-        margin: auto;
-        display: flex;
-        justify-content: center;
-        top: ${gameTurn === showDown ? winnerCoordinates.top : "19rem"};
-        transition: 0.5s ease-out;
-        transition-delay: 1s;
-      `}
-    >
-      <Bet betAmount={mainPot} />
+    <div>
+      {/* Regular pot */}
+      {!isWinnerSelect && (
+        <div
+          css={css`
+            ${potStyle}
+          `}
+        >
+          <Bet betAmount={mainPot} />
+        </div>
+      )}
+
+      {/* Winner Pot(s) */}
+      {isWinnerSelect &&
+        winners.map(player => {
+          return (
+            <div
+              css={css`
+          ${potStyle}
+          
+          left: ${winnerPotLocation[player].left};
+          top: ${winnerPotLocation[player].top};
+        `}
+              key={player}
+            >
+              <Bet betAmount={mainPot} />
+            </div>
+          );
+        })}
     </div>
   );
 };

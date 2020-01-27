@@ -341,8 +341,9 @@ export const onMessage_player = (
       const isShowDown = boardCardInfo.every(x => x !== null);
 
       const handleWinner = (): void => {
-        setWinner(message.winners[0], message.win_amount, state, dispatch);
+        setWinner(message.winners, message.win_amount, state, dispatch);
         addToHandHistory(
+          // TODO: Fix the log
           `Player${message.winners[0] + 1} wins ${message.win_amount}.`,
           dispatch
         );
@@ -467,6 +468,6 @@ export const onMessage_player = (
       break;
 
     default:
-    // sendMessage(message, "dcv", state, dispatch);
+      sendMessage(message, "dcv", state, dispatch);
   }
 };
