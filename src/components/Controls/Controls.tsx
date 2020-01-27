@@ -64,9 +64,9 @@ const Controls: React.FunctionComponent = () => {
     player: string,
     amount: number,
     lastAction: string
-  ) => {
+  ): void => {
     // Update the previous message with the new data and send it
-    let nextAction: IMessage = lastMessage;
+    const nextAction: IMessage = lastMessage;
     nextAction.playerid = playerStringToId(player);
 
     // Match action to possibilities
@@ -78,7 +78,7 @@ const Controls: React.FunctionComponent = () => {
 
       // Call
       case Possibilities.call:
-        nextAction.bet_amount = amount + betAmount;
+        nextAction.bet_amount = amount + betAmount; //eslint-disable-line @typescript-eslint/camelcase
         bet(player, amount + betAmount, state, dispatch);
         log(`${player} calls ${amount}`, "info");
         break;
@@ -86,7 +86,7 @@ const Controls: React.FunctionComponent = () => {
       // Raise
       case Possibilities.raise:
       case Possibilities.allIn:
-        nextAction.bet_amount = amount;
+        nextAction.bet_amount = amount; //eslint-disable-line @typescript-eslint/camelcase
         bet(player, amount, state, dispatch);
         log(
           `${player} raises to ${amount} ${
@@ -121,23 +121,71 @@ const Controls: React.FunctionComponent = () => {
     sendMessage(nextAction, userSeat, state, dispatch);
   };
 
-  const handleSmallButtonClick = (buttonType: string) => {
+  enum buttonType {
+    halfPot = "halfPot",
+    pot = "pot",
+    max = "max"
+  }
+
+  const { halfPot, pot, max } = buttonType;
+
+  const handleSmallButtonClick = (buttonType: buttonType) => (): void => {
     // 1/2 Pot Button
-    if (buttonType === "halfPot") {
+    if (buttonType === halfPot) {
       const halfPotRaise = toCall + totalPot + betAmount;
       const raiseToSet = halfPotRaise > totalStack ? totalStack : halfPotRaise;
       setRaiseAmount(raiseToSet);
     }
     // Pot Button
-    else if (buttonType === "pot") {
+    else if (buttonType === pot) {
       const potRaise = toCall + totalPot + betAmount;
       const raiseToSet = potRaise > totalStack ? totalStack : potRaise;
       setRaiseAmount(raiseToSet);
     }
     // Max button
-    else if (buttonType === "max") {
+    else if (buttonType === max) {
       setRaiseAmount(totalStack);
     } else throw new Error("No such small  button type.");
+  };
+
+  // Fold Button
+  const handleFoldClick = () => (): void => {
+    handleButtonClick(Possibilities.fold, userSeat, null, PlayerActions.fold);
+  };
+
+  // Check/Call Button
+  const handleCheckCallClick = () => (): void => {
+    canCheck
+      ? handleButtonClick(
+          Possibilities.check,
+          userSeat,
+          callAmount,
+          PlayerActions.check
+        )
+      : handleButtonClick(
+          Possibilities.call,
+          userSeat,
+          callAmount,
+          PlayerActions.call
+        );
+  };
+
+  // Raise/All-in/Bet button
+  const handleRaiseClick = () => (): void => {
+    const isAllIn = minRaiseTo >= chips || toCall >= chips;
+    const isBet = toCall === 0;
+
+    const possibility = isAllIn ? Possibilities.allIn : Possibilities.raise;
+
+    const amount = isAllIn ? totalStack : raiseAmount;
+
+    const action = isAllIn
+      ? PlayerActions.allIn
+      : isBet
+      ? PlayerActions.bet
+      : PlayerActions.raise;
+
+    handleButtonClick(possibility, userSeat, amount, action);
   };
 
   return (
@@ -158,19 +206,19 @@ const Controls: React.FunctionComponent = () => {
           <Button
             label="1/2 Pot"
             small
-            onClick={() => handleSmallButtonClick("halfPot")}
+            onClick={handleSmallButtonClick(halfPot)}
             data-test="table-controls-half-pot-button"
           />
           <Button
             label="Pot"
             small
-            onClick={() => handleSmallButtonClick("pot")}
+            onClick={handleSmallButtonClick(pot)}
             data-test="table-controls-pot-button"
           />
           <Button
             label="Max"
             small
-            onClick={() => handleSmallButtonClick("max")}
+            onClick={handleSmallButtonClick(max)}
             data-test="table-controls-max-button"
           />
           <Slider raiseAmount={raiseAmount} setRaiseAmount={setRaiseAmount} />
@@ -179,35 +227,14 @@ const Controls: React.FunctionComponent = () => {
       {/* Fold Button */}
       <Button
         label="Fold"
-        onClick={() =>
-          handleButtonClick(
-            Possibilities.fold,
-            userSeat,
-            null,
-            PlayerActions.fold
-          )
-        }
+        onClick={handleFoldClick()}
         data-test="table-controls-fold-button"
       />
       {/* Check/Call Button */}
       <Button
         label={canCheck ? "Check" : "Call"}
         amount={!canCheck && callAmount}
-        onClick={() =>
-          canCheck
-            ? handleButtonClick(
-                Possibilities.check,
-                userSeat,
-                callAmount,
-                PlayerActions.check
-              )
-            : handleButtonClick(
-                Possibilities.call,
-                userSeat,
-                callAmount,
-                PlayerActions.call
-              )
-        }
+        onClick={handleCheckCallClick()}
         data-test={`table-controls-${canCheck ? "check" : "call"}-button`}
       />
       {/* Raise/All-In Button */}
@@ -219,21 +246,7 @@ const Controls: React.FunctionComponent = () => {
           amount={
             minRaiseTo >= chips || toCall >= chips ? totalStack : raiseAmount
           }
-          onClick={() =>
-            minRaiseTo >= chips || toCall >= chips
-              ? handleButtonClick(
-                  Possibilities.allIn,
-                  userSeat,
-                  totalStack,
-                  PlayerActions.allIn
-                )
-              : handleButtonClick(
-                  Possibilities.raise,
-                  userSeat,
-                  raiseAmount,
-                  PlayerActions.raise
-                )
-          }
+          onClick={handleRaiseClick()}
           data-test="table-controls-raise-button"
         />
       )}

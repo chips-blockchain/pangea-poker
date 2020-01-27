@@ -4,7 +4,6 @@ import React, { useState, useEffect, useContext } from "react";
 import Card from "../Card";
 import { CardFaceDown } from "../Card";
 import randomEmoji from "../../lib/randomEmoji";
-import useInterval from "../../lib/useInterval";
 import numberWithCommas from "../../lib/numberWithCommas";
 import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../../store/context";
@@ -20,6 +19,7 @@ import playerStringToId from "../../lib/playerStringToId";
 import { IPlayer, IState } from "../../store/initialState";
 import { IMessage } from "../Game/onMessage";
 import { Possibilities, PlayerActions, GameTurns } from "../../lib/constants";
+import sounds from "../../sounds/sounds";
 
 // This is the Player widget that shows the player avatar, the chips amount, wether the player has cards, etc
 
@@ -159,7 +159,7 @@ const Player: React.FunctionComponent<IProps> = ({
 
   // Timer
   useEffect(() => {
-    if (activePlayer) {
+    if (activePlayer === seat) {
       // Reset time allowance
       setSecondsLeft(timeAllowance);
 
@@ -205,6 +205,13 @@ const Player: React.FunctionComponent<IProps> = ({
       setActivePlayer(null, dispatch);
     }
   }, [secondsLeft]);
+
+  // Play the time alert sound when time reaches 25%
+  useEffect(() => {
+    isUserSeat &&
+      secondsLeft === timeAllowance * 0.25 &&
+      sounds.timeAlert.play();
+  }, [secondsLeft, isUserSeat]);
 
   return (
     <div

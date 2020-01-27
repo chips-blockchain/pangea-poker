@@ -9,13 +9,14 @@ export enum Possibilities {
 }
 
 export enum PlayerActions {
-  fold = "FOLD",
-  check = "CHECK",
-  raise = "RAISE",
-  call = "CALL",
-  smallBlind = "SMALL BLIND",
+  allIn = "ALL-IN",
+  bet = "BET",
   bigBlind = "BIG BLIND",
-  allIn = "ALL-IN"
+  call = "CALL",
+  check = "CHECK",
+  fold = "FOLD",
+  raise = "RAISE",
+  smallBlind = "SMALL BLIND"
 }
 
 export enum GameTurns {

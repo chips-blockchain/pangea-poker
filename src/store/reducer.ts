@@ -168,11 +168,13 @@ const reducer: Function = (state: IState, action: IAction): object => {
           ...state.players,
           player1: {
             ...state.players.player1,
-            hasCards: true
+            hasCards: true,
+            playerCards: []
           },
           player2: {
             ...state.players.player2,
-            hasCards: true
+            hasCards: true,
+            playerCards: []
           }
         },
         pot: [0],

@@ -1,4 +1,4 @@
-/* eslint-disable no-use-before-define */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import theme from "../styles/theme";
 import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
@@ -120,6 +120,9 @@ export const deal = (
         )}, ${lowerCaseLastLetter(board[2])}.`,
         dispatch
       );
+      setTimeout(() => {
+        sounds.showFlop.play();
+      }, 1000);
     }
 
     // Turn
@@ -130,6 +133,7 @@ export const deal = (
         `The turn is ${lowerCaseLastLetter(board[3])}.`,
         dispatch
       );
+      sounds.cardDrop.play();
     }
 
     // River
@@ -140,6 +144,7 @@ export const deal = (
         `The river is ${lowerCaseLastLetter(board[4])}.`,
         dispatch
       );
+      sounds.cardDrop.play();
     }
   }
 };
@@ -224,7 +229,7 @@ export const playerJoin = (
 ): void => {
   const id = Number(player.slice(-1)) - 1;
   sendMessage(
-    { method: "player_join", gui_playerID: id },
+    { method: "player_join", gui_playerID: id }, //eslint-disable-line @typescript-eslint/camelcase
     player,
     state,
     dispatch
@@ -235,7 +240,7 @@ export const playerJoin = (
 export const processControls = (
   receivedPossibilities: number[],
   dispatch: Function
-) => {
+): void => {
   const canCheck = receivedPossibilities.some(
     poss => poss === Possibilities.check
   );
@@ -320,7 +325,10 @@ export const setBalance = (
   });
 };
 
-export const setBlinds = (blinds: [number, number], dispatch: Function) => {
+export const setBlinds = (
+  blinds: [number, number],
+  dispatch: Function
+): void => {
   dispatch({
     type: "setBlinds",
     payload: blinds
@@ -409,14 +417,14 @@ export const setWinner = (
   }, 1000);
 };
 
-export const showControls = (show: boolean, dispatch: Function) => {
+export const showControls = (show: boolean, dispatch: Function): void => {
   dispatch({
     type: "showControls",
     payload: show
   });
 };
 
-export const toggleMainPot = (dispatch: Function) => {
+export const toggleMainPot = (dispatch: Function): void => {
   dispatch({
     type: "toggleMainPot"
   });

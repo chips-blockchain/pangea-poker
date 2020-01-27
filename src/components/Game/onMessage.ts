@@ -236,7 +236,7 @@ export const onMessage_player = (
             }
             break;
 
-          // Update other players actions
+          // Update player actions
           case "check":
             setLastAction(guiPlayer, "check", dispatch);
             addToHandHistory(`Player${guiPlayer + 1} checks.`, dispatch);
@@ -250,16 +250,22 @@ export const onMessage_player = (
             setActivePlayer(null, dispatch);
             sounds.call.play();
             break;
-          case "raise":
+          case "raise": {
+            const isBet = state.toCall === 0;
+            const action = isBet ? "bet" : "raise";
+
             bet(guiPlayer, betAmount, state, dispatch);
-            setLastAction(guiPlayer, "raise", dispatch);
+            setLastAction(guiPlayer, action, dispatch);
             addToHandHistory(
-              `Player${guiPlayer + 1} raises to ${betAmount}.`,
+              `Player${guiPlayer + 1} ${action}s${
+                isBet ? "" : " to"
+              } ${betAmount}.`,
               dispatch
             );
             setActivePlayer(null, dispatch);
-            sounds.raise.play();
+            isBet ? sounds.call.play() : sounds.raise.play();
             break;
+          }
           case "fold":
             fold(`player${guiPlayer + 1}`, dispatch);
             setLastAction(guiPlayer, "fold", dispatch);
@@ -367,6 +373,11 @@ export const onMessage_player = (
 
       setActivePlayer(null, dispatch);
 
+      if (isShowDown) {
+        setBoardCards(boardCardInfo, dispatch);
+        collectChips(state, dispatch);
+      }
+
       const playWinnerSelectSound = (): void => {
         setTimeout(() => {
           sounds.winnerSelect.play();
@@ -383,6 +394,14 @@ export const onMessage_player = (
           () => {
             updateGameTurn(currentGameTurn + 1, dispatch);
             logAllInBoardCards();
+
+            // Play the sounds
+            if (currentGameTurn === preFlop) {
+              sounds.showFlop.play();
+            } else if (currentGameTurn === flop || currentGameTurn === turn) {
+              sounds.cardDrop.play();
+            }
+
             currentGameTurn += 1;
             progressShowDown();
           },
@@ -392,7 +411,6 @@ export const onMessage_player = (
 
       if (isShowDown) {
         doShowDown(message.showInfo.allHoleCardsInfo, dispatch);
-        updateStateValue("isShowDown", true, dispatch);
         progressShowDown();
       } else {
         handleWinner();
