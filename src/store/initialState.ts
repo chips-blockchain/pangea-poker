@@ -119,7 +119,7 @@ const initialState: IState = {
   toCall: 2,
   // Where does the user sit
   userSeat: null,
-  // The player that won the game
+  // Array of players that won
   winners: null
 };
 
