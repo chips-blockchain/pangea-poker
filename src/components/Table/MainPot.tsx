@@ -1,6 +1,5 @@
-import { css } from "@emotion/core";
-import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
+import { css } from "@emotion/core";
 import { Bet } from "../Chips";
 import { GameTurns } from "../../lib/constants";
 
@@ -14,13 +13,14 @@ interface IProps {
 
 const { showDown } = GameTurns;
 
+// Coordinates for where the winner's pot should be pushed
 const winnerPotLocation = {
   player1: {
     left: "25rem",
     top: "9.5rem"
   },
   player2: {
-    left: "27rem",
+    left: "30rem",
     top: "14rem"
   }
 };
@@ -30,50 +30,57 @@ const MainPot: React.FunctionComponent<IProps> = ({
   gameTurn,
   winners
 }) => {
+  const isWinnerSelectTurn = gameTurn === showDown && winners;
+
+  // Main Pot's position at the center of the screen
+  const { left, top } = {
+    left: 0,
+    top: "19rem"
+  };
+
+  // Shared pot style
   const potStyle = css`
     display: flex;
     justify-content: center;
-    left: 0;
+    left: ${left};
     margin: auto;
     position: absolute;
     right: 4rem;
-    top: 19rem;
-    transition-delay: 1s;
-    transition: 0.5s ease-out;
+    top: ${top};
+    animation-iteration-count: 1;
   `;
-
-  const isWinnerSelect = gameTurn === showDown && winners;
 
   return (
     <div>
-      {/* Regular pot */}
-      {!isWinnerSelect && (
-        <div
-          css={css`
-            ${potStyle}
-          `}
-        >
-          <Bet betAmount={mainPot} />
-        </div>
-      )}
+      {winners.map(player => {
+        // Custom animation style for each winner to send each pot to the right location
+        const animationStyle = css`
+          animation: ${isWinnerSelectTurn &&
+            `${`winnerSelect-${player}`} 0.5s ease-out 1s forwards`};
+          @keyframes ${`winnerSelect-${player}`} {
+            0% {
+              left: ${left};
+              top: ${top};
+            }
+            100% {
+              left: ${player && winnerPotLocation[player].left};
+              top: ${player && winnerPotLocation[player].top};
+            }
+          }
+        `;
 
-      {/* Winner Pot(s) */}
-      {isWinnerSelect &&
-        winners.map(player => {
-          return (
-            <div
-              css={css`
-          ${potStyle}
-          
-          left: ${winnerPotLocation[player].left};
-          top: ${winnerPotLocation[player].top};
-        `}
-              key={player}
-            >
-              <Bet betAmount={mainPot} />
-            </div>
-          );
-        })}
+        return (
+          <div
+            css={css`
+              ${potStyle}
+              ${animationStyle}
+            `}
+            key={player}
+          >
+            <Bet betAmount={mainPot} />
+          </div>
+        );
+      })}
     </div>
   );
 };

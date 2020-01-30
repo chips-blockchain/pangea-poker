@@ -120,7 +120,7 @@ const initialState: IState = {
   // Where does the user sit
   userSeat: null,
   // Array of players that won
-  winners: null
+  winners: [undefined]
 };
 
 export interface IPlayer {
