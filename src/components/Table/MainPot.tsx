@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { css } from "@emotion/core";
 import { Bet } from "../Chips";
 import { GameTurns } from "../../lib/constants";
