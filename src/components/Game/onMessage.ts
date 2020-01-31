@@ -280,7 +280,9 @@ export const onMessage_player = (
             setToCall(betAmount, dispatch);
             setLastAction(guiPlayer, "all-in", dispatch);
             addToHandHistory(
-              `Player${guiPlayer + 1} is All-In with ${betAmount}.`,
+              `Player${guiPlayer + 1} is All-In with ${numberWithCommas(
+                betAmount
+              )}.`,
               dispatch
             );
             setActivePlayer(null, dispatch);
