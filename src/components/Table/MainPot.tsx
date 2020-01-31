@@ -5,7 +5,7 @@ import { GameTurns } from "../../lib/constants";
 // This is the component that displays the main pot at the middle of table
 
 interface IProps {
-  mainPot: number;
+  pot: number[];
   gameTurn: number;
   winners: string[];
 }
@@ -25,7 +25,7 @@ const winnerPotLocation = {
 };
 
 const MainPot: React.FunctionComponent<IProps> = ({
-  mainPot,
+  pot,
   gameTurn,
   winners
 }) => {
@@ -51,7 +51,7 @@ const MainPot: React.FunctionComponent<IProps> = ({
 
   return (
     <div>
-      {winners.map(player => {
+      {winners.map((player, index) => {
         // Custom animation style for each winner to send each pot to the right location
         const animationStyle = css`
           animation: ${isWinnerSelectTurn &&
@@ -76,7 +76,7 @@ const MainPot: React.FunctionComponent<IProps> = ({
             `}
             key={player}
           >
-            <Bet betAmount={mainPot} />
+            <Bet betAmount={pot && pot[0]} />
           </div>
         );
       })}

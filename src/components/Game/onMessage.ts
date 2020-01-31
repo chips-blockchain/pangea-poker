@@ -27,7 +27,8 @@ import {
   updateGameTurn,
   updateStateValue,
   setBoardCards,
-  processControls
+  processControls,
+  updateMainPot
 } from "../../store/actions";
 import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
@@ -376,6 +377,7 @@ export const onMessage_player = (
       const handleWinner = (): void => {
         setWinner(message.winners, message.win_amount, state, dispatch);
         logWinners();
+        setTimeout(() => updateMainPot(win_amount, dispatch), 2000);
       };
 
       // Log board cards when players go All-In
