@@ -135,7 +135,7 @@ const initialState: IState = {
   // Where does the user sit
   userSeat: "player1",
   // The player that won the game
-  winner: null
+  winners: [undefined]
 };
 
 export default initialState;
