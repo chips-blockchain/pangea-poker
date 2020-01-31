@@ -33,6 +33,7 @@ import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
 import { IState } from "../../store/initialState";
 import playerIdToString from "../../lib/playerIdToString";
+import arrayListToSentence from "../../lib/arrayListToSentence";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
 import { GameTurns } from "../../lib/constants";
@@ -339,14 +340,40 @@ export const onMessage_player = (
       let currentGameTurn = state.gameTurn;
       const boardCardInfo = message.showInfo.boardCardInfo;
       const isShowDown = boardCardInfo.every(x => x !== null);
+      const { winners, win_amount } = message; //eslint-disable-line @typescript-eslint/camelcase
+
+      // Log winners to hand history
+      const logWinners = (): void => {
+        // Log if there is a single winner
+        if (winners.length === 1) {
+          addToHandHistory(
+            `Player${winners[0] + 1} wins ${numberWithCommas(win_amount)}.`, //eslint-disable-line @typescript-eslint/camelcase
+            dispatch
+          );
+          // Log if the pot is split between multiple players
+        } else if (winners.length > 1 && winners.length < 10) {
+          const winnerList = arrayListToSentence(
+            winners.map(winner => `${playerIdToString(winner)}`)
+          );
+
+          addToHandHistory(
+            `The pot is split between ${winnerList}. Each player wins ${numberWithCommas(
+              win_amount
+            )}.`, //eslint-disable-line @typescript-eslint/camelcase
+            dispatch
+          );
+        }
+        // Else log an error in the console
+        else {
+          console.error(
+            "Incorrect winner ammount has been passed in to the log."
+          );
+        }
+      };
 
       const handleWinner = (): void => {
         setWinner(message.winners, message.win_amount, state, dispatch);
-        addToHandHistory(
-          // TODO: Fix the log
-          `Player${message.winners[0] + 1} wins ${message.win_amount}.`,
-          dispatch
-        );
+        logWinners();
       };
 
       // Log board cards when players go All-In
