@@ -1,7 +1,7 @@
 const isStringOrNumber = (element): boolean =>
   typeof element === "string" || typeof element === "number";
 
-const arrayListToSentence = (array: string[] | number[]): string => {
+const arrayToSentence = (array: string[] | number[]): string => {
   if (array.length > 0) {
     if (array.every(isStringOrNumber))
       return array
@@ -15,4 +15,4 @@ const arrayListToSentence = (array: string[] | number[]): string => {
   } else console.error("Can't convert empty array to a sentence.");
 };
 
-export default arrayListToSentence;
+export default arrayToSentence;

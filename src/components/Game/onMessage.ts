@@ -37,7 +37,7 @@ import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
 import { IState } from "../../store/initialState";
 import playerIdToString from "../../lib/playerIdToString";
-import arrayListToSentence from "../../lib/arrayListToSentence";
+import arrayToSentence from "../../lib/arrayToSentence";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
 import { GameTurns } from "../../lib/constants";
@@ -358,7 +358,7 @@ export const onMessage_player = (
           );
           // Log if the pot is split between multiple players
         } else if (winners.length > 1 && winners.length < 10) {
-          const winnerList = arrayListToSentence(winners.map(playerIdToString));
+          const winnerList = arrayToSentence(winners.map(playerIdToString));
 
           addToHandHistory(
             `The pot is split between ${winnerList}. Each player wins ${numberWithCommas(
