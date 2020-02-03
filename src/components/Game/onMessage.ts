@@ -358,9 +358,7 @@ export const onMessage_player = (
           );
           // Log if the pot is split between multiple players
         } else if (winners.length > 1 && winners.length < 10) {
-          const winnerList = arrayListToSentence(
-            winners.map(winner => `${playerIdToString(winner)}`)
-          );
+          const winnerList = arrayListToSentence(winners.map(playerIdToString));
 
           addToHandHistory(
             `The pot is split between ${winnerList}. Each player wins ${numberWithCommas(

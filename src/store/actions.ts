@@ -407,7 +407,7 @@ export const setWinner = (
   state: IState,
   dispatch: Function
 ): void => {
-  const winners: string[] = winnerArray.map(player => playerIdToString(player));
+  const winners: string[] = winnerArray.map(playerIdToString);
   nextTurn(4, state, dispatch);
   setTimeout(() => {
     dispatch({
