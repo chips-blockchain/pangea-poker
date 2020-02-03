@@ -378,6 +378,7 @@ export const onMessage_player = (
       const handleWinner = (): void => {
         setWinner(message.winners, message.win_amount, state, dispatch);
         logWinners();
+        // Update the main pots with a delay, so that in case of a split pot, the numbers dispalyed are correct
         setTimeout(() => updateMainPot(win_amount, dispatch), 2000);
       };
 
