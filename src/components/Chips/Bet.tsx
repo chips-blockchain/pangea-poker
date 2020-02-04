@@ -32,6 +32,7 @@ const Bet: React.FunctionComponent<IProps> = ({
 
         transition-delay: 0.4s;
       `}
+      data-test={"bet"}
     >
       <span
         css={css`

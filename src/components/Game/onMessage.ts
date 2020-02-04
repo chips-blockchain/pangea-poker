@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/camelcase */
+// Camel case rule is disabled until the backend casing becomes consistent
+
 import {
   addToHandHistory,
   bet,
@@ -27,12 +30,14 @@ import {
   updateGameTurn,
   updateStateValue,
   setBoardCards,
-  processControls
+  processControls,
+  updateMainPot
 } from "../../store/actions";
 import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
 import { IState } from "../../store/initialState";
 import playerIdToString from "../../lib/playerIdToString";
+import arrayToSentence from "../../lib/arrayToSentence";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
 import { GameTurns } from "../../lib/constants";
@@ -97,10 +102,10 @@ export const onMessage = (
       console.log("Received the turn info");
 
       if (message.playerid == 0) {
-        message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
+        message.gui_playerID = 0;
         sendMessage(message, "player1", state, dispatch);
       } else {
-        message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
+        message.gui_playerID = 1;
         sendMessage(message, "player2", state, dispatch);
       }
       break;
@@ -114,10 +119,10 @@ export const onMessage = (
         case "allin":
           message.action = message.action + "_player";
           if (message.gui_playerID == 0) {
-            message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
+            message.gui_playerID = 1;
             sendMessage(message, "player2", state, dispatch);
           } else if (message.gui_playerID == 1) {
-            message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
+            message.gui_playerID = 0;
             sendMessage(message, "player1", state, dispatch);
           }
           break;
@@ -143,10 +148,10 @@ export const onMessage_bvv = (
   switch (message.method) {
     case "init_b":
       message.method = "init_b_player";
-      message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
+      message.gui_playerID = 0;
       sendMessage(message, "player1", state, dispatch);
 
-      message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
+      message.gui_playerID = 1;
       sendMessage(message, "player2", state, dispatch);
       break;
 
@@ -279,7 +284,9 @@ export const onMessage_player = (
             setToCall(betAmount, dispatch);
             setLastAction(guiPlayer, "all-in", dispatch);
             addToHandHistory(
-              `Player${guiPlayer + 1} is All-In with ${betAmount}.`,
+              `Player${guiPlayer + 1} is All-In with ${numberWithCommas(
+                betAmount
+              )}.`,
               dispatch
             );
             setActivePlayer(null, dispatch);
@@ -288,10 +295,10 @@ export const onMessage_player = (
 
           default:
             if (message.playerid === 0) {
-              message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
+              message.gui_playerID = 0;
               sendMessage(message, "player1", state, dispatch);
             } else if (message.playerid === 1) {
-              message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
+              message.gui_playerID = 1;
               sendMessage(message, "player2", state, dispatch);
             }
 
@@ -339,13 +346,40 @@ export const onMessage_player = (
       let currentGameTurn = state.gameTurn;
       const boardCardInfo = message.showInfo.boardCardInfo;
       const isShowDown = boardCardInfo.every(x => x !== null);
+      const { winners, win_amount } = message;
+
+      // Log winners to hand history
+      const logWinners = (): void => {
+        // Log if there is a single winner
+        if (winners.length === 1) {
+          addToHandHistory(
+            `Player${winners[0] + 1} wins ${numberWithCommas(win_amount)}.`,
+            dispatch
+          );
+          // Log if the pot is split between multiple players
+        } else if (winners.length > 1 && winners.length < 10) {
+          const winnerList = arrayToSentence(winners.map(playerIdToString));
+
+          addToHandHistory(
+            `The pot is split between ${winnerList}. Each player wins ${numberWithCommas(
+              win_amount
+            )}.`,
+            dispatch
+          );
+        }
+        // Else log an error in the console
+        else {
+          console.error(
+            "Incorrect winner amount has been passed in to the log."
+          );
+        }
+      };
 
       const handleWinner = (): void => {
-        setWinner(message.winners[0], message.win_amount, state, dispatch);
-        addToHandHistory(
-          `Player${message.winners[0] + 1} wins ${message.win_amount}.`,
-          dispatch
-        );
+        setWinner(message.winners, message.win_amount, state, dispatch);
+        logWinners();
+        // Update the main pots with a delay, so that in case of a split pot, the numbers displayed are correct
+        setTimeout(() => updateMainPot(win_amount, dispatch), 2000);
       };
 
       // Log board cards when players go All-In
@@ -430,7 +464,7 @@ export const onMessage_player = (
 
     case "replay":
       message.method = "betting";
-      message.gui_playerID = playerId; //eslint-disable-line @typescript-eslint/camelcase
+      message.gui_playerID = playerId;
       setActivePlayer(player, dispatch);
       showControls(true, dispatch);
       break;
@@ -444,10 +478,10 @@ export const onMessage_player = (
 
     case "requestShare":
       if (message.toPlayer == 0) {
-        message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
+        message.gui_playerID = 0;
         sendMessage(message, "player1", state, dispatch);
       } else if (message.toPlayer == 1) {
-        message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
+        message.gui_playerID = 1;
         sendMessage(message, "player2", state, dispatch);
       }
       break;
@@ -458,15 +492,15 @@ export const onMessage_player = (
 
     case "share_info":
       if (message.toPlayer == 0) {
-        message.gui_playerID = 0; //eslint-disable-line @typescript-eslint/camelcase
+        message.gui_playerID = 0;
         sendMessage(message, "player1", state, dispatch);
       } else if (message.toPlayer == 1) {
-        message.gui_playerID = 1; //eslint-disable-line @typescript-eslint/camelcase
+        message.gui_playerID = 1;
         sendMessage(message, "player2", state, dispatch);
       }
       break;
 
     default:
-    // sendMessage(message, "dcv", state, dispatch);
+      sendMessage(message, "dcv", state, dispatch);
   }
 };

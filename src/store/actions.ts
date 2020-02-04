@@ -402,17 +402,17 @@ export const setUserSeat = (player: string, dispatch: Function): void => {
 };
 
 export const setWinner = (
-  player: number,
+  winnerArray: number[],
   winAmount: number,
   state: IState,
   dispatch: Function
 ): void => {
-  const winner = playerIdToString(player);
+  const winners: string[] = winnerArray.map(playerIdToString);
   nextTurn(4, state, dispatch);
   setTimeout(() => {
     dispatch({
       type: "setWinner",
-      payload: { winner, winAmount }
+      payload: { winners, winAmount }
     });
   }, 1000);
 };

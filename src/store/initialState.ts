@@ -119,8 +119,8 @@ const initialState: IState = {
   toCall: 2,
   // Where does the user sit
   userSeat: null,
-  // The player that won the game
-  winner: null
+  // Array of players that won
+  winners: [undefined]
 };
 
 export interface IPlayer {
@@ -194,7 +194,7 @@ export interface IState {
   totalPot: number;
   toCall: number;
   userSeat: string;
-  winner: string | null;
+  winners: string[] | null;
 }
 
 export default initialState;

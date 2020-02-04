@@ -217,7 +217,7 @@ describe("handHistory", () => {
 
     expect(addToHandHistorySpy).toHaveBeenCalledTimes(1);
     expect(addToHandHistorySpy).toHaveBeenCalledWith(
-      `Player2 is All-In with 1000.`,
+      `Player2 is All-In with 1,000.`,
       dispatch
     );
   });
@@ -249,7 +249,25 @@ describe("handHistory", () => {
 
     expect(addToHandHistorySpy).toHaveBeenCalledTimes(1);
     expect(addToHandHistorySpy).toHaveBeenCalledWith(
-      `Player1 wins 1000.`,
+      `Player1 wins 1,000.`,
+      dispatch
+    );
+  });
+
+  test("logs the winner and the win amount in case of split pot and two winners", () => {
+    receiveMessage(
+      {
+        method: "finalInfo",
+        showInfo: { boardCardInfo: ["10c", "Ad", "Ac", null, null] },
+        win_amount: 1000, //eslint-disable-line @typescript-eslint/camelcase
+        winners: [0, 1]
+      },
+      0
+    );
+
+    expect(addToHandHistorySpy).toHaveBeenCalledTimes(1);
+    expect(addToHandHistorySpy).toHaveBeenCalledWith(
+      `The pot is split between player1 and player2. Each player wins 1,000.`,
       dispatch
     );
   });

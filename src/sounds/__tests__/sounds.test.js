@@ -106,6 +106,7 @@ describe("Sounds", () => {
       {
         action: "allin",
         method: "betting",
+        bet_amount: 1000, //eslint-disable-line @typescript-eslint/camelcase
         playerid: 0
       },
       0

@@ -276,18 +276,23 @@ const reducer: Function = (state: IState, action: IAction): object => {
       };
     }
     case "setWinner": {
+      const playersToUpdate = {};
+
+      // Update each players chips with the win amount
+      action.payload.winners.forEach((player: string) => {
+        playersToUpdate[player] = {
+          ...state.players[player],
+          chips: state.players[player].chips + action.payload.winAmount
+        };
+      });
+
       return {
         ...state,
         players: {
           ...state.players,
-          [action.payload.winner]: {
-            ...state.players[action.payload.winner],
-            chips:
-              state.players[action.payload.winner].chips +
-              action.payload.winAmount
-          }
+          ...playersToUpdate
         },
-        winner: action.payload.winner
+        winners: action.payload.winners
       };
     }
     case "doShowDown": {

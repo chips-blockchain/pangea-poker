@@ -1,59 +1,86 @@
 import { css } from "@emotion/core";
-import { useEffect, useState } from "react";
 import { Bet } from "../Chips";
 import { GameTurns } from "../../lib/constants";
 
 // This is the component that displays the main pot at the middle of table
 
 interface IProps {
-  mainPot: number;
+  pot: number[];
   gameTurn: number;
-  winner: string;
+  winners: string[];
 }
 
 const { showDown } = GameTurns;
 
+// Coordinates for where the winner's pot should be pushed
+const winnerPotLocation = {
+  player1: {
+    left: "25rem",
+    top: "9.5rem"
+  },
+  player2: {
+    left: "30rem",
+    top: "14rem"
+  }
+};
+
 const MainPot: React.FunctionComponent<IProps> = ({
-  mainPot,
+  pot,
   gameTurn,
-  winner
+  winners
 }) => {
-  const [winnerCoordinates, setWinnerCoordinates]: [
-    { left: number | string; top: string },
-    Function
-  ] = useState({
+  const isWinnerSelectTurn = gameTurn === showDown && winners;
+
+  // Main Pot's position at the center of the screen
+  const { left, top } = {
     left: 0,
     top: "19rem"
-  });
+  };
 
-  // Temporarily way of determining the winner. Only works in heads up.
-  // TODO: Separate the logic for the winner selection
-
-  useEffect(() => {
-    if (gameTurn === showDown && winner) {
-      if (winner === "player1") {
-        setWinnerCoordinates({ left: "25rem", top: "9.5rem" });
-      } else if (winner === "player2") {
-        setWinnerCoordinates({ left: "27rem", top: "14rem" });
-      } else throw new Error("The winner is unclear");
-    }
-  }, [winner]);
+  // Shared pot style
+  const potStyle = css`
+    display: flex;
+    justify-content: center;
+    left: ${left};
+    margin: auto;
+    position: absolute;
+    right: 4rem;
+    top: ${top};
+    animation-iteration-count: 1;
+  `;
 
   return (
-    <div
-      css={css`
-        position: absolute;
-        left: ${gameTurn === showDown ? winnerCoordinates.left : "0"};
-        right: 4rem;
-        margin: auto;
-        display: flex;
-        justify-content: center;
-        top: ${gameTurn === showDown ? winnerCoordinates.top : "19rem"};
-        transition: 0.5s ease-out;
-        transition-delay: 1s;
-      `}
-    >
-      <Bet betAmount={mainPot} />
+    <div>
+      {winners.map((player, index) => {
+        // Custom animation style for each winner to send each pot to the right location
+        const animationStyle = css`
+          animation: ${isWinnerSelectTurn &&
+            `${`winnerSelect-${player}`} 0.5s ease-out 1s forwards`};
+          @keyframes ${`winnerSelect-${player}`} {
+            0% {
+              left: ${left};
+              top: ${top};
+            }
+            100% {
+              left: ${player && winnerPotLocation[player].left};
+              top: ${player && winnerPotLocation[player].top};
+            }
+          }
+        `;
+
+        return (
+          <div
+            css={css`
+              ${potStyle}
+              ${animationStyle}
+            `}
+            key={player + index}
+            data-test={`main-pot${player ? `-${player}` : ``}`}
+          >
+            <Bet betAmount={pot && pot[0]} />
+          </div>
+        );
+      })}
     </div>
   );
 };

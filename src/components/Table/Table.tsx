@@ -135,9 +135,9 @@ const Table: React.FunctionComponent = () => {
             </ChipGrid>
             {showMainPot && pot[0] !== 0 && (
               <MainPot
-                mainPot={pot[0]}
+                pot={pot}
                 gameTurn={state.gameTurn}
-                winner={state.winner}
+                winners={state.winners}
               />
             )}
             {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
