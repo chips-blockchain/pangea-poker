@@ -370,7 +370,7 @@ export const onMessage_player = (
         // Else log an error in the console
         else {
           console.error(
-            "Incorrect winner ammount has been passed in to the log."
+            "Incorrect winner amount has been passed in to the log."
           );
         }
       };
@@ -378,7 +378,7 @@ export const onMessage_player = (
       const handleWinner = (): void => {
         setWinner(message.winners, message.win_amount, state, dispatch);
         logWinners();
-        // Update the main pots with a delay, so that in case of a split pot, the numbers dispalyed are correct
+        // Update the main pots with a delay, so that in case of a split pot, the numbers displayed are correct
         setTimeout(() => updateMainPot(win_amount, dispatch), 2000);
       };
 
