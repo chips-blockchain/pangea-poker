@@ -74,7 +74,7 @@ const MainPot: React.FunctionComponent<IProps> = ({
               ${potStyle}
               ${animationStyle}
             `}
-            key={index}
+            key={player + index}
             data-test={`main-pot${player ? `-${player}` : ``}`}
           >
             <Bet betAmount={pot && pot[0]} />
