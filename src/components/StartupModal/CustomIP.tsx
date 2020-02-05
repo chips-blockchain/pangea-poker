@@ -87,7 +87,7 @@ const Label = styled.div`
 `;
 
 const CustomIP: React.FunctionComponent = () => {
-  const dispatch: Function = useContext(DispatchContext);
+  const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
 
   const [nodes, setNodes] = useState({

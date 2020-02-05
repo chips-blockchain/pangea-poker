@@ -12,7 +12,7 @@ const { preFlop, flop, turn } = GameTurns;
 // Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (
   lastAction: string,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   dispatch({
     type: "addToHandHistory",
@@ -25,7 +25,7 @@ export const bet = (
   player: string | number,
   betAmount: number,
   state: IState,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   // Convert the player parameter to a string if needed
   if (typeof player === "number") {
@@ -69,7 +69,10 @@ export const log = (text: string, color: string, message?: IMessage): void => {
 };
 
 // Collect the chips from the player before a new turn
-export const collectChips = (state: IState, dispatch: Function): void => {
+export const collectChips = (
+  state: IState,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "collectChips"
   });
@@ -84,7 +87,10 @@ export const collectChips = (state: IState, dispatch: Function): void => {
   }
 };
 
-export const connectPlayer = (player: string, dispatch: Function): void => {
+export const connectPlayer = (
+  player: string,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "connectPlayer",
     payload: player
@@ -92,7 +98,7 @@ export const connectPlayer = (player: string, dispatch: Function): void => {
 };
 
 // Closes the Startup Modal
-export const closeStartupModal = (dispatch: Function) => {
+export const closeStartupModal = (dispatch: (arg: object) => void) => {
   dispatch({
     type: "closeStartupModal"
   });
@@ -102,7 +108,7 @@ export const closeStartupModal = (dispatch: Function) => {
 export const deal = (
   message: IMessage,
   state: IState,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   const { holecards, board } = message.deal;
   const { gameTurn } = state;
@@ -150,21 +156,24 @@ export const deal = (
 };
 
 // Trigger the card deal animation
-export const dealCards = (dispatch: Function): void => {
+export const dealCards = (dispatch: (arg: object) => void): void => {
   dispatch({
     type: "dealCards"
   });
 };
 
 // Set up the state for Developer Mode
-export const devStart = (dispatch: Function): void => {
+export const devStart = (dispatch: (arg: object) => void): void => {
   dispatch({
     type: "devStart"
   });
 };
 
 // Triggers the showDown
-export const doShowDown = (allHoleCardsInfo: string[], dispatch: Function) => {
+export const doShowDown = (
+  allHoleCardsInfo: string[],
+  dispatch: (arg: object) => void
+) => {
   dispatch({
     type: "doShowDown",
     payload: allHoleCardsInfo
@@ -172,7 +181,7 @@ export const doShowDown = (allHoleCardsInfo: string[], dispatch: Function) => {
 };
 
 // Fold player action
-export const fold = (player: string, dispatch: Function): void => {
+export const fold = (player: string, dispatch: (arg: object) => void): void => {
   dispatch({
     type: "fold",
     payload: player
@@ -183,7 +192,7 @@ export const fold = (player: string, dispatch: Function): void => {
 export const game = (
   gameObject: { gametype: string; pot: number[] },
   state: IState,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   if (state.gameStarted === false) {
     dispatch({
@@ -200,7 +209,7 @@ export const game = (
 export const nextTurn = (
   turn: number,
   state: IState,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   collectChips(state, dispatch);
   setActivePlayer(null, dispatch);
@@ -213,7 +222,10 @@ export const nextTurn = (
   setLastAction(1, null, dispatch);
 };
 
-export const nextHand = (state: IState, dispatch: Function): void => {
+export const nextHand = (
+  state: IState,
+  dispatch: (arg: object) => void
+): void => {
   setActivePlayer(null, dispatch);
   updateGameTurn(0, dispatch);
   resetTurn(state.blinds[1], dispatch);
@@ -225,7 +237,7 @@ export const nextHand = (state: IState, dispatch: Function): void => {
 export const playerJoin = (
   player: string,
   state: IState,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   const id = Number(player.slice(-1)) - 1;
   sendMessage(
@@ -239,7 +251,7 @@ export const playerJoin = (
 // Defines which buttons to show in Controls by processsing the possibilities array
 export const processControls = (
   receivedPossibilities: number[],
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   const canCheck = receivedPossibilities.some(
     poss => poss === Possibilities.check
@@ -257,7 +269,10 @@ export const processControls = (
   });
 };
 
-export const resetMessage = (node: string, dispatch: Function): void => {
+export const resetMessage = (
+  node: string,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "setMessage",
     payload: {
@@ -267,7 +282,10 @@ export const resetMessage = (node: string, dispatch: Function): void => {
   });
 };
 
-export const resetTurn = (bigBlind: number, dispatch: Function): void => {
+export const resetTurn = (
+  bigBlind: number,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "resetTurn",
     payload: bigBlind
@@ -276,7 +294,7 @@ export const resetTurn = (bigBlind: number, dispatch: Function): void => {
 
 export const seats = (
   seatsArray: [{ name: string; playing: number; seat: number }],
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   seatsArray.map(seat => {
     dispatch({
@@ -294,7 +312,7 @@ export const sendMessage = (
   message: IMessage,
   node: string,
   state: IState,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   if (state.connection[node] === "Connected") {
     dispatch({
@@ -307,7 +325,10 @@ export const sendMessage = (
   } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
 };
 
-export const setActivePlayer = (player: string, dispatch: Function): void => {
+export const setActivePlayer = (
+  player: string,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "setActivePlayer",
     payload: player
@@ -317,7 +338,7 @@ export const setActivePlayer = (player: string, dispatch: Function): void => {
 export const setBalance = (
   player: string,
   balance: number,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   dispatch({
     type: "setBalance",
@@ -327,7 +348,7 @@ export const setBalance = (
 
 export const setBlinds = (
   blinds: [number, number],
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   dispatch({
     type: "setBlinds",
@@ -337,7 +358,7 @@ export const setBlinds = (
 
 export const setBoardCards = (
   boardCards: string[],
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   dispatch({
     type: "setBoardCards",
@@ -345,14 +366,20 @@ export const setBoardCards = (
   });
 };
 
-export const setDealer = (player: number, dispatch: Function): void => {
+export const setDealer = (
+  player: number,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "setDealer",
     payload: player
   });
 };
 
-export const setHoleCards = (holeCards: string[], dispatch: Function): void => {
+export const setHoleCards = (
+  holeCards: string[],
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "setHoleCards",
     payload: holeCards
@@ -362,7 +389,7 @@ export const setHoleCards = (holeCards: string[], dispatch: Function): void => {
 export const setLastAction = (
   player: number,
   action: string | IMessage | null,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   dispatch({
     type: "setLastAction",
@@ -373,28 +400,40 @@ export const setLastAction = (
   });
 };
 
-export const setLastMessage = (message: IMessage, dispatch: Function): void => {
+export const setLastMessage = (
+  message: IMessage,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "setLastMessage",
     payload: message
   });
 };
 
-export const setMinRaiseTo = (amount: number, dispatch: Function): void => {
+export const setMinRaiseTo = (
+  amount: number,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "setMinRaiseTo",
     payload: amount
   });
 };
 
-export const setToCall = (amount: number, dispatch: Function): void => {
+export const setToCall = (
+  amount: number,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "setToCall",
     payload: amount
   });
 };
 
-export const setUserSeat = (player: string, dispatch: Function): void => {
+export const setUserSeat = (
+  player: string,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "setUserSeat",
     payload: player
@@ -405,7 +444,7 @@ export const setWinner = (
   winnerArray: number[],
   winAmount: number,
   state: IState,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   const winners: string[] = winnerArray.map(playerIdToString);
   nextTurn(4, state, dispatch);
@@ -417,34 +456,46 @@ export const setWinner = (
   }, 1000);
 };
 
-export const showControls = (show: boolean, dispatch: Function): void => {
+export const showControls = (
+  show: boolean,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "showControls",
     payload: show
   });
 };
 
-export const toggleMainPot = (dispatch: Function): void => {
+export const toggleMainPot = (dispatch: (arg: object) => void): void => {
   dispatch({
     type: "toggleMainPot"
   });
 };
 
-export const updateGameTurn = (turn: number, dispatch: Function): void => {
+export const updateGameTurn = (
+  turn: number,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "updateGameTurn",
     payload: turn
   });
 };
 
-export const updateMainPot = (amount: number, dispatch: Function): void => {
+export const updateMainPot = (
+  amount: number,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "updateMainPot",
     payload: amount
   });
 };
 
-export const updateTotalPot = (amount: number, dispatch: Function): void => {
+export const updateTotalPot = (
+  amount: number,
+  dispatch: (arg: object) => void
+): void => {
   dispatch({
     type: "updateTotalPot",
     payload: amount
@@ -454,7 +505,7 @@ export const updateTotalPot = (amount: number, dispatch: Function): void => {
 export const updateStateValue = (
   key: string,
   value: any,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   dispatch({
     type: "updateStateValue",
