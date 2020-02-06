@@ -14,6 +14,7 @@ import {
   setUserSeat
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
+import ModalButtonsWrapper from "./ModalButtonsWrapper";
 
 interface INode {
   name: "dcv" | "bvv" | "player1" | "player2";
@@ -58,11 +59,6 @@ const nodesToInput: INode[][] = [
 ];
 
 // Styles
-
-const ButtonWrapper = styled.div`
-  text-align: center;
-  padding-top: 2rem;
-`;
 
 const inputStyle = css`
   background: none;
@@ -195,14 +191,14 @@ const CustomIP: React.FunctionComponent = () => {
           );
         })}
       </Tabs>
-      <ButtonWrapper>
+      <ModalButtonsWrapper>
         <Button
           label="Set Nodes"
           disabled={!canSetNodes}
           onClick={handleSubmit()}
           data-test="set-nodes-button"
         />
-      </ButtonWrapper>
+      </ModalButtonsWrapper>
     </form>
   );
 };
