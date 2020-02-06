@@ -13,7 +13,7 @@ import {
 import { IState } from "../../store/initialState";
 
 interface IProps {
-  dispatch: Function;
+  dispatch: (arg: object) => void;
   state: IState;
 }
 

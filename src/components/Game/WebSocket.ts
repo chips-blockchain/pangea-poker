@@ -18,7 +18,7 @@ interface IProps {
 }
 
 const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
-  const dispatch: Function = useContext(DispatchContext);
+  const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const [currentSocketUrl, setCurrentSocketUrl] = useState(server);
   const [sendMessage, lastMessage, readyState] = useWebSocket(

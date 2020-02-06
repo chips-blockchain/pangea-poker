@@ -14,7 +14,7 @@ import { DispatchContext, StateContext } from "../../store/context";
 import { IState } from "../../store/initialState";
 
 const DeveloperMode: React.FunctionComponent = () => {
-  const dispatch: Function = useContext(DispatchContext);
+  const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const { activePlayer, userSeat } = state;
 
@@ -52,7 +52,10 @@ const DeveloperMode: React.FunctionComponent = () => {
             {
               method: "finalInfo",
               showInfo: {
-                allHoleCardsInfo: [["5D", "3H"], ["2C", "7D"]],
+                allHoleCardsInfo: [
+                  ["5D", "3H"],
+                  ["2C", "7D"]
+                ],
                 boardCardInfo: ["9S", "4D", "KD", "5H", "AC"]
               },
               win_amount: 4000000,

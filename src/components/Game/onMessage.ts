@@ -77,7 +77,7 @@ const { preFlop, flop, turn, showDown } = GameTurns;
 export const onMessage = (
   messageString: string,
   state: IState,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   const message: IMessage = JSON.parse(messageString);
 
@@ -137,7 +137,7 @@ export const onMessage = (
 export const onMessage_bvv = (
   messageString: string,
   state: IState,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   const message: IMessage = JSON.parse(messageString);
 
@@ -164,7 +164,7 @@ export const onMessage_player = (
   messageString: string,
   player: string,
   state: IState,
-  dispatch: Function
+  dispatch: (arg: object) => void
 ): void => {
   const playerId: number = playerStringToId(player);
 

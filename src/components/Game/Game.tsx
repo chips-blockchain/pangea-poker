@@ -12,7 +12,7 @@ import { IState } from "../../store/initialState";
 const SOCKET_URL_ECHO = "wss://echo.websocket.org";
 
 const Game: React.FunctionComponent = () => {
-  const dispatch: Function = useContext(DispatchContext);
+  const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const {
     gameStarted,

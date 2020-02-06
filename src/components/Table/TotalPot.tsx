@@ -9,7 +9,7 @@ import { IState } from "../../store/initialState";
 
 interface IProps {
   state: IState;
-  dispatch: Function;
+  dispatch: (arg: object) => void;
 }
 
 const TotalPot: React.FunctionComponent<IProps> = ({ state, dispatch }) => {

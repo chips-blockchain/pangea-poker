@@ -42,7 +42,7 @@ const Player: React.FunctionComponent<IProps> = ({
   showCards,
   winner
 }) => {
-  const dispatch: Function = useContext(DispatchContext);
+  const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
 
   const {
