@@ -1,5 +1,12 @@
 import React from "react";
 import ReactModal from "react-modal";
+import { css } from "@emotion/core";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+
+interface IProps {
+  children?: React.ReactNode;
+  tabs?: { content: React.ReactNode; title: string }[];
+}
 
 const modalStyle = {
   content: {
@@ -8,6 +15,7 @@ const modalStyle = {
     color: "var(--text)",
     left: "50%",
     opacity: 1,
+    overflowX: "hidden",
     padding: "2rem 2rem",
     textAlign: "center",
     top: "50%",
@@ -24,10 +32,29 @@ const modalStyle = {
   }
 };
 
-const Modal: React.FunctionComponent = ({ children }) => {
+const tabsStyle = css`
+  & > .react-tabs__tab-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+`;
+
+const Modal: React.FunctionComponent<IProps> = ({ children, tabs }) => {
   return (
     <ReactModal isOpen={true} style={modalStyle}>
-      {children}
+      {tabs && (
+        <Tabs css={tabsStyle}>
+          <TabList>
+            {tabs.map(tab => {
+              return <Tab key={tab.title}>{tab.title}</Tab>;
+            })}
+          </TabList>
+          {tabs.map(tab => {
+            return <TabPanel key={tab.title}>{tab.content}</TabPanel>;
+          })}
+        </Tabs>
+      )}
     </ReactModal>
   );
 };
