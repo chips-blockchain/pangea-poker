@@ -1,49 +1,35 @@
 import React from "react";
-import { css } from "@emotion/core";
-import theme from "../../styles/theme";
+import ReactModal from "react-modal";
 
 const Modal: React.FunctionComponent = ({ children }) => {
   return (
-    <div
-      css={css`
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 37.5rem;
-        width: 50rem;
-        z-index: 999;
-      `}
+    <ReactModal
+      isOpen={true}
+      style={{
+        content: {
+          backgroundColor: "var(--background)",
+          border: 0,
+          color: "var(--text)",
+          left: "50%",
+          opacity: 1,
+          padding: "2rem 2rem",
+          textAlign: "center",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          minWidth: "17rem",
+          minHeight: "22.5rem",
+          zIndex: 1000
+        },
+        overlay: {
+          backgroundColor: "#0000007F",
+          position: "absolute",
+          height: "37.5rem",
+          width: "50rem"
+        }
+      }}
     >
-      <div
-        css={css`
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: ${theme.moon.colors.background};
-          opacity: 0.5;
-        `}
-      />
-      <div
-        css={css`
-          color: ${theme.moon.colors.text};
-          background-color: ${theme.moon.colors.background};
-          left: 50%;
-          margin: auto;
-          transform: translate(-50%, -50%);
-          text-align: center;
-          top: 50%;
-          padding: 2rem 2rem;
-          position: absolute;
-          right: 0;
-        `}
-      >
-        {children}
-      </div>
-    </div>
+      {children}
+    </ReactModal>
   );
 };
 
