@@ -14,7 +14,7 @@ import { IState } from "../../store/initialState";
 import ModalButtonsWrapper from "./ModalButtonsWrapper";
 
 interface IProps {
-  dispatch: (arg: object) => void;
+  dispatch: Function;
   state: IState;
 }
 

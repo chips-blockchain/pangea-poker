@@ -7,7 +7,7 @@ import { IState } from "../../store/initialState";
 // This is the modal that appears at the startup and let's the user to join a table
 
 interface IProps {
-  dispatch: (arg: object) => void;
+  dispatch: Function;
   state: IState;
 }
 
