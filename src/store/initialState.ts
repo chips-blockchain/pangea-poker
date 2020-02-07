@@ -63,13 +63,13 @@ const initialState: IState = {
   // Cards of the user
   holeCards: [],
   // Whehter the Cashier is open
-  isCashierOpen: false,
+  isCashierOpen: true,
   // Whether the app should run in developer mode
   isDeveloperMode: false,
   // Whether to show the LogBox component
   isLogBox: true,
   // Whether the Startup Modal shows at the beginning of the game
-  isStartupModal: true,
+  isStartupModal: false,
   // Whether players has gone all-in and the showDown is active
   isShowDown: false,
   // Object that stores the last action so we can dispaly it on the UI

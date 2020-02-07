@@ -4,7 +4,8 @@ import Deposit from "./Deposit";
 
 import { IState } from "../../store/initialState";
 
-// This is the modal that appears at the startup and let's the user to join a table
+// This modal opens up when the player clicks the Cashier button and allows the player to
+// move funds to and away from the account
 
 interface IProps {
   dispatch: (arg: object) => void;
@@ -16,8 +17,9 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
     <Modal
       tabs={[
         {
-          title: "Deposit",
-          content: <Deposit dispatch={dispatch} state={state} />
+          content: <Deposit dispatch={dispatch} state={state} />,
+          name: "Deposit",
+          title: "Deposit CHIPS"
         }
         // {
         //   title: "Withdraw",
