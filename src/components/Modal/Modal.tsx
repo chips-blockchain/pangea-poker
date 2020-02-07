@@ -8,6 +8,8 @@ interface IProps {
   tabs?: { content: React.ReactNode; title: string; name: string }[];
 }
 
+ReactModal.setAppElement("#root");
+
 const modalStyle = {
   content: {
     backgroundColor: "var(--background)",
