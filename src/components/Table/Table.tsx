@@ -19,6 +19,7 @@ import Connections from "./Connections";
 import { StartupModal } from "../Modal";
 import DeveloperMode from "../DeveloperMode";
 import LogBox from "../LogBox";
+import Cashier from "../Cashier";
 
 // This is the current Main component
 
@@ -153,6 +154,7 @@ const Table: React.FunctionComponent = () => {
         {state.isStartupModal && (
           <StartupModal dispatch={dispatch} state={state} />
         )}
+        {state.isCashierOpen && <Cashier dispatch={dispatch} state={state} />}
       </StateContext.Provider>
     </DispatchContext.Provider>
   );

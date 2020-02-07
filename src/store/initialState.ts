@@ -62,6 +62,8 @@ const initialState: IState = {
   handsPlayed: 0,
   // Cards of the user
   holeCards: [],
+  // Whehter the Cashier is open
+  isCashierOpen: false,
   // Whether the app should run in developer mode
   isDeveloperMode: false,
   // Whether to show the LogBox component
@@ -162,6 +164,7 @@ export interface IState {
   handHistory: { action: string; timeStamp: number }[];
   handsPlayed: number;
   holeCards: string[];
+  isCashierOpen: boolean;
   isDeveloperMode: boolean;
   isLogBox: boolean;
   isShowDown: boolean;
