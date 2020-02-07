@@ -5,7 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 interface IProps {
   children?: React.ReactNode;
-  tabs?: { content: React.ReactNode; title: string }[];
+  tabs?: { content: React.ReactNode; title: string; name: string }[];
 }
 
 const modalStyle = {
@@ -47,14 +47,20 @@ const Modal: React.FunctionComponent<IProps> = ({ children, tabs }) => {
         <Tabs css={tabsStyle}>
           <TabList>
             {tabs.map(tab => {
-              return <Tab key={tab.title}>{tab.title}</Tab>;
+              return <Tab key={tab.name}>{tab.name}</Tab>;
             })}
           </TabList>
           {tabs.map(tab => {
-            return <TabPanel key={tab.title}>{tab.content}</TabPanel>;
+            return (
+              <TabPanel key={tab.name}>
+                <h2>{tab.title}</h2>
+                {tab.content}
+              </TabPanel>
+            );
           })}
         </Tabs>
       )}
+      {children}
     </ReactModal>
   );
 };

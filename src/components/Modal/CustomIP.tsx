@@ -156,7 +156,6 @@ const CustomIP: React.FunctionComponent = () => {
 
   return (
     <form>
-      <h2>Please enter the node addresses</h2>
       <Tabs>
         <TabList>
           <Tab onClick={handleTabClick("dealer")} data-test="tab-dealer">

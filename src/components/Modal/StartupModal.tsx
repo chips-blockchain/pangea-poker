@@ -16,12 +16,14 @@ const StartupModal: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
     <Modal
       tabs={[
         {
-          title: "Table List",
-          content: <TableSelect dispatch={dispatch} state={state} />
+          content: <TableSelect dispatch={dispatch} state={state} />,
+          name: "Table List",
+          title: "Select a Table to Join"
         },
         {
-          title: "Custom IP",
-          content: <CustomIP />
+          content: <CustomIP />,
+          name: "Custom IP",
+          title: "Join to a Custom Node"
         }
       ]}
     />

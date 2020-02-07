@@ -126,7 +126,6 @@ const TableSelect: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
 
   return (
     <section>
-      <h2>Select a Table to Join</h2>
       <TableArea>
         <Table>
           <thead>
