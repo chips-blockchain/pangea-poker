@@ -31,7 +31,8 @@ const modalStyle = {
     backgroundColor: "#0000007F",
     position: "absolute",
     height: "37.5rem",
-    width: "50rem"
+    width: "50rem",
+    zIndex: 999
   }
 };
 

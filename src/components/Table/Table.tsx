@@ -1,4 +1,5 @@
 import { css } from "@emotion/core";
+import styled from "@emotion/styled";
 import { useReducer, useEffect, useState } from "react";
 import diff from "deep-diff";
 import theme from "../../styles/theme";
@@ -12,7 +13,7 @@ import Board from "../Board";
 import Dealer from "../Dealer";
 import TotalPot from "./TotalPot";
 import { ChipGrid, Bet } from "../Chips";
-import Controls from "../Controls";
+import Controls, { Button } from "../Controls";
 import MainPot from "./MainPot";
 import Game from "../Game";
 import Connections from "./Connections";
@@ -45,8 +46,7 @@ const Table: React.FunctionComponent = () => {
     pot,
     options,
     showMainPot,
-    showDealer,
-    winner
+    showDealer
   } = state;
 
   // For debugging purposes log the difference betweeen the last and current state
@@ -149,6 +149,8 @@ const Table: React.FunctionComponent = () => {
               </div>
             )}
           </div>
+
+          <Cashier dispatch={dispatch} isOpen={true} state={state} />
           <Backgrounds />
         </div>
         <StartupModal
@@ -156,7 +158,6 @@ const Table: React.FunctionComponent = () => {
           isOpen={state.isStartupModal}
           state={state}
         />
-        <Cashier dispatch={dispatch} isOpen={true} state={state} />
       </StateContext.Provider>
     </DispatchContext.Provider>
   );
