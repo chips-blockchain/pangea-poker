@@ -11,16 +11,12 @@ import {
   setUserSeat
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
+import ModalButtonsWrapper from "./ModalButtonsWrapper";
 
 interface IProps {
   dispatch: (arg: object) => void;
   state: IState;
 }
-
-const ButtonWrapper = styled.div`
-  text-align: center;
-  padding-top: 1rem;
-`;
 
 const Table = styled.table`
   border-spacing: 0;
@@ -64,7 +60,7 @@ const Table = styled.table`
 
 const TableArea = styled.div`
   background-color: ${theme.moon.colors.darkGray};
-  height: 8.5rem;
+  height: 14rem;
   overflow: scroll;
 `;
 
@@ -130,7 +126,6 @@ const TableSelect: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
 
   return (
     <section>
-      <h2>Select a Table to Join</h2>
       <TableArea>
         <Table>
           <thead>
@@ -162,13 +157,13 @@ const TableSelect: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
         </Table>
       </TableArea>
 
-      <ButtonWrapper>
+      <ModalButtonsWrapper>
         <Button
           label="Join Table"
           disabled={!selectedTable}
           onClick={handleSubmit()}
         />
-      </ButtonWrapper>
+      </ModalButtonsWrapper>
     </section>
   );
 };
