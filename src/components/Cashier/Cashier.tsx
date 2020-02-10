@@ -28,9 +28,11 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
 
   return (
     <React.Fragment>
-      <CashierButton>
-        <Button label="Cashier" onClick={openCashier()} small></Button>
-      </CashierButton>
+      {!state.isStartupModal && state.nodeType !== "dealer" && (
+        <CashierButton>
+          <Button label="Cashier" onClick={openCashier()} small></Button>
+        </CashierButton>
+      )}
       <Modal
         isOpen={state.isCashierOpen}
         tabs={[
