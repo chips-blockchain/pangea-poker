@@ -46,7 +46,8 @@ const Table: React.FunctionComponent = () => {
     pot,
     options,
     showMainPot,
-    showDealer
+    showDealer,
+    winner
   } = state;
 
   // For debugging purposes log the difference betweeen the last and current state
