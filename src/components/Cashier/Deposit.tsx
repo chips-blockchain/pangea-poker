@@ -1,21 +1,72 @@
 import React from "react";
+import styled from "@emotion/styled";
 import { IState } from "../../store/initialState";
+import balanceWithDecimals from "../../lib/balanceWithDecimals";
+import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
+import { Button } from "../Controls";
+import { updateStateValue } from "../../store/actions";
 
 interface IProps {
   dispatch: (arg: object) => void;
   state: IState;
 }
 
-const Deposit: React.FunctionComponent<Iprops> = () => {
+const AdditionalInfo = styled.p`
+  font-family: "PT Sans";
+  font-weight: 400;
+  font-size: 0.875rem;
+  margin-top: 1.5rem;
+`;
+
+const AddressLabel = styled.h2`
+  font-family: "PT Sans";
+  font-weight: 400;
+  font-size: 0.875rem;
+  margin-top: 2rem;
+`;
+
+const Balance = styled.div`
+  color: var(--accent);
+`;
+
+const DepositAddress = styled.span`
+  color: var(--primaryLight);
+  font-size: 0.875rem;
+  cursor: pointer;
+`;
+
+const DepositAddressContainer = styled.div`
+  background-color: var(--darkGrey);
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  padding: 0.5rem;
+`;
+
+const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
+  const { balance, depositAddress } = state;
+
+  const handleSubmit = () => (): void => {
+    updateStateValue("isCashierOpen", false, dispatch);
+  };
+
   return (
     <section>
-      <div>Available CHIPS: 0.00754322</div>
-      <div>Your CHIPS deposit address:</div>
-      <div>RMZHMdSAJrGzsKp7xUtLtYizBf9L8eVawZ</div>
-      <p>
+      <Balance>Available CHIPS: {balanceWithDecimals(balance)}</Balance>
+      <AddressLabel>Your CHIPS deposit address:</AddressLabel>
+      <DepositAddressContainer>
+        <DepositAddress>{depositAddress}</DepositAddress>
+      </DepositAddressContainer>
+      <AdditionalInfo>
         Please only deposit CHIPS to this address. Transactions might take up to
         4 hours to confirm.
-      </p>
+      </AdditionalInfo>
+      <ModalButtonsWrapper>
+        <Button
+          label="Close"
+          onClick={handleSubmit()}
+          data-test="close-cashier-deposit"
+        />
+      </ModalButtonsWrapper>
     </section>
   );
 };
