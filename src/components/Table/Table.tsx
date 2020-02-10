@@ -151,10 +151,12 @@ const Table: React.FunctionComponent = () => {
           </div>
           <Backgrounds />
         </div>
-        {state.isStartupModal && (
-          <StartupModal dispatch={dispatch} state={state} />
-        )}
-        {state.isCashierOpen && <Cashier dispatch={dispatch} state={state} />}
+        <StartupModal
+          dispatch={dispatch}
+          isOpen={state.isStartupModal}
+          state={state}
+        />
+        <Cashier dispatch={dispatch} isOpen={true} state={state} />
       </StateContext.Provider>
     </DispatchContext.Provider>
   );

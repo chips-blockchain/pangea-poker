@@ -15,6 +15,7 @@ interface IProps {
 const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
   return (
     <Modal
+      isOpen={state.isCashierOpen}
       tabs={[
         {
           content: <Deposit dispatch={dispatch} state={state} />,
