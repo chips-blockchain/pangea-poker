@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
+import ReactTooltip from "react-tooltip";
 import { IState } from "../../store/initialState";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
 import { Button } from "../Controls";
 import { updateStateValue } from "../../store/actions";
+import "../../styles/tooltip.css";
 
 interface IProps {
   dispatch: (arg: object) => void;
@@ -45,15 +47,26 @@ const DepositAddressContainer = styled.div`
 const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
   const { balance, depositAddress } = state;
 
+  const [isAddressCopied, setIsAddressCopied] = useState(false);
+
   const handleSubmit = () => (): void => {
     updateStateValue("isCashierOpen", false, dispatch);
+  };
+
+  const copyToClipBoard = () => (): void => {
+    navigator.clipboard.writeText(depositAddress);
+    setIsAddressCopied(true);
+    ReactTooltip.hide();
   };
 
   return (
     <section>
       <Balance>Available CHIPS: {balanceWithDecimals(balance)}</Balance>
       <AddressLabel>Your CHIPS deposit address:</AddressLabel>
-      <DepositAddressContainer>
+      <DepositAddressContainer
+        data-tip={isAddressCopied ? "Copied!" : "Copy to Clipboard"}
+        onClick={copyToClipBoard()}
+      >
         <DepositAddress>{depositAddress}</DepositAddress>
       </DepositAddressContainer>
       <AdditionalInfo>
@@ -67,6 +80,7 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
           data-test="close-cashier-deposit"
         />
       </ModalButtonsWrapper>
+      <ReactTooltip className="react-tooltip" />
     </section>
   );
 };
