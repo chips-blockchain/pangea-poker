@@ -41,10 +41,7 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
             name: "Deposit",
             title: "Deposit CHIPS"
           }
-          // {
-          //   title: "Withdraw",
-          //   content: <Withdraw />
-          // }
+          // Withdrawal tab will be placed here
         ]}
       />
     </React.Fragment>
