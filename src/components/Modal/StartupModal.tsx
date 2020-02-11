@@ -14,6 +14,7 @@ interface IProps {
 const StartupModal: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
   return (
     <Modal
+      isOpen={state.isStartupModal}
       tabs={[
         {
           content: <TableSelect dispatch={dispatch} state={state} />,

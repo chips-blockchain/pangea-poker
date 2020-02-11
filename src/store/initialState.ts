@@ -26,6 +26,8 @@ const initialState: IState = {
   },
   // Which seat is the active player
   activePlayer: null,
+  // The total CHIPS balance the player has in the Pangea Wallet
+  balance: 0,
   // Current blinds - small and big one
   blinds: [1, 2],
   // Board Cards
@@ -50,9 +52,11 @@ const initialState: IState = {
   chipsCollected: false,
   // Which player is the dealer
   dealer: 0,
+  // Pangea wallet address to deposit to
+  depositAddress: "RMZHMdSAJrGzsKp7xUtLtYizBf9L8eVawZ",
   // Whether the game has started
   gameStarted: false,
-  // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river, 4:
+  // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river, 4: showDown
   gameTurn: 0,
   // Game type at the top left corner
   gameType: "",
@@ -62,6 +66,8 @@ const initialState: IState = {
   handsPlayed: 0,
   // Cards of the user
   holeCards: [],
+  // Whehter the Cashier is open
+  isCashierOpen: false,
   // Whether the app should run in developer mode
   isDeveloperMode: false,
   // Whether to show the LogBox component
@@ -138,6 +144,7 @@ export interface IPlayer {
 export interface IState {
   players: { player1: IPlayer; player2: IPlayer };
   activePlayer: string;
+  balance: number;
   blinds: [number, number];
   boardCards: string[];
   connection: {
@@ -156,12 +163,14 @@ export interface IState {
   cardsDealt: boolean;
   chipsCollected: boolean;
   dealer: number;
+  depositAddress: string;
   gameStarted: boolean;
   gameTurn: 0 | 1 | 2 | 3 | 4;
   gameType: string;
   handHistory: { action: string; timeStamp: number }[];
   handsPlayed: number;
   holeCards: string[];
+  isCashierOpen: boolean;
   isDeveloperMode: boolean;
   isLogBox: boolean;
   isShowDown: boolean;
