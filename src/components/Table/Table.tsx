@@ -1,5 +1,4 @@
 import { css } from "@emotion/core";
-import styled from "@emotion/styled";
 import { useReducer, useEffect, useState } from "react";
 import diff from "deep-diff";
 import theme from "../../styles/theme";
@@ -13,7 +12,7 @@ import Board from "../Board";
 import Dealer from "../Dealer";
 import TotalPot from "./TotalPot";
 import { ChipGrid, Bet } from "../Chips";
-import Controls, { Button } from "../Controls";
+import Controls from "../Controls";
 import MainPot from "./MainPot";
 import Game from "../Game";
 import Connections from "./Connections";
