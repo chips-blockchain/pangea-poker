@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import ReactTooltip from "react-tooltip";
 import { IState } from "../../store/initialState";
@@ -49,6 +49,12 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
   const { balance, depositAddress } = state;
 
   const [isAddressCopied, setIsAddressCopied] = useState(false);
+  const [isDepositAddressValid, setIsDepositAddressValid] = useState(false);
+
+  // Validate if the deposit address is correct
+  useEffect(() => {
+    setIsDepositAddressValid(isValidAddress(depositAddress));
+  }, [balance]);
 
   const handleSubmit = () => (): void => {
     updateStateValue("isCashierOpen", false, dispatch);
@@ -62,14 +68,16 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
 
   return (
     <section>
-      <Balance>Available CHIPS: {balanceWithDecimals(balance)}</Balance>
+      <Balance data-test="balance-cashier-deposit">
+        Available CHIPS: {balanceWithDecimals(balance)}
+      </Balance>
       <AddressLabel>Your CHIPS deposit address:</AddressLabel>
       <DepositAddressContainer
         data-tip={isAddressCopied ? "Copied!" : "Copy to Clipboard"}
-        onClick={copyToClipBoard()}
+        onClick={isDepositAddressValid && copyToClipBoard()}
       >
-        <DepositAddress>
-          {isValidAddress(depositAddress) ? depositAddress : "Invalid address"}
+        <DepositAddress data-test="address-cashier-deposit">
+          {isDepositAddressValid ? depositAddress : "Invalid address"}
         </DepositAddress>
       </DepositAddressContainer>
       <AdditionalInfo>
@@ -83,7 +91,7 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
           data-test="close-cashier-deposit"
         />
       </ModalButtonsWrapper>
-      <ReactTooltip className="react-tooltip" />
+      {isDepositAddressValid && <ReactTooltip className="react-tooltip" />}
     </section>
   );
 };
