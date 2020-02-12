@@ -57,7 +57,7 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
   }, [balance]);
 
   // Close the Cashier modal
-  const handleSubmit = () => (): void => {
+  const closeCashierModal = () => (): void => {
     updateStateValue("isCashierOpen", false, dispatch);
   };
 
@@ -94,7 +94,7 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
       <ModalButtonsWrapper>
         <Button
           label="Close"
-          onClick={handleSubmit()}
+          onClick={closeCashierModal()}
           data-test="close-cashier-deposit"
         />
       </ModalButtonsWrapper>
