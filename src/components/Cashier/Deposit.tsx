@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { css } from "@emotion/core";
 import styled from "@emotion/styled";
 import ReactTooltip from "react-tooltip";
 import { IState } from "../../store/initialState";
@@ -35,7 +36,6 @@ const Balance = styled.div`
 const DepositAddress = styled.span`
   color: var(--primaryLight);
   font-size: 0.875rem;
-  cursor: pointer;
 `;
 
 const DepositAddressContainer = styled.div`
@@ -66,6 +66,11 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
     ReactTooltip.hide();
   };
 
+  // Set the cursor style based on whether the deposit address is valid
+  const cursorStyle = css`
+    cursor: ${isDepositAddressValid ? "pointer" : "not-allowed"};
+  `;
+
   return (
     <section>
       <Balance data-test="balance-cashier-deposit">
@@ -76,7 +81,7 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
         data-tip={isAddressCopied ? "Copied!" : "Copy to Clipboard"}
         onClick={isDepositAddressValid && copyToClipBoard()}
       >
-        <DepositAddress data-test="address-cashier-deposit">
+        <DepositAddress css={cursorStyle} data-test="address-cashier-deposit">
           {isDepositAddressValid ? depositAddress : "Invalid address"}
         </DepositAddress>
       </DepositAddressContainer>
