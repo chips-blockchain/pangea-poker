@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import ReactTooltip from "react-tooltip";
 import { IState } from "../../store/initialState";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
+import isValidAddress from "../../lib/isValidAddress";
 import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
 import { Button } from "../Controls";
 import { updateStateValue } from "../../store/actions";
@@ -67,7 +68,9 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
         data-tip={isAddressCopied ? "Copied!" : "Copy to Clipboard"}
         onClick={copyToClipBoard()}
       >
-        <DepositAddress>{depositAddress}</DepositAddress>
+        <DepositAddress>
+          {isValidAddress(depositAddress) ? depositAddress : "Invalid address"}
+        </DepositAddress>
       </DepositAddressContainer>
       <AdditionalInfo>
         Please only deposit CHIPS to this address. Transactions might take up to
