@@ -56,10 +56,12 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
     setIsDepositAddressValid(isValidAddress(depositAddress));
   }, [balance]);
 
+  // Close the Cashier modal
   const handleSubmit = () => (): void => {
     updateStateValue("isCashierOpen", false, dispatch);
   };
 
+  // Copy the address to the clipboard and hide the tooltip when clicked
   const copyToClipBoard = () => (): void => {
     navigator.clipboard.writeText(depositAddress);
     setIsAddressCopied(true);
