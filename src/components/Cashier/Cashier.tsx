@@ -22,22 +22,36 @@ const CashierButton = styled.div`
 `;
 
 const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
-  const openCashier = () => (): void => {
+  const openCashierModal = () => (): void => {
     updateStateValue("isCashierOpen", true, dispatch);
+  };
+
+  // Close the Cashier modal
+  const closeCashierModal = () => (): void => {
+    updateStateValue("isCashierOpen", false, dispatch);
   };
 
   return (
     <React.Fragment>
       {!state.isStartupModal && state.nodeType !== "dealer" && (
         <CashierButton>
-          <Button label="Cashier" onClick={openCashier()} small></Button>
+          <Button label="Cashier" onClick={openCashierModal()} small></Button>
         </CashierButton>
       )}
       <Modal
         isOpen={state.isCashierOpen}
+        // Pass in onRequestClose to allow closing the modal with "ESC" keypress
+        // or by clicking on the overlay
+        onRequestClose={closeCashierModal()}
         tabs={[
           {
-            content: <Deposit dispatch={dispatch} state={state} />,
+            content: (
+              <Deposit
+                dispatch={dispatch}
+                state={state}
+                closeCashierModal={closeCashierModal}
+              />
+            ),
             name: "Deposit",
             title: "Deposit CHIPS"
           }

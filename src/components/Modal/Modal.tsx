@@ -5,8 +5,9 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 interface IProps {
   children?: React.ReactNode;
-  tabs?: { content: React.ReactNode; title: string; name: string }[];
   isOpen: boolean;
+  tabs?: { content: React.ReactNode; title: string; name: string }[];
+  onRequestClose: Function;
 }
 
 ReactModal.setAppElement("#root");
@@ -44,9 +45,18 @@ const tabsStyle = css`
   }
 `;
 
-const Modal: React.FunctionComponent<IProps> = ({ children, tabs, isOpen }) => {
+const Modal: React.FunctionComponent<IProps> = ({
+  children,
+  isOpen,
+  onRequestClose,
+  tabs
+}) => {
   return (
-    <ReactModal isOpen={isOpen} style={modalStyle}>
+    <ReactModal
+      isOpen={isOpen}
+      style={modalStyle}
+      onRequestClose={onRequestClose}
+    >
       {tabs && (
         <Tabs css={tabsStyle}>
           <TabList>

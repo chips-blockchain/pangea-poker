@@ -7,12 +7,12 @@ import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
 import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
 import { Button } from "../Controls";
-import { updateStateValue } from "../../store/actions";
 import "../../styles/tooltip.css";
 
 interface IProps {
   dispatch: (arg: object) => void;
   state: IState;
+  closeCashierModal: Function;
 }
 
 const AdditionalInfo = styled.p`
@@ -45,7 +45,10 @@ const DepositAddressContainer = styled.div`
   padding: 0.5rem;
 `;
 
-const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
+const Deposit: React.FunctionComponent<IProps> = ({
+  state,
+  closeCashierModal
+}) => {
   const { balance, depositAddress } = state;
 
   const [isAddressCopied, setIsAddressCopied] = useState(false);
@@ -55,11 +58,6 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
   useEffect(() => {
     setIsDepositAddressValid(isValidAddress(depositAddress));
   }, [balance]);
-
-  // Close the Cashier modal
-  const closeCashierModal = () => (): void => {
-    updateStateValue("isCashierOpen", false, dispatch);
-  };
 
   // Copy the address to the clipboard and hide the tooltip when clicked
   const copyToClipBoard = () => (): void => {
@@ -81,7 +79,8 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
       <AddressLabel>Your CHIPS deposit address:</AddressLabel>
       <DepositAddressContainer
         data-tip={isAddressCopied ? "Copied!" : "Copy to Clipboard"}
-        onClick={isDepositAddressValid && copyToClipBoard()}
+        onClick={isDepositAddressValid ? copyToClipBoard() : undefined}
+        data-test="address-container-cashier-deposit"
       >
         <DepositAddress css={cursorStyle} data-test="address-cashier-deposit">
           {isDepositAddressValid ? depositAddress : "Invalid address"}
