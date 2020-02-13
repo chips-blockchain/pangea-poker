@@ -42,6 +42,8 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
         isOpen={state.isCashierOpen}
         // Pass in onRequestClose to allow closing the modal with "ESC" keypress
         // or by clicking on the overlay
+        id="cashier-modal"
+        contentLabel="Cashier Modal"
         onRequestClose={closeCashierModal()}
         tabs={[
           {
