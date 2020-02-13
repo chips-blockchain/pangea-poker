@@ -35,7 +35,12 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
     <React.Fragment>
       {!state.isStartupModal && state.nodeType !== "dealer" && (
         <CashierButton>
-          <Button label="Cashier" onClick={openCashierModal()} small></Button>
+          <Button
+            label="Cashier"
+            onClick={openCashierModal()}
+            small
+            testId="cashier-button"
+          />
         </CashierButton>
       )}
       <Modal

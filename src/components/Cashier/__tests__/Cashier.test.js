@@ -7,6 +7,9 @@ import * as actions from "../../../store/actions";
 
 const dispatch = jest.fn();
 
+jest.spyOn(actions, "updateStateValue");
+const { updateStateValue } = actions;
+
 const buildWrapper = (dispatch, state) => {
   return mount(
     <DispatchContext.Provider value={dispatch}>
@@ -47,8 +50,6 @@ describe("Cashier", () => {
   test("is closed when close button is clicked on Deposit tab", () => {
     const state = { ...initialState, isCashierOpen: true };
     const wrapper = buildWrapper(dispatch, state);
-    jest.spyOn(actions, "updateStateValue");
-    const { updateStateValue } = actions;
 
     expect(
       wrapper
@@ -62,6 +63,38 @@ describe("Cashier", () => {
     expect(updateStateValue).toHaveBeenCalledWith(
       "isCashierOpen",
       false,
+      dispatch
+    );
+  });
+
+  test("shows the cashier button for player nodes", () => {
+    const state = {
+      ...initialState,
+      isCashierOpen: false,
+      nodeType: "player",
+      isStartupModal: false
+    };
+    const wrapper = buildWrapper(dispatch, state);
+
+    expect(wrapper.find(`button[data-testid="cashier-button"]`)).toHaveLength(
+      1
+    );
+  });
+
+  test("opens when the Cashier button is clicked", () => {
+    const state = {
+      ...initialState,
+      isCashierOpen: false,
+      nodeType: "player",
+      isStartupModal: false
+    };
+    const wrapper = buildWrapper(dispatch, state);
+
+    wrapper.find(`button[data-testid="cashier-button"]`).simulate("click");
+    expect(updateStateValue).toHaveBeenCalled();
+    expect(updateStateValue).toHaveBeenCalledWith(
+      "isCashierOpen",
+      true,
       dispatch
     );
   });
