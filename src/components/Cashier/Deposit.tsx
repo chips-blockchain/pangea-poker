@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { css } from "@emotion/core";
 import styled from "@emotion/styled";
 import ReactTooltip from "react-tooltip";
 import { IState } from "../../store/initialState";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
+import isValidAddress from "../../lib/isValidAddress";
 import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
 import { Button } from "../Controls";
-import { updateStateValue } from "../../store/actions";
 import "../../styles/tooltip.css";
 
 interface IProps {
   dispatch: (arg: object) => void;
   state: IState;
+  closeCashierModal: Function;
 }
 
 const AdditionalInfo = styled.p`
@@ -34,7 +36,6 @@ const Balance = styled.div`
 const DepositAddress = styled.span`
   color: var(--primaryLight);
   font-size: 0.875rem;
-  cursor: pointer;
 `;
 
 const DepositAddressContainer = styled.div`
@@ -44,30 +45,46 @@ const DepositAddressContainer = styled.div`
   padding: 0.5rem;
 `;
 
-const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
+const Deposit: React.FunctionComponent<IProps> = ({
+  state,
+  closeCashierModal
+}) => {
   const { balance, depositAddress } = state;
 
   const [isAddressCopied, setIsAddressCopied] = useState(false);
+  const [isDepositAddressValid, setIsDepositAddressValid] = useState(false);
 
-  const handleSubmit = () => (): void => {
-    updateStateValue("isCashierOpen", false, dispatch);
-  };
+  // Validate if the deposit address is correct
+  useEffect(() => {
+    setIsDepositAddressValid(isValidAddress(depositAddress));
+  }, [balance]);
 
+  // Copy the address to the clipboard and hide the tooltip when clicked
   const copyToClipBoard = () => (): void => {
     navigator.clipboard.writeText(depositAddress);
     setIsAddressCopied(true);
     ReactTooltip.hide();
   };
 
+  // Set the cursor style based on whether the deposit address is valid
+  const cursorStyle = css`
+    cursor: ${isDepositAddressValid ? "pointer" : "not-allowed"};
+  `;
+
   return (
     <section>
-      <Balance>Available CHIPS: {balanceWithDecimals(balance)}</Balance>
+      <Balance data-test="balance-cashier-deposit">
+        Available CHIPS: {balanceWithDecimals(balance)}
+      </Balance>
       <AddressLabel>Your CHIPS deposit address:</AddressLabel>
       <DepositAddressContainer
         data-tip={isAddressCopied ? "Copied!" : "Copy to Clipboard"}
-        onClick={copyToClipBoard()}
+        onClick={isDepositAddressValid ? copyToClipBoard() : undefined}
+        data-test="address-container-cashier-deposit"
       >
-        <DepositAddress>{depositAddress}</DepositAddress>
+        <DepositAddress css={cursorStyle} data-test="address-cashier-deposit">
+          {isDepositAddressValid ? depositAddress : "Invalid address"}
+        </DepositAddress>
       </DepositAddressContainer>
       <AdditionalInfo>
         Please only deposit CHIPS to this address. Transactions might take up to
@@ -76,11 +93,11 @@ const Deposit: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
       <ModalButtonsWrapper>
         <Button
           label="Close"
-          onClick={handleSubmit()}
+          onClick={closeCashierModal()}
           data-test="close-cashier-deposit"
         />
       </ModalButtonsWrapper>
-      <ReactTooltip className="react-tooltip" />
+      {isDepositAddressValid && <ReactTooltip className="react-tooltip" />}
     </section>
   );
 };

@@ -5,11 +5,14 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 interface IProps {
   children?: React.ReactNode;
-  tabs?: { content: React.ReactNode; title: string; name: string }[];
+  contentLabel: string;
+  id: string;
   isOpen: boolean;
+  tabs?: { content: React.ReactNode; title: string; name: string }[];
+  onRequestClose: Function;
 }
-
-ReactModal.setAppElement("#root");
+const isTest = process.env.NODE_ENV === "test";
+!isTest && ReactModal.setAppElement("#root");
 
 const modalStyle = {
   content: {
@@ -44,9 +47,23 @@ const tabsStyle = css`
   }
 `;
 
-const Modal: React.FunctionComponent<IProps> = ({ children, tabs, isOpen }) => {
+const Modal: React.FunctionComponent<IProps> = ({
+  children,
+  contentLabel,
+  id,
+  isOpen,
+  onRequestClose,
+  tabs
+}) => {
   return (
-    <ReactModal isOpen={isOpen} style={modalStyle}>
+    <ReactModal
+      isOpen={isOpen}
+      style={modalStyle}
+      contentLabel={contentLabel}
+      id={id}
+      onRequestClose={onRequestClose}
+      ariaHideApp={isTest ? false : true}
+    >
       {tabs && (
         <Tabs css={tabsStyle}>
           <TabList>
