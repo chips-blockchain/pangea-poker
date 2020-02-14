@@ -501,6 +501,7 @@ export const onMessage_player = (
       break;
 
     default:
-      sendMessage(message, "dcv", state, dispatch);
+    // Temporarily disabled until status_info will be sorted out in the backend
+    // sendMessage(message, "dcv", state, dispatch);
   }
 };
