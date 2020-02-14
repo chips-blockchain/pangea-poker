@@ -53,7 +53,7 @@ const initialState: IState = {
   // Which player is the dealer
   dealer: 0,
   // Pangea wallet address to deposit to
-  depositAddress: "RMZHMdSAJrGzsKp7xUtLtYizBf9L8eVawZ",
+  depositAddress: undefined,
   // Whether the game has started
   gameStarted: false,
   // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river, 4: showDown
