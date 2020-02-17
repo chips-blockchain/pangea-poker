@@ -5,6 +5,7 @@ import state, { IState } from "../../../store/initialState";
 import * as actions from "../../../store/actions";
 
 const dispatch = jest.fn();
+const updateStateValueSpy = jest.spyOn(actions, "updateStateValue");
 
 export const receiveMessage = (
   message: IMessage,
@@ -13,6 +14,8 @@ export const receiveMessage = (
 ): void => {
   const {
     action,
+    addr,
+    balance,
     bet_amount,
     deal,
     method,
@@ -26,6 +29,8 @@ export const receiveMessage = (
   onMessage_player(
     JSON.stringify({
       action,
+      addr,
+      balance,
       deal,
       bet_amount,
       method,
@@ -268,6 +273,35 @@ describe("handHistory", () => {
     expect(addToHandHistorySpy).toHaveBeenCalledTimes(1);
     expect(addToHandHistorySpy).toHaveBeenCalledWith(
       `The pot is split between player1 and player2. Each player wins 1,000.`,
+      dispatch
+    );
+  });
+});
+
+// Wallet Info
+describe("walletInfo", () => {
+  test("updates the balance and the deposit address", () => {
+    const address = "123456789a123456789a123456789a1234";
+    const balance = 9.9873;
+    receiveMessage(
+      {
+        method: "walletInfo",
+        addr: address,
+        balance
+      },
+      0
+    );
+
+    expect(updateStateValueSpy).toHaveBeenCalled();
+    expect(updateStateValueSpy).toHaveBeenCalledTimes(2);
+    expect(updateStateValueSpy).toHaveBeenCalledWith(
+      "depositAddress",
+      address,
+      dispatch
+    );
+    expect(updateStateValueSpy).toHaveBeenCalledWith(
+      "balance",
+      balance,
       dispatch
     );
   });
