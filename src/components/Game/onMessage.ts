@@ -43,6 +43,7 @@ import sounds from "../../sounds/sounds";
 import { GameTurns } from "../../lib/constants";
 export interface IMessage {
   action?: string;
+  addr?: string;
   amount?: number;
   balance?: number;
   bet_amount?: number;
@@ -498,6 +499,11 @@ export const onMessage_player = (
         message.gui_playerID = 1;
         sendMessage(message, "player2", state, dispatch);
       }
+      break;
+
+    case "walletInfo":
+      updateStateValue("balance", message.balance, dispatch);
+      updateStateValue("depositAddress", message.addr, dispatch);
       break;
 
     default:
