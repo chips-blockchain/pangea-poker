@@ -22,10 +22,10 @@ const Button: React.FunctionComponent<IProps> = ({
   testId
 }) => {
   const ButtonStyle = styled.button`
-    background: var(--background);
-    border: 0.0625rem solid var(--primary);
+    background: var(--color-background);
+    border: 0.0625rem solid var(--color-primary);
     border-radius: 0.125rem;
-    color: var(--text);
+    color: var(--color-text);
     font-size: ${small ? ".75rem" : "1rem"};
     font-weight: 700;
     height: ${small ? "1.75rem" : "2.5rem"};
@@ -38,17 +38,17 @@ const Button: React.FunctionComponent<IProps> = ({
     ${!disabled &&
       `
 &:hover {
-  color: var(--accent);
+  color: var(--color-accent);
   cursor: pointer;
-  border-color: var(--accent);
+  border-color: var(--color-accent);
 }
 &:focus {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 &:active {
-  background: var(--accent);
-  color: var(--background);
+  background: var(--color-accent);
+  color: var(--color-background);
 }
 
 `}

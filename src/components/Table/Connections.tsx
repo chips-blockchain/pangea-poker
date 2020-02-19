@@ -44,10 +44,10 @@ const Connections: React.FunctionComponent = () => {
             <span
               css={css`
                 color: ${node[1] === "Connected"
-                  ? "var(--primaryLight)"
+                  ? "var(--color-primaryLight)"
                   : node[1] === "Connecting..."
-                  ? "var(--accent)"
-                  : "var(--danger)"};
+                  ? "var(--color-accent)"
+                  : "var(--color-danger)"};
                 padding-left: 0 0.25rem;
               `}
             >

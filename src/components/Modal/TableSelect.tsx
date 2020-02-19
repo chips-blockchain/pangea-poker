@@ -29,14 +29,14 @@ const Table = styled.table`
     padding: 0.5rem;
 
     & tr.selected {
-      background-color: var(--primaryLight);
-      color: var(--background);
+      background-color: var(--color-primaryLight);
+      color: var(--color-background);
       cursor: default;
     }
 
     & tr:hover:not(.selected) {
-      background-color: var(--accent);
-      color: var(--background);
+      background-color: var(--color-accent);
+      color: var(--color-background);
     }
   }
 
@@ -48,7 +48,7 @@ const Table = styled.table`
 
   thead {
     & tr {
-      background-color: var(--background);
+      background-color: var(--color-background);
 
       & th {
         padding-bottom: 0.25rem;
@@ -58,7 +58,7 @@ const Table = styled.table`
 `;
 
 const TableArea = styled.div`
-  background-color: var(--darkGray);
+  background-color: var(--color-darkGray);
   height: 14rem;
   overflow: scroll;
 `;

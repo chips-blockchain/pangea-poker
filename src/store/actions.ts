@@ -54,13 +54,13 @@ export const log = (text: string, color: string, message?: IMessage): void => {
     "%c" + text,
     `color: ${
       color === "sent"
-        ? "var(--accent)"
+        ? "var(--color-accent)"
         : color === "info"
         ? "#89ca77"
         : color === "received"
         ? "#e0be1d"
         : color === "danger"
-        ? "var(--danger)"
+        ? "var(--color-danger)"
         : ""
     }; background-color: #2a2b2e;`,
     message ? message : ""

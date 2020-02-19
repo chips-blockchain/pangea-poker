@@ -45,7 +45,7 @@ const Bet: React.FunctionComponent<IProps> = ({
       {/* Bet amount in numbers */}
       <span
         css={css`
-          color: var(--text);
+          color: var(--color-text);
           font-size: 0.625rem;
           padding: 0 0 0.5rem 0.3rem;
           position: relative;

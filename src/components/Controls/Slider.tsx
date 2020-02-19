@@ -39,8 +39,8 @@ const Slider = ({ raiseAmount, setRaiseAmount }) => {
       <div
         css={css`
           align-items: center;
-          background: var(--background);
-          border: 0.0625rem solid var(--primary);
+          background: var(--color-background);
+          border: 0.0625rem solid var(--color-primary);
           display: inline-block;
           display: flex;
           border-radius: 0.125rem;

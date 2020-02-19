@@ -61,7 +61,7 @@ const nodesToInput: INode[][] = [
 
 const inputStyle = css`
   background: none;
-  border: 1px solid var(--primary);
+  border: 1px solid var(--color-primary);
   color: white;
   font-family: sans-serif;
   font-weight: 500;
@@ -71,12 +71,12 @@ const inputStyle = css`
   width: 100%;
 
   &:focus {
-    border: 1px solid var(--accent);
+    border: 1px solid var(--color-accent);
   }
 `;
 
 const Label = styled.div`
-  color: var(--text);
+  color: var(--color-text);
   padding: 1rem 0 0.5rem 0;
   font-size: 0.875rem;
 `;

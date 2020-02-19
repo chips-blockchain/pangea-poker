@@ -30,17 +30,17 @@ const AddressLabel = styled.h2`
 `;
 
 const Balance = styled.div`
-  color: var(--accent);
+  color: var(--color-accent);
 `;
 
 const DepositAddress = styled.span`
-  color: var(--primaryLight);
+  color: var(--color-primaryLight);
   font-size: 0.875rem;
 `;
 
 const DepositAddressContainer = styled.div`
   background-color: var(--darkGrey);
-  border: 1px solid var(--primary);
+  border: 1px solid var(--color-primary);
   border-radius: 4px;
   padding: 0.5rem;
 `;

@@ -16,9 +16,9 @@ const isTest = process.env.NODE_ENV === "test";
 
 const modalStyle = {
   content: {
-    backgroundColor: "var(--background)",
+    backgroundColor: "var(--color-background)",
     border: 0,
-    color: "var(--text)",
+    color: "var(--color-text)",
     left: "50%",
     opacity: 1,
     overflowX: "hidden",

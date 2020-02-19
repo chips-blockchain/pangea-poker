@@ -1,21 +1,21 @@
 :root {
   /* Moon theme */
-  --bloodRed: "#CE1311";
-  --chipsOrange: "#FCAA2A";
-  --chipsTeal: "#4D8484";
-  --chipsTealLight: "#6DABAB";
+  --color-bloodRed: "#CE1311";
+  --color-chipsOrange: "#FCAA2A";
+  --color-chipsTeal: "#4D8484";
+  --color-chipsTealLight: "#6DABAB";
 
   /* Basic Colors */
-  --almostBlack: "#121318";
-  --darkGray: "#1e1f24";
-  --superLightGray: "#eeeeee";
-  --white: "#FFFFFF";
+  --color-almostBlack: "#121318";
+  --color-darkGray: "#1e1f24";
+  --color-superLightGray: "#eeeeee";
+  --color-white: "#FFFFFF";
 
   /* Active theme - override these to change the theme */
-  --accent: #fcaa2a;
-  --background: #121318;
-  --danger: #ce1311;
-  --primary: #4d8484;
-  --primaryLight: #6dabab;
-  --text: #ffffff;
+  --color-accent: #fcaa2a;
+  --color-background: #121318;
+  --color-danger: #ce1311;
+  --color-primary: #4d8484;
+  --color-primaryLight: #6dabab;
+  --color-text: #ffffff;
 }

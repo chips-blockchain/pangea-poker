@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 
 const LogBoxSection = styled.section`
-  background: var(--background);
-  border: 1px solid var(--primary);
+  background: var(--color-background);
+  border: 1px solid var(--color-primary);
   bottom: 1.75rem;
   padding: 0.5rem;
   position: absolute;
@@ -14,7 +14,7 @@ const LogBoxSection = styled.section`
 `;
 
 const Log = styled.div`
-  color: var(--primaryLight);
+  color: var(--color-primaryLight);
   font-family: "PT Sans", sans-serif;
   font-weight: 400;
   font-size: 0.875rem;
