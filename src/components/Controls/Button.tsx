@@ -1,6 +1,5 @@
 import { css } from "@emotion/core";
 import styled from "@emotion/styled";
-import theme from "../../styles/theme";
 import numberWithCommas from "../../lib/numberWithCommas";
 
 // This component renders a Button
@@ -14,8 +13,6 @@ interface IProps {
   testId?: string;
 }
 
-const { accent, background, primary, text } = theme.moon.colors;
-
 const Button: React.FunctionComponent<IProps> = ({
   amount,
   disabled,
@@ -25,10 +22,10 @@ const Button: React.FunctionComponent<IProps> = ({
   testId
 }) => {
   const ButtonStyle = styled.button`
-    background: ${background};
-    border: 0.0625rem solid ${primary};
+    background: var(--background);
+    border: 0.0625rem solid var(--primary);
     border-radius: 0.125rem;
-    color: ${text};
+    color: var(--text);
     font-size: ${small ? ".75rem" : "1rem"};
     font-weight: 700;
     height: ${small ? "1.75rem" : "2.5rem"};
@@ -41,17 +38,17 @@ const Button: React.FunctionComponent<IProps> = ({
     ${!disabled &&
       `
 &:hover {
-  color: ${accent};
+  color: var(--accent);
   cursor: pointer;
-  border-color: ${accent};
+  border-color: var(--accent);
 }
 &:focus {
-  border-color: ${accent};
-  color: ${accent};
+  border-color: var(--accent);
+  color: var(--accent);
 }
 &:active {
-  background: ${accent};
-  color: ${background};
+  background: var(--accent);
+  color: var(--background);
 }
 
 `}

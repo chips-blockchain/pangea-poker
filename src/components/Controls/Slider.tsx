@@ -1,7 +1,6 @@
 import { css } from "@emotion/core";
 import { useContext, useEffect } from "react";
 import { StateContext } from "../../store/context";
-import theme from "../../styles/theme";
 import RCSlider from "rc-slider";
 import "./slider.css";
 import { IState } from "../../store/initialState";
@@ -40,8 +39,8 @@ const Slider = ({ raiseAmount, setRaiseAmount }) => {
       <div
         css={css`
           align-items: center;
-          background: ${theme.moon.colors.background};
-          border: 0.0625rem solid ${theme.moon.colors.primary};
+          background: var(--background);
+          border: 0.0625rem solid var(--primary);
           display: inline-block;
           display: flex;
           border-radius: 0.125rem;

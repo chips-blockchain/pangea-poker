@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import axios from "axios";
-import theme from "../../styles/theme";
 import Button from "../Controls/Button";
 import {
   connectPlayer,
@@ -30,14 +29,14 @@ const Table = styled.table`
     padding: 0.5rem;
 
     & tr.selected {
-      background-color: ${theme.moon.colors.primaryLight};
-      color: ${theme.moon.colors.background};
+      background-color: var(--primaryLight);
+      color: var(--background);
       cursor: default;
     }
 
     & tr:hover:not(.selected) {
-      background-color: ${theme.moon.colors.accent};
-      color: ${theme.moon.colors.background};
+      background-color: var(--accent);
+      color: var(--background);
     }
   }
 
@@ -49,7 +48,7 @@ const Table = styled.table`
 
   thead {
     & tr {
-      background-color: ${theme.moon.colors.background};
+      background-color: var(--background);
 
       & th {
         padding-bottom: 0.25rem;
@@ -59,7 +58,7 @@ const Table = styled.table`
 `;
 
 const TableArea = styled.div`
-  background-color: ${theme.moon.colors.darkGray};
+  background-color: var(--darkGray);
   height: 14rem;
   overflow: scroll;
 `;

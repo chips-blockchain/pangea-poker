@@ -1,5 +1,4 @@
 import { css } from "@emotion/core";
-import theme from "../../styles/theme";
 import numberWithCommas from "../../lib/numberWithCommas";
 import Stack from "./Stack";
 
@@ -46,7 +45,7 @@ const Bet: React.FunctionComponent<IProps> = ({
       {/* Bet amount in numbers */}
       <span
         css={css`
-          color: ${theme.moon.colors.text};
+          color: var(--text);
           font-size: 0.625rem;
           padding: 0 0 0.5rem 0.3rem;
           position: relative;

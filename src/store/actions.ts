@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import theme from "../styles/theme";
 import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
@@ -55,13 +54,13 @@ export const log = (text: string, color: string, message?: IMessage): void => {
     "%c" + text,
     `color: ${
       color === "sent"
-        ? theme.moon.colors.accent
+        ? "var(--accent)"
         : color === "info"
         ? "#89ca77"
         : color === "received"
         ? "#e0be1d"
         : color === "danger"
-        ? theme.moon.colors.danger
+        ? "var(--danger)"
         : ""
     }; background-color: #2a2b2e;`,
     message ? message : ""

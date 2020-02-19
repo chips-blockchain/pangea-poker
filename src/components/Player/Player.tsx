@@ -5,7 +5,6 @@ import Card from "../Card";
 import { CardFaceDown } from "../Card";
 import randomEmoji from "../../lib/randomEmoji";
 import numberWithCommas from "../../lib/numberWithCommas";
-import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../../store/context";
 import {
   playerJoin,
@@ -62,7 +61,7 @@ const Player: React.FunctionComponent<IProps> = ({
   const [userAvatar, setUserAvater] = useState(randomEmoji());
   const [userName, setUserName] = useState({
     text: seat,
-    color: theme.moon.colors.superLightGray
+    color: "var(--superLightGray)"
   });
 
   // Calculate which widget is the current player
@@ -84,12 +83,12 @@ const Player: React.FunctionComponent<IProps> = ({
   // Rules to change the colors when the time is low
   const colorChange = () => {
     return secondsLeft > timeAllowance * 0.25
-      ? theme.moon.colors.accent
-      : theme.moon.colors.danger;
+      ? "var(--accent)"
+      : "var(--danger)";
   };
 
   const Balance = styled.div`
-    color: ${theme.moon.colors.primaryLight};
+    color: var(--primaryLight);
     font-size: 0.75rem;
     line-height: 1rem;
     text-align: center;
@@ -116,7 +115,7 @@ const Player: React.FunctionComponent<IProps> = ({
   const PlayerInfo = styled.div`
    align-items: center;
     display: grid;
-    background: ${theme.moon.colors.background};
+    background: var(--background);
     border-radius: 10rem;
     box-sizing: border-box;
     box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.1);
@@ -131,7 +130,7 @@ const Player: React.FunctionComponent<IProps> = ({
     z-index: 2;
 
     &:hover div {
-      ${!connected && `color: ${theme.moon.colors.accent}`};
+      ${!connected && `color: var(--accent)`};
     }
   `;
 
@@ -142,7 +141,7 @@ const Player: React.FunctionComponent<IProps> = ({
 
   const PlayerName = styled.div`
     color: ${lastAction.action && seat == playerIdToString(lastAction.player)
-      ? theme.moon.colors.accent
+      ? "var(--accent)"
       : userName.color};
     font-size: ${connected ? "0.625rem" : "1rem"};
     line-height: 0.875rem;
@@ -281,7 +280,7 @@ const Player: React.FunctionComponent<IProps> = ({
       {isActive && (
         <div
           css={css`
-            background: ${theme.moon.colors.background};
+            background: var(--background);
             border: 2px solid ${colorChange()};
             height: 0.5rem;
             margin: auto;
