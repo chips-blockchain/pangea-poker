@@ -15,7 +15,7 @@ const LogBoxSection = styled.section`
 
 const Log = styled.div`
   color: var(--color-primaryLight);
-  font-family: "PT Sans", sans-serif;
+  font-family: var(--font-family-secondary);
   font-weight: 400;
   font-size: 0.875rem;
   margin: 0.125rem;

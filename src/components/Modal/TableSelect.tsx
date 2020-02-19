@@ -41,7 +41,7 @@ const Table = styled.table`
   }
 
   td {
-    font-family: "PT Sans", sans-serif;
+    font-family: var(--font-family-secondary);
     font-weight: 400;
     padding: 0.25rem;
   }

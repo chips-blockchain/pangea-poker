@@ -56,7 +56,7 @@ const Button: React.FunctionComponent<IProps> = ({
   const ButtonInnerWrapper = styled.div`
     display: flex;
     align-items: center;
-    font-family: "PT Sans", sans-serif;
+    font-family: var(--font-family-secondary);
     text-align: center;
     justify-content: center;
     /* Crop line height */

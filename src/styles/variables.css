@@ -18,4 +18,8 @@
   --color-primary: #4d8484;
   --color-primaryLight: #6dabab;
   --color-text: #ffffff;
+
+  /* Fonts */
+  --font-family-primary: "Noticia Text", serif;
+  --font-family-secondary: "PT Sans", sans-serif;
 }

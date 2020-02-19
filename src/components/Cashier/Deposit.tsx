@@ -16,14 +16,14 @@ interface IProps {
 }
 
 const AdditionalInfo = styled.p`
-  font-family: "PT Sans";
+  font-family: var(--font-family-secondary);
   font-weight: 400;
   font-size: 0.875rem;
   margin-top: 1.5rem;
 `;
 
 const AddressLabel = styled.h2`
-  font-family: "PT Sans";
+  font-family: var(--font-family-secondary);
   font-weight: 400;
   font-size: 0.875rem;
   margin-top: 2rem;
