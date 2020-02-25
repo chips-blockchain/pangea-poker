@@ -23,6 +23,7 @@ function createWindow() {
   mainWindow.setResizable(false);
 }
 
+// Docker script will be here
 // const execSync = require("child_process").execSync;
 // // import { execSync } from 'child_process';  // replace ^ if using ES modules
 // execSync("docker run -d -ti norbertdragan/pangea-poker", {
