@@ -63,7 +63,7 @@ const inputStyle = css`
   background: none;
   border: 1px solid var(--color-primary);
   color: white;
-  font-family: sans-serif;
+  font-family: var(--font-family-secondary);
   font-weight: 500;
   max-width: 14rem;
   padding: 0.5rem 0.25rem;
