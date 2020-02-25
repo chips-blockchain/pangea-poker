@@ -35,7 +35,7 @@ const Connections: React.FunctionComponent = () => {
           <span
             css={css`
               color: white;
-              font-size: 0.75rem;
+              font-size: var(--font-size-xs);
               padding: 0 0.5rem;
             `}
             key={key}

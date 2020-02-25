@@ -21,7 +21,7 @@ const Table = styled.table`
   border-spacing: 0;
   color: white;
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: var(--font-size-s);
   text-align: center;
   width: 100%;
 

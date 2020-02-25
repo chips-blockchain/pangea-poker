@@ -78,7 +78,7 @@ const inputStyle = css`
 const Label = styled.div`
   color: var(--color-text);
   padding: 1rem 0 0.5rem 0;
-  font-size: 0.875rem;
+  font-size: var(--font-size-s);
 `;
 
 const CustomIP: React.FunctionComponent = () => {

@@ -18,14 +18,14 @@ interface IProps {
 const AdditionalInfo = styled.p`
   font-family: var(--font-family-secondary);
   font-weight: 400;
-  font-size: 0.875rem;
+  font-size: var(--font-size-s);
   margin-top: 1.5rem;
 `;
 
 const AddressLabel = styled.h2`
   font-family: var(--font-family-secondary);
   font-weight: 400;
-  font-size: 0.875rem;
+  font-size: var(--font-size-s);
   margin-top: 2rem;
 `;
 
@@ -35,7 +35,7 @@ const Balance = styled.div`
 
 const DepositAddress = styled.span`
   color: var(--color-primaryLight);
-  font-size: 0.875rem;
+  font-size: var(--font-size-s);
 `;
 
 const DepositAddressContainer = styled.div`

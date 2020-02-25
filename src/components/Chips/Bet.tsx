@@ -46,7 +46,7 @@ const Bet: React.FunctionComponent<IProps> = ({
       <span
         css={css`
           color: var(--color-text);
-          font-size: 0.625rem;
+          font-size: var(--font-size-xxs);
           padding: 0 0 0.5rem 0.3rem;
           position: relative;
           order: 1;

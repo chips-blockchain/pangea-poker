@@ -34,7 +34,7 @@ const TotalPot: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
       css={css`
         color: var(--color-text);
         top: 12rem;
-        font-size: 0.75rem;
+        font-size: var(--font-size-xs);
         left: 0;
         margin: auto;
         position: absolute;

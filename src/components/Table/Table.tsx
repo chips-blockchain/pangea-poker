@@ -77,7 +77,7 @@ const Table: React.FunctionComponent = () => {
               top: 0.25rem;
               left: 0.25rem;
               z-index: 4;
-              font-size: 0.75rem;
+              font-size: var(--font-size-xs);
             `}
           >
             {gameType}

@@ -89,7 +89,7 @@ const Player: React.FunctionComponent<IProps> = ({
 
   const Balance = styled.div`
     color: var(--color-primaryLight);
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
     line-height: 1rem;
     text-align: center;
     text-transform: uppercase;
@@ -135,7 +135,7 @@ const Player: React.FunctionComponent<IProps> = ({
   `;
 
   const PlayerEmoji = styled.span`
-    font-size: 1.875rem;
+    font-size: var(--font-size-xl);
     margin-right: 1rem;
   `;
 
