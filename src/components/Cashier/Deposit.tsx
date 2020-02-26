@@ -16,31 +16,31 @@ interface IProps {
 }
 
 const AdditionalInfo = styled.p`
-  font-family: "PT Sans";
+  font-family: var(--font-family-secondary);
   font-weight: 400;
-  font-size: 0.875rem;
+  font-size: var(--font-size-s);
   margin-top: 1.5rem;
 `;
 
 const AddressLabel = styled.h2`
-  font-family: "PT Sans";
+  font-family: var(--font-family-secondary);
   font-weight: 400;
-  font-size: 0.875rem;
+  font-size: var(--font-size-s);
   margin-top: 2rem;
 `;
 
 const Balance = styled.div`
-  color: var(--accent);
+  color: var(--color-accent);
 `;
 
 const DepositAddress = styled.span`
-  color: var(--primaryLight);
-  font-size: 0.875rem;
+  color: var(--color-primaryLight);
+  font-size: var(--font-size-s);
 `;
 
 const DepositAddressContainer = styled.div`
   background-color: var(--darkGrey);
-  border: 1px solid var(--primary);
+  border: 1px solid var(--color-primary);
   border-radius: 4px;
   padding: 0.5rem;
 `;

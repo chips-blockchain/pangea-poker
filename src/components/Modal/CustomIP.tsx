@@ -3,7 +3,6 @@ import { css } from "@emotion/core";
 import styled from "@emotion/styled";
 import { useContext, useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../../store/context";
 import Button from "../Controls/Button";
 import {
@@ -62,9 +61,9 @@ const nodesToInput: INode[][] = [
 
 const inputStyle = css`
   background: none;
-  border: 1px solid ${theme.moon.colors.primary};
+  border: 1px solid var(--color-primary);
   color: white;
-  font-family: sans-serif;
+  font-family: var(--font-family-secondary);
   font-weight: 500;
   max-width: 14rem;
   padding: 0.5rem 0.25rem;
@@ -72,14 +71,14 @@ const inputStyle = css`
   width: 100%;
 
   &:focus {
-    border: 1px solid ${theme.moon.colors.accent};
+    border: 1px solid var(--color-accent);
   }
 `;
 
 const Label = styled.div`
-  color: ${theme.moon.colors.text};
+  color: var(--color-text);
   padding: 1rem 0 0.5rem 0;
-  font-size: 0.875rem;
+  font-size: var(--font-size-s);
 `;
 
 const CustomIP: React.FunctionComponent = () => {

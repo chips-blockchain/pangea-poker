@@ -1,12 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
-import theme from "../../styles/theme";
-
-const { background, primary, primaryLight } = theme.moon.colors;
 
 const LogBoxSection = styled.section`
-  background: ${background};
-  border: 1px solid ${primary};
+  background: var(--color-background);
+  border: 1px solid var(--color-primary);
   bottom: 1.75rem;
   padding: 0.5rem;
   position: absolute;
@@ -17,10 +14,10 @@ const LogBoxSection = styled.section`
 `;
 
 const Log = styled.div`
-  color: ${primaryLight};
-  font-family: "PT Sans", sans-serif;
+  color: var(--color-primaryLight);
+  font-family: var(--font-family-secondary);
   font-weight: 400;
-  font-size: 0.875rem;
+  font-size: var(--font-size-s);
   margin: 0.125rem;
 `;
 

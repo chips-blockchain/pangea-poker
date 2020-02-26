@@ -1,6 +1,5 @@
 import { css } from "@emotion/core";
 import styled from "@emotion/styled";
-import theme from "../../styles/theme";
 import numberWithCommas from "../../lib/numberWithCommas";
 
 // This component renders a Button
@@ -14,8 +13,6 @@ interface IProps {
   testId?: string;
 }
 
-const { accent, background, primary, text } = theme.moon.colors;
-
 const Button: React.FunctionComponent<IProps> = ({
   amount,
   disabled,
@@ -25,10 +22,10 @@ const Button: React.FunctionComponent<IProps> = ({
   testId
 }) => {
   const ButtonStyle = styled.button`
-    background: ${background};
-    border: 0.0625rem solid ${primary};
+    background: var(--color-background);
+    border: 0.0625rem solid var(--color-primary);
     border-radius: 0.125rem;
-    color: ${text};
+    color: var(--color-text);
     font-size: ${small ? ".75rem" : "1rem"};
     font-weight: 700;
     height: ${small ? "1.75rem" : "2.5rem"};
@@ -41,17 +38,17 @@ const Button: React.FunctionComponent<IProps> = ({
     ${!disabled &&
       `
 &:hover {
-  color: ${accent};
+  color: var(--color-accent);
   cursor: pointer;
-  border-color: ${accent};
+  border-color: var(--color-accent);
 }
 &:focus {
-  border-color: ${accent};
-  color: ${accent};
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 &:active {
-  background: ${accent};
-  color: ${background};
+  background: var(--color-accent);
+  color: var(--color-background);
 }
 
 `}
@@ -59,7 +56,7 @@ const Button: React.FunctionComponent<IProps> = ({
   const ButtonInnerWrapper = styled.div`
     display: flex;
     align-items: center;
-    font-family: "PT Sans", sans-serif;
+    font-family: var(--font-family-secondary);
     text-align: center;
     justify-content: center;
     /* Crop line height */

@@ -1,7 +1,6 @@
 import { css } from "@emotion/core";
 import { useContext } from "react";
 import { StateContext } from "../../store/context";
-import theme from "../../styles/theme";
 import { IState } from "../../store/initialState";
 
 // This component is responsible for displaying the state of the WebSocket connections
@@ -12,7 +11,10 @@ const Connections: React.FunctionComponent = () => {
 
   let nodeList = [];
 
-  const dealerNodeList = [["DCV", connection.dcv], ["BVV", connection.bvv]];
+  const dealerNodeList = [
+    ["DCV", connection.dcv],
+    ["BVV", connection.bvv]
+  ];
 
   const playerNode = ["Player", connection[Object.keys(state.nodes)[0]]];
 
@@ -33,7 +35,7 @@ const Connections: React.FunctionComponent = () => {
           <span
             css={css`
               color: white;
-              font-size: 0.75rem;
+              font-size: var(--font-size-xs);
               padding: 0 0.5rem;
             `}
             key={key}
@@ -42,10 +44,10 @@ const Connections: React.FunctionComponent = () => {
             <span
               css={css`
                 color: ${node[1] === "Connected"
-                  ? theme.moon.colors.primaryLight
+                  ? "var(--color-primaryLight)"
                   : node[1] === "Connecting..."
-                  ? theme.moon.colors.accent
-                  : theme.moon.colors.danger};
+                  ? "var(--color-accent)"
+                  : "var(--color-danger)"};
                 padding-left: 0 0.25rem;
               `}
             >

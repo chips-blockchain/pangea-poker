@@ -5,7 +5,6 @@ import Card from "../Card";
 import { CardFaceDown } from "../Card";
 import randomEmoji from "../../lib/randomEmoji";
 import numberWithCommas from "../../lib/numberWithCommas";
-import theme from "../../styles/theme";
 import { DispatchContext, StateContext } from "../../store/context";
 import {
   playerJoin,
@@ -62,7 +61,7 @@ const Player: React.FunctionComponent<IProps> = ({
   const [userAvatar, setUserAvater] = useState(randomEmoji());
   const [userName, setUserName] = useState({
     text: seat,
-    color: theme.moon.colors.superLightGray
+    color: "var(--color-superLightGray)"
   });
 
   // Calculate which widget is the current player
@@ -84,13 +83,13 @@ const Player: React.FunctionComponent<IProps> = ({
   // Rules to change the colors when the time is low
   const colorChange = () => {
     return secondsLeft > timeAllowance * 0.25
-      ? theme.moon.colors.accent
-      : theme.moon.colors.danger;
+      ? "var(--color-accent)"
+      : "var(--color-danger)";
   };
 
   const Balance = styled.div`
-    color: ${theme.moon.colors.primaryLight};
-    font-size: 0.75rem;
+    color: var(--color-primaryLight);
+    font-size: var(--font-size-xs);
     line-height: 1rem;
     text-align: center;
     text-transform: uppercase;
@@ -116,7 +115,7 @@ const Player: React.FunctionComponent<IProps> = ({
   const PlayerInfo = styled.div`
    align-items: center;
     display: grid;
-    background: ${theme.moon.colors.background};
+    background: var(--color-background);
     border-radius: 10rem;
     box-sizing: border-box;
     box-shadow: inset 0 0 0.25rem rgba(255, 255, 255, 0.1);
@@ -131,18 +130,18 @@ const Player: React.FunctionComponent<IProps> = ({
     z-index: 2;
 
     &:hover div {
-      ${!connected && `color: ${theme.moon.colors.accent}`};
+      ${!connected && `color: var(--color-accent)`};
     }
   `;
 
   const PlayerEmoji = styled.span`
-    font-size: 1.875rem;
+    font-size: var(--font-size-xl);
     margin-right: 1rem;
   `;
 
   const PlayerName = styled.div`
     color: ${lastAction.action && seat == playerIdToString(lastAction.player)
-      ? theme.moon.colors.accent
+      ? "var(--color-accent)"
       : userName.color};
     font-size: ${connected ? "0.625rem" : "1rem"};
     line-height: 0.875rem;
@@ -281,7 +280,7 @@ const Player: React.FunctionComponent<IProps> = ({
       {isActive && (
         <div
           css={css`
-            background: ${theme.moon.colors.background};
+            background: var(--color-background);
             border: 2px solid ${colorChange()};
             height: 0.5rem;
             margin: auto;

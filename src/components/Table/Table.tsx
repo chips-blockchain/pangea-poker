@@ -1,7 +1,6 @@
 import { css } from "@emotion/core";
 import { useReducer, useEffect, useState } from "react";
 import diff from "deep-diff";
-import theme from "../../styles/theme";
 import reducer from "../../store/reducer";
 import { StateContext, DispatchContext } from "../../store/context";
 import initialState, { IPlayer, IState } from "../../store/initialState";
@@ -64,7 +63,7 @@ const Table: React.FunctionComponent = () => {
         {isDeveloperMode && <DeveloperMode />}
         <div
           css={css`
-            background-color: ${theme.moon.colors.dark};
+            background-color: var(--dark);
             height: 37.5rem;
             width: 50rem;
             position: relative;
@@ -78,7 +77,7 @@ const Table: React.FunctionComponent = () => {
               top: 0.25rem;
               left: 0.25rem;
               z-index: 4;
-              font-size: 0.75rem;
+              font-size: var(--font-size-xs);
             `}
           >
             {gameType}

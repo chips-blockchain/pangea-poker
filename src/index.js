@@ -46,7 +46,7 @@ const App = () => {
           * {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            font-family: "Noticia Text";
+            font-family: var(--font-family-primary);
           }
         `}
       />

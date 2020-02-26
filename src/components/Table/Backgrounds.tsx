@@ -1,6 +1,5 @@
 import React from "react";
 import { css } from "@emotion/core";
-import theme from "../../styles/theme";
 import moonBg from "./background-moon@2x.jpg";
 import moonBg2x from "./background-moon@2x.jpg";
 import tableDefault from "./table-default.svg";

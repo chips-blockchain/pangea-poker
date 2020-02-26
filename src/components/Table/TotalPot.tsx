@@ -1,7 +1,6 @@
 import { css } from "@emotion/core";
 import { useEffect } from "react";
 import numberWithCommas from "../../lib/numberWithCommas";
-import theme from "../../styles/theme";
 import { updateMainPot, updateTotalPot } from "../../store/actions";
 import { IState } from "../../store/initialState";
 
@@ -33,9 +32,9 @@ const TotalPot: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
   return (
     <div
       css={css`
-        color: ${theme.moon.colors.text};
+        color: var(--color-text);
         top: 12rem;
-        font-size: 0.75rem;
+        font-size: var(--font-size-xs);
         left: 0;
         margin: auto;
         position: absolute;
