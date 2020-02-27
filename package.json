@@ -99,7 +99,7 @@
     "@typescript-eslint/parser": "2.14.0",
     "babel-eslint": "9.0.0",
     "babel-loader": "8.0.6",
-    "babel-plugin-emotion": "10.0.27",
+    "babel-plugin-emotion": "10.0.28",
     "babel-plugin-jsx-pragmatic": "1.0.2",
     "babel-plugin-transform-inline-environment-variables": "0.4.3",
     "electron": "8.0.1",
