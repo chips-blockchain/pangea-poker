@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/electron.js",
   "scripts": {
-    "build": "parcel build src/index.html --out-dir build --public-url ./ && npm run electron-pack",
+    "build": "parcel build src/index.html --out-dir build --public-url ./",
     "dev": "parcel src/index.html",
     "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:1234 && electron .\"",
     "electron-pack": "electron-builder -mwl",
