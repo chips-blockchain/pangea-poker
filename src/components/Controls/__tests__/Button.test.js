@@ -8,7 +8,7 @@ describe("Button", () => {
 
     expect(
       button
-        .find("ButtonInnerWrapper")
+        .find("ButtonInnerWrapper1")
         .childAt(0)
         .text()
     ).toBe("Start");
