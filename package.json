@@ -1,7 +1,7 @@
 {
   "name": "pangea-poker-gui",
   "version": "0.4.0",
-  "description": "",
+  "description": "Decentralized Poker via the CHIPS Blockchain",
   "main": "src/electron.js",
   "scripts": {
     "build": "parcel build src/index.html --out-dir build --public-url ./",
