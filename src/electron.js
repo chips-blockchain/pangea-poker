@@ -18,9 +18,6 @@ function createWindow() {
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
   mainWindow.on("closed", () => (mainWindow = null));
-
-  // Disalbe window resizing
-  mainWindow.setResizable(false);
 }
 
 // Docker script will be here
