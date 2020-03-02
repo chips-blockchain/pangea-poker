@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Modal from "../Modal";
 import Deposit from "./Deposit";
+import Withdraw from "./Withdraw";
 import { Button } from "../Controls";
 import { updateStateValue } from "../../store/actions";
 import { IState } from "../../store/initialState";
@@ -61,6 +62,17 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
             ),
             name: "Deposit",
             title: "Deposit CHIPS"
+          },
+          {
+            content: (
+              <Withdraw
+                dispatch={dispatch}
+                state={state}
+                closeCashierModal={closeCashierModal}
+              />
+            ),
+            name: "Withdraw",
+            title: "Withdraw CHIPS"
           }
           // Withdrawal tab will be placed here
         ]}
