@@ -126,7 +126,9 @@ const initialState: IState = {
   // Where does the user sit
   userSeat: null,
   // Array of players that won
-  winners: [undefined]
+  winners: [undefined],
+  // List of addresses where the player can withdraw to. See: https://github.com/chips-blockchain/bet/blob/master/handling_funds.md#withdrawing-the-funds
+  withdrawAddresses: []
 };
 
 export interface IPlayer {
@@ -204,6 +206,7 @@ export interface IState {
   toCall: number;
   userSeat: string;
   winners: string[] | null;
+  withdrawAddresses: string[];
 }
 
 export default initialState;
