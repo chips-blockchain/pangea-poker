@@ -84,13 +84,12 @@ const Deposit: React.FunctionComponent<IProps> = ({
         <Button
           label="Close"
           onClick={closeCashierModal()}
-          data-test="close-button-cashier-withdraw"
+          data-test="close-cashier-deposit"
         />
         <Button
           label="Withdraw"
           onClick={closeCashierModal()}
-          data-test="withdraw-button"
-          isHighlighted
+          data-test="close-cashier-deposit"
         />
       </ModalButtonsWrapper>
       {isDepositAddressValid && <ReactTooltip className="react-tooltip" />}
