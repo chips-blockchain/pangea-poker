@@ -61,7 +61,7 @@ const Player: React.FunctionComponent<IProps> = ({
   const [userAvatar, setUserAvater] = useState(randomEmoji());
   const [userName, setUserName] = useState({
     text: seat,
-    color: "var(--color-superLightGray)"
+    color: "var(--color-text)"
   });
 
   // Calculate which widget is the current player
@@ -81,7 +81,7 @@ const Player: React.FunctionComponent<IProps> = ({
   // Styles
 
   // Rules to change the colors when the time is low
-  const colorChange = () => {
+  const colorChange = (): string => {
     return secondsLeft > timeAllowance * 0.25
       ? "var(--color-accent)"
       : "var(--color-danger)";
