@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import { useContext, useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { DispatchContext, StateContext } from "../../store/context";
-import Button from "../Controls/Button";
 import {
   connectPlayer,
   closeStartupModal,
@@ -13,7 +12,9 @@ import {
   setUserSeat
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
+import Button from "../Controls/Button";
 import ModalButtonsWrapper from "./ModalButtonsWrapper";
+import { Input } from "../Form/Input";
 
 interface INode {
   name: "dcv" | "bvv" | "player1" | "player2";
@@ -56,30 +57,6 @@ const nodesToInput: INode[][] = [
     }
   ]
 ];
-
-// Styles
-
-const inputStyle = css`
-  background: none;
-  border: 1px solid var(--color-primary);
-  color: white;
-  font-family: var(--font-family-secondary);
-  font-weight: 500;
-  max-width: 14rem;
-  padding: 0.5rem 0.25rem;
-  text-align: center;
-  width: 100%;
-
-  &:focus {
-    border: 1px solid var(--color-accent);
-  }
-`;
-
-const Label = styled.div`
-  color: var(--color-text);
-  padding: 1rem 0 0.5rem 0;
-  font-size: var(--font-size-s);
-`;
 
 const CustomIP: React.FunctionComponent = () => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
@@ -174,13 +151,13 @@ const CustomIP: React.FunctionComponent = () => {
               {nodeType.map((node, j) => {
                 return (
                   <div key={j}>
-                    <Label>{node.name}</Label>
-                    <input
-                      css={inputStyle}
-                      name={node.name}
-                      placeholder={`192.168.101.234`}
+                    <Input
                       defaultValue={process.env ? node.devAddress : ""}
+                      label={node.name}
+                      name={node.name}
                       onChange={handleInputChange(node)}
+                      placeholder={`${node.name}'s IP Address`}
+                      type={"text"}
                     />
                   </div>
                 );
