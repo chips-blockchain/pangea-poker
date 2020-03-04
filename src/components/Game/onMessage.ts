@@ -509,7 +509,7 @@ export const onMessage_player = (
 
     case "withdrawResponse":
       updateStateValue("balance", message.balance, dispatch);
-      updateStateValue("withdrawAddresses", message.addrs, dispatch);
+      updateStateValue("withdrawAddressList", message.addrs, dispatch);
       break;
 
     default:
