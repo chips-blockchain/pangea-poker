@@ -7,6 +7,7 @@ import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
 import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
 import { Button } from "../Controls";
+import { Dropdown } from "../Form";
 import "../../styles/tooltip.css";
 
 interface IProps {
@@ -15,71 +16,41 @@ interface IProps {
   closeCashierModal: Function;
 }
 
-const AddressLabel = styled.h2`
-  font-family: var(--font-family-secondary);
-  font-weight: 400;
-  font-size: var(--font-size-s);
-  margin-top: 2rem;
-`;
-
 const Balance = styled.div`
   color: var(--color-accent);
-`;
-
-const DepositAddress = styled.span`
-  color: var(--color-primaryLight);
-  font-size: var(--font-size-s);
-`;
-
-const DepositAddressContainer = styled.div`
-  background-color: var(--darkGrey);
-  border: 1px solid var(--color-primary);
-  border-radius: 4px;
-  padding: 0.5rem;
 `;
 
 const Deposit: React.FunctionComponent<IProps> = ({
   state,
   closeCashierModal
 }) => {
-  const { balance, depositAddress } = state;
+  const { balance, withdrawAddressList } = state;
 
-  const [isAddressCopied, setIsAddressCopied] = useState(false);
-  const [isDepositAddressValid, setIsDepositAddressValid] = useState(false);
+  const [
+    validatedWithdrawAdressList,
+    setValidatedWithdrawAdressList
+  ] = useState([]);
 
-  // Validate if the deposit address is correct
+  // Validate withdraw addresses before displaying them on the UI
   useEffect(() => {
-    setIsDepositAddressValid(isValidAddress(depositAddress));
-  }, [balance]);
+    const validAddressList = withdrawAddressList.map(address => {
+      if (isValidAddress(address)) return address;
+    });
 
-  // Copy the address to the clipboard and hide the tooltip when clicked
-  const copyToClipBoard = () => (): void => {
-    navigator.clipboard.writeText(depositAddress);
-    setIsAddressCopied(true);
-    ReactTooltip.hide();
-  };
-
-  // Set the cursor style based on whether the deposit address is valid
-  const cursorStyle = css`
-    cursor: ${isDepositAddressValid ? "pointer" : "not-allowed"};
-  `;
+    setValidatedWithdrawAdressList(validAddressList);
+  }, [state.withdrawAddressList]);
 
   return (
-    <section>
+    <form>
       <Balance data-test="balance-cashier-deposit">
         Available CHIPS: {balanceWithDecimals(balance)}
       </Balance>
       {/* Amount to Withdraw  */}
-      <AddressLabel>CHIPS address to withdraw to:</AddressLabel>
-      <DepositAddressContainer
-        data-tip={isAddressCopied ? "Copied!" : "Copy to Clipboard"}
-        onClick={isDepositAddressValid ? copyToClipBoard() : undefined}
-        data-test="address-container-cashier-deposit"
-      >
-        <DepositAddress css={cursorStyle} data-test="address-cashier-deposit">
-          {/* Withdrawal Address */}
-        </DepositAddress>
-      </DepositAddressContainer>
+      <Dropdown
+        name="withdraw-address-list"
+        label="CHIPS address to withdraw to:"
+        options={validatedWithdrawAdressList}
+      />
       <ModalButtonsWrapper>
         <Button
           label="Close"
@@ -93,8 +64,7 @@ const Deposit: React.FunctionComponent<IProps> = ({
           isHighlighted
         />
       </ModalButtonsWrapper>
-      {isDepositAddressValid && <ReactTooltip className="react-tooltip" />}
-    </section>
+    </form>
   );
 };
 
