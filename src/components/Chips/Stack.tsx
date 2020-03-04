@@ -17,18 +17,18 @@ const Stack: React.FunctionComponent<IProps> = ({ chips }) => {
     numArray.reverse();
 
     // Clalculate how many 1s and 5s (10s and 50s, 100s and 500s, etc) per decimal point we have
-    let chipsArray: number[][] = numArray.map((num: string) => {
-      let ones: number = Number(num) % 5;
-      let fives: number = (Number(num) - ones) / 5;
+    const chipsArray: number[][] = numArray.map((num: string) => {
+      const ones: number = Number(num) % 5;
+      const fives: number = (Number(num) - ones) / 5;
       return [ones, fives];
     });
     return chipsArray;
   };
 
   // Merge the nested arrays, so we only have a single array of numbers
-  let chipsCountArray: number[][] = countChips(chips);
+  const chipsCountArray: number[][] = countChips(chips);
   // Merge the nested arrays, so we only have a single array of numbers
-  let mergedArray: number[] = [].concat.apply([], chipsCountArray);
+  const mergedArray: number[] = [].concat(...chipsCountArray);
 
   // Add 0s for the non-existent chips so the so the array.length is 24 (because we have
   // a total of 24 types of chips) and we can rename the keys later
@@ -40,7 +40,7 @@ const Stack: React.FunctionComponent<IProps> = ({ chips }) => {
     [key: number]: number;
   }
   // Convert the array into an Object before renaming
-  let chipsCountObject: IChipsCountObject = Object.assign({}, mergedArray);
+  const chipsCountObject: IChipsCountObject = Object.assign({}, mergedArray);
 
   interface IKeysMap {
     [key: number]: string;
@@ -95,7 +95,7 @@ const Stack: React.FunctionComponent<IProps> = ({ chips }) => {
 
   // Define the function that reverses the z-index rules for the chips, so the stack grows from the bottom to the top
   const reverseZIndex: Function = (): string => {
-    let zIndexRules: string = "";
+    let zIndexRules: string;
     for (let i = 0; i < 15; i++) {
       zIndexRules += " div:nth-of-type(" + i + ") {z-index:" + (15 - i) + "}";
     }
@@ -112,9 +112,9 @@ const Stack: React.FunctionComponent<IProps> = ({ chips }) => {
     >
       {/* Render chips from the object ("value" times each "key" type of chips) */}
       {Object.keys(chipsCountWithNames).map(key => {
-        return Array.apply(null, { length: chipsCountWithNames[key] }).map(
-          (e: any, i: number) => <Chip chip={key} key={i} />
-        );
+        return Array.apply(null, {
+          length: chipsCountWithNames[key]
+        }).map((e: any, i: number) => <Chip chip={key} key={i} />);
       })}
     </div>
   );
