@@ -1,23 +1,19 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/core";
+import Label from "./Label";
 
 interface IProps {
   defaultValue?: string;
   name: string;
   label?: string;
-  onChange: React.ChangeEventHandler;
+  onChange?: React.ChangeEventHandler;
   placeholder?: string;
+  required?: boolean;
   type: string;
 }
 
-const Label = styled.label`
-  color: var(--color-text);
-  display: block;
-  font-size: var(--font-size-s);
-`;
-
-const inputStyle = css`
+export const inputStyle = css`
   background: none;
   border: 1px solid var(--color-primary);
   color: white;
@@ -38,12 +34,13 @@ const InputWrapper = styled.div`
   padding: 0.5rem;
 `;
 
-export const Input: React.FunctionComponent<IProps> = ({
+const Input: React.FunctionComponent<IProps> = ({
   defaultValue,
   label,
   name,
   onChange,
   placeholder,
+  required,
   type
 }) => {
   return (
@@ -52,11 +49,15 @@ export const Input: React.FunctionComponent<IProps> = ({
       <input
         css={inputStyle}
         defaultValue={defaultValue}
+        id={name}
         name={name}
         onChange={onChange}
         placeholder={placeholder}
+        required={required}
         type={type}
       />
     </InputWrapper>
   );
 };
+
+export default Input;
