@@ -62,8 +62,8 @@ const Button: React.FunctionComponent<IProps> = ({
     color: var(--color-background);
 
     &:hover {
-      background: var(--color-primary);
-      border-color: var(--color-primary);
+      background: var(--color-accent);
+      border-color: var(--color-accent);
       color: var(--color-background);
     }
     &:active {
