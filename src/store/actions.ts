@@ -97,7 +97,7 @@ export const connectPlayer = (
 };
 
 // Closes the Startup Modal
-export const closeStartupModal = (dispatch: (arg: object) => void) => {
+export const closeStartupModal = (dispatch: (arg: object) => void): void => {
   dispatch({
     type: "closeStartupModal"
   });
@@ -172,7 +172,7 @@ export const devStart = (dispatch: (arg: object) => void): void => {
 export const doShowDown = (
   allHoleCardsInfo: string[][],
   dispatch: (arg: object) => void
-) => {
+): void => {
   dispatch({
     type: "doShowDown",
     payload: allHoleCardsInfo
@@ -503,7 +503,7 @@ export const updateTotalPot = (
 
 export const updateStateValue = (
   key: string,
-  value: any,
+  value: string | number | [] | {},
   dispatch: (arg: object) => void
 ): void => {
   dispatch({
