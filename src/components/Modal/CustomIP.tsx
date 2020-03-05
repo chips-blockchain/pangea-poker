@@ -1,6 +1,4 @@
 import React from "react";
-import { css } from "@emotion/core";
-import styled from "@emotion/styled";
 import { useContext, useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { DispatchContext, StateContext } from "../../store/context";
