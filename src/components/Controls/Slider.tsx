@@ -7,7 +7,11 @@ import { IState } from "../../store/initialState";
 
 // This is the Slider component used in Controls to set bet/raise amount
 
-const Slider = ({ raiseAmount, setRaiseAmount }) => {
+interface IProps {
+  setRaiseAmount: (arg: number) => void;
+}
+
+const Slider: React.FunctionComponent<IProps> = ({ setRaiseAmount }) => {
   const state: IState = useContext(StateContext);
   const { minRaiseTo, players, toCall, userSeat } = state;
 
@@ -25,9 +29,9 @@ const Slider = ({ raiseAmount, setRaiseAmount }) => {
   }, [minRaiseTo]);
 
   // Round the top step of the slider down to the total stack of the player
-  const handleSliderAmount = sliderStep => {
+  const handleSliderAmount = () => (sliderStep: number): void => {
     if (sliderStep > totalStack) setRaiseAmount(totalStack);
-    else return setRaiseAmount(sliderStep);
+    else setRaiseAmount(sliderStep);
   };
 
   return (
@@ -49,9 +53,7 @@ const Slider = ({ raiseAmount, setRaiseAmount }) => {
         `}
       >
         <RCSlider
-          onChange={e => {
-            handleSliderAmount(e);
-          }}
+          onChange={handleSliderAmount()}
           min={minRaiseTo}
           step={step}
           max={roundedMax}

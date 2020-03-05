@@ -221,7 +221,7 @@ const Controls: React.FunctionComponent = () => {
             onClick={handleSmallButtonClick(max)}
             data-test="table-controls-max-button"
           />
-          <Slider raiseAmount={raiseAmount} setRaiseAmount={setRaiseAmount} />
+          <Slider setRaiseAmount={setRaiseAmount} />
         </div>
       )}
       {/* Fold Button */}
