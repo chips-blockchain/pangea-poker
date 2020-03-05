@@ -170,7 +170,7 @@ export const devStart = (dispatch: (arg: object) => void): void => {
 
 // Triggers the showDown
 export const doShowDown = (
-  allHoleCardsInfo: string[],
+  allHoleCardsInfo: string[][],
   dispatch: (arg: object) => void
 ) => {
   dispatch({
