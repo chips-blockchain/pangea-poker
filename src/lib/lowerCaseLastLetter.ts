@@ -1,4 +1,4 @@
-const lowerCaseLastLetter = (string: string) => {
+const lowerCaseLastLetter = (string: string): string => {
   if (string.length === 0) {
     throw new Error("Empty strings don't have last letter.");
   }
