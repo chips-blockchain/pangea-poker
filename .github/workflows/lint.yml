@@ -1,6 +1,6 @@
 # https://github.com/marketplace/actions/eslint-js-ts-action
 
-- name: ESLint (JS/TS) Action 
+name: ESLint (JS/TS) Action 
 
 on:
     push:
