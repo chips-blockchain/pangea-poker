@@ -112,9 +112,9 @@ const Stack: React.FunctionComponent<IProps> = ({ chips }) => {
     >
       {/* Render chips from the object ("value" times each "key" type of chips) */}
       {Object.keys(chipsCountWithNames).map(key => {
-        return Array.apply(null, {
-          length: chipsCountWithNames[key]
-        }).map((e: any, i: number) => <Chip chip={key} key={i} />);
+        return [
+          ...Array(chipsCountWithNames[key])
+        ].map((e: string, i: number) => <Chip chip={key} key={i} />);
       })}
     </div>
   );
