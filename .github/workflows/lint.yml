@@ -1,22 +1,12 @@
-# https://github.com/marketplace/actions/eslint-js-ts-action
+# https://github.com/stefanoeb/eslint-action
 
-name: ESLint (JS/TS) Action 
+name: Lint
 
 on: [push, pull_request]
-  
-  jobs:
-    eslint:
-      name: eslint
-      runs-on: ubuntu-latest
-      steps:
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v1
-      - name: install node v12
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - name: yarn install
-        run: yarn install
-      - name: eslint
-        uses: icrawl/action-eslint@v1
-        with:
-          custom-glob: apps # only if a different glob is needed, default: src
+      - uses: stefanoeb/eslint-action@1.0.2
