@@ -9,4 +9,4 @@ jobs:
     steps:
       - uses: hallee/eslint-action@master
         with:
-          secrets: ${{ secrets.GITHUB_TOKEN }
+          secrets: ${{ secrets.GITHUB_TOKEN }}
