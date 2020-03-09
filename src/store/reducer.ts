@@ -18,7 +18,7 @@ interface IAction {
   type: string;
 }
 
-const reducer: Function = (state: IState, action: IAction): object => {
+const reducer = (state: IState, action: IAction): object => {
   switch (action.type) {
     case "addToHandHistory": {
       return {

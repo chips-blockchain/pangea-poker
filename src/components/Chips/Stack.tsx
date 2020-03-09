@@ -10,7 +10,7 @@ interface IProps {
 const Stack: React.FunctionComponent<IProps> = ({ chips }) => {
   // This component calculates how many of each chips should be rendered based on the bet amount, and renders one or more stacks as a result
 
-  const countChips: Function = (num: number) => {
+  const countChips = (num: number): number[][] => {
     // Convert the total chip number to an array
     const numArray: string[] = Array.from(num.toString());
     // Reverse the array, so the numbers reperesent increasing decimal points
@@ -50,7 +50,7 @@ const Stack: React.FunctionComponent<IProps> = ({ chips }) => {
     [key: string]: string;
   }
   // Define a function to rename the keys in the object
-  const renameKeys: Function = (
+  const renameKeys = (
     keysMap: IKeysMap,
     obj: IChipsCountObject
   ): IRenamedKeys =>
@@ -94,7 +94,7 @@ const Stack: React.FunctionComponent<IProps> = ({ chips }) => {
   );
 
   // Define the function that reverses the z-index rules for the chips, so the stack grows from the bottom to the top
-  const reverseZIndex: Function = (): string => {
+  const reverseZIndex = (): string => {
     let zIndexRules: string;
     for (let i = 0; i < 15; i++) {
       zIndexRules += " div:nth-of-type(" + i + ") {z-index:" + (15 - i) + "}";
