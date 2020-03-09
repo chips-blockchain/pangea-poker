@@ -264,7 +264,7 @@ describe("handHistory", () => {
       {
         method: "finalInfo",
         showInfo: { boardCardInfo: ["10c", "Ad", "Ac", null, null] },
-        win_amount: 1000, //eslint-disable-line @typescript-eslint/camelcase
+        win_amount: 1000,
         winners: [0, 1]
       },
       0

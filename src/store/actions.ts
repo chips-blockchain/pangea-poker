@@ -240,7 +240,7 @@ export const playerJoin = (
 ): void => {
   const id = Number(player.slice(-1)) - 1;
   sendMessage(
-    { method: "player_join", gui_playerID: id }, //eslint-disable-line @typescript-eslint/camelcase
+    { method: "player_join", gui_playerID: id },
     player,
     state,
     dispatch
