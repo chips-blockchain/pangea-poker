@@ -3,7 +3,7 @@ import { StateContext, DispatchContext } from "../store/context";
 import initialState, { IState } from "../store/initialState";
 import reducer from "../store/reducer";
 
-const TestStateProvider = ({ children }) => {
+const TestStateProvider: React.FunctionComponent = ({ children }) => {
   const [state, dispatch]: [IState, Function] = useReducer(
     reducer,
     initialState

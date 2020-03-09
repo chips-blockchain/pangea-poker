@@ -78,7 +78,7 @@ const Controls: React.FunctionComponent = () => {
 
       // Call
       case Possibilities.call:
-        nextAction.bet_amount = amount + betAmount; //eslint-disable-line @typescript-eslint/camelcase
+        nextAction.bet_amount = amount + betAmount;
         bet(player, amount + betAmount, state, dispatch);
         log(`${player} calls ${amount}`, "info");
         break;
@@ -86,7 +86,7 @@ const Controls: React.FunctionComponent = () => {
       // Raise
       case Possibilities.raise:
       case Possibilities.allIn:
-        nextAction.bet_amount = amount; //eslint-disable-line @typescript-eslint/camelcase
+        nextAction.bet_amount = amount;
         bet(player, amount, state, dispatch);
         log(
           `${player} raises to ${amount} ${
@@ -221,7 +221,7 @@ const Controls: React.FunctionComponent = () => {
             onClick={handleSmallButtonClick(max)}
             data-test="table-controls-max-button"
           />
-          <Slider raiseAmount={raiseAmount} setRaiseAmount={setRaiseAmount} />
+          <Slider setRaiseAmount={setRaiseAmount} />
         </div>
       )}
       {/* Fold Button */}

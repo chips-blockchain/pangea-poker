@@ -58,8 +58,8 @@ const Player: React.FunctionComponent<IProps> = ({
   } = state;
 
   const [seatMessage, setSeatMessage] = useState("SIT HERE");
-  const [userAvatar, setUserAvater] = useState(randomEmoji());
-  const [userName, setUserName] = useState({
+  const [userAvatar] = useState(randomEmoji());
+  const [userName] = useState({
     text: seat,
     color: "var(--color-text)"
   });
@@ -154,6 +154,13 @@ const Player: React.FunctionComponent<IProps> = ({
     cursor: pointer;
   `;
 
+  const handlePlayerClick = () => (): void => {
+    if (!connected) {
+      playerJoin(seat, state, dispatch);
+      setSeatMessage("SITTING...");
+    }
+  };
+
   // Player Timer
 
   // Timer
@@ -166,7 +173,7 @@ const Player: React.FunctionComponent<IProps> = ({
       const interval = setInterval(() => {
         setSecondsLeft(secondsLeft => secondsLeft - 100);
       }, 100);
-      return () => clearInterval(interval);
+      return (): void => clearInterval(interval);
     }
   }, [activePlayer]);
 
@@ -218,12 +225,7 @@ const Player: React.FunctionComponent<IProps> = ({
         ${playerWidget}
         grid-area: ${seat};
       `}
-      onClick={() => {
-        if (!connected) {
-          playerJoin(seat, state, dispatch);
-          setSeatMessage("SITTING...");
-        }
-      }}
+      onClick={handlePlayerClick()}
       data-test={`player-widget-${seat}`}
     >
       {cardsDealt && showCards && hasCards && (

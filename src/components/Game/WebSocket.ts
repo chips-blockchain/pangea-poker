@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect, useContext } from "react";
 import useWebSocket from "react-use-websocket";
 import { DispatchContext, StateContext } from "../../store/context";
@@ -9,7 +10,6 @@ import { resetMessage } from "../../store/actions";
 // This component is responsible for the WebSocket connection. It doesn't return and
 
 const STATIC_OPTIONS = {};
-const READY_STATE_OPEN = 1;
 
 interface IProps {
   message: string;
@@ -20,11 +20,18 @@ interface IProps {
 const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
-  const [currentSocketUrl, setCurrentSocketUrl] = useState(server);
+  const [currentSocketUrl] = useState(server);
   const [sendMessage, lastMessage, readyState] = useWebSocket(
     currentSocketUrl,
     STATIC_OPTIONS
   );
+
+  const readyStateString = {
+    0: "Connecting...",
+    1: "Connected",
+    2: "Disconnecting...",
+    3: "Disconnected"
+  }[readyState];
 
   // Send a message if props changes
   useEffect(() => {
@@ -59,21 +66,14 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
         }
         case "echo": {
           onMessage(lastMessage.data, state, dispatch);
+          break;
         }
         default: {
           onMessage_player(lastMessage.data, nodeName, state, dispatch);
-          break;
         }
       }
     }
   }, [lastMessage]);
-
-  const readyStateString = {
-    0: "Connecting...",
-    1: "Connected",
-    2: "Disconnecting...",
-    3: "Disconnected"
-  }[readyState];
 });
 
 export default WebSocket;

@@ -97,7 +97,7 @@ export const connectPlayer = (
 };
 
 // Closes the Startup Modal
-export const closeStartupModal = (dispatch: (arg: object) => void) => {
+export const closeStartupModal = (dispatch: (arg: object) => void): void => {
   dispatch({
     type: "closeStartupModal"
   });
@@ -170,9 +170,9 @@ export const devStart = (dispatch: (arg: object) => void): void => {
 
 // Triggers the showDown
 export const doShowDown = (
-  allHoleCardsInfo: string[],
+  allHoleCardsInfo: string[][],
   dispatch: (arg: object) => void
-) => {
+): void => {
   dispatch({
     type: "doShowDown",
     payload: allHoleCardsInfo
@@ -240,7 +240,7 @@ export const playerJoin = (
 ): void => {
   const id = Number(player.slice(-1)) - 1;
   sendMessage(
-    { method: "player_join", gui_playerID: id }, //eslint-disable-line @typescript-eslint/camelcase
+    { method: "player_join", gui_playerID: id },
     player,
     state,
     dispatch
@@ -503,7 +503,7 @@ export const updateTotalPot = (
 
 export const updateStateValue = (
   key: string,
-  value: any,
+  value: string | number | [] | {},
   dispatch: (arg: object) => void
 ): void => {
   dispatch({

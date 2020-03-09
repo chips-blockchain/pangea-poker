@@ -9,7 +9,7 @@ interface IProps {
   id: string;
   isOpen: boolean;
   tabs?: { content: React.ReactNode; title: string; name: string }[];
-  onRequestClose: Function;
+  onRequestClose: () => void;
 }
 const isTest = process.env.NODE_ENV === "test";
 !isTest && ReactModal.setAppElement("#root");

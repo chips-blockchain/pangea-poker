@@ -1,11 +1,24 @@
-import { IState } from "./initialState";
+import { IState, IPlayer } from "./initialState";
 
+interface IPayload extends IState, IPlayer {
+  player: string;
+  nodeName: string;
+  readyState: string;
+  payload: string;
+  canCheck: IState["controls"]["canCheck"];
+  canRaise: IState["controls"]["canRaise"];
+  node: IState["nodeType"];
+  action: IState["lastAction"]["action"];
+  winAmount: number;
+  key: string;
+  value: string;
+}
 interface IAction {
-  payload: any;
+  payload: IPayload;
   type: string;
 }
 
-const reducer: Function = (state: IState, action: IAction): object => {
+const reducer = (state: IState, action: IAction): object => {
   switch (action.type) {
     case "addToHandHistory": {
       return {
@@ -56,8 +69,8 @@ const reducer: Function = (state: IState, action: IAction): object => {
         ...state,
         players: {
           ...state.players,
-          [action.payload]: {
-            ...state.players[action.payload],
+          [(action.payload as {}) as IPayload["player"]]: {
+            ...state.players[(action.payload as {}) as IPayload["player"]],
             connected: true
           }
         }
@@ -115,8 +128,8 @@ const reducer: Function = (state: IState, action: IAction): object => {
         ...state,
         players: {
           ...state.players,
-          [action.payload]: {
-            ...state.players[action.payload],
+          [(action.payload as {}) as IPayload["player"]]: {
+            ...state.players[(action.payload as {}) as IPayload["player"]],
             hasCards: false
           }
         }
@@ -268,8 +281,8 @@ const reducer: Function = (state: IState, action: IAction): object => {
         userSeat: action.payload,
         players: {
           ...state.players,
-          [action.payload]: {
-            ...state.players[action.payload],
+          [(action.payload as {}) as IPayload["player"]]: {
+            ...state.players[(action.payload as {}) as IPayload["player"]],
             showCards: true
           }
         }

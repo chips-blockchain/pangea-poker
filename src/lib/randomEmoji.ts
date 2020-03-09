@@ -213,7 +213,7 @@ const emojis: string[] = [
   "🐾"
 ];
 
-const randomEmoji: Function = (): string => {
+const randomEmoji = (): string => {
   return emojis[Math.floor(Math.random() * emojis.length)];
 };
 

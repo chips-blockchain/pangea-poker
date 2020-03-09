@@ -1,3 +1,5 @@
+/*eslint-disable @typescript-eslint/camelcase*/
+
 const initialState: IState = {
   // Object of all players at the table
   players: {

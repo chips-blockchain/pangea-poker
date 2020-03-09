@@ -1,5 +1,5 @@
 import { css } from "@emotion/core";
-import { useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../../store/context";
 import { Button } from "../Controls";
@@ -14,25 +14,19 @@ const SOCKET_URL_ECHO = "wss://echo.websocket.org";
 const Game: React.FunctionComponent = () => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
-  const {
-    gameStarted,
-    isDeveloperMode,
-    isStartupModal,
-    nodes,
-    nodeType,
-    message
-  } = state;
+  const { isDeveloperMode, isStartupModal, nodes, nodeType, message } = state;
 
   const SOCKET_URL_DCV = `ws://${nodes.dcv}:9000`;
   const SOCKET_URL_BVV = `ws://${nodes.bvv}:9000`;
   const SOCKET_URL_PLAYER1 = `ws://${[Object.values(nodes)[0]]}:9000`;
 
-  // const [webSocketKey, setWebSocketKey] = useState(0);
+  const startGame = () => (): void => {
+    sendMessage({ method: "game" }, "dcv", state, dispatch);
+  };
 
-  // Rerender the WebSocket components and thus reconnect when the nodes in state get updated
-  // useEffect(() => {
-  //   setWebSocketKey(Math.random());
-  // }, [isStartupModal]);
+  const resetGame = () => (): void => {
+    sendMessage({ method: "reset" }, "dcv", state, dispatch);
+  };
 
   return (
     <div>
@@ -51,18 +45,8 @@ const Game: React.FunctionComponent = () => {
               grid-template-rows: repeat(3, 1fr);
             `}
           >
-            <Button
-              label="Start"
-              onClick={() => {
-                sendMessage({ method: "game" }, "dcv", state, dispatch);
-              }}
-            />
-            <Button
-              label="Reset"
-              onClick={() => {
-                sendMessage({ method: "reset" }, "dcv", state, dispatch);
-              }}
-            />
+            <Button label="Start" onClick={startGame()} />
+            <Button label="Reset" onClick={resetGame()} />
           </div>
         )}
       </div>
@@ -75,14 +59,6 @@ const Game: React.FunctionComponent = () => {
         `}
       />
 
-      {/* {Object.entries(nodes).forEach(([node, nodeAddress], key) => {
-        <WebSocket
-          nodeName={node}
-          server={nodeAddress}
-          message={message[node]}
-          key={webSocketKey + key}
-        />;
-      })} */}
       {!isStartupModal && nodeType === "dealer" && (
         <div>
           <WebSocket

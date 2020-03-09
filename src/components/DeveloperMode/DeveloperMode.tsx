@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+
 import { css } from "@emotion/core";
 import { useContext } from "react";
 import { Button } from "../Controls";
@@ -13,12 +17,14 @@ import {
 import { DispatchContext, StateContext } from "../../store/context";
 import { IState } from "../../store/initialState";
 
+// This component is only used for testing purposes while in development
+
 const DeveloperMode: React.FunctionComponent = () => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
-  const { activePlayer, userSeat } = state;
+  const { activePlayer } = state;
 
-  const nextPlayer = () => {
+  const nextPlayer = (): void => {
     const nextPlayer: string =
       activePlayer === "player1" ? "player2" : "player1";
     setUserSeat(nextPlayer, dispatch);
