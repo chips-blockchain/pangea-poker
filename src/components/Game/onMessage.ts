@@ -63,7 +63,7 @@ export interface IMessage {
   pot?: number;
   seats?: [{ name: string; playing: number; seat: number }];
   showInfo?: {
-    allHoleCardsInfo?: string[];
+    allHoleCardsInfo?: string[][];
     boardCardInfo?: string[];
   };
   small_blind?: number;

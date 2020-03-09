@@ -106,7 +106,7 @@ describe("Sounds", () => {
       {
         action: "allin",
         method: "betting",
-        bet_amount: 1000, //eslint-disable-line @typescript-eslint/camelcase
+        bet_amount: 1000,
         playerid: 0
       },
       0
@@ -137,7 +137,7 @@ describe("Sounds", () => {
       {
         method: "finalInfo",
         showInfo: { boardCardInfo: ["10c", "Ad", "Ac", null, null] },
-        win_amount: 1000, //eslint-disable-line @typescript-eslint/camelcase
+        win_amount: 1000,
         winners: [0]
       },
       0
@@ -156,7 +156,7 @@ describe("Sounds", () => {
       {
         method: "finalInfo",
         showInfo: { boardCardInfo: ["10c", "Ad", "Ac", "Kd", "9d"] },
-        win_amount: 1000, //eslint-disable-line @typescript-eslint/camelcase
+        win_amount: 1000,
         winners: [0]
       },
       0

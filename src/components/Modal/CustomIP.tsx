@@ -1,6 +1,4 @@
 import React from "react";
-import { css } from "@emotion/core";
-import styled from "@emotion/styled";
 import { useContext, useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { DispatchContext, StateContext } from "../../store/context";
@@ -72,16 +70,14 @@ const CustomIP: React.FunctionComponent = () => {
   const [canSetNodes, setCanSetNodes] = useState(false);
 
   // Event handlers
-  const handleTabClick: Function = (
+  const handleTabClick = (
     nodeType: "dealer" | "player1" | "player2"
   ) => (): void => {
     // Update the node type
     setNodeType(nodeType);
   };
 
-  const handleSubmit: Function = () => (
-    e: React.FormEvent<EventTarget>
-  ): void => {
+  const handleSubmit = () => (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
 
     // Set the node addresses and the node type
@@ -107,7 +103,7 @@ const CustomIP: React.FunctionComponent = () => {
     closeStartupModal(dispatch);
   };
 
-  const handleInputChange: Function = (node: INode) => (
+  const handleInputChange = (node: INode) => (
     e: React.FormEvent<HTMLInputElement>
   ): void => {
     const target = e.target as HTMLInputElement;

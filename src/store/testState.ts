@@ -1,3 +1,5 @@
+/*eslint-disable @typescript-eslint/camelcase*/
+
 import { IState } from "./initialState";
 
 const initialState: IState = {
@@ -28,6 +30,8 @@ const initialState: IState = {
   },
   // Which seat is the active player
   activePlayer: null,
+  // The total CHIPS balance the player has in the Pangea Wallet
+  balance: 0,
   // Current blinds - small and big one
   blinds: [0, 0],
   // Board Cards
@@ -53,6 +57,8 @@ const initialState: IState = {
   // Which player is the dealer
   dealer: 0,
   // Wether the game has started
+  // Pangea wallet address to deposit to
+  depositAddress: undefined,
   gameStarted: false,
   // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river, 4:
   gameTurn: 0,
@@ -77,6 +83,8 @@ const initialState: IState = {
   ],
   // Cards of the user
   holeCards: [],
+  // Whehter the Cashier is open
+  isCashierOpen: false,
   // Wether the app should run in developer mode
   isDeveloperMode: true,
   // Whether to show the LogBox component

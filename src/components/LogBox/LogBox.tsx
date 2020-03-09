@@ -1,6 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 
+interface ILog {
+  action: string;
+  timeStamp: string;
+}
+
+interface IProps {
+  handHistory: ILog[];
+}
+
 const LogBoxSection = styled.section`
   background: var(--color-background);
   border: 1px solid var(--color-primary);
@@ -21,12 +30,7 @@ const Log = styled.div`
   margin: 0.125rem;
 `;
 
-interface ILog {
-  action: string;
-  timeStamp: string;
-}
-
-export const LogBox = ({ handHistory }) => {
+export const LogBox: React.FunctionComponent<IProps> = ({ handHistory }) => {
   const logRef = useRef(null);
 
   useEffect(() => {
