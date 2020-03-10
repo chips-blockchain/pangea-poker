@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/core";
+import { css, SerializedStyles } from "@emotion/core";
 import Label from "./Label";
 
-interface IProps {
+export interface IProps {
   defaultValue?: string;
+  customStyle?: SerializedStyles;
   name: string;
   label?: string;
   onChange?: React.ChangeEventHandler;
@@ -41,13 +42,17 @@ const Input: React.FunctionComponent<IProps> = ({
   onChange,
   placeholder,
   required,
-  type
+  type,
+  customStyle
 }) => {
   return (
     <InputWrapper>
       {label && <Label htmlFor={name}>{label}</Label>}
       <input
-        css={inputStyle}
+        css={css`
+          ${inputStyle}
+          ${customStyle}
+        `}
         defaultValue={defaultValue}
         id={name}
         name={name}

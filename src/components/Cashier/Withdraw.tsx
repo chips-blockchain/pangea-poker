@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { css } from "@emotion/core";
 import styled from "@emotion/styled";
-import ReactTooltip from "react-tooltip";
 import { IState } from "../../store/initialState";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
 import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
 import { Button } from "../Controls";
 import { Dropdown } from "../Form";
+import InputWithButton from "../Form/InputWIthButton";
+
 import "../../styles/tooltip.css";
 
 interface IProps {
@@ -18,6 +19,10 @@ interface IProps {
 
 const Balance = styled.div`
   color: var(--color-accent);
+`;
+
+const InputWrapper = styled.div`
+  margin-top: 1rem;
 `;
 
 const Deposit: React.FunctionComponent<IProps> = ({
@@ -45,12 +50,18 @@ const Deposit: React.FunctionComponent<IProps> = ({
       <Balance data-test="balance-cashier-deposit">
         Available CHIPS: {balanceWithDecimals(balance)}
       </Balance>
-      {/* Amount to Withdraw  */}
-      <Dropdown
-        name="withdraw-address-list"
-        label="CHIPS address to withdraw to:"
-        options={validatedWithdrawAdressList}
-      />
+      <InputWrapper>
+        <InputWithButton
+          label="Amount to withdraw"
+          name="withdraw-amount"
+          type="number"
+        />
+        <Dropdown
+          name="withdraw-address-list"
+          label="CHIPS address to withdraw to:"
+          options={validatedWithdrawAdressList}
+        />
+      </InputWrapper>
       <ModalButtonsWrapper>
         <Button
           label="Close"

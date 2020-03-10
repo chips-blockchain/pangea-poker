@@ -1,3 +1,4 @@
+import { css, SerializedStyles } from "@emotion/core";
 import styled from "@emotion/styled";
 import numberWithCommas from "../../lib/numberWithCommas";
 
@@ -5,6 +6,7 @@ import numberWithCommas from "../../lib/numberWithCommas";
 
 interface IProps {
   amount?: number;
+  customStyle?: SerializedStyles;
   disabled?: boolean;
   label: string;
   isHighlighted?: boolean;
@@ -15,6 +17,7 @@ interface IProps {
 
 const Button: React.FunctionComponent<IProps> = ({
   amount,
+  customStyle,
   disabled,
   label,
   isHighlighted,
@@ -91,10 +94,14 @@ const Button: React.FunctionComponent<IProps> = ({
   `;
   return (
     <ButtonStyle
-      css={isHighlighted && highlightedButtonStyle}
+      css={css`
+        ${customStyle}
+        ${isHighlighted && highlightedButtonStyle}
+      `}
       onClick={onClick}
-      disabled={disabled}
       data-testid={testId}
+      disabled={disabled}
+      type="button"
     >
       <ButtonInnerWrapper>
         {label} <br />
