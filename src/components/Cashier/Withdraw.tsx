@@ -25,18 +25,18 @@ const InputWrapper = styled.div`
   margin-top: 1rem;
 `;
 
-const Deposit: React.FunctionComponent<IProps> = ({
+const Withdraw: React.FunctionComponent<IProps> = ({
   state,
   closeCashierModal
 }) => {
   const { balance, withdrawAddressList } = state;
 
+  // Validate withdraw addresses before displaying them on the UI
   const [
     validatedWithdrawAdressList,
     setValidatedWithdrawAdressList
   ] = useState([]);
 
-  // Validate withdraw addresses before displaying them on the UI
   useEffect(() => {
     const validAddressList = withdrawAddressList.map(address => {
       if (isValidAddress(address)) return address;
@@ -45,16 +45,27 @@ const Deposit: React.FunctionComponent<IProps> = ({
     setValidatedWithdrawAdressList(validAddressList);
   }, [state.withdrawAddressList]);
 
+  const [amountToWIthdraw, setAmountToWIthdraw] = useState("");
+
+  const handleAmountInput = () => (e): void => {
+    setAmountToWIthdraw(e.target.value);
+  };
+
+  const setMaxAmount = () => () => setAmountToWIthdraw(state.balance);
+
   return (
     <form>
       <Balance data-test="balance-cashier-deposit">
-        Available CHIPS: {balanceWithDecimals(balance)}
+        Available CHIPS: {balanceWithDecimals(Number(balance))}
       </Balance>
       <InputWrapper>
         <InputWithButton
           label="Amount to withdraw"
           name="withdraw-amount"
           type="number"
+          onChange={handleAmountInput()}
+          value={amountToWIthdraw}
+          handleButtonClick={setMaxAmount()}
         />
         <Dropdown
           name="withdraw-address-list"
@@ -79,4 +90,4 @@ const Deposit: React.FunctionComponent<IProps> = ({
   );
 };
 
-export default Deposit;
+export default Withdraw;

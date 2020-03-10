@@ -5,7 +5,7 @@ import Input, { IProps } from "./Input";
 import { Button } from "../Controls/";
 
 interface IInputWIthButtonProps extends IProps {
-  test?: string;
+  handleButtonClick: () => void;
 }
 
 const customInputStyle = css`
@@ -26,12 +26,14 @@ const Wrapper = styled.div`
 `;
 
 const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
+  handleButtonClick,
   label,
   name,
   onChange,
   placeholder,
   required,
-  type
+  type,
+  value
 }) => {
   return (
     <Wrapper>
@@ -43,8 +45,14 @@ const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
         placeholder={placeholder}
         required={required}
         type={type}
+        value={value}
       />
-      <Button label="Max" small customStyle={customButtonStyle} />
+      <Button
+        label="Max"
+        small
+        customStyle={customButtonStyle}
+        onClick={handleButtonClick}
+      />
     </Wrapper>
   );
 };

@@ -12,6 +12,7 @@ export interface IProps {
   placeholder?: string;
   required?: boolean;
   type: string;
+  value?: number;
 }
 
 export const inputStyle = css`
@@ -36,6 +37,7 @@ const InputWrapper = styled.div`
 `;
 
 const Input: React.FunctionComponent<IProps> = ({
+  customStyle,
   defaultValue,
   label,
   name,
@@ -43,7 +45,7 @@ const Input: React.FunctionComponent<IProps> = ({
   placeholder,
   required,
   type,
-  customStyle
+  value
 }) => {
   return (
     <InputWrapper>
@@ -58,6 +60,7 @@ const Input: React.FunctionComponent<IProps> = ({
         name={name}
         onChange={onChange}
         placeholder={placeholder}
+        value={value}
         required={required}
         type={type}
       />
