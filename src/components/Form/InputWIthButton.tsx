@@ -25,6 +25,7 @@ const Wrapper = styled.div`
 `;
 
 const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
+  forwardRef,
   handleButtonClick,
   label,
   name,
@@ -38,6 +39,7 @@ const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
     <Wrapper>
       <Input
         customStyle={customInputStyle}
+        forwardRef={forwardRef}
         label={label}
         name={name}
         onChange={onChange}

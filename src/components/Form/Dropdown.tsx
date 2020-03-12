@@ -6,6 +6,7 @@ import { inputStyle } from "./Input";
 import Label from "./Label";
 
 interface IProps {
+  forwardRef?: (ref: object) => void;
   name: string;
   label?: string;
   onChange?: React.ChangeEventHandler;
@@ -23,9 +24,11 @@ const dropdownStyle = css`
   background-image: url(${chevronDown});
   background-repeat: no-repeat;
   background-position: right 0.5rem center;
+  padding: 0.5rem 2rem 0.5rem 1rem;
 `;
 
 const Dropdown: React.FunctionComponent<IProps> = ({
+  forwardRef,
   label,
   name,
   onChange,
@@ -41,6 +44,7 @@ const Dropdown: React.FunctionComponent<IProps> = ({
         id={name}
         onChange={onChange}
         required={required}
+        ref={forwardRef}
       >
         {options.map(option => {
           return (

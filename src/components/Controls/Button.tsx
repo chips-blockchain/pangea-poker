@@ -10,6 +10,7 @@ interface IProps {
   disabled?: boolean;
   label: string;
   isHighlighted?: boolean;
+  isSubmit?: boolean;
   onClick?: React.MouseEventHandler;
   small?: boolean;
   testId?: string;
@@ -21,6 +22,7 @@ const Button: React.FunctionComponent<IProps> = ({
   disabled,
   label,
   isHighlighted,
+  isSubmit,
   onClick,
   small,
   testId
@@ -101,7 +103,7 @@ const Button: React.FunctionComponent<IProps> = ({
       onClick={onClick}
       data-testid={testId}
       disabled={disabled}
-      type="button"
+      type={isSubmit ? "submit" : "button"}
     >
       <ButtonInnerWrapper>
         {label} <br />

@@ -6,6 +6,7 @@ import Label from "./Label";
 export interface IProps {
   defaultValue?: string;
   customStyle?: SerializedStyles;
+  forwardRef: (ref: object) => void;
   name: string;
   label?: string;
   onChange?: React.ChangeEventHandler;
@@ -50,6 +51,7 @@ const Input: React.FunctionComponent<IProps> = ({
   onChange,
   placeholder,
   required,
+  forwardRef,
   type,
   value
 }) => {
@@ -68,6 +70,7 @@ const Input: React.FunctionComponent<IProps> = ({
         placeholder={placeholder}
         value={value}
         required={required}
+        ref={forwardRef}
         type={type}
       />
     </InputWrapper>

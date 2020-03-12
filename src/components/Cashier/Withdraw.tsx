@@ -7,6 +7,7 @@ import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
 import { Button } from "../Controls";
 import { Dropdown } from "../Form";
 import InputWithButton from "../Form/InputWIthButton";
+import { useForm } from "react-hook-form";
 
 import "../../styles/tooltip.css";
 
@@ -30,6 +31,18 @@ const Withdraw: React.FunctionComponent<IProps> = ({
 }) => {
   const { balance, withdrawAddressList } = state;
 
+  // Form handling
+  const { register, handleSubmit, errors } = useForm();
+  const onSubmit = data => {
+    console.log("Withdraw TBD");
+  };
+
+  const [amountToWIthdraw, setAmountToWIthdraw] = useState(0);
+
+  const handleAmountInput = () => (e): void => {
+    setAmountToWIthdraw(e.target.value);
+  };
+
   // Validate withdraw addresses before displaying them on the UI
   const [
     validatedWithdrawAdressList,
@@ -44,16 +57,10 @@ const Withdraw: React.FunctionComponent<IProps> = ({
     setValidatedWithdrawAdressList(validAddressList);
   }, [state.withdrawAddressList]);
 
-  const [amountToWIthdraw, setAmountToWIthdraw] = useState(undefined);
-
-  const handleAmountInput = () => (e): void => {
-    setAmountToWIthdraw(e.target.value);
-  };
-
   const setMaxAmount = () => (): void => setAmountToWIthdraw(state.balance);
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Balance data-test="balance-cashier-deposit">
         Available CHIPS: {balanceWithDecimals(Number(balance))}
       </Balance>
@@ -65,12 +72,16 @@ const Withdraw: React.FunctionComponent<IProps> = ({
           onChange={handleAmountInput()}
           value={amountToWIthdraw}
           handleButtonClick={setMaxAmount()}
+          forwardRef={register({ required: true })}
         />
+        {errors["withdraw-amount"] && "Please set a withdaw amount"}
         <Dropdown
           name="withdraw-address-list"
           label="CHIPS address to withdraw to:"
           options={validatedWithdrawAdressList}
+          forwardRef={register({ required: true })}
         />
+        {errors["withdraw-address-list"] && "Please select a withdraw address"}
       </InputWrapper>
       <ModalButtonsWrapper>
         <Button
@@ -80,9 +91,10 @@ const Withdraw: React.FunctionComponent<IProps> = ({
         />
         <Button
           label="Withdraw"
-          onClick={closeCashierModal()}
+          // onClick={closeCashierModal()}
           data-test="withdraw-button"
           isHighlighted
+          isSubmit
         />
       </ModalButtonsWrapper>
     </form>
