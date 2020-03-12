@@ -44,7 +44,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
     setValidatedWithdrawAdressList(validAddressList);
   }, [state.withdrawAddressList]);
 
-  const [amountToWIthdraw, setAmountToWIthdraw] = useState(null);
+  const [amountToWIthdraw, setAmountToWIthdraw] = useState(undefined);
 
   const handleAmountInput = () => (e): void => {
     setAmountToWIthdraw(e.target.value);
