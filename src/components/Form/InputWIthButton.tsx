@@ -9,8 +9,7 @@ interface IInputWIthButtonProps extends IProps {
 }
 
 const customInputStyle = css`
-  appearance: none;
-  -moz-appearance: textfield;
+  padding: 0.5rem 2.25rem 0.5rem 1rem;
 `;
 
 const customButtonStyle = css`

@@ -12,23 +12,29 @@ export interface IProps {
   placeholder?: string;
   required?: boolean;
   type: string;
-  value?: number;
+  value?: number | string;
 }
 
 export const inputStyle = css`
+  appearance: none;
   background: none;
   border: 1px solid var(--color-primary);
   color: white;
   font-family: var(--font-family-secondary);
   font-weight: 500;
   max-width: 14rem;
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 1rem;
   margin: 0.5rem;
   text-align: center;
   width: 100%;
 
   &:focus {
     border: 1px solid var(--color-accent);
+  }
+
+  /* Hide the up and down arrows for number input */
+  &[type="number"]::-webkit-inner-spin-button {
+    opacity: 0;
   }
 `;
 
