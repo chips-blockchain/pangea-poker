@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { css } from "@emotion/core";
 import styled from "@emotion/styled";
 import { IState } from "../../store/initialState";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
@@ -45,13 +44,13 @@ const Withdraw: React.FunctionComponent<IProps> = ({
     setValidatedWithdrawAdressList(validAddressList);
   }, [state.withdrawAddressList]);
 
-  const [amountToWIthdraw, setAmountToWIthdraw] = useState("");
+  const [amountToWIthdraw, setAmountToWIthdraw] = useState(null);
 
   const handleAmountInput = () => (e): void => {
     setAmountToWIthdraw(e.target.value);
   };
 
-  const setMaxAmount = () => () => setAmountToWIthdraw(state.balance);
+  const setMaxAmount = () => (): void => setAmountToWIthdraw(state.balance);
 
   return (
     <form>
