@@ -103,7 +103,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
         />
         <Button
           label="Withdraw"
-          // onClick={closeCashierModal()}
+          onClick={closeCashierModal()}
           data-test="withdraw-button"
           isHighlighted
           isSubmit
