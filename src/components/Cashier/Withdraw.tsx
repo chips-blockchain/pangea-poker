@@ -42,7 +42,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
     console.log("Withdraw TBD");
   };
 
-  const [amountToWIthdraw, setAmountToWIthdraw] = useState(0);
+  const [amountToWIthdraw, setAmountToWIthdraw] = useState("0.00000000");
 
   const handleAmountInput = () => (e): void => {
     setAmountToWIthdraw(e.target.value);
@@ -78,6 +78,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
           value={amountToWIthdraw}
           handleButtonClick={setMaxAmount()}
           forwardRef={register({ required: true })}
+
           // Regex progress to validate: /[0-9]+(\.[0-9]{1,8})/g
         />
         <ErrorMessage>
