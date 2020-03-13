@@ -21,6 +21,11 @@ const Balance = styled.div`
   color: var(--color-accent);
 `;
 
+const ErrorMessage = styled.div`
+  color: var(--color-accent);
+  font-size: var(--font-size-xs);
+`;
+
 const InputWrapper = styled.div`
   margin-top: 1rem;
 `;
@@ -73,15 +78,21 @@ const Withdraw: React.FunctionComponent<IProps> = ({
           value={amountToWIthdraw}
           handleButtonClick={setMaxAmount()}
           forwardRef={register({ required: true })}
+          // Regex progress to validate: /[0-9]+(\.[0-9]{1,8})/g
         />
-        {errors["withdraw-amount"] && "Please set a withdaw amount"}
+        <ErrorMessage>
+          {errors["withdraw-amount"] && "Please set a withdaw amount"}
+        </ErrorMessage>
         <Dropdown
           name="withdraw-address-list"
           label="CHIPS address to withdraw to:"
           options={validatedWithdrawAdressList}
           forwardRef={register({ required: true })}
         />
-        {errors["withdraw-address-list"] && "Please select a withdraw address"}
+        <ErrorMessage>
+          {errors["withdraw-address-list"] &&
+            "Please select a withdraw address"}
+        </ErrorMessage>
       </InputWrapper>
       <ModalButtonsWrapper>
         <Button
