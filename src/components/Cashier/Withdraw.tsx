@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { useForm } from "react-hook-form";
 import { IState } from "../../store/initialState";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
@@ -7,7 +8,6 @@ import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
 import { Button } from "../Controls";
 import { Dropdown } from "../Form";
 import InputWithButton from "../Form/InputWIthButton";
-import { useForm } from "react-hook-form";
 
 import "../../styles/tooltip.css";
 
@@ -38,8 +38,9 @@ const Withdraw: React.FunctionComponent<IProps> = ({
 
   // Form handling
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => {
-    console.log("Withdraw TBD");
+  const onSubmit = () => {
+    // TODO: Add withdraw message
+    console.log("Withdraw Executed YAY");
   };
 
   const [amountToWIthdraw, setAmountToWIthdraw] = useState("0.00000000");
@@ -78,8 +79,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
           value={amountToWIthdraw}
           handleButtonClick={setMaxAmount()}
           forwardRef={register({ required: true })}
-
-          // Regex progress to validate: /[0-9]+(\.[0-9]{1,8})/g
+          // TODO: Add regex to validate - /[0-9]+(\.[0-9]{1,8})/g
         />
         <ErrorMessage>
           {errors["withdraw-amount"] && "Please set a withdaw amount"}
