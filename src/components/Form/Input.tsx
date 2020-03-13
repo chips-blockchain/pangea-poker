@@ -31,6 +31,7 @@ export const inputStyle = css`
 
   &:focus {
     border: 1px solid var(--color-accent);
+    outline: none;
   }
 
   /* Hide the up and down arrows for number input */
