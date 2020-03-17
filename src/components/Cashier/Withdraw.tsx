@@ -66,19 +66,20 @@ const Withdraw: React.FunctionComponent<IProps> = ({
   const setMaxAmount = () => (): void => setAmountToWIthdraw(state.balance);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Balance data-test="balance-cashier-deposit">
+    <form onSubmit={handleSubmit(onSubmit)} data-test="withdraw-tab">
+      <Balance data-test="withdraw-balance">
         Available CHIPS: {balanceWithDecimals(Number(balance))}
       </Balance>
       <InputWrapper>
         <InputWithButton
+          data-test="withdraw-amount"
+          forwardRef={register({ required: true })}
+          handleButtonClick={setMaxAmount()}
           label="Amount to withdraw"
           name="withdraw-amount"
-          type="number"
           onChange={handleAmountInput()}
+          type="number"
           value={amountToWIthdraw}
-          handleButtonClick={setMaxAmount()}
-          forwardRef={register({ required: true })}
           // TODO: Add regex to validate - /[0-9]+(\.[0-9]{1,8})/g
         />
         <ErrorMessage>
