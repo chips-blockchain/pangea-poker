@@ -14,7 +14,7 @@ import "../../styles/tooltip.css";
 interface IProps {
   dispatch: (arg: object) => void;
   state: IState;
-  closeCashierModal: Function;
+  closeCashierModal: () => () => void;
 }
 
 const Balance = styled.div`
