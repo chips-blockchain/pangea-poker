@@ -7,6 +7,7 @@ import { Button } from "../Controls/";
 interface IInputWIthButtonProps extends IProps {
   handleButtonClick: () => void;
   buttonLabel: string;
+  onBlur: React.ChangeEventHandler;
 }
 
 const customInputStyle = css`
@@ -32,6 +33,7 @@ const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
   label,
   name,
   onChange,
+  onBlur,
   placeholder,
   required,
   type,
@@ -46,6 +48,7 @@ const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
         label={label}
         name={name}
         onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder}
         required={required}
         type={type}

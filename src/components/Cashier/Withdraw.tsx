@@ -10,6 +10,7 @@ import { Dropdown } from "../Form";
 import InputWithButton from "../Form/InputWIthButton";
 
 import "../../styles/tooltip.css";
+import displayBalanceDecimals from "../../lib/balanceWithDecimals";
 
 interface IProps {
   dispatch: (arg: object) => void;
@@ -45,8 +46,19 @@ const Withdraw: React.FunctionComponent<IProps> = ({
 
   const [amountToWIthdraw, setAmountToWIthdraw] = useState("0.00000000");
 
+  // Handle Amount Input
   const handleAmountInput = () => (e): void => {
-    setAmountToWIthdraw(e.target.value);
+    const amount = e.target.value;
+    // Limit input to 8 decimal points maximum
+    const reg = /^[0-9]|[0-9]+(\.[0-9]{1,8})$/g;
+    if (reg.test(amount) || amount === "") {
+      setAmountToWIthdraw(amount);
+    }
+  };
+
+  // Convert the amount to 8 decimals when the focus changes
+  const handleOnBlur = () => (): void => {
+    setAmountToWIthdraw(displayBalanceDecimals(amountToWIthdraw));
   };
 
   // Validate withdraw addresses before displaying them on the UI
@@ -79,6 +91,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
           label="Amount to withdraw"
           name="withdraw-amount"
           onChange={handleAmountInput()}
+          onBlur={handleOnBlur()}
           type="number"
           value={amountToWIthdraw}
           // TODO: Add regex to validate - /[0-9]+(\.[0-9]{1,8})/g

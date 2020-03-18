@@ -10,6 +10,7 @@ export interface IProps {
   name: string;
   label?: string;
   onChange?: React.ChangeEventHandler;
+  onBlur: React.ChangeEventHandler;
   placeholder?: string;
   required?: boolean;
   type: string;
@@ -47,12 +48,13 @@ const InputWrapper = styled.div`
 const Input: React.FunctionComponent<IProps> = ({
   customStyle,
   defaultValue,
+  forwardRef,
   label,
   name,
+  onBlur,
   onChange,
   placeholder,
   required,
-  forwardRef,
   type,
   value
 }) => {
@@ -73,6 +75,7 @@ const Input: React.FunctionComponent<IProps> = ({
         required={required}
         ref={forwardRef}
         type={type}
+        onBlur={onBlur}
       />
     </InputWrapper>
   );
