@@ -51,8 +51,8 @@ const Withdraw: React.FunctionComponent<IProps> = ({
 
   // Validate withdraw addresses before displaying them on the UI
   const [
-    validatedWithdrawAdressList,
-    setValidatedWithdrawAdressList
+    validatedWithdrawAddressList,
+    setValidatedWithdrawAddressList
   ] = useState([]);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
       if (isValidAddress(address)) return address;
     });
 
-    setValidatedWithdrawAdressList(validAddressList);
+    setValidatedWithdrawAddressList(validAddressList);
   }, [state.withdrawAddressList]);
 
   const setMaxAmount = () => (): void => setAmountToWIthdraw(state.balance);
@@ -73,6 +73,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
       <InputWrapper>
         <InputWithButton
           data-test="withdraw-amount"
+          buttonLabel="Max"
           forwardRef={register({ required: true })}
           handleButtonClick={setMaxAmount()}
           label="Amount to withdraw"
@@ -86,9 +87,10 @@ const Withdraw: React.FunctionComponent<IProps> = ({
           {errors["withdraw-amount"] && "Please set a withdaw amount"}
         </ErrorMessage>
         <Dropdown
+          data-test="withdraw-address-list"
           name="withdraw-address-list"
           label="CHIPS address to withdraw to:"
-          options={validatedWithdrawAdressList}
+          options={validatedWithdrawAddressList}
           forwardRef={register({ required: true })}
         />
         <ErrorMessage>
