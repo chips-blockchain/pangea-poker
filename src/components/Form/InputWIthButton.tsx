@@ -6,6 +6,7 @@ import { Button } from "../Controls/";
 
 interface IInputWIthButtonProps extends IProps {
   handleButtonClick: () => void;
+  buttonLabel: string;
 }
 
 const customInputStyle = css`
@@ -26,6 +27,7 @@ const Wrapper = styled.div`
 
 const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
   forwardRef,
+  buttonLabel,
   handleButtonClick,
   label,
   name,
@@ -38,6 +40,7 @@ const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
   return (
     <Wrapper>
       <Input
+        data-test="input-with-button-input"
         customStyle={customInputStyle}
         forwardRef={forwardRef}
         label={label}
@@ -49,7 +52,8 @@ const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
         value={value}
       />
       <Button
-        label="Max"
+        data-test="input-with-button-button"
+        label={buttonLabel}
         small
         customStyle={customButtonStyle}
         onClick={handleButtonClick}
