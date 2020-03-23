@@ -31,11 +31,14 @@ const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
   buttonLabel,
   handleButtonClick,
   label,
+  max,
+  min,
   name,
   onChange,
   onBlur,
   placeholder,
   required,
+  step,
   type,
   value
 }) => {
@@ -46,11 +49,14 @@ const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
         customStyle={customInputStyle}
         forwardRef={forwardRef}
         label={label}
+        max={max}
+        min={min}
         name={name}
         onChange={onChange}
         onBlur={onBlur}
         placeholder={placeholder}
         required={required}
+        step={step}
         type={type}
         value={value}
       />

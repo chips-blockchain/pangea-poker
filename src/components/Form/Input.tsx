@@ -8,12 +8,15 @@ export interface IProps {
   customStyle?: SerializedStyles;
   forwardRef: (ref: object) => void;
   name: string;
+  max?: number;
+  min?: number;
   label?: string;
   onChange?: React.ChangeEventHandler;
   onBlur: React.ChangeEventHandler;
   placeholder?: string;
   required?: boolean;
   type: string;
+  step?: number;
   value?: number | string;
 }
 
@@ -50,11 +53,14 @@ const Input: React.FunctionComponent<IProps> = ({
   defaultValue,
   forwardRef,
   label,
+  max,
+  min,
   name,
   onBlur,
   onChange,
   placeholder,
   required,
+  step,
   type,
   value
 }) => {
@@ -68,14 +74,17 @@ const Input: React.FunctionComponent<IProps> = ({
         `}
         defaultValue={defaultValue}
         id={name}
+        max={max}
+        min={min}
         name={name}
+        onBlur={onBlur}
         onChange={onChange}
         placeholder={placeholder}
-        value={value}
-        required={required}
         ref={forwardRef}
+        step={step}
+        required={required}
         type={type}
-        onBlur={onBlur}
+        value={value}
       />
     </InputWrapper>
   );
