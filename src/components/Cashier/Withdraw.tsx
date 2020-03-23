@@ -142,6 +142,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
           data-test="withdraw-button"
           isHighlighted
           isSubmit
+          disabled={!amountToWIthdraw || !withdrawAddress}
         />
       </ModalButtonsWrapper>
     </form>

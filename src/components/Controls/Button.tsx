@@ -41,6 +41,7 @@ const Button: React.FunctionComponent<IProps> = ({
     transition: 0.1s ease;
     width: ${small ? "3.625rem" : "7.5rem"};
 
+    ${disabled && `cursor: not-allowed;`}
     ${!disabled &&
       `
 &:hover {
@@ -65,11 +66,14 @@ const Button: React.FunctionComponent<IProps> = ({
     border-color: var(--color-primaryLight);
     color: var(--color-background);
 
-    &:hover {
+    ${!disabled &&
+      `
+  &:hover {
       background: var(--color-accent);
       border-color: var(--color-accent);
       color: var(--color-background);
-    }
+    }`}
+
     &:active {
       border-color: var(--color-primary);
     }

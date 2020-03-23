@@ -31,7 +31,7 @@ const createWrapper = stateChanges => {
   return buildWrapper(dispatch, state);
 };
 
-describe("Deposit", () => {
+describe("Withdraw", () => {
   // - [X] Withdraw renders
   // - [X] Displays available CHIPS
   // - [X] There is an amount to input number input field
@@ -40,8 +40,7 @@ describe("Deposit", () => {
   // - [X] It shows an address selector dropdown
   // - [X] You can select from the dropdown
   // - [X] All of the addressess pass the validation
-  // - [ ] Amount cannot be more than the chips
-  // - [ ] Amount is a valid bitcoin amount
+  // - [X] Withdraw button is disabled when nothing is selected
   // - [ ] Shows the error message where it should
   // - [X] Cancel button renders
   // - [X] Cancel button closes the modal
@@ -49,6 +48,7 @@ describe("Deposit", () => {
   // - [ ] There is a confirmation before the Withdraw happens
   // - [ ] Withdraws the moneys
   // - [ ] There is a confirmation that the withdraw happened
+  // - [X] Amount can't be set to be bigger than the balance
 
   test("Renders the withdraw tab", () => {
     const wrapper = createWrapper();
@@ -77,13 +77,11 @@ describe("Deposit", () => {
     const wrapper = createWrapper();
 
     expect(wrapper.find(`InputWithButton`)).toHaveLength(1);
-    expect(wrapper.find(`InputWithButton input`).props().value).toEqual(
-      "0.00000000"
-    );
+    expect(wrapper.find(`InputWithButton input`).props().value).toEqual(0);
   });
 
   test("handles clicking on the max button", () => {
-    const balance = "0.12345678";
+    const balance = 0.12345678;
     const wrapper = createWrapper({ balance });
 
     expect(wrapper.find(`InputWithButton Button`)).toHaveLength(1);
@@ -113,5 +111,37 @@ describe("Deposit", () => {
       .find(`[data-test="close-button-cashier-withdraw"]`)
       .simulate("click");
     expect(closeCashierModal).toHaveBeenCalled();
+  });
+
+  test("The withdraw button is disabled by default", () => {
+    const wrapper = createWrapper();
+
+    expect(
+      wrapper.find(`[data-test="withdraw-button"]`).props()["disabled"]
+    ).toBe(true);
+  });
+
+  test("Withdraw button is enabled when amount and withdraw address are set", () => {
+    const wrapper = createWrapper({
+      withdrawAddressList: [
+        "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+        "1XPTgDRhN8RFnzniWCddobD9iKZatrvH4"
+      ]
+    });
+
+    wrapper.find(`input#withdraw-amount`).simulate("change");
+    expect(
+      wrapper.find(`[data-test="withdraw-button"]`).props()["disabled"]
+    ).toBe(false);
+  });
+
+  test("Amount can't be set to be more than the balance ", () => {
+    const wrapper = createWrapper({ balance: 1 });
+
+    wrapper
+      .find(`input#withdraw-amount`)
+      .simulate("change", { target: { value: 2 } });
+    wrapper.find(`input#withdraw-amount`).simulate("blur");
+    expect(wrapper.find(`input#withdraw-amount`).props().value).toBe(1);
   });
 });
