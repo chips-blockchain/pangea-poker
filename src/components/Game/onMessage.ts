@@ -44,6 +44,7 @@ import { GameTurns } from "../../lib/constants";
 export interface IMessage {
   action?: string;
   addr?: string;
+  addrs?: string[];
   amount?: number;
   balance?: number;
   bet_amount?: number;
@@ -506,7 +507,13 @@ export const onMessage_player = (
       updateStateValue("depositAddress", message.addr, dispatch);
       break;
 
+    case "withdrawResponse":
+      updateStateValue("balance", message.balance, dispatch);
+      updateStateValue("withdrawAddressList", message.addrs, dispatch);
+      break;
+
     default:
+      console.warn(`Received unknown method type "${message.method}" `);
     // Temporarily disabled until status_info will be sorted out in the backend
     // sendMessage(message, "dcv", state, dispatch);
   }

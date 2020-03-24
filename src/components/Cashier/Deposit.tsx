@@ -12,7 +12,7 @@ import "../../styles/tooltip.css";
 interface IProps {
   dispatch: (arg: object) => void;
   state: IState;
-  closeCashierModal: () => void;
+  closeCashierModal: () => () => void;
 }
 
 const AdditionalInfo = styled.p`

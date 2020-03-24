@@ -12,7 +12,7 @@ import {
 import { IState } from "../../store/initialState";
 import Button from "../Controls/Button";
 import ModalButtonsWrapper from "./ModalButtonsWrapper";
-import { Input } from "../Form/Input";
+import { Input } from "../Form";
 
 interface INode {
   name: "dcv" | "bvv" | "player1" | "player2";

@@ -1,23 +1,23 @@
 :root {
   /* Moon theme */
-  --color-bloodRed: "#CE1311";
-  --color-chipsOrange: "#FCAA2A";
-  --color-chipsTeal: "#4D8484";
-  --color-chipsTealLight: "#6DABAB";
+  --color-bloodRed: #ce1311;
+  --color-chipsOrange: #fcaa2a;
+  --color-chipsTeal: #4d8484;
+  --color-chipsTealLight: #6dabab;
 
   /* Basic Colors */
-  --color-almostBlack: "#121318";
-  --color-darkGray: "#1e1f24";
-  --color-superLightGray: "#eeeeee";
-  --color-white: "#FFFFFF";
+  --color-almostBlack: #121318;
+  --color-darkGray: #1e1f24;
+  --color-superLightGray: #eeeeee;
+  --color-white: #ffffff;
 
   /* Active theme - override these to change the theme */
-  --color-accent: #fcaa2a;
-  --color-background: #121318;
-  --color-danger: #ce1311;
-  --color-primary: #4d8484;
-  --color-primaryLight: #6dabab;
-  --color-text: #ffffff;
+  --color-accent: var(--color-chipsOrange);
+  --color-background: var(--color-almostBlack);
+  --color-danger: var(--color-bloodRed);
+  --color-primary: var(--color-chipsTeal);
+  --color-primaryLight: var(--color-chipsTealLight);
+  --color-text: var(--color-white);
 
   /* Fonts */
   /* Font families */

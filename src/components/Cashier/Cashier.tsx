@@ -2,7 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import Modal from "../Modal";
 import Deposit from "./Deposit";
+import Withdraw from "./Withdraw";
 import { Button } from "../Controls";
+import { sendMessage } from "../../store/actions";
 import { updateStateValue } from "../../store/actions";
 import { IState } from "../../store/initialState";
 
@@ -22,7 +24,7 @@ const CashierButton = styled.div`
 `;
 
 const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
-  const openCashierModal = () => (): void => {
+  const openCashierModal = (): void => {
     updateStateValue("isCashierOpen", true, dispatch);
   };
 
@@ -31,13 +33,29 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
     updateStateValue("isCashierOpen", false, dispatch);
   };
 
+  const sendWithdrawRequest = (): void => {
+    sendMessage(
+      {
+        method: "withdrawRequest"
+      },
+      state.userSeat,
+      state,
+      dispatch
+    );
+  };
+
+  const handleCashierButtonClick = () => (): void => {
+    openCashierModal();
+    sendWithdrawRequest();
+  };
+
   return (
     <React.Fragment>
       {!state.isStartupModal && state.nodeType !== "dealer" && (
         <CashierButton>
           <Button
             label="Cashier"
-            onClick={openCashierModal()}
+            onClick={handleCashierButtonClick()}
             small
             testId="cashier-button"
           />
@@ -45,8 +63,6 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
       )}
       <Modal
         isOpen={state.isCashierOpen}
-        // Pass in onRequestClose to allow closing the modal with "ESC" keypress
-        // or by clicking on the overlay
         id="cashier-modal"
         contentLabel="Cashier Modal"
         onRequestClose={closeCashierModal()}
@@ -61,8 +77,18 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
             ),
             name: "Deposit",
             title: "Deposit CHIPS"
+          },
+          {
+            content: (
+              <Withdraw
+                dispatch={dispatch}
+                state={state}
+                closeCashierModal={closeCashierModal}
+              />
+            ),
+            name: "Withdraw",
+            title: "Withdraw CHIPS"
           }
-          // Withdrawal tab will be placed here
         ]}
       />
     </React.Fragment>

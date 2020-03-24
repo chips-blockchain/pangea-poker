@@ -1,3 +1,4 @@
+import { css, SerializedStyles } from "@emotion/core";
 import styled from "@emotion/styled";
 import numberWithCommas from "../../lib/numberWithCommas";
 
@@ -5,8 +6,11 @@ import numberWithCommas from "../../lib/numberWithCommas";
 
 interface IProps {
   amount?: number;
+  customStyle?: SerializedStyles;
   disabled?: boolean;
   label: string;
+  isHighlighted?: boolean;
+  isSubmit?: boolean;
   onClick?: React.MouseEventHandler;
   small?: boolean;
   testId?: string;
@@ -14,8 +18,11 @@ interface IProps {
 
 const Button: React.FunctionComponent<IProps> = ({
   amount,
+  customStyle,
   disabled,
   label,
+  isHighlighted,
+  isSubmit,
   onClick,
   small,
   testId
@@ -28,22 +35,23 @@ const Button: React.FunctionComponent<IProps> = ({
     font-size: ${small ? ".75rem" : "1rem"};
     font-weight: 700;
     height: ${small ? "1.75rem" : "2.5rem"};
-    margin: 0.125rem;
+    margin: 0.5rem;
     opacity: ${disabled && "0.5"};
     line-height: 1rem;
     transition: 0.1s ease;
     width: ${small ? "3.625rem" : "7.5rem"};
 
+    ${disabled && `cursor: not-allowed;`}
     ${!disabled &&
       `
 &:hover {
   color: var(--color-accent);
-  cursor: pointer;
   border-color: var(--color-accent);
+  cursor: pointer;
 }
 &:focus {
-  border-color: var(--color-accent);
   color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 &:active {
   background: var(--color-accent);
@@ -52,6 +60,25 @@ const Button: React.FunctionComponent<IProps> = ({
 
 `}
   `;
+
+  const highlightedButtonStyle = css`
+    background: var(--color-primaryLight);
+    border-color: var(--color-primaryLight);
+    color: var(--color-background);
+
+    ${!disabled &&
+      `
+  &:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-background);
+    }`}
+
+    &:active {
+      border-color: var(--color-primary);
+    }
+  `;
+
   const ButtonInnerWrapper = styled.div`
     display: flex;
     align-items: center;
@@ -72,7 +99,16 @@ const Button: React.FunctionComponent<IProps> = ({
           `}
   `;
   return (
-    <ButtonStyle onClick={onClick} disabled={disabled} data-testid={testId}>
+    <ButtonStyle
+      css={css`
+        ${customStyle}
+        ${isHighlighted && highlightedButtonStyle}
+      `}
+      onClick={onClick}
+      data-testid={testId}
+      disabled={disabled}
+      type={isSubmit ? "submit" : "button"}
+    >
       <ButtonInnerWrapper>
         {label} <br />
         {/* Show an amount for the Raise and Call buttons */}

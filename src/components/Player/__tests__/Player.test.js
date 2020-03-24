@@ -43,7 +43,7 @@ const { seat } = defaultProps;
 // Action Spies
 jest.spyOn(actions, "playerJoin");
 jest.spyOn(actions, "playerJoin");
-const { playerJoin } = actions;
+const { playerJoin, setSeatMessage } = actions;
 
 describe("Player", () => {
   test("joins when not conencted and clicked", () => {

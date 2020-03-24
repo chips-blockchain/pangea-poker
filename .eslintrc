@@ -2,6 +2,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
   "plugins": ["react", "@typescript-eslint", "prettier"],
@@ -12,13 +14,6 @@
   },
   "globals": {
     "process": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "modules": true
-    }
   },
   "rules": {
     "prettier/prettier": ["error"],
@@ -33,17 +28,6 @@
     ],
     "@typescript-eslint/camelcase": [0]
   },
-  "overrides": [
-    {
-      "files": ["**/*.ts", "**/*.tsx"],
-      "env": { "browser": true, "es6": true, "node": true },
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
-      ]
-    }
-  ],
   "settings": {
     "react": {
       "pragma": "React",
