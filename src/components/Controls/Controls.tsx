@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { css } from "@emotion/core";
 import { useState, useContext, useEffect } from "react";
 import Button from "./Button";

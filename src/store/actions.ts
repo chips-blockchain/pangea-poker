@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable @typescript-eslint/camelcase */
 import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
