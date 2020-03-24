@@ -1,12 +1,10 @@
-name: ESLint
+name: Lint
 
-on: push
+on: [push]
 
 jobs:
-  build:
+  eslint:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: hallee/eslint-action@master
-        with:
-          secrets: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v1
+      - uses: stefanoeb/eslint-action@1.0.2
