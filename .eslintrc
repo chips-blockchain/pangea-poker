@@ -16,7 +16,6 @@
     "process": true
   },
   "rules": {
-    "prettier/prettier": ["error"],
     "react/jsx-no-bind": ["warn", { "allowArrowFunctions": false }],
     "react/react-in-jsx-scope": [0],
     "react/prop-types": [0],
