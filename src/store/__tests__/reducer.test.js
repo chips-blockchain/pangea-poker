@@ -1,5 +1,4 @@
 import reducer from "../reducer";
-import { addToHandHistory } from "../actions";
 import state from "../initialState";
 import initialState from "../initialState";
 
