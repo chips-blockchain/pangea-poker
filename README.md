@@ -1,13 +1,28 @@
 ![Screenshot of Lightining CHIPS Poker](https://norbert.dev/chips_poker@2x.jpg)
 
-# CHIPS Poker Frontend
+# Pangea Poker
 
-This is a redesign of [Pangea Poker Frontend](https://github.com/sg777/pangea-poker-frontend). Built with React, currently in WIP.
+:warning: **Keep in mind that the game is in alpha stage. There is a risk of loosing funds.**
 
-## Run the project
+Play decentralized poker via the CHIPS blockchain.
 
-Run `npm install` and `npm start` in the root folder
+We hope to release a publicly playable version in April. You can find the latest releases [here](https://github.com/chips-blockchain/pangea-poker/releases).
 
-You will need to run your own back-end nodes. [Here](https://github.com/NOCTLJRNE/CHIPS-tuto/blob/master/README.md) is a detailed guide on how to do it.
+Currently, to play, you will need to run your own back-end nodes. We are working on a Docker container to make this easy, which is expected to ship in April. [Here](https://github.com/NOCTLJRNE/CHIPS-tuto/blob/master/README.md) you can find the old, complicated way of setting up the back-end nodes.
 
-Once you've set up the back-end nodes, enter the node IPs at the startup modal to start playing.
+## Development
+
+- Run `npm install` and `npm start` in the root folder This will fire up a web server and you can try the app via http://localhost:1234
+
+- Run `npm run electron-dev` to start the Electron app in development.
+
+Run `npm electron-pack` to package the app with electron-builder for MacOS, Windows and Linux.
+
+## Contributing
+
+Please reach out to us via [Discord](https://discord.gg/NGPu4g) and check out the open [Issues](https://github.com/chips-blockchain/pangea-poker/issues).
+
+## Related links
+
+- [Backend repo](https://github.com/chips-blockchain/bet)
+- [Old back-end setup guide](https://github.com/NOCTLJRNE/CHIPS-tuto/blob/master/README.md)
