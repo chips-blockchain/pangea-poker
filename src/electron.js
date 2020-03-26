@@ -5,7 +5,6 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
 const path = require("path");
-const url = require("url");
 const isDev = require("electron-is-dev");
 
 let mainWindow;
@@ -15,7 +14,7 @@ function createWindow() {
   mainWindow.loadURL(
     isDev
       ? "http://localhost:1234"
-      : `file://${path.join(__dirname, "../build/index.html")}`
+      : `file://${path.join(__dirname, "../build/index.html")}` // eslint-disable-line no-undef
   );
   mainWindow.on("closed", () => (mainWindow = null));
 }

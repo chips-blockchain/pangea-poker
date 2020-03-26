@@ -39,7 +39,7 @@ describe("LogBox", () => {
   });
 
   test("scrolls the Logs into view", () => {
-    const wrapper = buildWrapper(testState);
+    buildWrapper(testState);
     expect(scrollIntoViewMock).toHaveBeenCalled();
   });
 });
