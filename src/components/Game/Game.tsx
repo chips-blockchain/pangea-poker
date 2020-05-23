@@ -17,7 +17,7 @@ const Game: React.FunctionComponent = () => {
   const { isDeveloperMode, isStartupModal, nodes, nodeType, message } = state;
 
   const SOCKET_URL_DCV = `ws://${nodes.dcv}:9000`;
-  const SOCKET_URL_BVV = `ws://${nodes.bvv}:9000`;
+  const SOCKET_URL_BVV = SOCKET_URL_DCV;
   const SOCKET_URL_PLAYER1 = `ws://${[Object.values(nodes)[0]]}:9000`;
 
   const startGame = () => (): void => {
