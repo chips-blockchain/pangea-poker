@@ -39,7 +39,6 @@ const initialState: IState = {
   // Connection status dispalyed at the top
   connection: {
     dcv: "Not connected",
-    bvv: "Not connected",
     player1: "Not connected",
     player2: "Not connected",
     echo: "Not connected"
@@ -110,14 +109,12 @@ const initialState: IState = {
   nodeType: null,
   nodes: {
     dcv: "0.0.0.0",
-    bvv: "0.0.0.0",
     player1: "0.0.0.0",
     player2: "0.0.0.0",
     echo: "0.0.0.0"
   },
   message: {
     dcv: null,
-    bvv: null,
     player1: null,
     player2: null,
     echo: null
@@ -143,7 +140,8 @@ const initialState: IState = {
   // Where does the user sit
   userSeat: "player1",
   // The player that won the game
-  winners: [undefined]
+  winners: [undefined],
+  withdrawAddressList: []
 };
 
 export default initialState;

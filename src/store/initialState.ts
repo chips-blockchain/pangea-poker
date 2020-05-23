@@ -37,7 +37,6 @@ const initialState: IState = {
   // Connection status dispalyed at the top
   connection: {
     dcv: "Not connected",
-    bvv: "Not connected",
     player1: "Not connected",
     player2: "Not connected",
     echo: "Not connected"
@@ -95,14 +94,12 @@ const initialState: IState = {
   nodeType: null,
   nodes: {
     dcv: "0.0.0.0",
-    bvv: "0.0.0.0",
     player1: "0.0.0.0",
     player2: "0.0.0.0",
     echo: "0.0.0.0"
   },
   message: {
     dcv: null,
-    bvv: null,
     player1: null,
     player2: null,
     echo: null
@@ -153,7 +150,6 @@ export interface IState {
   boardCards: string[];
   connection: {
     dcv: string;
-    bvv: string;
     player1: string;
     player2: string;
     echo: string;
@@ -183,7 +179,6 @@ export interface IState {
   lastMessage: object;
   nodes: {
     dcv: string | null;
-    bvv: string | null;
     player1: string | null;
     player2: string | null;
     echo: string | null;
@@ -191,7 +186,6 @@ export interface IState {
   nodeType: string;
   message: {
     dcv: string | null;
-    bvv: string | null;
     player1: string | null;
     player2: string | null;
     echo: string | null;

@@ -56,7 +56,6 @@ const CustomIP: React.FunctionComponent = () => {
 
   const [nodes, setNodes] = useState({
     dcv: process.env.DEV_SOCKET_URL_DCV,
-    // bvv: process.env.DEV_SOCKET_URL_BVV,
     player1: process.env.DEV_SOCKET_URL_PLAYER1,
     player2: process.env.DEV_SOCKET_URL_PLAYER2
   });
