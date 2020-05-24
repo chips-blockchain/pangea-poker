@@ -12,8 +12,7 @@ const Connections: React.FunctionComponent = () => {
   let nodeList = [];
 
   const dealerNodeList = [
-    ["DCV", connection.dcv],
-    ["BVV", connection.bvv]
+    ["DCV", connection.dcv]
   ];
 
   const playerNode = ["Player", connection[Object.keys(state.nodes)[0]]];

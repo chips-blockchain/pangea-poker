@@ -15,7 +15,7 @@ import ModalButtonsWrapper from "./ModalButtonsWrapper";
 import { Input } from "../Form";
 
 interface INode {
-  name: "dcv" | "bvv" | "player1" | "player2";
+  name: "dcv" | "player1" | "player2";
   id: "dealer" | "player1" | "player2";
   type: "dealer" | "player";
   devAddress: string;
@@ -30,12 +30,6 @@ const nodesToInput: INode[][] = [
       id: "dealer",
       type: "dealer",
       devAddress: process.env.DEV_SOCKET_URL_DCV
-    },
-    {
-      name: "bvv",
-      id: "dealer",
-      type: "dealer",
-      devAddress: process.env.DEV_SOCKET_URL_BVV
     }
   ],
   [
@@ -62,7 +56,6 @@ const CustomIP: React.FunctionComponent = () => {
 
   const [nodes, setNodes] = useState({
     dcv: process.env.DEV_SOCKET_URL_DCV,
-    bvv: process.env.DEV_SOCKET_URL_BVV,
     player1: process.env.DEV_SOCKET_URL_PLAYER1,
     player2: process.env.DEV_SOCKET_URL_PLAYER2
   });
@@ -83,7 +76,7 @@ const CustomIP: React.FunctionComponent = () => {
     // Set the node addresses and the node type
     const isDealer = nodeType === "dealer";
     const nodesToSet = isDealer
-      ? { dcv: nodes.dcv, bvv: nodes.bvv }
+      ? { dcv: nodes.dcv }
       : { [nodeType]: nodes[nodeType] };
     const nodeTypeToSet: string = isDealer ? "dealer" : "player";
     updateStateValue("nodes", nodesToSet, dispatch);
@@ -116,7 +109,7 @@ const CustomIP: React.FunctionComponent = () => {
   // Validates whether all required input fields have data
   useEffect((): void => {
     if (nodeType === "dealer") {
-      nodes.dcv && nodes.bvv ? setCanSetNodes(true) : setCanSetNodes(false);
+      nodes.dcv ? setCanSetNodes(true) : setCanSetNodes(false);
     }
     if (nodeType === "player1") {
       nodes.player1 ? setCanSetNodes(true) : setCanSetNodes(false);
