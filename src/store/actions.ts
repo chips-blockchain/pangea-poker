@@ -298,15 +298,14 @@ export const sendMessage = (
   dispatch: (arg: object) => void
 ): void => {
  if (state.connection[node] === "Connected") {
-   const m = {
-    type: "setMessage",
-    payload: {
-      node: [node],
-      message: JSON.stringify(message)
-    }
-   }
-    dispatch(m);
-    log(`Sent to ${node}: `, "sent", m);
+    dispatch({
+      type: "setMessage",
+      payload: {
+        node: [node],
+        message: JSON.stringify(message)
+      }
+    });
+    log(`Sent to ${node}: `, "sent", message);
   } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
 };
 
@@ -315,15 +314,14 @@ export const sendInitMessage = (
   node: string,
   dispatch: (arg: object) => void
 ): void => {
-  const m =  {
+  log(`Sent to ${node}: `, "sent", "Connect");
+  dispatch({
     type: "connect",
     payload: { 
       nodeName: node, 
       readyState: readyStateString 
     }
-  }
-  log(`Sent to ${node}: `, "sent", m);
-  dispatch(m);
+  });
 }
 
 export const setActivePlayer = (
