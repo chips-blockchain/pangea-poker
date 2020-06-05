@@ -6,6 +6,7 @@ import { IState } from "./initialState";
 import { IMessage } from "../components/Game/onMessage";
 import { Possibilities, GameTurns } from "../lib/constants";
 import sounds from "../sounds/sounds";
+import log from "../lib/dev";
 
 const { preFlop, flop, turn } = GameTurns;
 
@@ -49,24 +50,6 @@ export const bet = (
   });
 };
 
-// A colored console.log
-export const log = (text: string, color: string, message?: IMessage): void => {
-  console.log(
-    "%c" + text,
-    `color: ${
-      color === "sent"
-        ? "var(--color-accent)"
-        : color === "info"
-        ? "#89ca77"
-        : color === "received"
-        ? "#e0be1d"
-        : color === "danger"
-        ? "var(--color-danger)"
-        : ""
-    }; background-color: #2a2b2e;`,
-    message ? message : ""
-  );
-};
 
 // Collect the chips from the player before a new turn
 export const collectChips = (
@@ -314,16 +297,34 @@ export const sendMessage = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  if (state.connection[node] === "Connected") {
-    dispatch({
-      type: "setMessage",
-      payload: {
-        node: [node],
-        message: JSON.stringify(message)
-      }
-    });
+ if (state.connection[node] === "Connected") {
+   const m = {
+    type: "setMessage",
+    payload: {
+      node: [node],
+      message: JSON.stringify(message)
+    }
+   }
+    dispatch(m);
+    log(`Sent to ${node}: `, "sent", m);
   } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
 };
+
+export const sendInitMessage = (
+  readyStateString: string,
+  node: string,
+  dispatch: (arg: object) => void
+): void => {
+  const m =  {
+    type: "connect",
+    payload: { 
+      nodeName: node, 
+      readyState: readyStateString 
+    }
+  }
+  log(`Sent to ${node}: `, "sent", m);
+  dispatch(m);
+}
 
 export const setActivePlayer = (
   player: string,
