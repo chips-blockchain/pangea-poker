@@ -9,7 +9,6 @@ import {
   dealCards,
   fold,
   game,
-  log,
   nextHand,
   playerJoin,
   seats,
@@ -33,6 +32,7 @@ import {
   processControls,
   updateMainPot
 } from "../../store/actions";
+import log from "../../lib/dev";
 import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
 import { IState } from "../../store/initialState";
