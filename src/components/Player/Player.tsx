@@ -10,7 +10,8 @@ import {
   showControls,
   setLastAction,
   sendMessage,
-  setActivePlayer
+  setActivePlayer,
+  setUserSeat
 } from "../../store/actions";
 import playerIdToString from "../../lib/playerIdToString";
 import playerStringToId from "../../lib/playerStringToId";
@@ -89,10 +90,12 @@ const Player: React.FunctionComponent<IProps> = ({
       ? "var(--color-accent)"
       : userName.color;
 
-  const handlePlayerClick = () => (): void => {
+  const handlePlayerClick = (seat: string) => (): void => {
+    console.log('Chosen seat --- ', seat);
     if (!connected) {
       playerJoin(seat, state, dispatch);
       setSeatMessage("SITTING...");
+      setUserSeat('player', dispatch)
     }
   };
 
@@ -160,7 +163,7 @@ const Player: React.FunctionComponent<IProps> = ({
         ${playerWidget}
         grid-area: ${seat};
       `}
-      onClick={handlePlayerClick()}
+      onClick={handlePlayerClick(seat)}
       data-test={`player-widget-${seat}`}
     >
       {cardsDealt && showCards && hasCards && (

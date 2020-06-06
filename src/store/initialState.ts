@@ -24,6 +24,83 @@ const initialState: IState = {
       betAmount: 0,
       playerCards: [],
       connected: false
+    },
+    player3: {
+      isPlaying: true,
+      seat: "player3",
+      chips: 200,
+      hasCards: true,
+      showCards: true,
+      isBetting: false,
+      betAmount: 0,
+      playerCards: [],
+      connected: false
+    },
+    player4: {
+      isPlaying: true,
+      seat: "player4",
+      chips: 200,
+      hasCards: true,
+      showCards: true,
+      isBetting: false,
+      betAmount: 0,
+      playerCards: [],
+      connected: false
+    },
+    player5: {
+      isPlaying: true,
+      seat: "player5",
+      chips: 200,
+      hasCards: true,
+      showCards: true,
+      isBetting: false,
+      betAmount: 0,
+      playerCards: [],
+      connected: false
+    },
+    player6: {
+      isPlaying: true,
+      seat: "player6",
+      chips: 200,
+      hasCards: true,
+      showCards: true,
+      isBetting: false,
+      betAmount: 0,
+      playerCards: [],
+      connected: false
+    },
+    player7: {
+      isPlaying: true,
+      seat: "player7",
+      chips: 200,
+      hasCards: true,
+      showCards: true,
+      isBetting: false,
+      betAmount: 0,
+      playerCards: [],
+      connected: false
+    },
+    player8: {
+      isPlaying: true,
+      seat: "player8",
+      chips: 200,
+      hasCards: true,
+      showCards: true,
+      isBetting: false,
+      betAmount: 0,
+      playerCards: [],
+      connected: false
+    },
+    player9: {
+      isPlaying: true,
+      seat: "player9",
+      chips: 200,
+      hasCards: true,
+      showCards: true,
+      isBetting: false,
+      betAmount: 0,
+      playerCards: [],
+      connected: false
     }
   },
   // Which seat is the active player
@@ -143,7 +220,7 @@ export interface IPlayer {
 }
 
 export interface IState {
-  players: { player1: IPlayer; player2: IPlayer };
+  players: { player1: IPlayer; player2: IPlayer, player3: IPlayer, player4: IPlayer, player5: IPlayer, player6: IPlayer ,player7: IPlayer,player8: IPlayer, player9: IPlayer };
   activePlayer: string;
   balance: number;
   blinds: [number, number];
