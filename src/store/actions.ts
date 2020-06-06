@@ -217,14 +217,14 @@ export const nextHand = (
 };
 
 export const playerJoin = (
-  player: string,
+  seat: string,
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  const id = Number(player.slice(-1)) - 1;
+  const id = Number(seat.slice(-1)) - 1;
   sendMessage(
     { method: "player_join", gui_playerID: id },
-    player,
+    'player',
     state,
     dispatch
   );
