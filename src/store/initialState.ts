@@ -4,7 +4,7 @@ const initialState: IState = {
   // Object of all players at the table
   players: {
     player1: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player1",
       chips: 200,
       hasCards: true,
@@ -15,7 +15,7 @@ const initialState: IState = {
       connected: false
     },
     player2: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player2",
       chips: 200,
       hasCards: true,
@@ -26,7 +26,7 @@ const initialState: IState = {
       connected: false
     },
     player3: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player3",
       chips: 200,
       hasCards: true,
@@ -37,7 +37,7 @@ const initialState: IState = {
       connected: false
     },
     player4: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player4",
       chips: 200,
       hasCards: true,
@@ -48,7 +48,7 @@ const initialState: IState = {
       connected: false
     },
     player5: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player5",
       chips: 200,
       hasCards: true,
@@ -59,7 +59,7 @@ const initialState: IState = {
       connected: false
     },
     player6: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player6",
       chips: 200,
       hasCards: true,
@@ -70,7 +70,7 @@ const initialState: IState = {
       connected: false
     },
     player7: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player7",
       chips: 200,
       hasCards: true,
@@ -81,7 +81,7 @@ const initialState: IState = {
       connected: false
     },
     player8: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player8",
       chips: 200,
       hasCards: true,
@@ -92,7 +92,7 @@ const initialState: IState = {
       connected: false
     },
     player9: {
-      isPlaying: true,
+      isPlaying: false,
       seat: "player9",
       chips: 200,
       hasCards: true,

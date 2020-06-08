@@ -71,7 +71,8 @@ const reducer = (state: IState, action: IAction): object => {
           ...state.players,
           [(action.payload as {}) as IPayload["player"]]: {
             ...state.players[(action.payload as {}) as IPayload["player"]],
-            connected: true
+            connected: true,
+            isPlaying: true
           }
         }
       };
