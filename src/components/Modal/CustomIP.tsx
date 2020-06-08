@@ -3,11 +3,9 @@ import { useContext, useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { DispatchContext, StateContext } from "../../store/context";
 import {
-  connectPlayer,
   closeStartupModal,
   game,
-  updateStateValue,
-  setUserSeat
+  updateStateValue
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import Button from "../Controls/Button";
@@ -28,14 +26,14 @@ interface INode {
 const nodesToInput: INode[]= [
     {
       name: "dcv",
-      // id: "dealer",
+      id: "dealer",
       type: "dealer",
       tableId: "",
       devAddress: process.env.DEV_SOCKET_URL_DCV
     },
     {
       name: "player",
-      // id: "player",
+      id: "player",
       type: "player",
       tableId: "",
       devAddress: process.env.DEV_SOCKET_URL_PLAYER1
@@ -76,12 +74,7 @@ const CustomIP: React.FunctionComponent = () => {
     // Start the game if it's a player node
     !isDealer && game({ gametype: "", pot: [0] }, state, dispatch);
 
-    // Set the user seat if it's a player node
-    // !isDealer && setUserSeat(nodeType, dispatch);
-
-    // // Connect the opponent (temporary)
-    // const opponent = nodeType === "player1" ? "player2" : "player1";
-    // !isDealer && connectPlayer(opponent, dispatch);
+    // @todo check if the user was succesfully connected
 
     // Close the Startup Modal
     closeStartupModal(dispatch);
