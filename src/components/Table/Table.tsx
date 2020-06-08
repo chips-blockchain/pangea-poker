@@ -77,6 +77,7 @@ const Table: React.FunctionComponent = () => {
                   (player: IPlayer) =>
                     (player.connected || !userSeat) && (
                       <Player
+                        key={player.seat}
                         chips={player.chips}
                         connected={player.connected}
                         hasCards={player.hasCards}

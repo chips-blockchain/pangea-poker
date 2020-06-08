@@ -40,6 +40,7 @@ import playerIdToString from "../../lib/playerIdToString";
 import arrayToSentence from "../../lib/arrayToSentence";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
+import { playersData } from "./testData";
 import { GameTurns } from "../../lib/constants";
 export interface IMessage {
   action?: string;
@@ -472,9 +473,14 @@ export const onMessage_player = (
       }
       break;
 
+    case "tableInfo":
+      updateStateValue("players", playersData , dispatch);
+      break;
+
     case "walletInfo":
       updateStateValue("balance", message.balance, dispatch);
       updateStateValue("depositAddress", message.addr, dispatch);
+      updateStateValue("players", playersData , dispatch);
       break;
 
     case "withdrawResponse":
