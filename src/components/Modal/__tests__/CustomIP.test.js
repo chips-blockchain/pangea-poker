@@ -36,8 +36,7 @@ describe("CustomIP", () => {
     const state = { ...testState };
     const wrapper = buildWrapper(state);
 
-    expect(wrapper.find(`li[data-test="tab-player1"]`)).toHaveLength(1);
-    expect(wrapper.find(`li[data-test="tab-player2"]`)).toHaveLength(1);
+    expect(wrapper.find(`li[data-test="tab-player"]`)).toHaveLength(1);
     expect(wrapper.find(`li[data-test="tab-dealer"]`)).toHaveLength(1);
   });
 
@@ -47,19 +46,11 @@ describe("CustomIP", () => {
 
     // DCV by deafult
     expect(wrapper.find(`input[name="dcv"]`)).toHaveLength(1);
-    expect(wrapper.find(`input[name="player1"]`)).toHaveLength(0);
-    expect(wrapper.find(`input[name="player2"]`)).toHaveLength(0);
+    expect(wrapper.find(`input[name="player"]`)).toHaveLength(0);
 
-    // Switch to player1
-    wrapper.find(`Tab[data-test="tab-player1"]`).simulate("click");
-    expect(wrapper.find(`input[name="player1"]`)).toHaveLength(1);
-    expect(wrapper.find(`input[name="player2"]`)).toHaveLength(0);
-    expect(wrapper.find(`input[name="dcv"]`)).toHaveLength(0);
-
-    // Switch to player2
-    wrapper.find(`li[data-test="tab-player2"]`).simulate("click");
-    expect(wrapper.find(`input[name="player2"]`)).toHaveLength(1);
-    expect(wrapper.find(`input[name="player1"]`)).toHaveLength(0);
+    // Switch to player
+    wrapper.find(`Tab[data-test="tab-player"]`).simulate("click");
+    expect(wrapper.find(`input[name="player"]`)).toHaveLength(1);
     expect(wrapper.find(`input[name="dcv"]`)).toHaveLength(0);
   });
 
@@ -99,11 +90,11 @@ describe("CustomIP", () => {
     const state = { ...testState };
     const wrapper = buildWrapper(state);
 
-    // Switch to player2 tab
-    wrapper.find(`li[data-test="tab-player2"]`).simulate("click");
+    // Switch to player tab
+    wrapper.find(`li[data-test="tab-player"]`).simulate("click");
 
     // Simulate the user inputting IP addresses
-    wrapper.find(`input[name="player2"]`).simulate("change", {
+    wrapper.find(`input[name="player"]`).simulate("change", {
       target: { value: "9.9.9.9" }
     });
 
@@ -113,7 +104,7 @@ describe("CustomIP", () => {
     // Sets the nodes in state
     expect(updateStateValue).toHaveBeenCalledWith(
       "nodes",
-      { player2: "9.9.9.9" },
+      { player: "9.9.9.9" },
       dispatch
     );
 
@@ -124,18 +115,12 @@ describe("CustomIP", () => {
       dispatch
     );
 
-    // Sets the userSeat in state
-    expect(setUserSeat).toHaveBeenCalledWith("player2", dispatch);
-
     // Starts the game
     expect(game).toHaveBeenCalledWith(
       { gametype: "", pot: [0] },
       state,
       dispatch
     );
-
-    // Connects the opponent (temporary)
-    expect(connectPlayer).toHaveBeenCalledWith("player1", dispatch);
 
     // Closes the startup modal
     expect(closeStartupModal).toHaveBeenCalledWith(dispatch);
