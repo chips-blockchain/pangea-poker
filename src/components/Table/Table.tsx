@@ -45,7 +45,8 @@ const Table: React.FunctionComponent = () => {
     options,
     showMainPot,
     showDealer,
-    winner
+    winner,
+    userSeat
   } = state;
 
   // For debugging purposes log the difference betweeen the last and current state
@@ -71,9 +72,10 @@ const Table: React.FunctionComponent = () => {
             <Board boardCards={boardCards} gameTurn={gameTurn} />
             <PlayerGrid9Max>
               {nodeType === "player" &&
+
                 Object.values(players).map(
                   (player: IPlayer) =>
-                    player.isPlaying && (
+                    (player.connected || !userSeat) && (
                       <Player
                         chips={player.chips}
                         connected={player.connected}
@@ -87,7 +89,9 @@ const Table: React.FunctionComponent = () => {
                         winner={winner}
                       />
                     )
-                )}
+                )
+                
+                }
             </PlayerGrid9Max>
             <ChipGrid chipsCollected={chipsCollected}>
               {Object.values(players).map(

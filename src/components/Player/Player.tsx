@@ -11,7 +11,8 @@ import {
   setLastAction,
   sendMessage,
   setActivePlayer,
-  setUserSeat
+  setUserSeat,
+  connectPlayer
 } from "../../store/actions";
 import playerIdToString from "../../lib/playerIdToString";
 import playerStringToId from "../../lib/playerStringToId";
@@ -91,11 +92,11 @@ const Player: React.FunctionComponent<IProps> = ({
       : userName.color;
 
   const handlePlayerClick = (seat: string) => (): void => {
-    console.log('Chosen seat --- ', seat);
     if (!connected) {
       playerJoin(seat, state, dispatch);
       setSeatMessage("SITTING...");
-      setUserSeat('player', dispatch)
+      setUserSeat(seat, dispatch)
+      connectPlayer(seat, dispatch);
     }
   };
 
