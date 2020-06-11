@@ -2,10 +2,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import useWebSocket from "react-use-websocket";
 import { DispatchContext, StateContext } from "../../store/context";
-import { onMessage, onMessage_bvv, onMessage_player } from "./onMessage";
-import { log } from "../../store/actions";
+import { onMessage, onMessage_player } from "./onMessage";
 import { IState } from "../../store/initialState";
-import { resetMessage } from "../../store/actions";
+import { resetMessage, sendInitMessage } from "../../store/actions";
 
 // This component is responsible for the WebSocket connection. It doesn't return and
 
@@ -36,7 +35,6 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   // Send a message if props changes
   useEffect(() => {
     if (message && readyState === 1) {
-      log(`Sent to ${nodeName}: `, "sent", JSON.parse(message));
       sendMessage(message);
       resetMessage(nodeName, dispatch);
     }
@@ -45,23 +43,16 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   // If the connection status changes, update the state
   useEffect(() => {
     if (state.connection[nodeName] !== readyStateString) {
-      dispatch({
-        type: "connect",
-        payload: { nodeName: nodeName, readyState: readyStateString }
-      });
+      sendInitMessage(readyStateString, nodeName, dispatch);
     }
   });
 
-  // Parese the received message depending on the node
+  // Parse the received message depending on the node
   useEffect(() => {
     if (lastMessage) {
       switch (nodeName) {
         case "dcv": {
           onMessage(lastMessage.data, state, dispatch);
-          break;
-        }
-        case "bvv": {
-          onMessage_bvv(lastMessage.data, state, dispatch);
           break;
         }
         case "echo": {

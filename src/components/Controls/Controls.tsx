@@ -8,12 +8,12 @@ import playerStringToId from "../../lib/playerStringToId";
 import {
   bet,
   fold,
-  log,
   sendMessage,
   setActivePlayer,
   setLastAction,
   showControls
 } from "../../store/actions";
+import log from "../../lib/dev";
 import { IState } from "../../store/initialState";
 import { IMessage } from "../Game/onMessage";
 import { Possibilities, PlayerActions } from "../../lib/constants";

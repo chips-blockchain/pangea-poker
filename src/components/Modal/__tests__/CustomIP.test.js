@@ -47,7 +47,6 @@ describe("CustomIP", () => {
 
     // DCV by deafult
     expect(wrapper.find(`input[name="dcv"]`)).toHaveLength(1);
-    expect(wrapper.find(`input[name="bvv"]`)).toHaveLength(1);
     expect(wrapper.find(`input[name="player1"]`)).toHaveLength(0);
     expect(wrapper.find(`input[name="player2"]`)).toHaveLength(0);
 
@@ -56,14 +55,12 @@ describe("CustomIP", () => {
     expect(wrapper.find(`input[name="player1"]`)).toHaveLength(1);
     expect(wrapper.find(`input[name="player2"]`)).toHaveLength(0);
     expect(wrapper.find(`input[name="dcv"]`)).toHaveLength(0);
-    expect(wrapper.find(`input[name="bvv"]`)).toHaveLength(0);
 
     // Switch to player2
     wrapper.find(`li[data-test="tab-player2"]`).simulate("click");
     expect(wrapper.find(`input[name="player2"]`)).toHaveLength(1);
     expect(wrapper.find(`input[name="player1"]`)).toHaveLength(0);
     expect(wrapper.find(`input[name="dcv"]`)).toHaveLength(0);
-    expect(wrapper.find(`input[name="bvv"]`)).toHaveLength(0);
   });
 
   test("Proceeds correctly with the dealer node", () => {
@@ -74,19 +71,9 @@ describe("CustomIP", () => {
     wrapper.find(`input[name="dcv"]`).simulate("change", {
       target: { value: "1.2.3.4" }
     });
-    wrapper.find(`input[name="bvv"]`).simulate("change", {
-      target: { value: "5.6.7.8" }
-    });
 
     // Click the Set Nodes button
     wrapper.find(`Button[data-test="set-nodes-button"]`).simulate("click");
-
-    // Sets the nodes in state
-    expect(updateStateValue).toHaveBeenCalledWith(
-      "nodes",
-      { bvv: "5.6.7.8", dcv: "1.2.3.4" },
-      dispatch
-    );
 
     // Sets the nodeType in state
     expect(updateStateValue).toHaveBeenCalledWith(

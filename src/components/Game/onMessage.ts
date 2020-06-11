@@ -9,7 +9,6 @@ import {
   dealCards,
   fold,
   game,
-  log,
   nextHand,
   playerJoin,
   seats,
@@ -33,6 +32,7 @@ import {
   processControls,
   updateMainPot
 } from "../../store/actions";
+import log from "../../lib/dev";
 import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
 import { IState } from "../../store/initialState";
@@ -96,10 +96,6 @@ export const onMessage = (
       seats(message.seats, dispatch);
       break;
 
-    case "check_bvv_ready":
-      sendMessage(message, "bvv", state, dispatch);
-      break;
-
     case "turn":
       console.log("Received the turn info");
 
@@ -133,32 +129,6 @@ export const onMessage = (
 
     case "blindsInfo":
     /*update small_blind and big_blind values received from backend to the gui here*/
-  }
-};
-
-export const onMessage_bvv = (
-  messageString: string,
-  state: IState,
-  dispatch: (arg: object) => void
-): void => {
-  const message: IMessage = JSON.parse(messageString);
-
-  setLastMessage(message, dispatch);
-  log("Received from BVV: ", "received", message);
-  log(message.method, "info", undefined);
-
-  switch (message.method) {
-    case "init_b":
-      message.method = "init_b_player";
-      message.gui_playerID = 0;
-      sendMessage(message, "player1", state, dispatch);
-
-      message.gui_playerID = 1;
-      sendMessage(message, "player2", state, dispatch);
-      break;
-
-    default:
-      sendMessage(message, "dcv", state, dispatch);
   }
 };
 
