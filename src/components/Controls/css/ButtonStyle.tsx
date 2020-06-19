@@ -18,7 +18,7 @@ const effs = `
 }
 `
 export const ButtonStyle = styled('button')
-`
+  `
     background: var(--color-background);
     border: 0.0625rem solid var(--color-primary);
     border-radius: 0.125rem;
@@ -31,31 +31,31 @@ export const ButtonStyle = styled('button')
     line-height: 1rem;
     transition: 0.1s ease;
     width: ${props => props.small ? "3.625rem" : "7.5rem"};
-    cursor: ${props => props.disabled ? 'not-allowed;' :  '{}'};    
+    cursor: ${props => props.disabled ? 'not-allowed;' : '{}'};    
     ${props => !props.disabled ? effs : ''};
            
 `;
 
-const hover = 
-`{
+const hover =
+  `{
   background: var(--color-accent);
   border-color: var(--color-accent);
   color: var(--color-background);
 }`;
 export const highlightedButtonStyle = styled('div')
-`
+  `
   background: var(--color-primaryLight);
   border-color: var(--color-primaryLight);
   color: var(--color-background);
-  &:hover: ${props => !props.disabled ? hover :  '{}'};
+  &:hover: ${props => !props.disabled ? hover : '{}'};
   &:active {
     border-color: var(--color-primary);
   }
-`));
+`;
 
 
 const before =
-`
+  `
 {
   content: "";
   display: block;
@@ -66,12 +66,12 @@ const before =
 `;
 
 export const ButtonInnerWrapper = styled('div')
-    `
+  `
     display: flex;
     align-items: center;
     font-family: var(--font-family-secondary);
     text-align: center;
     justify-content: center;
     /* Crop line height */
-    &:before: ${props => props.amount ? before :  '{}'};
+    &:before: ${props => props.amount ? before : '{}'};
   `;
