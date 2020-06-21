@@ -144,7 +144,6 @@ const Withdraw: React.FunctionComponent<IProps> = ({
           data-test="close-button-cashier-withdraw"
         />
         {withdrawStatus !== Status.Success && (
-          // <MainButtonWrapper>
           <Button
             css={css`
               display: none;
@@ -159,7 +158,6 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               withdrawStatus === Status.Processing
             }
           />
-          // </MainButtonWrapper>
         )}
       </ModalButtonsWrapper>
     </form>

@@ -43,10 +43,6 @@ export const CashierButton = styled.div`
 
 /** WITHDRAW */
 
-export const Balance = styled.div`
-  color: var(--color-accent);
-`;
-
 export const ErrorMessage = styled.div`
   color: var(--color-accent);
   font-size: var(--font-size-xs);
