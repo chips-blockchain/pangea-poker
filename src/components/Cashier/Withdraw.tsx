@@ -13,6 +13,8 @@ import InputWithButton from "../Form/InputWIthButton";
 import "../../styles/tooltip.css";
 import displayBalanceDecimals from "../../lib/balanceWithDecimals";
 
+import { Balance, ErrorMessage, InputWrapper, SuccessMessage } from "./css/style";
+
 interface IProps {
   dispatch: (arg: object) => void;
   state: IState;
@@ -20,28 +22,6 @@ interface IProps {
 }
 
 type IBalance = number | string;
-
-const Balance = styled.div`
-  color: var(--color-accent);
-`;
-
-const ErrorMessage = styled.div`
-  color: var(--color-accent);
-  font-size: var(--font-size-xs);
-`;
-
-const InputWrapper = styled.div`
-  margin-top: 1rem;
-`;
-
-const SuccessMessage = styled.div`
-  color: var(--color-primaryLight);
-  padding-top: 2rem;
-  & > div {
-    font-size: 4rem;
-    padding-bottom: 1rem;
-  }
-`;
 
 const Withdraw: React.FunctionComponent<IProps> = ({
   state,
