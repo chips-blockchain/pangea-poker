@@ -1,8 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled";
-import { css } from "@emotion/core";
-import chevronDown from "./assets/chevronDown.svg";
-import { inputStyle } from "./Input";
+import { DropdownWrapper,  dropdownStyle} from "./css/style";
 import Label from "./Label";
 
 interface IProps {
@@ -13,19 +10,6 @@ interface IProps {
   options?: string[];
   required?: boolean;
 }
-
-const DropdownWrapper = styled.div`
-  padding: 0.5rem;
-`;
-
-const dropdownStyle = css`
-  ${inputStyle}
-  appearance: none;
-  background-image: url(${chevronDown});
-  background-repeat: no-repeat;
-  background-position: right 0.5rem center;
-  padding: 0.5rem 2rem 0.5rem 1rem;
-`;
 
 const Dropdown: React.FunctionComponent<IProps> = ({
   forwardRef,

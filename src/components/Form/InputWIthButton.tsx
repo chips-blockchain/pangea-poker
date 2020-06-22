@@ -3,28 +3,13 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/core";
 import Input, { IProps } from "./Input";
 import { Button } from "../Controls/";
+import { customInputStyle, customButtonStyle, Wrapper} from "./css/style";
 
 interface IInputWIthButtonProps extends IProps {
   handleButtonClick: () => void;
   buttonLabel: string;
   onBlur: React.ChangeEventHandler;
 }
-
-const customInputStyle = css`
-  padding: 0.5rem 2.25rem 0.5rem 1rem;
-`;
-
-const customButtonStyle = css`
-  position: absolute;
-  height: 1.25rem;
-  width: 2rem;
-  top: 32;
-  right: 48;
-`;
-
-const Wrapper = styled.div`
-  position: relative;
-`;
 
 const InputWithButton: React.FunctionComponent<IInputWIthButtonProps> = ({
   forwardRef,
