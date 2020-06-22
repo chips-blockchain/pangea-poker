@@ -1,4 +1,3 @@
-import { css, SerializedStyles } from "@emotion/core";
 import styled from "@emotion/styled";
 
 
@@ -75,3 +74,20 @@ export const ButtonInnerWrapper = styled('div')
     /* Crop line height */
     &:before: ${props => props.amount ? before : '{}'};
   `;
+
+  export const SliderContainer = styled('div')
+  `
+    margin: 0.125rem 0.125rem 0.25rem 0.125rem;
+  `
+
+  export const SliderWrapper = styled('div')
+  `
+    align-items: center;
+    background: var(--color-background);
+    border: 0.0625rem solid var(--color-primary);
+    display: inline-block;
+    display: flex;
+    border-radius: 0.125rem;
+    height: 1.6rem;
+    justify-content: flex-start;
+  `

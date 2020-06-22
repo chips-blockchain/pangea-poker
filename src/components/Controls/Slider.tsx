@@ -2,8 +2,9 @@ import { css } from "@emotion/core";
 import { useContext, useEffect } from "react";
 import { StateContext } from "../../store/context";
 import RCSlider from "rc-slider";
-import "./slider.css";
+import "./css/slider.css";
 import { IState } from "../../store/initialState";
+import { SliderContainer, SliderWrapper } from "./css/style";
 
 // This is the Slider component used in Controls to set bet/raise amount
 
@@ -35,31 +36,16 @@ const Slider: React.FunctionComponent<IProps> = ({ setRaiseAmount }) => {
   };
 
   return (
-    <div
-      css={css`
-        margin: 0.125rem 0.125rem 0.25rem 0.125rem;
-      `}
-    >
-      <div
-        css={css`
-          align-items: center;
-          background: var(--color-background);
-          border: 0.0625rem solid var(--color-primary);
-          display: inline-block;
-          display: flex;
-          border-radius: 0.125rem;
-          height: 1.6rem;
-          justify-content: flex-start;
-        `}
-      >
+    <SliderContainer>
+      <SliderWrapper>
         <RCSlider
           onChange={handleSliderAmount()}
           min={minRaiseTo}
           step={step}
           max={roundedMax}
         />
-      </div>
-    </div>
+      </SliderWrapper>
+    </SliderContainer>
   );
 };
 

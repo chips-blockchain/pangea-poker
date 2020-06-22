@@ -1,5 +1,5 @@
 import numberWithCommas from "../../lib/numberWithCommas";
-import {ButtonStyle, ButtonInnerWrapper, highlightedButtonStyle} from "./css/ButtonStyle";
+import {ButtonStyle, ButtonInnerWrapper, highlightedButtonStyle} from "./css/style";
 import { css } from "@emotion/core";
 // This component renders a Button
 
