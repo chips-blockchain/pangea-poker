@@ -5,7 +5,7 @@ import ReactTooltip from "react-tooltip";
 import { IState } from "../../store/initialState";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
-import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
+import { ModalButtonsWrapper } from "../Modal/assets/style";
 import { Button } from "../Controls";
 import "../../styles/tooltip.css";
 import {AdditionalInfo, AddressLabel, Balance, DepositAddress, DepositAddressContainer } from './css/style';

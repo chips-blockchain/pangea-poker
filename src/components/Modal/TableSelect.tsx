@@ -10,7 +10,6 @@ import {
   setUserSeat
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
-// import ModalButtonsWrapper from "./ModalButtonsWrapper";
 import { Table, TableArea , ModalButtonsWrapper} from "./assets/style";
 
 interface IProps {

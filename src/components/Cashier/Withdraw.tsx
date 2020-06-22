@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { IState } from "../../store/initialState";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
-import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
+import { ModalButtonsWrapper } from "../Modal/assets/style";
 import { Button } from "../Controls";
 import { Dropdown } from "../Form";
 import InputWithButton from "../Form/InputWIthButton";
