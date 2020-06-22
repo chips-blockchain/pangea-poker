@@ -1,6 +1,5 @@
 import { css } from "@emotion/core";
 import Card, { CardFlip } from "../Card";
-import { GameTurns } from "../../lib/constants";
 import {BoardContainer, FlopElem, BoardCard1, BoardCard2, River } from "./css/BoardStyle";
 
 // This component renders the boardcards (the flop, turn and river)
@@ -9,8 +8,6 @@ interface IProps {
   boardCards: string[];
   gameTurn: 0 | 1 | 2 | 3 | 4;
 }
-
-const { preFlop } = GameTurns;
 
 const Board: React.FunctionComponent<IProps> = ({ boardCards, gameTurn }) => {
   return (

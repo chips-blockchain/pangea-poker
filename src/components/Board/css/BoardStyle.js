@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { GameTurns } from "../../../lib/constants";
 const { preFlop } = GameTurns;
 
 export const BoardContainer = styled('div')
