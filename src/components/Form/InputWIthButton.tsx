@@ -1,9 +1,7 @@
 import React from "react";
-import styled from "@emotion/styled";
-import { css } from "@emotion/core";
 import Input, { IProps } from "./Input";
 import { Button } from "../Controls/";
-import { customInputStyle, customButtonStyle, Wrapper} from "./css/style";
+import { customInputStyle, customButtonStyle, Wrapper } from "./css/style";
 
 interface IInputWIthButtonProps extends IProps {
   handleButtonClick: () => void;

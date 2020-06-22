@@ -1,5 +1,4 @@
 import { css } from "@emotion/core";
-import styled from "@emotion/styled";
 import React, { useState, useEffect, useContext } from "react";
 import Card from "../Card";
 import { CardFaceDown } from "../Card";
@@ -19,18 +18,18 @@ import { IPlayer, IState } from "../../store/initialState";
 import { IMessage } from "../Game/onMessage";
 import { Possibilities, PlayerActions, GameTurns } from "../../lib/constants";
 import sounds from "../../sounds/sounds";
-import { 
-  Balance, 
-  CardsWrapper, 
-  faceDownCards, 
-  PlayerEmoji, 
-  playerWidget, 
-  PlayerName, 
-  PlayerInfo, 
-  PlayerTimerBar, 
+import {
+  Balance,
+  CardsWrapper,
+  faceDownCards,
+  PlayerEmoji,
+  playerWidget,
+  PlayerName,
+  PlayerInfo,
+  PlayerTimerBar,
   PlayerHighlight,
   PlayerNameWrapper
- } from "./assets/style";
+} from "./assets/style";
 
 // This is the Player widget that shows the player avatar, the chips amount, wether the player has cards, etc
 
@@ -38,7 +37,6 @@ interface IProps extends IPlayer {
   chips: number;
   connected: boolean;
   isActive: boolean;
-  winner: string;
 }
 
 const { showDown } = GameTurns;
@@ -50,8 +48,7 @@ const Player: React.FunctionComponent<IProps> = ({
   isActive,
   playerCards,
   seat,
-  showCards,
-  winner
+  showCards
 }) => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
@@ -84,13 +81,13 @@ const Player: React.FunctionComponent<IProps> = ({
   // Time Allowance for each player to act in milliseconds
   const timeAllowance = 30000;
 
-  // Transition speed for the timer animation in seconds
-  const transitionSpeed = 0.1;
-
   // State for counting the seconds
   const [secondsLeft, setSecondsLeft] = useState(timeAllowance);
 
-  const playerNameColor = lastAction.action && seat == playerIdToString(lastAction.player) ? "var(--color-accent)" : userName.color;
+  const playerNameColor =
+    lastAction.action && seat == playerIdToString(lastAction.player)
+      ? "var(--color-accent)"
+      : userName.color;
 
   const handlePlayerClick = () => (): void => {
     if (!connected) {
@@ -204,7 +201,7 @@ const Player: React.FunctionComponent<IProps> = ({
         secondsLeft={secondsLeft}
       >
         <PlayerNameWrapper connected={connected}>
-          <PlayerName color={playerNameColor} connected={connected} >
+          <PlayerName color={playerNameColor} connected={connected}>
             {/* Show the player's name or the last action */}
             {!connected
               ? seatMessage
@@ -218,10 +215,7 @@ const Player: React.FunctionComponent<IProps> = ({
       </PlayerInfo>
       {/* Active player countdown */}
       {isActive && (
-        <PlayerHighlight
-          secondsLeft={secondsLeft}
-          data-test="player-highlight"
-        >
+        <PlayerHighlight secondsLeft={secondsLeft} data-test="player-highlight">
           <PlayerTimerBar
             secondsLeft={secondsLeft}
             data-test="player-timer-bar"

@@ -1,4 +1,3 @@
-import { css } from "@emotion/core";
 import { useReducer, useEffect, useState } from "react";
 import diff from "deep-diff";
 import reducer from "../../store/reducer";
@@ -19,7 +18,12 @@ import { StartupModal } from "../Modal";
 import DeveloperMode from "../DeveloperMode";
 import LogBox from "../LogBox";
 import Cashier from "../Cashier";
-import {TableContainer, GameTypeWrapper, TableWrapper, Absolute} from "./css/TableStyle";
+import {
+  TableContainer,
+  GameTypeWrapper,
+  TableWrapper,
+  Absolute
+} from "./css/TableStyle";
 
 // This is the current Main component
 
@@ -64,9 +68,7 @@ const Table: React.FunctionComponent = () => {
         {isDeveloperMode && <DeveloperMode />}
         <TableContainer>
           <Connections />
-          <GameTypeWrapper>
-            {gameType}
-          </GameTypeWrapper>
+          <GameTypeWrapper>{gameType}</GameTypeWrapper>
           <TableWrapper>
             <Absolute />
             {options.showPotCounter && (

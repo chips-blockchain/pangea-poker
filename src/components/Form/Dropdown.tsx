@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownWrapper,  dropdownStyle} from "./css/style";
+import { DropdownWrapper, dropdownStyle } from "./css/style";
 import Label from "./Label";
 
 interface IProps {

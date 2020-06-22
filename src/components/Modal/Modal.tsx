@@ -1,7 +1,7 @@
 import React from "react";
 import ReactModal from "react-modal";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { modalStyle, tabsStyle} from "./assets/style";
+import { modalStyle, tabsStyle } from "./assets/style";
 
 interface IProps {
   children?: React.ReactNode;

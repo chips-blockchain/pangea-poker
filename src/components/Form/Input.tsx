@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "@emotion/styled";
 import { css, SerializedStyles } from "@emotion/core";
 import Label from "./Label";
 import { inputStyle, InputWrapper } from "./css/style";

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "@emotion/styled";
 import axios from "axios";
 import Button from "../Controls/Button";
 import {
@@ -10,7 +9,7 @@ import {
   setUserSeat
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
-import { Table, TableArea , ModalButtonsWrapper} from "./assets/style";
+import { Table, TableArea, ModalButtonsWrapper } from "./assets/style";
 
 interface IProps {
   dispatch: (arg: object) => void;

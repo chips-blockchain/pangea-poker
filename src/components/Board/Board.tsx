@@ -1,6 +1,11 @@
-import { css } from "@emotion/core";
 import Card, { CardFlip } from "../Card";
-import {BoardContainer, FlopElem, BoardCard1, BoardCard2, River } from "./css/BoardStyle";
+import {
+  BoardContainer,
+  FlopElem,
+  BoardCard1,
+  BoardCard2,
+  River
+} from "./css/BoardStyle";
 
 // This component renders the boardcards (the flop, turn and river)
 
@@ -17,10 +22,10 @@ const Board: React.FunctionComponent<IProps> = ({ boardCards, gameTurn }) => {
         <span>
           <Card card={boardCards[0]} />
         </span>
-        <BoardCard1  gameTurn={gameTurn}>
+        <BoardCard1 gameTurn={gameTurn}>
           <Card card={boardCards[1]} />
         </BoardCard1>
-        <BoardCard2  gameTurn={gameTurn}>
+        <BoardCard2 gameTurn={gameTurn}>
           <Card card={boardCards[2]} />
         </BoardCard2>
       </FlopElem>

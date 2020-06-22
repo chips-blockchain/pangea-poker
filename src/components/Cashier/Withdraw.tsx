@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "@emotion/styled";
 import { css } from "@emotion/core";
 import { useForm } from "react-hook-form";
 import { IState } from "../../store/initialState";
@@ -13,7 +12,12 @@ import InputWithButton from "../Form/InputWIthButton";
 import "../../styles/tooltip.css";
 import displayBalanceDecimals from "../../lib/balanceWithDecimals";
 
-import { Balance, ErrorMessage, InputWrapper, SuccessMessage } from "./css/style";
+import {
+  Balance,
+  ErrorMessage,
+  InputWrapper,
+  SuccessMessage
+} from "./css/style";
 
 interface IProps {
   dispatch: (arg: object) => void;

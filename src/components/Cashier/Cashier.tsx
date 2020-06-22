@@ -6,7 +6,7 @@ import { Button } from "../Controls";
 import { sendMessage } from "../../store/actions";
 import { updateStateValue } from "../../store/actions";
 import { IState } from "../../store/initialState";
-import {CashierButton} from "./css/style";
+import { CashierButton } from "./css/style";
 
 // This modal opens up when the player clicks the Cashier button and allows the player to
 // move funds to and away from the account

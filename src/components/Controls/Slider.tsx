@@ -1,4 +1,3 @@
-import { css } from "@emotion/core";
 import { useContext, useEffect } from "react";
 import { StateContext } from "../../store/context";
 import RCSlider from "rc-slider";
