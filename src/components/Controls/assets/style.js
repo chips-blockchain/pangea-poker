@@ -15,7 +15,7 @@ const effs = `
   color: var(--color-background);
 }
 `;
-export const ButtonStyle = styled("button")`
+export const ButtonStyle = styled.button`
   background: var(--color-background);
   border: 0.0625rem solid var(--color-primary);
   border-radius: 0.125rem;

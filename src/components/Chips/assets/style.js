@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const BetWrapper = styled("span")`
+export const BetWrapper = styled.span`
   align-items: center;
   display: grid;
   grid-area: ${p => p.forPlayer};
@@ -13,14 +13,14 @@ export const BetWrapper = styled("span")`
   transition-delay: 0.4s;
 `;
 
-export const StackWrapper = styled("span")`
+export const StackWrapper = styled.span`
   ${p =>
     p.forPlayer === "player2" || p.forPlayer === "player3"
       ? "order: 2;"
       : "order: 1;"}
 `;
 
-export const AmountWrapper = styled("span")`
+export const AmountWrapper = styled.span`
   color: var(--color-text);
   font-size: var(--font-size-xxs);
   padding: 0 0 0.5rem 0.3rem;
