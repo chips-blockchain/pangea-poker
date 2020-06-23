@@ -50,7 +50,6 @@ export const bet = (
   });
 };
 
-
 // Collect the chips from the player before a new turn
 export const collectChips = (
   state: IState,
@@ -297,7 +296,7 @@ export const sendMessage = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
- if (state.connection[node] === "Connected") {
+  if (state.connection[node] === "Connected") {
     dispatch({
       type: "setMessage",
       payload: {
@@ -317,12 +316,12 @@ export const sendInitMessage = (
   log(`Sent to ${node}: `, "sent", "Connect");
   dispatch({
     type: "connect",
-    payload: { 
-      nodeName: node, 
-      readyState: readyStateString 
+    payload: {
+      nodeName: node,
+      readyState: readyStateString
     }
   });
-}
+};
 
 export const setActivePlayer = (
   player: string,

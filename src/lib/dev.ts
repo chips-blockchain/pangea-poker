@@ -1,10 +1,15 @@
 import { IMessage } from "../components/Game/onMessage";
 
-export const isDev: boolean = process.env.NODE_ENV === 'development';
+export const isDev: boolean = process.env.NODE_ENV === "development";
 
 // A colored console.log
-const log = (text: string, color: string, message?: Object): void => {
-    isDev && console.log(
+const log = (
+  text: string,
+  color: string,
+  message?: Record<string, any>
+): void => {
+  isDev &&
+    console.log(
       "%c" + text,
       `color: ${
         color === "sent"
@@ -19,6 +24,6 @@ const log = (text: string, color: string, message?: Object): void => {
       }; background-color: #2a2b2e;`,
       message ? message : ""
     );
-  };
-  
-  export default log;
+};
+
+export default log;
