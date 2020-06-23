@@ -17,7 +17,7 @@ import {
   ErrorMessage,
   InputWrapper,
   SuccessMessage
-} from "./css/style";
+} from "./assets/style";
 
 interface IProps {
   dispatch: (arg: object) => void;

@@ -3,7 +3,7 @@ import {
   ButtonStyle,
   ButtonInnerWrapper,
   highlightedButtonStyle
-} from "./css/style";
+} from "./assets/style";
 import { css } from "@emotion/core";
 // This component renders a Button
 

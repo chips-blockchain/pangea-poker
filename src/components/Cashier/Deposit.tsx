@@ -13,7 +13,7 @@ import {
   Balance,
   DepositAddress,
   DepositAddressContainer
-} from "./css/style";
+} from "./assets/style";
 
 interface IProps {
   dispatch: (arg: object) => void;

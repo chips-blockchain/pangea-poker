@@ -5,7 +5,7 @@ import {
   BoardCard1,
   BoardCard2,
   River
-} from "./css/BoardStyle";
+} from "./assets/style";
 
 // This component renders the boardcards (the flop, turn and river)
 

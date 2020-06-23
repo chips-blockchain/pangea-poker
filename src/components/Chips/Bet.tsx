@@ -1,6 +1,6 @@
 import numberWithCommas from "../../lib/numberWithCommas";
 import Stack from "./Stack";
-import { BetWrapper, StackWrapper, AmountWrapper } from "./css/style";
+import { BetWrapper, StackWrapper, AmountWrapper } from "./assets/style";
 
 // This component shows a stack of chips and the corresponding amount next to it. Used to show player bets and the main pot.
 
