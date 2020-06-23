@@ -25,7 +25,7 @@ In order not to fail Gitub CI all the time, set up a local git hook to check lin
 `./.git/hooks/pre-push`
 
 ```
-cd ../../ && ./node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx
+node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx
 npm run test
 ```
 
