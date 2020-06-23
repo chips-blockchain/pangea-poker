@@ -22,13 +22,18 @@ Run `npm electron-pack` to package the app with electron-builder for MacOS, Wind
 
 In order not to fail Gitub CI all the time, set up a local git hook to check lint and run tests before a push to the repo.
 
-`./.git/hooks/pre-push`
+ [Pre push Github docs](https://www.git-scm.com/docs/githooks#_pre_push)
+
+
+`nano ./.git/hooks/pre-push`
 
 ```
 set -e
 node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx
 npm run test
 ```
+
+`sudo chmod +x ./.git/hooks/pre-push`
 
 ## Contributing
 
