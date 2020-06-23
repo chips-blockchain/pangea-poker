@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 
-
 const effs = ` 
 &:hover {
   color: var(--color-accent);
@@ -15,46 +14,40 @@ const effs = `
   background: var(--color-accent);
   color: var(--color-background);
 }
-`
-export const ButtonStyle = styled('button')
-  `
-    background: var(--color-background);
-    border: 0.0625rem solid var(--color-primary);
-    border-radius: 0.125rem;
-    color: var(--color-text);
-    font-size: ${props => props.small ? ".75rem" : "1rem"};
-    font-weight: 700;
-    height: ${props => props.small ? "1.75rem" : "2.5rem"};
-    margin: 0.5rem;
-    opacity: ${props => props.disabled && "0.5"};
-    line-height: 1rem;
-    transition: 0.1s ease;
-    width: ${props => props.small ? "3.625rem" : "7.5rem"};
-    cursor: ${props => props.disabled ? 'not-allowed;' : '{}'};    
-    ${props => !props.disabled ? effs : ''};
-           
+`;
+export const ButtonStyle = styled("button")`
+  background: var(--color-background);
+  border: 0.0625rem solid var(--color-primary);
+  border-radius: 0.125rem;
+  color: var(--color-text);
+  font-size: ${props => (props.small ? ".75rem" : "1rem")};
+  font-weight: 700;
+  height: ${props => (props.small ? "1.75rem" : "2.5rem")};
+  margin: 0.5rem;
+  opacity: ${props => props.disabled && "0.5"};
+  line-height: 1rem;
+  transition: 0.1s ease;
+  width: ${props => (props.small ? "3.625rem" : "7.5rem")};
+  cursor: ${props => (props.disabled ? "not-allowed;" : "{}")};
+  ${props => (!props.disabled ? effs : "")};
 `;
 
-const hover =
-  `{
+const hover = `{
   background: var(--color-accent);
   border-color: var(--color-accent);
   color: var(--color-background);
 }`;
-export const highlightedButtonStyle = styled('div')
-  `
+export const highlightedButtonStyle = styled("div")`
   background: var(--color-primaryLight);
   border-color: var(--color-primaryLight);
   color: var(--color-background);
-  &:hover: ${props => !props.disabled ? hover : '{}'};
+  &:hover: ${props => (!props.disabled ? hover : "{}")};
   &:active {
     border-color: var(--color-primary);
   }
 `;
 
-
-const before =
-  `
+const before = `
 {
   content: "";
   display: block;
@@ -64,30 +57,27 @@ const before =
 } 
 `;
 
-export const ButtonInnerWrapper = styled('div')
-  `
+export const ButtonInnerWrapper = styled("div")`
     display: flex;
     align-items: center;
     font-family: var(--font-family-secondary);
     text-align: center;
     justify-content: center;
     /* Crop line height */
-    &:before: ${props => props.amount ? before : '{}'};
+    &:before: ${props => (props.amount ? before : "{}")};
   `;
 
-  export const SliderContainer = styled('div')
-  `
-    margin: 0.125rem 0.125rem 0.25rem 0.125rem;
-  `
+export const SliderContainer = styled("div")`
+  margin: 0.125rem 0.125rem 0.25rem 0.125rem;
+`;
 
-  export const SliderWrapper = styled('div')
-  `
-    align-items: center;
-    background: var(--color-background);
-    border: 0.0625rem solid var(--color-primary);
-    display: inline-block;
-    display: flex;
-    border-radius: 0.125rem;
-    height: 1.6rem;
-    justify-content: flex-start;
-  `
+export const SliderWrapper = styled("div")`
+  align-items: center;
+  background: var(--color-background);
+  border: 0.0625rem solid var(--color-primary);
+  display: inline-block;
+  display: flex;
+  border-radius: 0.125rem;
+  height: 1.6rem;
+  justify-content: flex-start;
+`;
