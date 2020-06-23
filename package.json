@@ -10,7 +10,8 @@
     "electron-pack": "electron-builder -mwl",
     "start": "NODE_ENV=development parcel src/index.html --open --out-dir build",
     "test": "jest",
-    "lint:fix": "eslint './src/**/*.{ts,tsx}'"
+    "lint:fix": "node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx --fix",
+    "lint": "node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx"
   },
   "build": {
     "appId": "com.pangea-poker",
