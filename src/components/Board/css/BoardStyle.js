@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { GameTurns } from "../../../lib/constants";
 const { preFlop } = GameTurns;
 
-export const BoardContainer = styled("div")`
+export const BoardContainer = styled.div`
   height: 4.25rem;
   position: absolute;
   top: 13.75rem;

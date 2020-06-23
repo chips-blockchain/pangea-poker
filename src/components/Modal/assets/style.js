@@ -49,7 +49,7 @@ export const TableArea = styled.div`
   overflow: scroll;
 `;
 
-export const ModalButtonsWrapper = styled("div")`
+export const ModalButtonsWrapper = styled.div`
   bottom: 2rem;
   left: 0;
   position: absolute;

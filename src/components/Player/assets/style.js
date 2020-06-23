@@ -82,7 +82,7 @@ export const playerWidget = css`
   cursor: pointer;
 `;
 
-export const PlayerHighlight = styled("div")`
+export const PlayerHighlight = styled.div`
   background: var(--color-background);
   border: 2px solid ${p => colorChange(p.secondsLeft)};
   height: 0.5rem;
@@ -93,7 +93,7 @@ export const PlayerHighlight = styled("div")`
   width: 6.75rem;
 `;
 
-export const PlayerTimerBar = styled("div")`
+export const PlayerTimerBar = styled.div`
   background-color: ${p => colorChange(p.secondsLeft)};
   height: 0.5rem;
   width: ${p => (p.secondsLeft / timeAllowance) * 100}%;

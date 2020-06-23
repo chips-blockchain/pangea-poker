@@ -37,7 +37,7 @@ const hover = `{
   border-color: var(--color-accent);
   color: var(--color-background);
 }`;
-export const highlightedButtonStyle = styled("div")`
+export const highlightedButtonStyle = styled.div`
   background: var(--color-primaryLight);
   border-color: var(--color-primaryLight);
   color: var(--color-background);
@@ -57,7 +57,7 @@ const before = `
 } 
 `;
 
-export const ButtonInnerWrapper = styled("div")`
+export const ButtonInnerWrapper = styled.div`
     display: flex;
     align-items: center;
     font-family: var(--font-family-secondary);
@@ -67,11 +67,11 @@ export const ButtonInnerWrapper = styled("div")`
     &:before: ${props => (props.amount ? before : "{}")};
   `;
 
-export const SliderContainer = styled("div")`
+export const SliderContainer = styled.div`
   margin: 0.125rem 0.125rem 0.25rem 0.125rem;
 `;
 
-export const SliderWrapper = styled("div")`
+export const SliderWrapper = styled.div`
   align-items: center;
   background: var(--color-background);
   border: 0.0625rem solid var(--color-primary);
