@@ -1,7 +1,7 @@
 import React from "react";
 import { css, SerializedStyles } from "@emotion/core";
 import Label from "./Label";
-import { inputStyle, InputWrapper } from "./css/style";
+import { inputStyle, InputWrapper } from "./assets/style";
 
 export interface IProps {
   defaultValue?: string;

@@ -1,7 +1,7 @@
 import React from "react";
 import Input, { IProps } from "./Input";
 import { Button } from "../Controls/";
-import { customInputStyle, customButtonStyle, Wrapper } from "./css/style";
+import { customInputStyle, customButtonStyle, Wrapper } from "./assets/style";
 
 interface IInputWIthButtonProps extends IProps {
   handleButtonClick: () => void;
