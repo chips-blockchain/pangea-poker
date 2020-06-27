@@ -1,106 +1,53 @@
 /*eslint-disable @typescript-eslint/camelcase*/
+const defaultPlayer = {
+  isPlaying: false,
+  chips: 200,
+  hasCards: false,
+  showCards: false,
+  isBetting: false,
+  betAmount: 0,
+  playerCards: [],
+  connected: false
+}
 
 const initialState: IState = {
   // Object of all players at the table
   players: {
     player1: {
-      isPlaying: false,
-      seat: "player1",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
+      ...defaultPlayer,
+      seat: "player1"
     },
     player2: {
-      isPlaying: false,
-      seat: "player2",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
+      ...defaultPlayer,
+      seat: "player2"
     },
     player3: {
-      isPlaying: false,
-      seat: "player3",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
+      ...defaultPlayer,
+      seat: "player3"
     },
     player4: {
-      isPlaying: false,
-      seat: "player4",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
+      ...defaultPlayer,
+      seat: "player4"
     },
     player5: {
-      isPlaying: false,
-      seat: "player5",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
+      ...defaultPlayer,
+      seat: "player5"
     },
     player6: {
-      isPlaying: false,
-      seat: "player6",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
+      ...defaultPlayer,
+      seat: "player6"
     },
     player7: {
-      isPlaying: false,
-      seat: "player7",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
+      ...defaultPlayer,
+      seat: "player7"
     },
     player8: {
-      isPlaying: false,
-      seat: "player8",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
+      ...defaultPlayer,
+      seat: "player8"
     },
     player9: {
-      isPlaying: false,
-      seat: "player9",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
+      ...defaultPlayer,
+      seat: "player9"
     }
   },
   // Which seat is the active player
