@@ -10,13 +10,15 @@ const defaultPlayer = {
   betAmount: 0,
   playerCards: [],
   connected: false
-}
+};
 
-let local = {}
+let local = {};
 try {
-  local = require('../config/local.json');
+  local = require("../config/local.json");
 } catch (e) {
-  console.warn('CHIPS WARNING: You are missing a local configuration file. Check README for more details.')
+  console.warn(
+    "CHIPS WARNING: You are missing a local configuration file. Check README for more details."
+  );
 }
 
 const initialState: IState = {
@@ -180,7 +182,17 @@ export interface IPlayer {
 }
 
 export interface IState {
-  players: { player1: IPlayer; player2: IPlayer, player3: IPlayer, player4: IPlayer, player5: IPlayer, player6: IPlayer ,player7: IPlayer,player8: IPlayer, player9: IPlayer };
+  players: {
+    player1: IPlayer;
+    player2: IPlayer;
+    player3: IPlayer;
+    player4: IPlayer;
+    player5: IPlayer;
+    player6: IPlayer;
+    player7: IPlayer;
+    player8: IPlayer;
+    player9: IPlayer;
+  };
   activePlayer: string;
   balance: number;
   blinds: [number, number];
@@ -214,7 +226,7 @@ export interface IState {
   isStartupModal: boolean;
   lastAction: { player: number; action: string | null };
   lastMessage: object;
-  notice: INotice,
+  notice: INotice;
   nodes: {
     dcv: string | null;
     player1: string | null;

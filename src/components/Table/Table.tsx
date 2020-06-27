@@ -18,7 +18,12 @@ import { StartupModal } from "../Modal";
 import DeveloperMode from "../DeveloperMode";
 import LogBox from "../LogBox";
 import Cashier from "../Cashier";
-import { TableContainer, GameTypeWrapper, TableWrapper, Notice } from "./assets/style";
+import {
+  TableContainer,
+  GameTypeWrapper,
+  TableWrapper,
+  Notice
+} from "./assets/style";
 import "./assets/style.css";
 
 // This is the current Main component
@@ -74,7 +79,6 @@ const Table: React.FunctionComponent = () => {
             <Board boardCards={boardCards} gameTurn={gameTurn} />
             <PlayerGrid9Max>
               {nodeType === "player" &&
-
                 Object.values(players).map(
                   (player: IPlayer) =>
                     (player.connected || !userSeat) && (
@@ -88,13 +92,10 @@ const Table: React.FunctionComponent = () => {
                         players={players}
                         seat={player.seat}
                         showCards={player.showCards}
-                        key={player.seat}
                         winner={winner}
                       />
                     )
-                )
-                
-                }
+                )}
             </PlayerGrid9Max>
             <ChipGrid chipsCollected={chipsCollected}>
               {Object.values(players).map(
@@ -119,9 +120,7 @@ const Table: React.FunctionComponent = () => {
             )}
             {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
             {isLogBox && <LogBox handHistory={handHistory} />}
-            <Notice error={notice.level}>
-              {notice.text}
-            </Notice>
+            <Notice error={notice.level}>{notice.text}</Notice>
             {controls.showControls && (
               <div>
                 <Controls />

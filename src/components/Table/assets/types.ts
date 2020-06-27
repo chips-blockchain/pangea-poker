@@ -1,4 +1,4 @@
 export interface INotice {
-    text: string;
-    level: number;
+  text: string;
+  level: number;
 }
