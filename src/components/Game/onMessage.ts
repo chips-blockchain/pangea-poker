@@ -5,6 +5,7 @@ import {
   addToHandHistory,
   bet,
   collectChips,
+  connectPlayer,
   deal,
   dealCards,
   fold,
@@ -30,7 +31,9 @@ import {
   updateStateValue,
   setBoardCards,
   processControls,
-  updateMainPot
+  updateMainPot,
+  setNotification,
+  clearNotification
 } from "../../store/actions";
 import log from "../../lib/dev";
 import playerStringToId from "../../lib/playerStringToId";
@@ -75,6 +78,7 @@ export interface IMessage {
   winners?: number[];
 }
 
+const notifications = require('../../config/notifications.json');
 const { preFlop, flop, turn, showDown } = GameTurns;
 
 export const onMessage = (
@@ -425,6 +429,25 @@ export const onMessage_player = (
       }
       break;
     }
+
+    // the backend is confirming or rejecting the seat choice
+    case "join_info": 
+      message.seat_taken = 1;
+      if (message.seat_taken) {
+        if (state.userSeat === 'taken') {
+          clearNotification(dispatch);
+        }
+        let player = 'player' + message.gui_playerID;
+        clearNotification();
+        setUserSeat(player, dispatch);
+        connectPlayer(player, dispatch);
+        // only clear if 
+      } else {
+        setUserSeat('taken', dispatch);
+        setNotification(notifications.SEAT_TAKEN, dispatch);
+         // display notification that the seat is taken
+        // would be nice to receive the new tableInfo update at this point too
+      }
 
     case "join_req":
       setBalance(player, message.balance, dispatch);
