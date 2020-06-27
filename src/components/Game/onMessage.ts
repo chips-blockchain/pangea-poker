@@ -32,8 +32,8 @@ import {
   setBoardCards,
   processControls,
   updateMainPot,
-  setNotification,
-  clearNotification
+  setNotice,
+  clearNotice
 } from "../../store/actions";
 import log from "../../lib/dev";
 import playerStringToId from "../../lib/playerStringToId";
@@ -44,7 +44,7 @@ import arrayToSentence from "../../lib/arrayToSentence";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
 import { playersData } from "./testData";
-import { GameTurns } from "../../lib/constants";
+import { GameTurns, Level } from "../../lib/constants";
 export interface IMessage {
   action?: string;
   addr?: string;
@@ -432,20 +432,23 @@ export const onMessage_player = (
 
     // the backend is confirming or rejecting the seat choice
     case "join_info": 
-      message.seat_taken = 1;
+      message.seat_taken = 0;
       if (message.seat_taken) {
         if (state.userSeat === 'taken') {
-          clearNotification(dispatch);
+          clearNotice(dispatch);
         }
         let player = 'player' + message.gui_playerID;
-        clearNotification();
+        clearNotice(dispatch);
         setUserSeat(player, dispatch);
         connectPlayer(player, dispatch);
         // only clear if 
       } else {
         setUserSeat('taken', dispatch);
-        setNotification(notifications.SEAT_TAKEN, dispatch);
-         // display notification that the seat is taken
+        setNotice({
+          text: Notices.SEAT_TAKEN,
+          level: Level.error
+        }, dispatch);
+         // display Notice that the seat is taken
         // would be nice to receive the new tableInfo update at this point too
       }
 

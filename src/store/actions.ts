@@ -7,6 +7,7 @@ import { IMessage } from "../components/Game/onMessage";
 import { Possibilities, GameTurns } from "../lib/constants";
 import sounds from "../sounds/sounds";
 import log from "../lib/dev";
+import { INotice } from "../components/Table/assets/types";
 
 const { preFlop, flop, turn } = GameTurns;
 
@@ -79,12 +80,11 @@ export const connectPlayer = (
   });
 };
 
-export const clearNotification = (
-  notification: string,
+export const clearNotice = (
   dispatch: (arg: object) => void
 ): void => {
   dispatch({
-    type: "cleartNotification"
+    type: "cleartNotice"
   })
 }
 
@@ -427,13 +427,13 @@ export const setMinRaiseTo = (
   });
 };
 
-export const setNotification = (
-  notification: string,
+export const setNotice = (
+  notice: INotice,
   dispatch: (arg: object) => void
 ): void => {
   dispatch({
-    type: "setNotification",
-    payload: notification
+    type: "setNotice",
+    payload: notice
   })
 }
 

@@ -26,3 +26,9 @@ export enum GameTurns {
   "river" = 3,
   "showDown" = 4
 }
+
+export enum Level {
+  info = 1,
+  warning = 2,
+  error = 3
+}

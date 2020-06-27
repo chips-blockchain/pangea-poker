@@ -1,3 +1,5 @@
+import { INotice } from "../components/Table/assets/types";
+
 /*eslint-disable @typescript-eslint/camelcase*/
 const defaultPlayer = {
   isPlaying: false,
@@ -129,6 +131,10 @@ const initialState: IState = {
     player2: "0.0.0.0",
     echo: "0.0.0.0"
   },
+  notice: {
+    text: "Choose your seat to begin playing",
+    error: false
+  },
   message: {
     dcv: null,
     player1: null,
@@ -208,6 +214,7 @@ export interface IState {
   isStartupModal: boolean;
   lastAction: { player: number; action: string | null };
   lastMessage: object;
+  notice: INotice,
   nodes: {
     dcv: string | null;
     player1: string | null;
