@@ -27,21 +27,21 @@ export const TableWrapper = styled.div`
 
 // Main Pot's position at the center of the screen
 const { left, top } = {
-    left: 0,
-    top: "19rem"
+  left: 0,
+  top: "19rem"
 };
 
 // Coordinates for where the winner's pot should be pushed
 const winnerPotLocation = {
-    player1: {
-      left: "25rem",
-      top: "9.5rem"
-    },
-    player2: {
-      left: "30rem",
-      top: "14rem"
-    }
-  };
+  player1: {
+    left: "25rem",
+    top: "9.5rem"
+  },
+  player2: {
+    left: "30rem",
+    top: "14rem"
+  }
+};
 
 // Custom animation style for each winner to send each pot to the right location
 export const PotContainer = styled.div`

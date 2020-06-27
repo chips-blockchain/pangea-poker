@@ -18,11 +18,7 @@ import { StartupModal } from "../Modal";
 import DeveloperMode from "../DeveloperMode";
 import LogBox from "../LogBox";
 import Cashier from "../Cashier";
-import {
-  TableContainer,
-  GameTypeWrapper,
-  TableWrapper
-} from "./assets/style";
+import { TableContainer, GameTypeWrapper, TableWrapper } from "./assets/style";
 
 // This is the current Main component
 

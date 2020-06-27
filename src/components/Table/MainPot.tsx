@@ -1,7 +1,6 @@
-import { css } from "@emotion/core";
 import { Bet } from "../Chips";
 import { GameTurns } from "../../lib/constants";
-import { PotContainer }  from "./assets/style";
+import { PotContainer } from "./assets/style";
 
 // This is the component that displays the main pot at the middle of table
 
@@ -12,7 +11,6 @@ interface IProps {
 }
 
 const { showDown } = GameTurns;
-
 
 const MainPot: React.FunctionComponent<IProps> = ({
   pot,
