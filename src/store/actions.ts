@@ -79,6 +79,15 @@ export const connectPlayer = (
   });
 };
 
+export const clearNotification = (
+  notification: string,
+  dispatch: (arg: object) => void
+): void => {
+  dispatch({
+    type: "cleartNotification"
+  })
+}
+
 // Closes the Startup Modal
 export const closeStartupModal = (dispatch: (arg: object) => void): void => {
   dispatch({
@@ -417,6 +426,16 @@ export const setMinRaiseTo = (
     payload: amount
   });
 };
+
+export const setNotification = (
+  notification: string,
+  dispatch: (arg: object) => void
+): void => {
+  dispatch({
+    type: "setNotification",
+    payload: notification
+  })
+}
 
 export const setToCall = (
   amount: number,

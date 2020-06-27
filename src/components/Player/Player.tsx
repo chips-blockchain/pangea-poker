@@ -95,7 +95,8 @@ const Player: React.FunctionComponent<IProps> = ({
     if (!connected) {
       playerJoin(seat, state, dispatch);
       setSeatMessage("SITTING...");
-      setUserSeat(seat, dispatch)
+      // @todo remove the below, since the seat has to be confirmed from backend
+      setUserSeat(seat, dispatch);
       connectPlayer(seat, dispatch);
     }
   };
