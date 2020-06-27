@@ -35,6 +35,17 @@ npm run test
 
 `sudo chmod +x ./.git/hooks/pre-push`
 
+### State Management
+
+https://blog.logrocket.com/use-hooks-and-context-not-react-and-redux/
+
+Good video explaining redux vs context state management approach
+https://www.youtube.com/watch?time_continue=134&v=eBYJ7O482Dc&feature=emb_title
+
+### Developer Mode
+
+You can activate developer mode by modifying application state in `store/initialState.ts`, change value `isDeveloperMode` to true
+
 ## Contributing
 
 Please reach out to us via [Discord](https://discord.gg/NGPu4g) and check out the open [Issues](https://github.com/chips-blockchain/pangea-poker/issues).
