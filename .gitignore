@@ -4,3 +4,4 @@
 /.cache/
 /.env
 /.netlify/
+.DS_Store

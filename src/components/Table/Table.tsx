@@ -21,9 +21,8 @@ import Cashier from "../Cashier";
 import {
   TableContainer,
   GameTypeWrapper,
-  TableWrapper,
-  Absolute
-} from "./css/TableStyle";
+  TableWrapper
+} from "./assets/style";
 
 // This is the current Main component
 
@@ -70,7 +69,6 @@ const Table: React.FunctionComponent = () => {
           <Connections />
           <GameTypeWrapper>{gameType}</GameTypeWrapper>
           <TableWrapper>
-            <Absolute />
             {options.showPotCounter && (
               <TotalPot state={state} dispatch={dispatch} />
             )}
