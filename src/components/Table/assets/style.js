@@ -67,3 +67,12 @@ export const PotContainer = styled.div`
     }
   }
 `;
+
+export const Notice = styled.div`
+  color: ${props => props.error ? 'var(--color-danger)' : 'var(--color-text)'};
+  float: right;
+  font-size: var(--font-size-l);
+  right: 2.9375rem;
+  bottom: 2.5rem;
+  position: absolute;
+`

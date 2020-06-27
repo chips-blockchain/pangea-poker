@@ -1,4 +1,6 @@
 import { IState, IPlayer } from "./initialState";
+import { INotice } from "../components/Table/assets/types";
+import { Level } from "../lib/constants";
 
 interface IPayload extends IState, IPlayer {
   player: string;
@@ -8,6 +10,7 @@ interface IPayload extends IState, IPlayer {
   canCheck: IState["controls"]["canCheck"];
   canRaise: IState["controls"]["canRaise"];
   node: IState["nodeType"];
+  notice: INotice;
   action: IState["lastAction"]["action"];
   winAmount: number;
   key: string;
@@ -201,6 +204,27 @@ const reducer = (state: IState, action: IAction): object => {
         message: {
           ...state.message,
           [action.payload.node]: action.payload.message
+        }
+      };
+    }
+    case "setNotice": {
+      return {
+        ...state,
+        message: {
+          ...state.message,
+          notice: action.payload.notice
+        }
+      };
+    }
+    case "clearNotice": {
+      return {
+        ...state,
+        message: {
+          ...state.message,
+          notice: {
+            text: "",
+            level: Level.info
+          }
         }
       };
     }
