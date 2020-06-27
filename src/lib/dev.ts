@@ -1,5 +1,3 @@
-import { IMessage } from "../components/Game/onMessage";
-
 export const isDev: boolean = process.env.NODE_ENV === "development";
 
 // A colored console.log

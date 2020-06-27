@@ -1,7 +1,7 @@
 import React from "react";
-import styled from "@emotion/styled";
 import { css, SerializedStyles } from "@emotion/core";
 import Label from "./Label";
+import { inputStyle, InputWrapper } from "./assets/style";
 
 export interface IProps {
   defaultValue?: string;
@@ -19,34 +19,6 @@ export interface IProps {
   step?: number;
   value?: number | string;
 }
-
-export const inputStyle = css`
-  appearance: none;
-  background: none;
-  border: 1px solid var(--color-primary);
-  color: white;
-  font-family: var(--font-family-secondary);
-  font-weight: 500;
-  max-width: 14rem;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
-  text-align: center;
-  width: 100%;
-
-  &:focus {
-    border: 1px solid var(--color-accent);
-    outline: none;
-  }
-
-  /* Hide the up and down arrows for number input */
-  &[type="number"]::-webkit-inner-spin-button {
-    opacity: 0;
-  }
-`;
-
-const InputWrapper = styled.div`
-  padding: 0.5rem;
-`;
 
 const Input: React.FunctionComponent<IProps> = ({
   customStyle,

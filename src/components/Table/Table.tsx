@@ -1,4 +1,3 @@
-import { css } from "@emotion/core";
 import { useReducer, useEffect, useState } from "react";
 import diff from "deep-diff";
 import reducer from "../../store/reducer";
@@ -19,6 +18,7 @@ import { StartupModal } from "../Modal";
 import DeveloperMode from "../DeveloperMode";
 import LogBox from "../LogBox";
 import Cashier from "../Cashier";
+import { TableContainer, GameTypeWrapper, TableWrapper } from "./assets/style";
 
 // This is the current Main component
 
@@ -61,40 +61,10 @@ const Table: React.FunctionComponent = () => {
       <StateContext.Provider value={state}>
         <Game />
         {isDeveloperMode && <DeveloperMode />}
-        <div
-          css={css`
-            background-color: var(--dark);
-            height: 37.5rem;
-            width: 50rem;
-            position: relative;
-          `}
-        >
+        <TableContainer>
           <Connections />
-          <div
-            css={css`
-              color: white;
-              position: absolute;
-              top: 0.25rem;
-              left: 0.25rem;
-              z-index: 4;
-              font-size: var(--font-size-xs);
-            `}
-          >
-            {gameType}
-          </div>
-          <div
-            css={css`
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              z-index: 1;
-            `}
-          >
-            <div
-              css={css`
-                position: absolute;
-              `}
-            />
+          <GameTypeWrapper>{gameType}</GameTypeWrapper>
+          <TableWrapper>
             {options.showPotCounter && (
               <TotalPot state={state} dispatch={dispatch} />
             )}
@@ -147,11 +117,11 @@ const Table: React.FunctionComponent = () => {
                 <Controls />
               </div>
             )}
-          </div>
+          </TableWrapper>
 
           <Cashier dispatch={dispatch} isOpen={true} state={state} />
           <Backgrounds />
-        </div>
+        </TableContainer>
         <StartupModal
           dispatch={dispatch}
           isOpen={state.isStartupModal}

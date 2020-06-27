@@ -1,10 +1,10 @@
-import { css } from "@emotion/core";
 import { useContext } from "react";
 import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../../store/context";
 import { Button } from "../Controls";
 import { sendMessage } from "../../store/actions";
 import { IState } from "../../store/initialState";
+import { GameWrapper, DealerContainer } from "./assets/style";
 
 // This component is responsible for the WebSocket connections, as well as displaying the main Start button
 
@@ -29,34 +29,14 @@ const Game: React.FunctionComponent = () => {
 
   return (
     <div>
-      <div
-        css={css`
-          position: absolute;
-          z-index: 5;
-          top: 4;
-        `}
-      >
+      <GameWrapper>
         {nodeType === "dealer" && (
-          <div
-            css={css`
-              display: grid;
-              grid-template-columns: repeat(7, 1fr);
-              grid-template-rows: repeat(3, 1fr);
-            `}
-          >
+          <DealerContainer>
             <Button label="Start" onClick={startGame()} />
             <Button label="Reset" onClick={resetGame()} />
-          </div>
+          </DealerContainer>
         )}
-      </div>
-      <div
-        css={css`
-          position: absolute;
-          z-index: 5;
-          left: 0;
-          top: 2.7rem;
-        `}
-      />
+      </GameWrapper>
 
       {!isStartupModal && nodeType === "dealer" && (
         <div>

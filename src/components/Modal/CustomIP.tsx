@@ -11,7 +11,7 @@ import {
 } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import Button from "../Controls/Button";
-import ModalButtonsWrapper from "./ModalButtonsWrapper";
+import { ModalButtonsWrapper } from "./assets/style";
 import { Input } from "../Form";
 
 interface INode {
