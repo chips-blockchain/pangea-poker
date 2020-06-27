@@ -80,13 +80,11 @@ export const connectPlayer = (
   });
 };
 
-export const clearNotice = (
-  dispatch: (arg: object) => void
-): void => {
+export const clearNotice = (dispatch: (arg: object) => void): void => {
   dispatch({
     type: "cleartNotice"
-  })
-}
+  });
+};
 
 // Closes the Startup Modal
 export const closeStartupModal = (dispatch: (arg: object) => void): void => {
@@ -233,7 +231,7 @@ export const playerJoin = (
   const id = Number(seat.slice(-1)) - 1;
   sendMessage(
     { method: "player_join", gui_playerID: id },
-    'player',
+    "player",
     state,
     dispatch
   );
@@ -434,8 +432,8 @@ export const setNotice = (
   dispatch({
     type: "setNotice",
     payload: notice
-  })
-}
+  });
+};
 
 export const setToCall = (
   amount: number,

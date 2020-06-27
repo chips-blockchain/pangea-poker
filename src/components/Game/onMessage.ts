@@ -78,7 +78,6 @@ export interface IMessage {
   winners?: number[];
 }
 
-const notifications = require('../../config/notifications.json');
 const { preFlop, flop, turn, showDown } = GameTurns;
 
 export const onMessage = (
@@ -431,26 +430,30 @@ export const onMessage_player = (
     }
 
     // the backend is confirming or rejecting the seat choice
-    case "join_info": 
+    case "join_info":
       message.seat_taken = 0;
       if (message.seat_taken) {
-        if (state.userSeat === 'taken') {
+        if (state.userSeat === "taken") {
           clearNotice(dispatch);
         }
-        let player = 'player' + message.gui_playerID;
+        const player = "player" + message.gui_playerID;
         clearNotice(dispatch);
         setUserSeat(player, dispatch);
         connectPlayer(player, dispatch);
-        // only clear if 
+        // only clear if
       } else {
-        setUserSeat('taken', dispatch);
-        setNotice({
-          text: Notices.SEAT_TAKEN,
-          level: Level.error
-        }, dispatch);
-         // display Notice that the seat is taken
+        setUserSeat("taken", dispatch);
+        setNotice(
+          {
+            text: Notices.SEAT_TAKEN,
+            level: Level.error
+          },
+          dispatch
+        );
+        // display Notice that the seat is taken
         // would be nice to receive the new tableInfo update at this point too
       }
+      break;
 
     case "join_req":
       setBalance(player, message.balance, dispatch);
@@ -500,13 +503,13 @@ export const onMessage_player = (
       break;
 
     case "tableInfo":
-      updateStateValue("players", playersData , dispatch);
+      updateStateValue("players", playersData, dispatch);
       break;
 
     case "walletInfo":
       updateStateValue("balance", message.balance, dispatch);
       updateStateValue("depositAddress", message.addr, dispatch);
-      updateStateValue("players", playersData , dispatch);
+      updateStateValue("players", playersData, dispatch);
       break;
 
     case "withdrawResponse":
