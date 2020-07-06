@@ -82,7 +82,7 @@ export const connectPlayer = (
 
 export const clearNotice = (dispatch: (arg: object) => void): void => {
   dispatch({
-    type: "cleartNotice"
+    type: "clearNotice"
   });
 };
 

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Level } from "../../../lib/constants";
 
 export const TableContainer = styled.div`
   background-color: var(--dark);
@@ -68,9 +69,14 @@ export const PotContainer = styled.div`
   }
 `;
 
+const noticeColors = {
+  [Level.info]: "var(--color-text)",
+  [Level.warning]: "var(--color-accent)",
+  [Level.error]: "var(--color-danger)"
+};
+
 export const Notice = styled.div`
-  color: ${props =>
-    props.error ? "var(--color-danger)" : "var(--color-text)"};
+  color: ${props => noticeColors[props.level]};
   float: right;
   font-size: var(--font-size-l);
   right: 2.9375rem;

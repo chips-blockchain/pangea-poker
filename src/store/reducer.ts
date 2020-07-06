@@ -1,6 +1,7 @@
 import { IState, IPlayer } from "./initialState";
 import { INotice } from "../components/Table/assets/types";
 import { Level } from "../lib/constants";
+import { isDev } from "../lib/dev";
 
 interface IPayload extends IState, IPlayer {
   player: string;
@@ -22,6 +23,9 @@ interface IAction {
 }
 
 const reducer = (state: IState, action: IAction): object => {
+  if(isDev) {
+    console.log('Reducer', action);
+  }
   switch (action.type) {
     case "addToHandHistory": {
       return {
@@ -219,12 +223,9 @@ const reducer = (state: IState, action: IAction): object => {
     case "clearNotice": {
       return {
         ...state,
-        message: {
-          ...state.message,
-          notice: {
-            text: "",
-            level: Level.info
-          }
+        notice: {
+          text: "",
+          level: Level.info
         }
       };
     }

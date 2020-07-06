@@ -45,6 +45,7 @@ import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
 import { playersData } from "./testData";
 import { GameTurns, Level } from "../../lib/constants";
+import notifications from "../../config/notifications.json";
 export interface IMessage {
   action?: string;
   addr?: string;
@@ -430,22 +431,19 @@ export const onMessage_player = (
     }
 
     // the backend is confirming or rejecting the seat choice
+    // @todo is that the message received??
     case "join_info":
       message.seat_taken = 0;
-      if (message.seat_taken) {
-        if (state.userSeat === "taken") {
-          clearNotice(dispatch);
-        }
-        const player = "player" + message.gui_playerID;
+      if (!message.seat_taken) {
+        const player = "player" + message.playerid;
         clearNotice(dispatch);
         setUserSeat(player, dispatch);
         connectPlayer(player, dispatch);
-        // only clear if
       } else {
         setUserSeat("taken", dispatch);
         setNotice(
           {
-            text: Notices.SEAT_TAKEN,
+            text: notifications.SEAT_TAKEN,
             level: Level.error
           },
           dispatch
