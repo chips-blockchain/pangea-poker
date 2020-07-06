@@ -1,6 +1,6 @@
 import reducer from "../reducer";
-import state from "../initialState";
-import initialState from "../initialState";
+import state from "../testState";
+import initialState from "../testState";
 
 describe("reducer", () => {
   expect.extend({
@@ -27,6 +27,7 @@ describe("reducer", () => {
       payload: "Player has joined the table",
       type: "addToHandHistory"
     };
+    initialState.handHistory = [];
 
     expect(reducer(state, action)).toEqual({
       ...initialState,

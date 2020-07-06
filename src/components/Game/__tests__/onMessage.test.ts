@@ -1,8 +1,10 @@
 /*eslint-disable @typescript-eslint/camelcase*/
 
 import { IMessage, onMessage_player } from "../onMessage";
-import state, { IState } from "../../../store/initialState";
+import state from "../../../store/testState";
+import { IState } from "../../../store/initialState";
 import * as actions from "../../../store/actions";
+import { playersData } from "../testData";
 
 const dispatch = jest.fn();
 const updateStateValueSpy = jest.spyOn(actions, "updateStateValue");
@@ -293,7 +295,7 @@ describe("walletInfo", () => {
     );
 
     expect(updateStateValueSpy).toHaveBeenCalled();
-    expect(updateStateValueSpy).toHaveBeenCalledTimes(2);
+    expect(updateStateValueSpy).toHaveBeenCalledTimes(3);
     expect(updateStateValueSpy).toHaveBeenCalledWith(
       "depositAddress",
       address,
@@ -302,6 +304,12 @@ describe("walletInfo", () => {
     expect(updateStateValueSpy).toHaveBeenCalledWith(
       "balance",
       balance,
+      dispatch
+    );
+    // @todo adjust the key later
+    expect(updateStateValueSpy).toHaveBeenCalledWith(
+      "players",
+      playersData,
       dispatch
     );
   });
