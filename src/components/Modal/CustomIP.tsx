@@ -7,11 +7,8 @@ import { IState } from "../../store/initialState";
 import Button from "../Controls/Button";
 import { ModalButtonsWrapper } from "./assets/style";
 import { Input } from "../Form";
-import isDev from "../../lib/dev";
-import dev from "../../config/development.json";
-//@todo fix the eslint rule about  "no-var-requires"
-// should be allowed for json imports
-const development = JSON.parse(dev);
+import { isDev } from "../../lib/dev";
+import development from "../../config/development.json";
 
 interface INode {
   name: "dcv" | "player";
