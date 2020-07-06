@@ -120,10 +120,9 @@ const Table: React.FunctionComponent = () => {
             )}
             {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
             {isLogBox && <LogBox handHistory={handHistory} />}
-            {!state.isStartupModal &&
-              nodeType === "player" &&
-             <Notice level={notice.level}>{notice.text}</Notice>
-             }
+            {!state.isStartupModal && nodeType === "player" && (
+              <Notice level={notice.level}>{notice.text}</Notice>
+            )}
             {controls.showControls && (
               <div>
                 <Controls />

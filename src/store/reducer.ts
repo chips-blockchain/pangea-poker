@@ -23,8 +23,8 @@ interface IAction {
 }
 
 const reducer = (state: IState, action: IAction): object => {
-  if(isDev) {
-    console.log('Reducer', action);
+  if (isDev) {
+    console.log("Reducer", action);
   }
   switch (action.type) {
     case "addToHandHistory": {
