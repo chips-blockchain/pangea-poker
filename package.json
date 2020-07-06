@@ -9,7 +9,7 @@
     "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:1234 && electron .\"",
     "electron-pack": "electron-builder -mwl",
     "start": "NODE_ENV=development parcel src/index.html --open --out-dir build",
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "lint:fix": "node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx --fix",
     "lint": "node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx"
   },
