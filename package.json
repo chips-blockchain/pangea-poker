@@ -73,12 +73,12 @@
     "wait-on": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.10.2",
-    "@babel/plugin-proposal-object-rest-spread": "7.10.1",
-    "@babel/plugin-transform-typescript": "7.10.1",
-    "@babel/preset-env": "7.10.2",
-    "@babel/preset-react": "7.10.1",
-    "@babel/preset-typescript": "7.10.1",
+    "@babel/core": "7.10.4",
+    "@babel/plugin-proposal-object-rest-spread": "7.10.4",
+    "@babel/plugin-transform-typescript": "7.10.4",
+    "@babel/preset-env": "7.10.4",
+    "@babel/preset-react": "7.10.4",
+    "@babel/preset-typescript": "7.10.4",
     "@emotion/babel-preset-css-prop": "10.0.27",
     "@types/babel__core": "7.1.8",
     "@types/cssnano": "4.0.0",
