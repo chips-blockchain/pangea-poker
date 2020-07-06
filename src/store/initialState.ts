@@ -23,44 +23,7 @@ try {
 
 const initialState: IState = {
   // Object of all players at the table
-  players: {
-    player1: {
-      ...defaultPlayer,
-      seat: "player1"
-    },
-    player2: {
-      ...defaultPlayer,
-      seat: "player2"
-    },
-    player3: {
-      ...defaultPlayer,
-      seat: "player3"
-    },
-    player4: {
-      ...defaultPlayer,
-      seat: "player4"
-    },
-    player5: {
-      ...defaultPlayer,
-      seat: "player5"
-    },
-    player6: {
-      ...defaultPlayer,
-      seat: "player6"
-    },
-    player7: {
-      ...defaultPlayer,
-      seat: "player7"
-    },
-    player8: {
-      ...defaultPlayer,
-      seat: "player8"
-    },
-    player9: {
-      ...defaultPlayer,
-      seat: "player9"
-    }
-  },
+  players: {},
   // Which seat is the active player
   activePlayer: null,
   // The total CHIPS balance the player has in the Pangea Wallet
@@ -135,7 +98,7 @@ const initialState: IState = {
   },
   notice: {
     text: "Choose your seat to begin playing",
-    error: false
+    level: 1
   },
   message: {
     dcv: null,
