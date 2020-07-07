@@ -295,7 +295,7 @@ describe("walletInfo", () => {
     );
 
     expect(updateStateValueSpy).toHaveBeenCalled();
-    expect(updateStateValueSpy).toHaveBeenCalledTimes(3);
+    expect(updateStateValueSpy).toHaveBeenCalledTimes(2);
     expect(updateStateValueSpy).toHaveBeenCalledWith(
       "depositAddress",
       address,
@@ -304,12 +304,6 @@ describe("walletInfo", () => {
     expect(updateStateValueSpy).toHaveBeenCalledWith(
       "balance",
       balance,
-      dispatch
-    );
-    // @todo adjust the key later
-    expect(updateStateValueSpy).toHaveBeenCalledWith(
-      "players",
-      playersData,
       dispatch
     );
   });
