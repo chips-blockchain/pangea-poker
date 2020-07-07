@@ -507,7 +507,6 @@ export const onMessage_player = (
     case "walletInfo":
       updateStateValue("balance", message.balance, dispatch);
       updateStateValue("depositAddress", message.addr, dispatch);
-      updateStateValue("players", playersData, dispatch);
       break;
 
     case "withdrawResponse":
