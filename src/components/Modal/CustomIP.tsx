@@ -78,10 +78,11 @@ const CustomIP: React.FunctionComponent = () => {
     e: ChangeEvent<Element>
   ): void => {
     const target = e.target as HTMLInputElement;
-    const ip: string = isDev ? development.ips[node.name] : target.value;
+    // @todo NODE_ENV variable is always development for some reason
+    // const ip: string = isDev ? development.ips[node.name] : target.value;
     setNodes({
       ...nodes,
-      [node.name]: ip
+      [node.name]: target.value
     });
   };
 
