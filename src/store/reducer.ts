@@ -236,12 +236,13 @@ const reducer = (state: IState, action: IAction): object => {
       };
     }
     case "setBalance": {
+      let p = action.payload.player;
       return {
         ...state,
         players: {
           ...state.players,
-          [action.payload.player]: {
-            ...state.players[action.payload.player],
+          [p]: {
+            ...state.players[p],
             chips: action.payload.balance,
             connected: true
           }
@@ -409,7 +410,9 @@ const reducer = (state: IState, action: IAction): object => {
             ...state.players[action.payload.player],
             isPlaying: action.payload.isPlaying,
             player: action.payload.player,
-            seat: action.payload.seat
+            seat: action.payload.seat,
+            chips: 200, // @todo ?? update with the wallet current info,
+            betAmount: 0
           }
         }
       };

@@ -527,3 +527,18 @@ export const updateStateValue = (
     payload: { key, value }
   });
 };
+
+export const walletInfo = (
+  // seat,
+  state: IState,
+  dispatch: (arg: object) => void
+): void => {
+  // const id = Number(seat.slice(-1)) - 1;
+  console.log('sending a message')
+  sendMessage(
+    { method: "walletInfo" },
+    "player",
+    state,
+    dispatch
+  );
+};

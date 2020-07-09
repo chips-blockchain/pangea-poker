@@ -33,7 +33,8 @@ import {
   processControls,
   updateMainPot,
   setNotice,
-  clearNotice
+  clearNotice,
+  walletInfo
 } from "../../store/actions";
 import log from "../../lib/dev";
 import playerStringToId from "../../lib/playerStringToId";
@@ -433,7 +434,8 @@ export const onMessage_player = (
     // the backend is confirming or rejecting the seat choice
     // @todo is that the message received??
     case "join_info":
-      message.seat_taken = 0;
+      // @todo handle seat rejection
+      message.seat_taken = 1;
       if (!message.seat_taken) {
         const player = "player" + message.playerid;
         clearNotice(dispatch);
@@ -487,6 +489,7 @@ export const onMessage_player = (
       break;
 
     case "seats":
+      walletInfo(state, dispatch);
       seats(message.seats, dispatch);
       break;
 

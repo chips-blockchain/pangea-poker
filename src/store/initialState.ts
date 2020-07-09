@@ -1,7 +1,7 @@
 import { INotice } from "../components/Table/assets/types";
 
 /*eslint-disable @typescript-eslint/camelcase*/
-const defaultPlayer = {
+const defaultPlayer: IPlayer = {
   isPlaying: false,
   chips: 200,
   hasCards: false,
