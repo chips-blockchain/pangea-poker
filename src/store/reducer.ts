@@ -236,7 +236,7 @@ const reducer = (state: IState, action: IAction): object => {
       };
     }
     case "setBalance": {
-      let p = action.payload.player;
+      const p = action.payload.player;
       return {
         ...state,
         players: {

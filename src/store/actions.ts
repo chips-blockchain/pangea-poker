@@ -534,11 +534,5 @@ export const walletInfo = (
   dispatch: (arg: object) => void
 ): void => {
   // const id = Number(seat.slice(-1)) - 1;
-  console.log('sending a message')
-  sendMessage(
-    { method: "walletInfo" },
-    "player",
-    state,
-    dispatch
-  );
+  sendMessage({ method: "walletInfo" }, "player", state, dispatch);
 };
