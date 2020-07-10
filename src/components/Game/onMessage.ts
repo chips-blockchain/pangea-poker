@@ -430,7 +430,7 @@ export const onMessage_player = (
       }
       break;
     }
-    
+
     // the backend is confirming or rejecting the seat choice
     // @todo is that the message received??
     // @todo which method returns the seat confirmation?
