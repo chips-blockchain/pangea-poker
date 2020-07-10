@@ -214,12 +214,10 @@ const reducer = (state: IState, action: IAction): object => {
     case "setNotice": {
       return {
         ...state,
-        message: {
-          ...state.message,
-          notice: action.payload.notice
-        }
+        notice: action.payload
       };
     }
+
     case "clearNotice": {
       return {
         ...state,

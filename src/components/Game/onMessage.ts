@@ -430,6 +430,29 @@ export const onMessage_player = (
       }
       break;
     }
+    
+    // the backend is confirming or rejecting the seat choice
+    // @todo is that the message received??
+    // @todo which method returns the seat confirmation?
+    case "info":
+      message.seat_taken = 1;
+      if (!message.seat_taken) {
+        const player = "player" + (message.playerid + 1);
+        clearNotice(dispatch);
+        setUserSeat(player, dispatch);
+        connectPlayer(player, dispatch);
+      } else {
+        setNotice(
+          {
+            text: notifications.SEAT_TAKEN,
+            level: Level.error
+          },
+          dispatch
+        );
+        // display Notice that the seat is taken
+        // would be nice to receive the new tableInfo update at this point too
+      }
+      break;
 
     // the backend is confirming or rejecting the seat choice
     // @todo is that the message received??
@@ -437,12 +460,11 @@ export const onMessage_player = (
       // @todo handle seat rejection
       message.seat_taken = 1;
       if (!message.seat_taken) {
-        const player = "player" + message.playerid;
+        const player = "player" + (message.playerid + 1);
         clearNotice(dispatch);
         setUserSeat(player, dispatch);
         connectPlayer(player, dispatch);
       } else {
-        setUserSeat("taken", dispatch);
         setNotice(
           {
             text: notifications.SEAT_TAKEN,

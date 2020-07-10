@@ -10,9 +10,7 @@ import {
   showControls,
   setLastAction,
   sendMessage,
-  setActivePlayer,
-  setUserSeat,
-  connectPlayer
+  setActivePlayer
 } from "../../store/actions";
 import playerIdToString from "../../lib/playerIdToString";
 import playerStringToId from "../../lib/playerStringToId";
@@ -95,9 +93,6 @@ const Player: React.FunctionComponent<IProps> = ({
     if (!connected) {
       playerJoin(seat, state, dispatch);
       setSeatMessage("SITTING...");
-      // @todo remove the below, since the seat has to be confirmed from backend
-      setUserSeat(seat, dispatch);
-      connectPlayer(seat, dispatch);
     }
   };
 
