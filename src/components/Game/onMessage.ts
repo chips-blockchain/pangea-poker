@@ -34,7 +34,8 @@ import {
   updateMainPot,
   setNotice,
   clearNotice,
-  walletInfo
+  walletInfo,
+  backendStatus
 } from "../../store/actions";
 import log from "../../lib/dev";
 import playerStringToId from "../../lib/playerStringToId";
@@ -151,6 +152,11 @@ export const onMessage_player = (
   log(`Received from ${player}: `, "received", message);
 
   switch (message.method) {
+    
+    // is the backend ready to rock?
+    case "backend_status":
+      break;
+    
     case "betting":
       {
         const guiPlayer: number = message.playerid;
@@ -431,34 +437,16 @@ export const onMessage_player = (
       break;
     }
 
-    // the backend is confirming or rejecting the seat choice
-    // @todo is that the message received??
-    // @todo which method returns the seat confirmation?
+    // method received in response to player_join if the backend is not ready yet
     case "info":
-      message.seat_taken = 1;
-      if (!message.seat_taken) {
-        const player = "player" + (message.playerid + 1);
-        clearNotice(dispatch);
-        setUserSeat(player, dispatch);
-        connectPlayer(player, dispatch);
-      } else {
-        setNotice(
-          {
-            text: notifications.SEAT_TAKEN,
-            level: Level.error
-          },
-          dispatch
-        );
-        // display Notice that the seat is taken
-        // would be nice to receive the new tableInfo update at this point too
+      if (message.backend_status === 0 ) {
+        console.warn('The backend is preapring the response');
       }
       break;
 
     // the backend is confirming or rejecting the seat choice
-    // @todo is that the message received??
     case "join_info":
       // @todo handle seat rejection
-      message.seat_taken = 1;
       if (!message.seat_taken) {
         const player = "player" + (message.playerid + 1);
         clearNotice(dispatch);
@@ -511,6 +499,9 @@ export const onMessage_player = (
       break;
 
     case "seats":
+      if (!state.userSeat) {
+        backendStatus(state, dispatch);
+      }
       walletInfo(state, dispatch);
       seats(message.seats, dispatch);
       break;
