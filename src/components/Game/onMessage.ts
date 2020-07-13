@@ -152,11 +152,10 @@ export const onMessage_player = (
   log(`Received from ${player}: `, "received", message);
 
   switch (message.method) {
-    
     // is the backend ready to rock?
     case "backend_status":
       break;
-    
+
     case "betting":
       {
         const guiPlayer: number = message.playerid;
@@ -439,8 +438,8 @@ export const onMessage_player = (
 
     // method received in response to player_join if the backend is not ready yet
     case "info":
-      if (message.backend_status === 0 ) {
-        console.warn('The backend is preapring the response');
+      if (message.backend_status === 0) {
+        console.warn("The backend is preapring the response");
       }
       break;
 

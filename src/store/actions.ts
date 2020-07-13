@@ -27,7 +27,7 @@ export const backendStatus = (
   dispatch: (arg: object) => void
 ): void => {
   sendMessage({ method: "backend_status" }, "player", state, dispatch);
-}
+};
 
 // Update the player's current betAmount
 export const bet = (
