@@ -441,6 +441,23 @@ export const onMessage_player = (
       if (message.backend_status === 0) {
         console.warn("The backend is preapring the response");
       }
+      // @todo handle seat rejection
+      if (!message.seat_taken) {
+        const player = "player" + (message.playerid + 1);
+        clearNotice(dispatch);
+        setUserSeat(player, dispatch);
+        connectPlayer(player, dispatch);
+      } else {
+        setNotice(
+          {
+            text: notifications.SEAT_TAKEN,
+            level: Level.error
+          },
+          dispatch
+        );
+        // display Notice that the seat is taken
+        // would be nice to receive the new tableInfo update at this point too
+      }
       break;
 
     // the backend is confirming or rejecting the seat choice

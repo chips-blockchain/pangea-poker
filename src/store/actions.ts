@@ -236,7 +236,7 @@ export const playerJoin = (
   dispatch: (arg: object) => void
 ): void => {
   // subtract 1 because backend seat numbers start from 0
-  const id = Number(seat.slice(-1)) - 1;
+  const id = Number(seat.slice(-1));
   sendMessage(
     { method: "player_join", gui_playerID: id },
     "player",
