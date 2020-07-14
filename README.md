@@ -56,7 +56,7 @@ https://www.youtube.com/watch?time_continue=134&v=eBYJ7O482Dc&feature=emb_title
 
 ### Developer Mode
 
-You can activate developer mode by modifying application state in `store/initialState.ts`, change value `isDeveloperMode` to true
+You can activate developer mode and skip the startup modal by adjusting the `src/config/local.json`.
 
 ## Contributing
 
