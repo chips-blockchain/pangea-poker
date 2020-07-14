@@ -24,20 +24,19 @@ interface INode {
 // Nodes to input
 
 const nodesToInput: INode[] = [
-    {
-      name: "dcv",
-      id: "dealer",
-      type: "dealer",
-      devAddress: process.env.DEV_SOCKET_URL_DCV
-    },
-    {
-      name: "player",
-      id: "player",
-      type: "player",
-      devAddress: process.env.DEV_SOCKET_URL_PLAYER
-    }
+  {
+    name: "dcv",
+    id: "dealer",
+    type: "dealer",
+    devAddress: process.env.DEV_SOCKET_URL_DCV
+  },
+  {
+    name: "player",
+    id: "player",
+    type: "player",
+    devAddress: process.env.DEV_SOCKET_URL_PLAYER
+  }
 ];
-
 
 const CustomIP: React.FunctionComponent = () => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
@@ -50,21 +49,17 @@ const CustomIP: React.FunctionComponent = () => {
   const [canSetNodes, setCanSetNodes] = useState(false);
 
   // Event handlers
-  const handleTabClick = (
-    nodeType: "dealer" | "player"
-  ) => (): void => {
+  const handleTabClick = (nodeType: "dealer" | "player") => (): void => {
     // Update the node type
     setNodeType(nodeType);
   };
 
   const handleSubmit = () => (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
-    
+
     // Set the node addresses and the node type
     const isDealer = nodeType === "dealer";
-    const nodesToSet = isDealer
-      ? { dcv: nodes.dcv }
-      : { player: nodes.player };
+    const nodesToSet = isDealer ? { dcv: nodes.dcv } : { player: nodes.player };
 
     const nodeTypeToSet: string = isDealer ? "dealer" : "player";
 
@@ -86,10 +81,9 @@ const CustomIP: React.FunctionComponent = () => {
   ): void => {
     const target = e.target as HTMLInputElement;
     setNodes({
-        ...nodes,
-        [node.name]: target.value
+      ...nodes,
+      [node.name]: target.value
     });
-
   };
 
   // Validates whether all required input fields have data
