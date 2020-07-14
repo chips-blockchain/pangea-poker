@@ -85,27 +85,10 @@ const CustomIP: React.FunctionComponent = () => {
     e: React.FormEvent<HTMLInputElement>
   ): void => {
     const target = e.target as HTMLInputElement;
-
-    if(process.env.NODE_ENV == 'development') {
-      if (node.name === 'dcv' ) {
-         setNodes({
-          ...nodes,
-          dcv: '45.77.139.155'
-        });
-      }
-       if (node.name === 'player' ) {
-        setNodes({
-          ...nodes,
-          player: '78.141.203.106'
-        });
-      }
-
-    } else {
-      setNodes({
+    setNodes({
         ...nodes,
         [node.name]: target.value
-      });
-    }
+    });
 
   };
 
