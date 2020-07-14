@@ -152,10 +152,6 @@ export const onMessage_player = (
   log(`Received from ${player}: `, "received", message);
 
   switch (message.method) {
-    // is the backend ready to rock?
-    case "backend_status":
-      break;
-
     case "betting":
       {
         const guiPlayer: number = message.playerid;
@@ -436,14 +432,14 @@ export const onMessage_player = (
       break;
     }
 
-    // method received in response to player_join if the backend is not ready yet
     case "info":
       if (message.backend_status === 0) {
-        console.warn("The backend is preapring the response");
+        console.warn("The backend is preparing the response");
+        // @todo will be implemented in https://github.com/chips-blockchain/pangea-poker/issues/272
       }
-      // @todo handle seat rejection
       if (!message.seat_taken) {
         const player = "player" + (message.playerid + 1);
+        // @todo id managements (+/- 1) needs to be centralized
         clearNotice(dispatch);
         setUserSeat(player, dispatch);
         connectPlayer(player, dispatch);
@@ -455,29 +451,6 @@ export const onMessage_player = (
           },
           dispatch
         );
-        // display Notice that the seat is taken
-        // would be nice to receive the new tableInfo update at this point too
-      }
-      break;
-
-    // the backend is confirming or rejecting the seat choice
-    case "join_info":
-      // @todo handle seat rejection
-      if (!message.seat_taken) {
-        const player = "player" + (message.playerid + 1);
-        clearNotice(dispatch);
-        setUserSeat(player, dispatch);
-        connectPlayer(player, dispatch);
-      } else {
-        setNotice(
-          {
-            text: notifications.SEAT_TAKEN,
-            level: Level.error
-          },
-          dispatch
-        );
-        // display Notice that the seat is taken
-        // would be nice to receive the new tableInfo update at this point too
       }
       break;
 
@@ -516,6 +489,11 @@ export const onMessage_player = (
 
     case "seats":
       if (!state.userSeat) {
+        /**
+         before the user seats down we need to find out if the backend is ready 
+         backend might not be ready if it is still in the process of tx confirming
+         chips blocks are mined in 5-30 seconds
+        */
         backendStatus(state, dispatch);
       }
       walletInfo(state, dispatch);
@@ -530,10 +508,6 @@ export const onMessage_player = (
         message.gui_playerID = 1;
         sendMessage(message, "player2", state, dispatch);
       }
-      break;
-
-    case "tableInfo":
-      updateStateValue("players", playersData, dispatch);
       break;
 
     case "walletInfo":
