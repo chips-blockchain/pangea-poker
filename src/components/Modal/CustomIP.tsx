@@ -31,15 +31,13 @@ const nodesToInput: INode[] = [
     name: "player",
     id: "player",
     type: "player",
-    tableId: "",
-    devAddress: process.env.DEV_SOCKET_URL_PLAYER1
+    devAddress: process.env.DEV_SOCKET_URL_PLAYER
   }
 ];
 
 const CustomIP: React.FunctionComponent = () => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
-
   const [nodes, setNodes] = useState({
     dcv: process.env.DEV_SOCKET_URL_DCV,
     player: process.env.DEV_SOCKET_URL_PLAYER
@@ -58,10 +56,10 @@ const CustomIP: React.FunctionComponent = () => {
 
     // Set the node addresses and the node type
     const isDealer = nodeType === "dealer";
-    const nodesToSet = isDealer
-      ? { dcv: nodes.dcv }
-      : { [nodeType]: nodes[nodeType] };
+    const nodesToSet = isDealer ? { dcv: nodes.dcv } : { player: nodes.player };
+
     const nodeTypeToSet: string = isDealer ? "dealer" : "player";
+
     updateStateValue("nodes", nodesToSet, dispatch);
     updateStateValue("nodeType", nodeTypeToSet, dispatch);
 
