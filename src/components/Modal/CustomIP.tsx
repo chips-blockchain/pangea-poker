@@ -15,57 +15,41 @@ import { ModalButtonsWrapper } from "./assets/style";
 import { Input } from "../Form";
 
 interface INode {
-  name: "dcv" | "player1" | "player2";
-  id: "dealer" | "player1" | "player2";
+  name: "dcv" | "player";
+  id: "dealer" | "player";
   type: "dealer" | "player";
   devAddress: string;
 }
 
 // Nodes to input
 
-const nodesToInput: INode[][] = [
-  [
-    {
-      name: "dcv",
-      id: "dealer",
-      type: "dealer",
-      devAddress: process.env.DEV_SOCKET_URL_DCV
-    }
-  ],
-  [
-    {
-      name: "player1",
-      id: "player1",
-      type: "player",
-      devAddress: process.env.DEV_SOCKET_URL_PLAYER1
-    }
-  ],
-  [
-    {
-      name: "player2",
-      id: "player2",
-      type: "player",
-      devAddress: process.env.DEV_SOCKET_URL_PLAYER2
-    }
-  ]
+const nodesToInput: INode[] = [
+  {
+    name: "dcv",
+    id: "dealer",
+    type: "dealer",
+    devAddress: process.env.DEV_SOCKET_URL_DCV
+  },
+  {
+    name: "player",
+    id: "player",
+    type: "player",
+    devAddress: process.env.DEV_SOCKET_URL_PLAYER
+  }
 ];
 
 const CustomIP: React.FunctionComponent = () => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
-
   const [nodes, setNodes] = useState({
     dcv: process.env.DEV_SOCKET_URL_DCV,
-    player1: process.env.DEV_SOCKET_URL_PLAYER1,
-    player2: process.env.DEV_SOCKET_URL_PLAYER2
+    player: process.env.DEV_SOCKET_URL_PLAYER
   });
   const [nodeType, setNodeType] = useState("dealer");
   const [canSetNodes, setCanSetNodes] = useState(false);
 
   // Event handlers
-  const handleTabClick = (
-    nodeType: "dealer" | "player1" | "player2"
-  ) => (): void => {
+  const handleTabClick = (nodeType: "dealer" | "player") => (): void => {
     // Update the node type
     setNodeType(nodeType);
   };
@@ -75,10 +59,10 @@ const CustomIP: React.FunctionComponent = () => {
 
     // Set the node addresses and the node type
     const isDealer = nodeType === "dealer";
-    const nodesToSet = isDealer
-      ? { dcv: nodes.dcv }
-      : { [nodeType]: nodes[nodeType] };
+    const nodesToSet = isDealer ? { dcv: nodes.dcv } : { player: nodes.player };
+
     const nodeTypeToSet: string = isDealer ? "dealer" : "player";
+
     updateStateValue("nodes", nodesToSet, dispatch);
     updateStateValue("nodeType", nodeTypeToSet, dispatch);
 
@@ -87,10 +71,6 @@ const CustomIP: React.FunctionComponent = () => {
 
     // Set the user seat if it's a player node
     !isDealer && setUserSeat(nodeType, dispatch);
-
-    // Connect the opponent (temporary)
-    const opponent = nodeType === "player1" ? "player2" : "player1";
-    !isDealer && connectPlayer(opponent, dispatch);
 
     // Close the Startup Modal
     closeStartupModal(dispatch);
@@ -111,11 +91,8 @@ const CustomIP: React.FunctionComponent = () => {
     if (nodeType === "dealer") {
       nodes.dcv ? setCanSetNodes(true) : setCanSetNodes(false);
     }
-    if (nodeType === "player1") {
-      nodes.player1 ? setCanSetNodes(true) : setCanSetNodes(false);
-    }
-    if (nodeType === "player2") {
-      nodes.player2 ? setCanSetNodes(true) : setCanSetNodes(false);
+    if (nodeType === "player") {
+      nodes.player ? setCanSetNodes(true) : setCanSetNodes(false);
     }
   }, [nodes, nodeType]);
 
@@ -126,31 +103,22 @@ const CustomIP: React.FunctionComponent = () => {
           <Tab onClick={handleTabClick("dealer")} data-test="tab-dealer">
             Dealer
           </Tab>
-          <Tab onClick={handleTabClick("player1")} data-test="tab-player1">
-            Player1
-          </Tab>
-          <Tab onClick={handleTabClick("player2")} data-test="tab-player2">
-            Player2
+          <Tab onClick={handleTabClick("player")} data-test="tab-player">
+            Player
           </Tab>
         </TabList>
 
-        {nodesToInput.map((nodeType, key) => {
+        {nodesToInput.map((node, key) => {
           return (
             <TabPanel key={key}>
-              {nodeType.map((node, j) => {
-                return (
-                  <div key={j}>
-                    <Input
-                      defaultValue={process.env ? node.devAddress : ""}
-                      label={node.name}
-                      name={node.name}
-                      onChange={handleInputChange(node)}
-                      placeholder={`${node.name}'s IP Address`}
-                      type={"text"}
-                    />
-                  </div>
-                );
-              })}
+              <Input
+                defaultValue={process.env ? node.devAddress : ""}
+                label={node.name}
+                name={node.name}
+                onChange={handleInputChange(node)}
+                placeholder={`${node.name}'s IP Address`}
+                type={"text"}
+              />
             </TabPanel>
           );
         })}
