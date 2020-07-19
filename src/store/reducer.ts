@@ -412,7 +412,7 @@ const reducer = (state: IState, action: IAction): object => {
             seat: action.payload.seat,
             betAmount: 0,
             chips: action.payload.chips,
-            connected: action.payload.connected,
+            connected: action.payload.connected
             // hasCards: action.payload.hasCards,
             // showCards: action.payload.showCards,
             // isBetting: action.payload.isBetting
