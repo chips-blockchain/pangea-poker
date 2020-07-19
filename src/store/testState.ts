@@ -53,6 +53,8 @@ const initialState: IState = {
   cardsDealt: false,
   // Wether the chips have been collected to the middle
   chipsCollected: false,
+  // current chips stack paid to enter the game
+  currentChipsStack: 0,
   // Which player is the dealer
   dealer: 0,
   // Wether the game has started

@@ -24,7 +24,6 @@ try {
 const initialState: IState = {
   // Object of all players at the table
   players: {},
-  currentChipsStack: null,
   // Which seat is the active player
   activePlayer: null,
   // The total CHIPS balance the player has in the Pangea Wallet
@@ -50,6 +49,8 @@ const initialState: IState = {
   cardsDealt: false,
   // Whether the chips have been collected to the middle
   chipsCollected: false,
+  // current chips stack paid to enter the game
+  currentChipsStack: 0,
   // Which player is the dealer
   dealer: 0,
   // Pangea wallet address to deposit to
@@ -175,6 +176,7 @@ export interface IState {
   };
   cardsDealt: boolean;
   chipsCollected: boolean;
+  currentChipsStack: number,
   dealer: number;
   depositAddress: string;
   gameStarted: boolean;
