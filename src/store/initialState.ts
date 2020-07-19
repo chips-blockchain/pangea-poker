@@ -176,7 +176,7 @@ export interface IState {
   };
   cardsDealt: boolean;
   chipsCollected: boolean;
-  currentChipsStack: number,
+  currentChipsStack: number;
   dealer: number;
   depositAddress: string;
   gameStarted: boolean;
