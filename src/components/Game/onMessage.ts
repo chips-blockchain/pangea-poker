@@ -56,6 +56,7 @@ export interface IMessage {
   balance?: number;
   bet_amount?: number;
   big_blind?: number;
+  table_stack_in_chips: number;
   deal?: {
     balance?: number;
     board?: string[];
@@ -306,8 +307,8 @@ export const onMessage_player = (
 
     case "deal":
       message.deal.balance &&
-        setBalance(player, message.deal.balance, dispatch);
-      setUserSeat(player, dispatch);
+      // @todo do we need to set the balance at every deal 
+      // setBalance(player, message.deal.balance, dispatch);
       deal(message, state, dispatch);
       !state.cardsDealt && setTimeout(() => dealCards(dispatch), 1500);
       break;
@@ -513,6 +514,7 @@ export const onMessage_player = (
     case "walletInfo":
       updateStateValue("balance", message.balance, dispatch);
       updateStateValue("depositAddress", message.addr, dispatch);
+      updateStateValue("currentChipsStack", message.table_stack_in_chips, dispatch);
       break;
 
     case "withdrawResponse":

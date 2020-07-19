@@ -24,6 +24,7 @@ try {
 const initialState: IState = {
   // Object of all players at the table
   players: {},
+  currentChipsStack: null,
   // Which seat is the active player
   activePlayer: null,
   // The total CHIPS balance the player has in the Pangea Wallet

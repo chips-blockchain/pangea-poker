@@ -79,7 +79,8 @@ const reducer = (state: IState, action: IAction): object => {
           [(action.payload as {}) as IPayload["player"]]: {
             ...state.players[(action.payload as {}) as IPayload["player"]],
             connected: true,
-            isPlaying: true
+            isPlaying: true,
+            chips: state.currentChipsStack
           }
         }
       };
@@ -409,7 +410,6 @@ const reducer = (state: IState, action: IAction): object => {
             isPlaying: action.payload.isPlaying,
             player: action.payload.player,
             seat: action.payload.seat,
-            chips: 200, // @todo ?? update with the wallet current info,
             betAmount: 0
           }
         }
