@@ -297,9 +297,11 @@ export const seats = (
     dispatch({
       type: "updateSeats",
       payload: {
-        isPlaying: seat.playing === 1 ? true : false,
+        isPlaying: !seat.empty,
         player: seat.name,
-        seat: `player${seat.seat + 1}`
+        seat: `player${seat.seat + 1}`,
+        chips: seat.chips,
+        connected: !seat.empty
       }
     });
   });
