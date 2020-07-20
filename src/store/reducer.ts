@@ -23,7 +23,7 @@ interface IAction {
 }
 
 const reducer = (state: IState, action: IAction): object => {
-  if (isDev) {
+  if (isDev && process.env.REDUCER==="1") {
     console.log("Reducer", action);
   }
   switch (action.type) {

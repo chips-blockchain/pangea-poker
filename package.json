@@ -5,7 +5,8 @@
   "main": "src/electron.js",
   "scripts": {
     "build": "parcel build src/index.html --out-dir build --public-url ./",
-    "dev": "NODE_ENV=development parcel src/index.html",
+    "dev": "REDUCER=0 NODE_ENV=development parcel src/index.html",
+    "devlog": "REDUCER=1 NODE_ENV=development parcel src/index.html",
     "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:1234 && electron .\"",
     "electron-pack": "electron-builder -mwl",
     "start": "parcel src/index.html --open --out-dir build",
