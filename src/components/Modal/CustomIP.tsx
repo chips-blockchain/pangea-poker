@@ -7,7 +7,6 @@ import { IState } from "../../store/initialState";
 import Button from "../Controls/Button";
 import { ModalButtonsWrapper } from "./assets/style";
 import { Input } from "../Form";
-import { isDev } from "../../lib/dev";
 import development from "../../config/development.json";
 
 interface INode {
@@ -25,13 +24,13 @@ const nodesToInput: INode[] = [
     id: "dealer",
     type: "dealer",
     tableId: "",
-    devAddress: process.env.DEV_SOCKET_URL_DCV
+    devAddress: development.ips.dcv
   },
   {
     name: "player",
     id: "player",
     type: "player",
-    devAddress: process.env.DEV_SOCKET_URL_PLAYER
+    devAddress: development.ips.player
   }
 ];
 
@@ -66,8 +65,6 @@ const CustomIP: React.FunctionComponent = () => {
     // Start the game if it's a player node
     !isDealer && game({ gametype: "", pot: [0] }, state, dispatch);
 
-    // @todo check if the user was succesfully connected
-
     // Close the Startup Modal
     closeStartupModal(dispatch);
   };
@@ -76,8 +73,6 @@ const CustomIP: React.FunctionComponent = () => {
     e: ChangeEvent<Element>
   ): void => {
     const target = e.target as HTMLInputElement;
-    // @todo NODE_ENV variable is always development for some reason
-    // const ip: string = isDev ? development.ips[node.name] : target.value;
     setNodes({
       ...nodes,
       [node.name]: target.value
@@ -110,7 +105,7 @@ const CustomIP: React.FunctionComponent = () => {
           return (
             <TabPanel key={key}>
               <Input
-                defaultValue={""}
+                defaultValue={node.devAddress}
                 label={node.name}
                 name={node.name}
                 onChange={handleInputChange(node)}
