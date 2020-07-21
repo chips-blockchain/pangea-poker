@@ -152,6 +152,11 @@ export const onMessage_player = (
   log(`Received from ${player}: `, "received", message);
 
   switch (message.method) {
+    case "backend_status":
+      if (message.backend_status === 1) {
+        seats(message.seats, dispatch);
+      }
+      break;
     case "betting":
       {
         const guiPlayer: number = message.playerid;
