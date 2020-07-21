@@ -297,7 +297,7 @@ export const seats = (
     dispatch({
       type: "updateSeats",
       payload: {
-        isPlaying: !seat.empty,
+        isPlaying: !seat.playing,
         player: seat.name,
         seat: `player${seat.seat + 1}`,
         chips: seat.chips,
