@@ -17,6 +17,7 @@ import playerStringToId from "../../lib/playerStringToId";
 import { IPlayer, IState } from "../../store/initialState";
 import { IMessage } from "../Game/onMessage";
 import { Possibilities, PlayerActions, GameTurns } from "../../lib/constants";
+import notifications from "../../config/notifications.json";
 import sounds from "../../sounds/sounds";
 import {
   Balance,
@@ -66,7 +67,7 @@ const Player: React.FunctionComponent<IProps> = ({
     userSeat
   } = state;
 
-  const [seatMessage, setSeatMessage] = useState("SIT HERE");
+  const [seatMessage, setSeatMessage] = useState(notifications.SIT_HERE);
   const [userAvatar] = useState(randomEmoji());
   const [userName] = useState({
     text: seat,
@@ -92,7 +93,7 @@ const Player: React.FunctionComponent<IProps> = ({
   const handlePlayerClick = (seat: string) => (): void => {
     if (!connected) {
       playerJoin(seat, state, dispatch);
-      setSeatMessage("SITTING...");
+      setSeatMessage(notifications.SITTING);
     }
   };
 
