@@ -305,10 +305,11 @@ export const onMessage_player = (
       break;
 
     case "deal":
+      // @todo is userSeat from the state the best reference for the player?
       message.deal.balance &&
-        // @todo do we need to set the balance at every deal
-        // setBalance(player, message.deal.balance, dispatch);
+        setBalance(state.userSeat, message.deal.balance, dispatch);
         deal(message, state, dispatch);
+
       !state.cardsDealt && setTimeout(() => dealCards(dispatch), 1500);
       break;
 
