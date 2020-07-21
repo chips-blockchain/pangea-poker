@@ -444,7 +444,7 @@ export const onMessage_player = (
         setUserSeat(player, dispatch);
         connectPlayer(player, dispatch);
       } else {
-        // @todo this will never happen with the current implementation. 
+        // @todo this will never happen with the current implementation.
         // Will be addressed in https://github.com/chips-blockchain/pangea-poker/issues/272
         setNotice(
           {
