@@ -153,9 +153,6 @@ export const onMessage_player = (
 
   switch (message.method) {
     case "backend_status":
-      if (message.backend_status === 1) {
-        seats(message.seats, dispatch);
-      }
       break;
     case "betting":
       {
