@@ -47,6 +47,7 @@ import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
 import { GameTurns, Level } from "../../lib/constants";
 import notifications from "../../config/notifications.json";
+import { blind_bet, isCurrentPlayer } from "./helpers";
 export interface IMessage {
   action?: string;
   addr?: string;
@@ -145,8 +146,6 @@ export const onMessage_player = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  const playerId: number = playerStringToId(player);
-
   const message: IMessage = JSON.parse(messageString);
   setLastMessage(message, dispatch);
   log(`Received from ${player}: `, "received", message);
@@ -156,50 +155,33 @@ export const onMessage_player = (
       break;
     case "betting":
       {
-        const guiPlayer: number = message.playerid;
+        const bePlayerId: number = message.playerid;
+        const guiPlayerId: number = bePlayerId + 1;
         const betAmount: number = message.bet_amount;
-        const opponent: number = guiPlayer === 0 ? 1 : 0;
+        // big blind is the second to the left of the dealer
+        // @todo save that to a state in the beginning of each hand
+        // instead of caluclating on every message
+        const bigBlindUser: number = (state.dealer + 2) % state.maxPlayers;
+        const smallBlindUser: number = (state.dealer + 1) % state.maxPlayers;
+
         const [smallBlind, bigBlind] = state.blinds;
 
         switch (message.action) {
           // Update the current player's small blind
           case "small_blind_bet":
-            bet(playerId, message.amount, state, dispatch);
-            setLastAction(playerId, "Small Blind", dispatch);
-            log("Small Blind has been posted.", "info");
-            addToHandHistory(
-              `Player${guiPlayer + 1} posts the Small Blind of ${smallBlind}.`,
-              dispatch
-            );
-
+            blind_bet('Small', smallBlindUser, message.amount, state, dispatch);
+            
             // Update the opponent's big blind
-            bet(opponent, message.amount * 2, state, dispatch);
-            setLastAction(opponent, "Big Blind", dispatch);
-            log("Big Blind has been posted.", "info");
-            addToHandHistory(
-              `Player${opponent + 1} posts the Big Blind of ${bigBlind}.`,
-              dispatch
-            );
+            blind_bet('Big', bigBlindUser, message.amount * 2, state, dispatch);
+
             break;
 
           case "big_blind_bet":
             // Update the opponent's small blind
-            bet(opponent, message.amount / 2, state, dispatch);
-            setLastAction(opponent, "Small Blind", dispatch);
-            log("Small blind has been posted.", "info");
-            addToHandHistory(
-              `Player${opponent + 1} posts the Small Blind of ${smallBlind}.`,
-              dispatch
-            );
+            blind_bet('Small', smallBlindUser, message.amount / 2, state, dispatch);
 
             // Update the current player's big blind
-            bet(playerId, message.amount, state, dispatch);
-            setLastAction(playerId, "Big Blind", dispatch);
-            log("Big Blind has been posted.", "info");
-            addToHandHistory(
-              `Player${guiPlayer + 1} posts the Big Blind of ${bigBlind}.`,
-              dispatch
-            );
+            blind_bet('Big', bigBlindUser, message.amount, state, dispatch);            
 
             break;
 
@@ -209,13 +191,13 @@ export const onMessage_player = (
                 setBalance(playerIdToString(index), balance, dispatch);
               });
 
-            setActivePlayer(playerIdToString(guiPlayer), dispatch);
+            setActivePlayer(playerIdToString(bePlayerId), dispatch);
             updateTotalPot(message.pot, dispatch);
             setMinRaiseTo(message.minRaiseTo, dispatch);
             setToCall(message.toCall, dispatch);
 
             // Turn on controls if it's the current player's turn
-            if (playerId === guiPlayer) {
+            if (isCurrentPlayer(bePlayerId, state)) {
               processControls(message.possibilities, dispatch);
               showControls(true, dispatch);
               sounds.alert.play();
@@ -224,15 +206,15 @@ export const onMessage_player = (
 
           // Update player actions
           case "check":
-            setLastAction(guiPlayer, "check", dispatch);
-            addToHandHistory(`Player${guiPlayer + 1} checks.`, dispatch);
+            setLastAction(bePlayerId, "check", dispatch);
+            addToHandHistory(`Player${bePlayerId + 1} checks.`, dispatch);
             setActivePlayer(null, dispatch);
             sounds.check.play();
             break;
           case "call":
-            bet(guiPlayer, betAmount, state, dispatch);
-            setLastAction(guiPlayer, "call", dispatch);
-            addToHandHistory(`Player${guiPlayer + 1} calls.`, dispatch);
+            bet(bePlayerId, betAmount, state, dispatch);
+            setLastAction(bePlayerId, "call", dispatch);
+            addToHandHistory(`Player${bePlayerId + 1} calls.`, dispatch);
             setActivePlayer(null, dispatch);
             sounds.call.play();
             break;
@@ -240,10 +222,10 @@ export const onMessage_player = (
             const isBet = state.toCall === 0;
             const action = isBet ? "bet" : "raise";
 
-            bet(guiPlayer, betAmount, state, dispatch);
-            setLastAction(guiPlayer, action, dispatch);
+            bet(bePlayerId, betAmount, state, dispatch);
+            setLastAction(bePlayerId, action, dispatch);
             addToHandHistory(
-              `Player${guiPlayer + 1} ${action}s${
+              `Player${bePlayerId + 1} ${action}s${
                 isBet ? "" : " to"
               } ${betAmount}.`,
               dispatch
@@ -253,19 +235,19 @@ export const onMessage_player = (
             break;
           }
           case "fold":
-            fold(`player${guiPlayer + 1}`, dispatch);
-            setLastAction(guiPlayer, "fold", dispatch);
-            addToHandHistory(`Player${guiPlayer + 1} folds.`, dispatch);
+            fold(`player${bePlayerId + 1}`, dispatch);
+            setLastAction(bePlayerId, "fold", dispatch);
+            addToHandHistory(`Player${bePlayerId + 1} folds.`, dispatch);
             setActivePlayer(null, dispatch);
             sounds.fold.play();
             break;
 
           case "allin":
-            bet(guiPlayer, betAmount, state, dispatch);
+            bet(bePlayerId, betAmount, state, dispatch);
             setToCall(betAmount, dispatch);
-            setLastAction(guiPlayer, "all-in", dispatch);
+            setLastAction(bePlayerId, "all-in", dispatch);
             addToHandHistory(
-              `Player${guiPlayer + 1} is All-In with ${numberWithCommas(
+              `Player${bePlayerId + 1} is All-In with ${numberWithCommas(
                 betAmount
               )}.`,
               dispatch
@@ -523,6 +505,7 @@ export const onMessage_player = (
         message.table_stack_in_chips,
         dispatch
       );
+      updateStateValue("maxPlayers", message.max_players, dispatch);      
       break;
 
     case "withdrawResponse":
