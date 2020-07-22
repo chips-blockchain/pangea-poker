@@ -47,7 +47,7 @@ import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
 import { GameTurns, Level } from "../../lib/constants";
 import notifications from "../../config/notifications.json";
-import { blind_bet, isCurrentPlayer } from "./helpers";
+import { blindBet, isCurrentPlayer } from "./helpers";
 export interface IMessage {
   action?: string;
   addr?: string;
@@ -169,19 +169,25 @@ export const onMessage_player = (
         switch (message.action) {
           // Update the current player's small blind
           case "small_blind_bet":
-            blind_bet('Small', smallBlindUser, message.amount, state, dispatch);
-            
+            blindBet("Small", smallBlindUser, message.amount, state, dispatch);
+
             // Update the opponent's big blind
-            blind_bet('Big', bigBlindUser, message.amount * 2, state, dispatch);
+            blindBet("Big", bigBlindUser, message.amount * 2, state, dispatch);
 
             break;
 
           case "big_blind_bet":
             // Update the opponent's small blind
-            blind_bet('Small', smallBlindUser, message.amount / 2, state, dispatch);
+            blindBet(
+              "Small",
+              smallBlindUser,
+              message.amount / 2,
+              state,
+              dispatch
+            );
 
             // Update the current player's big blind
-            blind_bet('Big', bigBlindUser, message.amount, state, dispatch);            
+            blindBet("Big", bigBlindUser, message.amount, state, dispatch);
 
             break;
 
@@ -505,7 +511,7 @@ export const onMessage_player = (
         message.table_stack_in_chips,
         dispatch
       );
-      updateStateValue("maxPlayers", message.max_players, dispatch);      
+      updateStateValue("maxPlayers", message.max_players, dispatch);
       break;
 
     case "withdrawResponse":
