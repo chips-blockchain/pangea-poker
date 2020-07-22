@@ -313,7 +313,7 @@ export const sendMessage = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  if (state.connection[node] === "Connected") {
+  if (state.connection[node] === "Connected" || state.players[node].connected) {
     const m = {
       type: "setMessage",
       payload: {
@@ -338,7 +338,7 @@ export const sendInitMessage = (
       readyState: readyStateString
     }
   };
-  log(`Sent to ${node}: `, "sent", m);
+  log(`Sent to ${node}: `, "sent", "connect");
   dispatch(m);
 };
 
