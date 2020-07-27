@@ -1,6 +1,6 @@
 import reducer from "../reducer";
-import state from "../initialState";
-import initialState from "../initialState";
+import state from "../testState";
+import initialState from "../testState";
 
 describe("reducer", () => {
   expect.extend({
@@ -24,16 +24,17 @@ describe("reducer", () => {
 
   test("handles addToHandHistory", () => {
     const action = {
-      payload: "Player 1 has joined the table",
+      payload: "Player has joined the table",
       type: "addToHandHistory"
     };
+    initialState.handHistory = [];
 
     expect(reducer(state, action)).toEqual({
       ...initialState,
       handHistory: [
         {
           action: action.payload,
-          timeStamp: expect.toBeWithinRange(Date.now() - 10, Date.now() + 10)
+          timeStamp: expect.toBeWithinRange(Date.now() - 20, Date.now() + 20)
         }
       ]
     });

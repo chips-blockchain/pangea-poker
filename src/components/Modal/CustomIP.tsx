@@ -2,22 +2,17 @@ import React from "react";
 import { useContext, useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { DispatchContext, StateContext } from "../../store/context";
-import {
-  connectPlayer,
-  closeStartupModal,
-  game,
-  updateStateValue,
-  setUserSeat
-} from "../../store/actions";
+import { closeStartupModal, game, updateStateValue } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import Button from "../Controls/Button";
 import { ModalButtonsWrapper } from "./assets/style";
 import { Input } from "../Form";
+import development from "../../config/development.json";
 
 interface INode {
   name: "dcv" | "player";
-  id: "dealer" | "player";
   type: "dealer" | "player";
+  tableId: string;
   devAddress: string;
 }
 
@@ -28,13 +23,14 @@ const nodesToInput: INode[] = [
     name: "dcv",
     id: "dealer",
     type: "dealer",
-    devAddress: process.env.DEV_SOCKET_URL_DCV
+    tableId: "",
+    devAddress: development.ips.dcv
   },
   {
     name: "player",
     id: "player",
     type: "player",
-    devAddress: process.env.DEV_SOCKET_URL_PLAYER
+    devAddress: development.ips.player
   }
 ];
 
@@ -69,15 +65,12 @@ const CustomIP: React.FunctionComponent = () => {
     // Start the game if it's a player node
     !isDealer && game({ gametype: "", pot: [0] }, state, dispatch);
 
-    // Set the user seat if it's a player node
-    !isDealer && setUserSeat(nodeType, dispatch);
-
     // Close the Startup Modal
     closeStartupModal(dispatch);
   };
 
   const handleInputChange = (node: INode) => (
-    e: React.FormEvent<HTMLInputElement>
+    e: ChangeEvent<Element>
   ): void => {
     const target = e.target as HTMLInputElement;
     setNodes({
@@ -112,7 +105,7 @@ const CustomIP: React.FunctionComponent = () => {
           return (
             <TabPanel key={key}>
               <Input
-                defaultValue={process.env ? node.devAddress : ""}
+                defaultValue={node.devAddress}
                 label={node.name}
                 name={node.name}
                 onChange={handleInputChange(node)}

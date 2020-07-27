@@ -1,6 +1,6 @@
 import sounds from "../sounds";
 import { receiveMessage } from "../../components/Game/__tests__/onMessage.test";
-import state from "../../store/initialState";
+import state from "../../store/testState";
 import { GameTurns } from "../../lib/constants";
 
 const {

@@ -5,6 +5,7 @@ import {
   addToHandHistory,
   bet,
   collectChips,
+  connectPlayer,
   deal,
   dealCards,
   fold,
@@ -30,7 +31,11 @@ import {
   updateStateValue,
   setBoardCards,
   processControls,
-  updateMainPot
+  updateMainPot,
+  setNotice,
+  clearNotice,
+  walletInfo,
+  backendStatus
 } from "../../store/actions";
 import log from "../../lib/dev";
 import playerStringToId from "../../lib/playerStringToId";
@@ -40,7 +45,8 @@ import playerIdToString from "../../lib/playerIdToString";
 import arrayToSentence from "../../lib/arrayToSentence";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
-import { GameTurns } from "../../lib/constants";
+import { GameTurns, Level } from "../../lib/constants";
+import notifications from "../../config/notifications.json";
 export interface IMessage {
   action?: string;
   addr?: string;
@@ -49,6 +55,7 @@ export interface IMessage {
   balance?: number;
   bet_amount?: number;
   big_blind?: number;
+  table_stack_in_chips: number;
   deal?: {
     balance?: number;
     board?: string[];
@@ -145,6 +152,8 @@ export const onMessage_player = (
   log(`Received from ${player}: `, "received", message);
 
   switch (message.method) {
+    case "backend_status":
+      break;
     case "betting":
       {
         const guiPlayer: number = message.playerid;
@@ -298,10 +307,11 @@ export const onMessage_player = (
       break;
 
     case "deal":
+      // @todo is userSeat from the state the best reference for the player?
       message.deal.balance &&
-        setBalance(player, message.deal.balance, dispatch);
-      setUserSeat(player, dispatch);
+        setBalance(state.userSeat, message.deal.balance, dispatch);
       deal(message, state, dispatch);
+
       !state.cardsDealt && setTimeout(() => dealCards(dispatch), 1500);
       break;
 
@@ -425,6 +435,30 @@ export const onMessage_player = (
       break;
     }
 
+    case "info":
+      if (message.backend_status === 0) {
+        console.warn("The backend is preparing the response");
+        // @todo will be implemented in https://github.com/chips-blockchain/pangea-poker/issues/272
+      }
+      if (!message.seat_taken) {
+        const player = "player" + (message.playerid + 1);
+        // @todo id managements (+/- 1) needs to be centralized
+        clearNotice(dispatch);
+        setUserSeat(player, dispatch);
+        connectPlayer(player, dispatch);
+      } else {
+        // @todo this will never happen with the current implementation.
+        // Will be addressed in https://github.com/chips-blockchain/pangea-poker/issues/272
+        setNotice(
+          {
+            text: notifications.SEAT_TAKEN,
+            level: Level.error
+          },
+          dispatch
+        );
+      }
+      break;
+
     case "join_req":
       setBalance(player, message.balance, dispatch);
       sendMessage(message, "dcv", state, dispatch);
@@ -459,6 +493,15 @@ export const onMessage_player = (
       break;
 
     case "seats":
+      if (!state.userSeat) {
+        /**
+         before the user seats down we need to find out if the backend is ready 
+         backend might not be ready if it is still in the process of tx confirming
+         chips blocks are mined in 5-30 seconds
+        */
+        backendStatus(state, dispatch);
+      }
+      walletInfo(state, dispatch);
       seats(message.seats, dispatch);
       break;
 
@@ -475,6 +518,11 @@ export const onMessage_player = (
     case "walletInfo":
       updateStateValue("balance", message.balance, dispatch);
       updateStateValue("depositAddress", message.addr, dispatch);
+      updateStateValue(
+        "currentChipsStack",
+        message.table_stack_in_chips,
+        dispatch
+      );
       break;
 
     case "withdrawResponse":

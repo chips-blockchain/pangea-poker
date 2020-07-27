@@ -115,9 +115,6 @@ describe("CustomIP", () => {
       dispatch
     );
 
-    // Sets the userSeat in state
-    expect(setUserSeat).toHaveBeenCalledWith("player", dispatch);
-
     // Starts the game
     expect(game).toHaveBeenCalledWith(
       { gametype: "", pot: [0] },

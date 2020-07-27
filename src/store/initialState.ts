@@ -1,31 +1,29 @@
+import { INotice } from "../components/Table/assets/types";
+
 /*eslint-disable @typescript-eslint/camelcase*/
+const defaultPlayer: IPlayer = {
+  isPlaying: false,
+  chips: 200,
+  hasCards: false,
+  showCards: false,
+  isBetting: false,
+  betAmount: 0,
+  playerCards: [],
+  connected: false
+};
+
+let local = {};
+try {
+  local = require("../config/local.json");
+} catch (e) {
+  console.warn(
+    "CHIPS WARNING: You are missing a local configuration file. Check README for more details."
+  );
+}
 
 const initialState: IState = {
   // Object of all players at the table
-  players: {
-    player1: {
-      isPlaying: true,
-      seat: "player1",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    },
-    player2: {
-      isPlaying: true,
-      seat: "player2",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    }
-  },
+  players: {},
   // Which seat is the active player
   activePlayer: null,
   // The total CHIPS balance the player has in the Pangea Wallet
@@ -51,6 +49,8 @@ const initialState: IState = {
   cardsDealt: false,
   // Whether the chips have been collected to the middle
   chipsCollected: false,
+  // current chips stack paid to enter the game
+  currentChipsStack: 0,
   // Which player is the dealer
   dealer: 0,
   // Pangea wallet address to deposit to
@@ -70,11 +70,11 @@ const initialState: IState = {
   // Whehter the Cashier is open
   isCashierOpen: false,
   // Whether the app should run in developer mode
-  isDeveloperMode: false,
+  isDeveloperMode: "isDeveloperMode" in local ? local.isDeveloperMode : false,
   // Whether to show the LogBox component
   isLogBox: true,
   // Whether the Startup Modal shows at the beginning of the game
-  isStartupModal: true,
+  isStartupModal: "isStartupModal" in local ? local.isStartupModal : true,
   // Whether players has gone all-in and the showDown is active
   isShowDown: false,
   // Object that stores the last action so we can dispaly it on the UI
@@ -97,6 +97,10 @@ const initialState: IState = {
     player1: "0.0.0.0",
     player2: "0.0.0.0",
     echo: "0.0.0.0"
+  },
+  notice: {
+    text: "Choose your seat to begin playing",
+    level: 1
   },
   message: {
     dcv: null,
@@ -143,7 +147,17 @@ export interface IPlayer {
 }
 
 export interface IState {
-  players: { player1: IPlayer; player2: IPlayer };
+  players: {
+    player1: IPlayer;
+    player2: IPlayer;
+    player3: IPlayer;
+    player4: IPlayer;
+    player5: IPlayer;
+    player6: IPlayer;
+    player7: IPlayer;
+    player8: IPlayer;
+    player9: IPlayer;
+  };
   activePlayer: string;
   balance: number;
   blinds: [number, number];
@@ -162,6 +176,7 @@ export interface IState {
   };
   cardsDealt: boolean;
   chipsCollected: boolean;
+  currentChipsStack: number;
   dealer: number;
   depositAddress: string;
   gameStarted: boolean;
@@ -177,6 +192,7 @@ export interface IState {
   isStartupModal: boolean;
   lastAction: { player: number; action: string | null };
   lastMessage: object;
+  notice: INotice;
   nodes: {
     dcv: string | null;
     player1: string | null;

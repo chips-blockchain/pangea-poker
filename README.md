@@ -35,6 +35,32 @@ npm run test
 
 `sudo chmod +x ./.git/hooks/pre-push`
 
+### Setup
+
+Create a `local.json` file in the `src/config` folder with the following content. Change according to the needs.
+
+```
+{
+    "isDeveloperMode": true,
+    "isStartupModal": false
+}
+```
+
+### State Management
+
+https://blog.logrocket.com/use-hooks-and-context-not-react-and-redux/
+
+Good video explaining redux vs context state management approach
+https://www.youtube.com/watch?time_continue=134&v=eBYJ7O482Dc&feature=emb_title
+
+### Developer Mode
+
+You can activate developer mode and skip the startup modal by adjusting the `src/config/local.json`.
+
+### Environment variables in scripts
+
+REDUCER - adds extra logging from reducer to the console output.
+
 ## Contributing
 
 Please reach out to us via [Discord](https://discord.gg/NGPu4g) and check out the open [Issues](https://github.com/chips-blockchain/pangea-poker/issues).

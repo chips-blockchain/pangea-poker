@@ -7,6 +7,7 @@ import { IMessage } from "../components/Game/onMessage";
 import { Possibilities, GameTurns } from "../lib/constants";
 import sounds from "../sounds/sounds";
 import log from "../lib/dev";
+import { INotice } from "../components/Table/assets/types";
 
 const { preFlop, flop, turn } = GameTurns;
 
@@ -19,6 +20,13 @@ export const addToHandHistory = (
     type: "addToHandHistory",
     payload: lastAction
   });
+};
+
+export const backendStatus = (
+  state: IState,
+  dispatch: (arg: object) => void
+): void => {
+  sendMessage({ method: "backend_status" }, "player", state, dispatch);
 };
 
 // Update the player's current betAmount
@@ -76,6 +84,12 @@ export const connectPlayer = (
   dispatch({
     type: "connectPlayer",
     payload: player
+  });
+};
+
+export const clearNotice = (dispatch: (arg: object) => void): void => {
+  dispatch({
+    type: "clearNotice"
   });
 };
 
@@ -217,14 +231,15 @@ export const nextHand = (
 };
 
 export const playerJoin = (
-  player: string,
+  seat: string,
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  const id = Number(player.slice(-1)) - 1;
+  // subtract 1 because backend seat numbers start from 0
+  const id = Number(seat.slice(-1));
   sendMessage(
     { method: "player_join", gui_playerID: id },
-    player,
+    "player",
     state,
     dispatch
   );
@@ -282,9 +297,11 @@ export const seats = (
     dispatch({
       type: "updateSeats",
       payload: {
-        isPlaying: seat.playing === 1 ? true : false,
+        isPlaying: !seat.playing,
         player: seat.name,
-        seat: `player${seat.seat + 1}`
+        seat: `player${seat.seat + 1}`,
+        chips: seat.chips,
+        connected: !seat.empty
       }
     });
   });
@@ -420,6 +437,18 @@ export const setMinRaiseTo = (
   });
 };
 
+export const setNotice = (
+  notice: INotice,
+  dispatch: (arg: object) => void
+): void => {
+  dispatch({
+    type: "setNotice",
+    payload: {
+      ...notice
+    }
+  });
+};
+
 export const setToCall = (
   amount: number,
   dispatch: (arg: object) => void
@@ -511,4 +540,13 @@ export const updateStateValue = (
     type: "updateStateValue",
     payload: { key, value }
   });
+};
+
+export const walletInfo = (
+  // seat,
+  state: IState,
+  dispatch: (arg: object) => void
+): void => {
+  // const id = Number(seat.slice(-1)) - 1;
+  sendMessage({ method: "walletInfo" }, "player", state, dispatch);
 };

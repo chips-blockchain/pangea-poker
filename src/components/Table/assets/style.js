@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Level } from "../../../lib/constants";
 
 export const TableContainer = styled.div`
   background-color: var(--dark);
@@ -66,4 +67,19 @@ export const PotContainer = styled.div`
       top: ${p => p.player && winnerPotLocation[p.player].top};
     }
   }
+`;
+
+const noticeColors = {
+  [Level.info]: "var(--color-text)",
+  [Level.warning]: "var(--color-accent)",
+  [Level.error]: "var(--color-danger)"
+};
+
+export const Notice = styled.div`
+  color: ${props => noticeColors[props.level]};
+  float: right;
+  font-size: var(--font-size-l);
+  right: 2.9375rem;
+  bottom: 2.5rem;
+  position: absolute;
 `;

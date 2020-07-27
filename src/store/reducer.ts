@@ -1,4 +1,7 @@
 import { IState, IPlayer } from "./initialState";
+import { INotice } from "../components/Table/assets/types";
+import { Level } from "../lib/constants";
+import { isDev } from "../lib/dev";
 
 interface IPayload extends IState, IPlayer {
   player: string;
@@ -8,6 +11,7 @@ interface IPayload extends IState, IPlayer {
   canCheck: IState["controls"]["canCheck"];
   canRaise: IState["controls"]["canRaise"];
   node: IState["nodeType"];
+  notice: INotice;
   action: IState["lastAction"]["action"];
   winAmount: number;
   key: string;
@@ -19,6 +23,9 @@ interface IAction {
 }
 
 const reducer = (state: IState, action: IAction): object => {
+  if (isDev && process.env.REDUCER === "1") {
+    console.log("Reducer", action);
+  }
   switch (action.type) {
     case "addToHandHistory": {
       return {
@@ -71,7 +78,9 @@ const reducer = (state: IState, action: IAction): object => {
           ...state.players,
           [(action.payload as {}) as IPayload["player"]]: {
             ...state.players[(action.payload as {}) as IPayload["player"]],
-            connected: true
+            connected: true,
+            isPlaying: true,
+            chips: state.currentChipsStack
           }
         }
       };
@@ -203,6 +212,22 @@ const reducer = (state: IState, action: IAction): object => {
         }
       };
     }
+    case "setNotice": {
+      return {
+        ...state,
+        notice: action.payload
+      };
+    }
+
+    case "clearNotice": {
+      return {
+        ...state,
+        notice: {
+          text: "",
+          level: Level.info
+        }
+      };
+    }
     case "setActivePlayer": {
       return {
         ...state,
@@ -210,12 +235,13 @@ const reducer = (state: IState, action: IAction): object => {
       };
     }
     case "setBalance": {
+      const p = action.payload.player;
       return {
         ...state,
         players: {
           ...state.players,
-          [action.payload.player]: {
-            ...state.players[action.payload.player],
+          [p]: {
+            ...state.players[p],
             chips: action.payload.balance,
             connected: true
           }
@@ -383,7 +409,10 @@ const reducer = (state: IState, action: IAction): object => {
             ...state.players[action.payload.player],
             isPlaying: action.payload.isPlaying,
             player: action.payload.player,
-            seat: action.payload.seat
+            seat: action.payload.seat,
+            betAmount: 0,
+            chips: action.payload.chips,
+            connected: action.payload.connected
           }
         }
       };
