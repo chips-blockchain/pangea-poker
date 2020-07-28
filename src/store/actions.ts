@@ -40,7 +40,6 @@ export const bet = (
   if (typeof player === "number") {
     player = playerIdToString(player);
   }
-
   // Calculate the total chips which includes the current
   const totalChips =
     state.players[player].chips + state.players[player].betAmount;
@@ -313,7 +312,10 @@ export const sendMessage = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  if (state.connection[node] === "Connected" || state.players[node].connected) {
+  if (
+    state.connection[node] === "Connected" ||
+    (state.players[node] && state.players[node].connected)
+  ) {
     const m = {
       type: "setMessage",
       payload: {

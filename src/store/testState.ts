@@ -26,6 +26,17 @@ const initialState: IState = {
       betAmount: 0,
       playerCards: [],
       connected: false
+    },
+    player3: {
+      isPlaying: true,
+      seat: "player3",
+      chips: 200,
+      hasCards: true,
+      showCards: true,
+      isBetting: false,
+      betAmount: 0,
+      playerCards: [],
+      connected: false
     }
   },
   // Which seat is the active player
@@ -121,6 +132,8 @@ const initialState: IState = {
     player2: null,
     echo: null
   },
+  // the maximum amount of players at the table
+  maxPlayers: 9,
   // Amount of the minimum raise
   minRaiseTo: 4,
   // Options for the pot

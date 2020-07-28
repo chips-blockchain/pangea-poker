@@ -156,39 +156,49 @@ export const onMessage_player = (
     case "betting":
       {
         const bePlayerId: number = message.playerid;
-        const guiPlayerId: number = bePlayerId + 1;
         const betAmount: number = message.bet_amount;
         // big blind is the second to the left of the dealer
         // @todo save that to a state in the beginning of each hand
         // instead of caluclating on every message
-        const bigBlindUser: number = (state.dealer + 2) % state.maxPlayers;
-        const smallBlindUser: number = (state.dealer + 1) % state.maxPlayers;
 
+        const bigBlindPlayer: number = (state.dealer + 2) % state.maxPlayers;
+        const smallBlindPlayer: number = (state.dealer + 1) % state.maxPlayers;
+        // @todo use the blinds from the state or from the message?
         const [smallBlind, bigBlind] = state.blinds;
-
         switch (message.action) {
           // Update the current player's small blind
           case "small_blind_bet":
-            blindBet("Small", smallBlindUser, message.amount, state, dispatch);
+            blindBet(
+              "Small",
+              smallBlindPlayer,
+              message.amount,
+              state,
+              dispatch
+            );
 
-            // Update the opponent's big blind
-            blindBet("Big", bigBlindUser, message.amount * 2, state, dispatch);
+            // Update the big blind
+            blindBet(
+              "Big",
+              bigBlindPlayer,
+              message.amount * 2,
+              state,
+              dispatch
+            );
 
             break;
 
           case "big_blind_bet":
-            // Update the opponent's small blind
+            // Update the small blind
             blindBet(
               "Small",
-              smallBlindUser,
+              smallBlindPlayer,
               message.amount / 2,
               state,
               dispatch
             );
 
             // Update the current player's big blind
-            blindBet("Big", bigBlindUser, message.amount, state, dispatch);
-
+            blindBet("Big", bigBlindPlayer, message.amount, state, dispatch);
             break;
 
           case "round_betting":
@@ -286,9 +296,10 @@ export const onMessage_player = (
         setBlinds(blinds, dispatch);
         updateStateValue(
           "gameType",
-          `NL Hold'Em | Blinds: ${numberWithCommas(
-            smallBlind
-          )}/${numberWithCommas(bigBlind)}`,
+          `NL Hold'Em | Blinds: 
+          ${numberWithCommas(smallBlind)}
+          /
+          ${numberWithCommas(bigBlind)}`,
           dispatch
         );
       }

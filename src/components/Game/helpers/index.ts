@@ -1,11 +1,11 @@
 import { IState } from "../../../store/initialState";
 import { bet, setLastAction, addToHandHistory } from "../../../store/actions";
 import log from "../../../lib/dev";
-import palyerStringToId from "../../../lib/playerStringToId";
+import playerStringToId from "../../../lib/playerStringToId";
 
 /**
  *
- * @param type   "Small"
+ * @param type      "Small|Big"
  * @param playerId
  * @param amount
  * @param state
@@ -28,6 +28,5 @@ export const blindBet = (
 };
 
 export const isCurrentPlayer = (playerid: number, state: IState): boolean => {
-  console.log("is Current Player", playerid);
-  return playerid === palyerStringToId(state.userSeat);
+  return playerid === playerStringToId(state.userSeat);
 };

@@ -1,5 +1,5 @@
 const playerIdToString = (id: number): string => {
-  if (typeof id == "number" && id < 10 && id >= 0) {
+  if (typeof id == "number" && id < 10 && id >= 0 && id % 1 === 0) {
     return `player${id + 1}`;
   } else
     throw new Error(
