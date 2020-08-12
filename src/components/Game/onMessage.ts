@@ -492,15 +492,9 @@ export const onMessage_player = (
       break;
 
     case "seats":
-      if (!state.userSeat) {
-        /**
-         before the user seats down we need to find out if the backend is ready 
-         backend might not be ready if it is still in the process of tx confirming
-         chips blocks are mined in 5-30 seconds
-        */
-        backendStatus(state, dispatch);
+      if (!state.depositAddress) {
+        walletInfo(state, dispatch);
       }
-      walletInfo(state, dispatch);
       seats(message.seats, dispatch);
       break;
 
