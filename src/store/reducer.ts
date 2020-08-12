@@ -86,20 +86,17 @@ const reducer = (state: IState, action: IAction): object => {
       };
     }
     case "dealCards": {
+      let ps = {}
+      for (const idx in state.players) {
+        ps[idx] = {
+          ...state.players[idx],
+          hasCards: state.players[idx].connected
+        }
+      };
       return {
         ...state,
         cardsDealt: true,
-        players: {
-          ...state.players,
-          player1: {
-            ...state.players.player1,
-            hasCards: true
-          },
-          player2: {
-            ...state.players.player2,
-            hasCards: true
-          }
-        }
+        players: ps
       };
     }
     case "devStart": {
@@ -412,7 +409,8 @@ const reducer = (state: IState, action: IAction): object => {
             seat: action.payload.seat,
             betAmount: 0,
             chips: action.payload.chips,
-            connected: action.payload.connected
+            connected: action.payload.connected,
+            hasCards: action.payload.connected
           }
         }
       };
