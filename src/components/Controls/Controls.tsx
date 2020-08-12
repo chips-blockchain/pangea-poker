@@ -42,7 +42,8 @@ const Controls: React.FunctionComponent = () => {
 
   const chips: number = players[userSeat].chips;
   const totalStack: number = betAmount + chips;
-  const callAmount: number = toCall <= totalStack ? toCall - betAmount : chips;
+  // const callAmount: number = toCall <= totalStack ? toCall - betAmount : chips;
+  const callAmount = toCall;
   const [showFirstRow, setShowFirstRow] = useState(true);
 
   useEffect(() => {
@@ -234,7 +235,7 @@ const Controls: React.FunctionComponent = () => {
       {/* Check/Call Button */}
       <Button
         label={canCheck ? "Check" : "Call"}
-        amount={!canCheck && callAmount}
+        amount={!canCheck && toCall}
         onClick={handleCheckCallClick()}
         data-test={`table-controls-${canCheck ? "check" : "call"}-button`}
       />
