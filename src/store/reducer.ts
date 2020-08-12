@@ -86,13 +86,13 @@ const reducer = (state: IState, action: IAction): object => {
       };
     }
     case "dealCards": {
-      let ps = {}
+      const ps = {};
       for (const idx in state.players) {
         ps[idx] = {
           ...state.players[idx],
           hasCards: state.players[idx].connected
-        }
-      };
+        };
+      }
       return {
         ...state,
         cardsDealt: true,

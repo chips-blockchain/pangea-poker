@@ -205,7 +205,9 @@ const Player: React.FunctionComponent<IProps> = ({
           <PlayerName color={playerNameColor} connected={connected}>
             {/* Show the player's name or the last action */}
             {!connected
-              ? (state.userSeat ? '' : seatMessage)
+              ? state.userSeat
+                ? ""
+                : seatMessage
               : lastAction.action && seat == playerIdToString(lastAction.player)
               ? lastAction.action
               : userName.text}
