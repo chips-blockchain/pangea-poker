@@ -121,7 +121,7 @@
     "eslint": "6.8.0",
     "jest": "25.5.4",
     "jsdom-global": "3.0.2",
-    "jsdom": "16.3.0",
+    "jsdom": "16.4.0",
     "parcel-bundler": "1.12.4",
     "prettier": "1.19.1",
     "react-test-renderer": "16.13.1",
