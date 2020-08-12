@@ -106,31 +106,25 @@ export const onMessage = (
 
     case "turn":
       console.log("Received the turn info");
-
-      if (message.playerid == 0) {
-        message.gui_playerID = 0;
-        sendMessage(message, "player1", state, dispatch);
-      } else {
-        message.gui_playerID = 1;
-        sendMessage(message, "player2", state, dispatch);
-      }
+      message.gui_playerID = message.playerid;
+      sendMessage(message, "player", state, dispatch);
       break;
 
     case "betting":
       switch (message.action) {
         case "check":
         case "call":
-        case "raise":
+        case "raise":  
         case "fold":
         case "allin":
           message.action = message.action + "_player";
+          // @todo do we need this ?
           if (message.gui_playerID == 0) {
             message.gui_playerID = 1;
-            sendMessage(message, "player2", state, dispatch);
           } else if (message.gui_playerID == 1) {
             message.gui_playerID = 0;
-            sendMessage(message, "player1", state, dispatch);
           }
+          sendMessage(message, "player", state, dispatch);
           break;
       }
       break;
@@ -157,26 +151,20 @@ export const onMessage_player = (
       {
         const bePlayerId: number = message.playerid;
         const betAmount: number = message.bet_amount;
-        // big blind is the second to the left of the dealer
-        // @todo save that to a state in the beginning of each hand
-        // instead of caluclating on every message
-
-        const bigBlindPlayer: number = (state.dealer + 2) % state.maxPlayers;
-        const smallBlindPlayer: number = (state.dealer + 1) % state.maxPlayers;
-        // @todo use the blinds from the state or from the message?
         const [smallBlind, bigBlind] = state.blinds;
         switch (message.action) {
           // Update the current player's small blind
           case "small_blind_bet":
             blindBet(
               "Small",
-              smallBlindPlayer,
+              message.playerid,
               message.amount,
               state,
               dispatch
             );
 
-            // Update the big blind
+            // // Update the big blind
+            const bigBlindPlayer: number = (message.playerid + 1) % state.maxPlayers;
             blindBet(
               "Big",
               bigBlindPlayer,
@@ -189,6 +177,8 @@ export const onMessage_player = (
 
           case "big_blind_bet":
             // Update the small blind
+            const smallBlindPlayer: number = (message.playerid - 1 + state.maxPlayers) % state.maxPlayers;
+            if (smallBlindPlayer)
             blindBet(
               "Small",
               smallBlindPlayer,
@@ -198,7 +188,7 @@ export const onMessage_player = (
             );
 
             // Update the current player's big blind
-            blindBet("Big", bigBlindPlayer, message.amount, state, dispatch);
+            blindBet("Big", message.playerid, message.amount, state, dispatch);
             break;
 
           case "round_betting":
@@ -273,14 +263,8 @@ export const onMessage_player = (
             break;
 
           default:
-            if (message.playerid === 0) {
-              message.gui_playerID = 0;
-              sendMessage(message, "player1", state, dispatch);
-            } else if (message.playerid === 1) {
-              message.gui_playerID = 1;
-              sendMessage(message, "player2", state, dispatch);
-            }
-
+            message.gui_playerID = message.playerid;
+            sendMessage(message, "player", state, dispatch);
             break;
         }
       }
@@ -482,13 +466,8 @@ export const onMessage_player = (
       break;
 
     case "requestShare":
-      if (message.toPlayer == 0) {
-        message.gui_playerID = 0;
-        sendMessage(message, "player1", state, dispatch);
-      } else if (message.toPlayer == 1) {
-        message.gui_playerID = 1;
-        sendMessage(message, "player2", state, dispatch);
-      }
+      message.gui_playerID = message.toPlayer;
+      sendMessage(message, "player", state, dispatch);
       break;
 
     case "seats":
@@ -499,13 +478,8 @@ export const onMessage_player = (
       break;
 
     case "share_info":
-      if (message.toPlayer == 0) {
-        message.gui_playerID = 0;
-        sendMessage(message, "player1", state, dispatch);
-      } else if (message.toPlayer == 1) {
-        message.gui_playerID = 1;
-        sendMessage(message, "player2", state, dispatch);
-      }
+      message.gui_playerID = message.toPlayer;
+      sendMessage(message, "player", state, dispatch);
       break;
 
     case "walletInfo":
