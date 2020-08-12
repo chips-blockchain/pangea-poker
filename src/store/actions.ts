@@ -316,6 +316,10 @@ export const sendMessage = (
     state.connection[node] === "Connected" ||
     (state.players[node] && state.players[node].connected)
   ) {
+    // @todo some messages are sent to the dcv!
+    if (node !== 'dcv') {
+      node = "player";
+    }
     const m = {
       type: "setMessage",
       payload: {
@@ -324,7 +328,7 @@ export const sendMessage = (
       }
     };
     dispatch(m);
-    log(`Sent to ${node}: `, "sent", m);
+    log(`${Date.now()}: Sent to ${node}: `, "sent", m);
   } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
 };
 

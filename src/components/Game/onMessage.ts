@@ -148,7 +148,7 @@ export const onMessage_player = (
 ): void => {
   const message: IMessage = JSON.parse(messageString);
   setLastMessage(message, dispatch);
-  log(`Received from ${player}: `, "received", message);
+  log(`${Date.now()}: Received from ${player}: `, "received", message);
 
   switch (message.method) {
     case "backend_status":
