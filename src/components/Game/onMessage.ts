@@ -114,7 +114,7 @@ export const onMessage = (
       switch (message.action) {
         case "check":
         case "call":
-        case "raise":  
+        case "raise":
         case "fold":
         case "allin":
           message.action = message.action + "_player";
@@ -164,10 +164,9 @@ export const onMessage_player = (
             );
 
             // // Update the big blind
-            const bigBlindPlayer: number = (message.playerid + 1) % state.maxPlayers;
             blindBet(
               "Big",
-              bigBlindPlayer,
+              (message.playerid + 1) % state.maxPlayers,
               message.amount * 2,
               state,
               dispatch
@@ -177,11 +176,9 @@ export const onMessage_player = (
 
           case "big_blind_bet":
             // Update the small blind
-            const smallBlindPlayer: number = (message.playerid - 1 + state.maxPlayers) % state.maxPlayers;
-            if (smallBlindPlayer)
             blindBet(
               "Small",
-              smallBlindPlayer,
+              (message.playerid - 1 + state.maxPlayers) % state.maxPlayers,
               message.amount / 2,
               state,
               dispatch

@@ -93,7 +93,7 @@ const reducer = (state: IState, action: IAction): object => {
           ...state.players[idx],
           hasCards: state.players[idx].connected
         };
-      };
+      }
       return {
         ...state,
         cardsDealt: true,
@@ -108,7 +108,7 @@ const reducer = (state: IState, action: IAction): object => {
           isPlaying: true,
           connected: true
         };
-      };
+      }
       return {
         ...state,
         boardCards: [],
@@ -149,14 +149,14 @@ const reducer = (state: IState, action: IAction): object => {
       };
     }
     case "resetTurn": {
-      let ps: object = {};
+      const ps: object = {};
       for (const idx in state.players) {
         ps[idx] = {
           ...state.players[idx],
           isBetting: false,
           betAmount: 0
         };
-      };
+      }
       return {
         ...state,
         chipsCollected: false,
@@ -165,14 +165,14 @@ const reducer = (state: IState, action: IAction): object => {
       };
     }
     case "resetHand": {
-      let ps: object = {};
+      const ps: object = {};
       for (const idx in state.players) {
         ps[idx] = {
           ...state.players[idx],
           hasCards: true,
           playerCards: []
         };
-      };
+      }
       return {
         ...state,
         boardCards: [],
@@ -327,7 +327,7 @@ const reducer = (state: IState, action: IAction): object => {
           playerCards: action.payload[playerStringToId(idx)],
           showCards: true
         };
-      };
+      }
       return {
         ...state,
         isShowDown: true,
