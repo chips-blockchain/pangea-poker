@@ -317,7 +317,7 @@ export const sendMessage = (
     (state.players[node] && state.players[node].connected)
   ) {
     // @todo some messages are sent to the dcv!
-    if (node !== 'dcv') {
+    if (node !== "dcv") {
       node = "player";
     }
     const m = {
