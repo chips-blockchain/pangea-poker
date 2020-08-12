@@ -140,11 +140,11 @@ describe("handHistory", () => {
     receiveMessage(small_blind_message, 1);
     expect(addToHandHistorySpy).toHaveBeenCalledTimes(2);
     expect(addToHandHistorySpy).toHaveBeenCalledWith(
-      `Player2 posts the Small Blind of ${state.blinds[0]}.`,
+      `Player1 posts the Small Blind of ${state.blinds[0]}.`,
       dispatch
     );
     expect(addToHandHistorySpy).toHaveBeenCalledWith(
-      `Player3 posts the Big Blind of ${state.blinds[1]}.`,
+      `Player2 posts the Big Blind of ${state.blinds[1]}.`,
       dispatch
     );
   });
@@ -155,11 +155,11 @@ describe("handHistory", () => {
 
     expect(addToHandHistorySpy).toHaveBeenCalledTimes(2);
     expect(addToHandHistorySpy).toHaveBeenCalledWith(
-      `Player3 posts the Big Blind of ${state.blinds[1]}.`,
+      `Player2 posts the Big Blind of ${state.blinds[1]}.`,
       dispatch
     );
     expect(addToHandHistorySpy).toHaveBeenCalledWith(
-      `Player2 posts the Small Blind of ${state.blinds[0]}.`,
+      `Player1 posts the Small Blind of ${state.blinds[0]}.`,
       dispatch
     );
   });
