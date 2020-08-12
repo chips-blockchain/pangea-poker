@@ -81,7 +81,6 @@ const Table: React.FunctionComponent = () => {
               {nodeType === "player" &&
                 Object.values(players).map(
                   (player: IPlayer) =>
-                    (player.connected || !userSeat) && (
                       <Player
                         chips={player.chips}
                         connected={player.connected}
