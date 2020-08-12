@@ -105,7 +105,7 @@
     "babel-plugin-emotion": "10.0.33",
     "babel-plugin-jsx-pragmatic": "1.0.2",
     "babel-plugin-transform-inline-environment-variables": "0.4.3",
-    "electron": "8.4.0",
+    "electron": "8.5.0",
     "electron-builder": "22.7.0",
     "enzyme-adapter-react-16": "1.15.3",
     "enzyme": "3.11.0",
