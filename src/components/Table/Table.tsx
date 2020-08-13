@@ -75,7 +75,7 @@ const Table: React.FunctionComponent = () => {
         {isDeveloperMode && <DeveloperMode />}
 
         <OverlayBg>
-          {!state.isStartupModal && nodeType === "player" && (
+          {!state.isStartupModal && nodeType === "player" && !backendStatus && (
             <Information>{notifications.MINING_TX}</Information>
           )}
           <TableContainer overlay={!state.isStartupModal && !backendStatus}>
