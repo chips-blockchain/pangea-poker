@@ -27,6 +27,7 @@ import {
   Information
 } from "./assets/style";
 import "./assets/style.css";
+import notifications from "../../config/notifications.json";
 
 // This is the current Main component
 
@@ -76,7 +77,7 @@ const Table: React.FunctionComponent = () => {
         <OverlayBg>
           {!state.isStartupModal && nodeType === "player" && (
             <Information>
-              Your transaction is being mined. Please allow it 10-30 seconds.
+              {notifications.MINING_TX}
             </Information>
           )}
           <TableContainer overlay={!state.isStartupModal && !backendStatus}>
