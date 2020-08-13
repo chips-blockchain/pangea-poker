@@ -312,7 +312,7 @@ describe("walletInfo", () => {
       "backendStatus",
       backend_status,
       dispatch
-    );    
+    );
     expect(updateStateValueSpy).toHaveBeenCalledWith(
       "depositAddress",
       address,

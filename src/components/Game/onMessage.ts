@@ -529,9 +529,11 @@ export const onMessage_player = (
       );
       break;
     case "warning":
-      updateStateValue("backendStatus", 
+      updateStateValue(
+        "backendStatus",
         message.warning_num == BetWarnings.backendNotReady ? 0 : 1,
-        dispatch);
+        dispatch
+      );
       break;
     case "withdrawResponse":
       updateStateValue("balance", message.balance, dispatch);
