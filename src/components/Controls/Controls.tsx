@@ -42,8 +42,7 @@ const Controls: React.FunctionComponent = () => {
 
   const chips: number = players[userSeat].chips;
   const totalStack: number = betAmount + chips;
-  // const callAmount: number = toCall <= totalStack ? toCall - betAmount : chips;
-  const callAmount = toCall;
+  const callAmount: number = toCall <= totalStack ? toCall - betAmount : chips;
   const [showFirstRow, setShowFirstRow] = useState(true);
 
   useEffect(() => {
