@@ -1,17 +1,6 @@
 import { INotice } from "../components/Table/assets/types";
 
 /*eslint-disable @typescript-eslint/camelcase*/
-const defaultPlayer: IPlayer = {
-  isPlaying: false,
-  chips: 200,
-  hasCards: false,
-  showCards: false,
-  isBetting: false,
-  betAmount: 0,
-  playerCards: [],
-  connected: false
-};
-
 let local = {};
 try {
   local = require("../config/local.json");

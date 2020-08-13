@@ -6,7 +6,7 @@ export const TableContainer = styled.div`
   height: 37.5rem;
   width: 50rem;
   position: relative;
-  opacity: ${p => p.overlay ? 0.3 : 1}
+  opacity: ${p => (p.overlay ? 0.3 : 1)};
 `;
 
 export const GameTypeWrapper = styled.div`

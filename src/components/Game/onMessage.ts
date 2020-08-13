@@ -53,6 +53,7 @@ export interface IMessage {
   addrs?: string[];
   amount?: number;
   balance?: number;
+  backend_status: number;
   bet_amount?: number;
   big_blind?: number;
   table_stack_in_chips: number;
@@ -77,6 +78,7 @@ export interface IMessage {
   possibilities?: number[];
   toPlayer?: number;
   toCall?: number;
+  warning_num: number;
   win_amount?: number;
   winners?: number[];
 }
@@ -526,10 +528,10 @@ export const onMessage_player = (
         dispatch
       );
       break;
-      
     case "warning":
-      const val = message.warning_num == BetWarnings.backend_not_ready ? false: true;
-      updateStateValue("backend_ready", val, dispatch);
+      updateStateValue("backendStatus", 
+        message.warning_num == BetWarnings.backendNotReady ? 0 : 1,
+        dispatch);
       break;
     case "withdrawResponse":
       updateStateValue("balance", message.balance, dispatch);

@@ -75,7 +75,10 @@ const Table: React.FunctionComponent = () => {
 
         <OverlayBg>
           {!state.isStartupModal && nodeType === "player" && (
-          <Information>Your transaction is being mined. Please allow it 10-30 seconds.</Information>)}
+            <Information>
+              Your transaction is being mined. Please allow it 10-30 seconds.
+            </Information>
+          )}
           <TableContainer overlay={!state.isStartupModal && !backendStatus}>
             <Connections />
             <GameTypeWrapper>{gameType}</GameTypeWrapper>
@@ -140,7 +143,7 @@ const Table: React.FunctionComponent = () => {
             <Cashier dispatch={dispatch} isOpen={true} state={state} />
             <Backgrounds />
           </TableContainer>
-          </OverlayBg>
+        </OverlayBg>
         <StartupModal
           dispatch={dispatch}
           isOpen={state.isStartupModal}

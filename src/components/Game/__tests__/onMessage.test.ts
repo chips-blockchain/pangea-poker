@@ -4,7 +4,6 @@ import { IMessage, onMessage_player } from "../onMessage";
 import state from "../../../store/testState";
 import { IState } from "../../../store/initialState";
 import * as actions from "../../../store/actions";
-import { playersData } from "../testData";
 
 const dispatch = jest.fn();
 const updateStateValueSpy = jest.spyOn(actions, "updateStateValue");
@@ -17,6 +16,7 @@ export const receiveMessage = (
   const {
     action,
     addr,
+    backend_status,
     balance,
     bet_amount,
     deal,
@@ -24,6 +24,7 @@ export const receiveMessage = (
     playerid,
     possibilities,
     showInfo,
+    table_stack_in_chips,
     win_amount,
     winners
   } = message;
@@ -32,6 +33,7 @@ export const receiveMessage = (
     JSON.stringify({
       action,
       addr,
+      backend_status,
       balance,
       deal,
       bet_amount,
@@ -39,6 +41,7 @@ export const receiveMessage = (
       playerid,
       possibilities,
       showInfo,
+      table_stack_in_chips,
       win_amount,
       winners
     }),
@@ -286,24 +289,30 @@ describe("walletInfo", () => {
     const address = "123456789a123456789a123456789a1234";
     const balance = 9.9873;
     const table_stack_in_chips = 10;
+    const backend_status = 1;
     receiveMessage(
       {
         method: "walletInfo",
         addr: address,
         balance,
-        table_stack_in_chips
+        table_stack_in_chips,
+        backend_status
       },
       0
     );
 
     expect(updateStateValueSpy).toHaveBeenCalled();
-    expect(updateStateValueSpy).toHaveBeenCalledTimes(3);
-    // @todo test keeps on failing because of the below! fix!
-    // expect(updateStateValueSpy).toHaveBeenCalledWith(
-    //   "currentChipsStack",
-    //   table_stack_in_chips,
-    //   dispatch
-    // );
+    expect(updateStateValueSpy).toHaveBeenCalledTimes(4);
+    expect(updateStateValueSpy).toHaveBeenCalledWith(
+      "currentChipsStack",
+      table_stack_in_chips,
+      dispatch
+    );
+    expect(updateStateValueSpy).toHaveBeenCalledWith(
+      "backendStatus",
+      backend_status,
+      dispatch
+    );    
     expect(updateStateValueSpy).toHaveBeenCalledWith(
       "depositAddress",
       address,
