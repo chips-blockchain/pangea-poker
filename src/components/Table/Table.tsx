@@ -22,7 +22,9 @@ import {
   TableContainer,
   GameTypeWrapper,
   TableWrapper,
-  Notice
+  Notice,
+  OverlayBg,
+  Information
 } from "./assets/style";
 import "./assets/style.css";
 
@@ -36,6 +38,7 @@ const Table: React.FunctionComponent = () => {
   );
   const {
     activePlayer,
+    backendStatus,
     boardCards,
     chipsCollected,
     controls,
@@ -69,70 +72,75 @@ const Table: React.FunctionComponent = () => {
       <StateContext.Provider value={state}>
         <Game />
         {isDeveloperMode && <DeveloperMode />}
-        <TableContainer>
-          <Connections />
-          <GameTypeWrapper>{gameType}</GameTypeWrapper>
-          <TableWrapper>
-            {options.showPotCounter && (
-              <TotalPot state={state} dispatch={dispatch} />
-            )}
-            <Board boardCards={boardCards} gameTurn={gameTurn} />
-            <PlayerGrid9Max>
-              {nodeType === "player" &&
-                Object.values(players).map(
+
+        <OverlayBg>
+          {!state.isStartupModal && nodeType === "player" && (
+          <Information>Your transaction is being mined. Please allow it 10-30 seconds.</Information>)}
+          <TableContainer overlay={!state.isStartupModal && !backendStatus}>
+            <Connections />
+            <GameTypeWrapper>{gameType}</GameTypeWrapper>
+            <TableWrapper>
+              {options.showPotCounter && (
+                <TotalPot state={state} dispatch={dispatch} />
+              )}
+              <Board boardCards={boardCards} gameTurn={gameTurn} />
+              <PlayerGrid9Max>
+                {nodeType === "player" &&
+                  Object.values(players).map(
+                    (player: IPlayer) =>
+                      (player.connected || !userSeat) && (
+                        <Player
+                          chips={player.chips}
+                          connected={player.connected}
+                          hasCards={player.hasCards}
+                          isActive={activePlayer && activePlayer == player.seat}
+                          playerCards={player.playerCards}
+                          players={players}
+                          seat={player.seat}
+                          showCards={player.showCards}
+                          key={player.seat}
+                          winner={winner}
+                        />
+                      )
+                  )}
+              </PlayerGrid9Max>
+              <ChipGrid chipsCollected={chipsCollected}>
+                {Object.values(players).map(
                   (player: IPlayer) =>
-                    (player.connected || !userSeat) && (
-                      <Player
-                        chips={player.chips}
-                        connected={player.connected}
-                        hasCards={player.hasCards}
-                        isActive={activePlayer && activePlayer == player.seat}
-                        playerCards={player.playerCards}
-                        players={players}
-                        seat={player.seat}
-                        showCards={player.showCards}
+                    player.isBetting && (
+                      <Bet
+                        betAmount={player.betAmount}
+                        forPlayer={player.seat}
+                        chipsCollected={chipsCollected}
+                        playerBet
                         key={player.seat}
-                        winner={winner}
                       />
                     )
                 )}
-            </PlayerGrid9Max>
-            <ChipGrid chipsCollected={chipsCollected}>
-              {Object.values(players).map(
-                (player: IPlayer) =>
-                  player.isBetting && (
-                    <Bet
-                      betAmount={player.betAmount}
-                      forPlayer={player.seat}
-                      chipsCollected={chipsCollected}
-                      playerBet
-                      key={player.seat}
-                    />
-                  )
+              </ChipGrid>
+              {showMainPot && pot[0] !== 0 && (
+                <MainPot
+                  pot={pot}
+                  gameTurn={state.gameTurn}
+                  winners={state.winners}
+                />
               )}
-            </ChipGrid>
-            {showMainPot && pot[0] !== 0 && (
-              <MainPot
-                pot={pot}
-                gameTurn={state.gameTurn}
-                winners={state.winners}
-              />
-            )}
-            {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
-            {isLogBox && <LogBox handHistory={handHistory} />}
-            {!state.isStartupModal && nodeType === "player" && (
-              <Notice level={notice.level}>{notice.text}</Notice>
-            )}
-            {controls.showControls && (
-              <div>
-                <Controls />
-              </div>
-            )}
-          </TableWrapper>
+              {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
+              {isLogBox && <LogBox handHistory={handHistory} />}
+              {!state.isStartupModal && nodeType === "player" && (
+                <Notice level={notice.level}>{notice.text}</Notice>
+              )}
+              {controls.showControls && (
+                <div>
+                  <Controls />
+                </div>
+              )}
+            </TableWrapper>
 
-          <Cashier dispatch={dispatch} isOpen={true} state={state} />
-          <Backgrounds />
-        </TableContainer>
+            <Cashier dispatch={dispatch} isOpen={true} state={state} />
+            <Backgrounds />
+          </TableContainer>
+          </OverlayBg>
         <StartupModal
           dispatch={dispatch}
           isOpen={state.isStartupModal}

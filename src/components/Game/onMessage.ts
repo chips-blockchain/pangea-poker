@@ -45,7 +45,7 @@ import playerIdToString from "../../lib/playerIdToString";
 import arrayToSentence from "../../lib/arrayToSentence";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
-import { GameTurns, Level } from "../../lib/constants";
+import { GameTurns, Level, BetWarnings } from "../../lib/constants";
 import notifications from "../../config/notifications.json";
 export interface IMessage {
   action?: string;
@@ -153,6 +153,7 @@ export const onMessage_player = (
 
   switch (message.method) {
     case "backend_status":
+      updateStateValue("backendStatus", message.backend_status, dispatch);
       break;
     case "betting":
       {
@@ -516,6 +517,7 @@ export const onMessage_player = (
       break;
 
     case "walletInfo":
+      updateStateValue("backendStatus", message.backend_status, dispatch);
       updateStateValue("balance", message.balance, dispatch);
       updateStateValue("depositAddress", message.addr, dispatch);
       updateStateValue(
@@ -524,7 +526,11 @@ export const onMessage_player = (
         dispatch
       );
       break;
-
+      
+    case "warning":
+      const val = message.warning_num == BetWarnings.backend_not_ready ? false: true;
+      updateStateValue("backend_ready", val, dispatch);
+      break;
     case "withdrawResponse":
       updateStateValue("balance", message.balance, dispatch);
       updateStateValue("withdrawAddressList", message.addrs, dispatch);
