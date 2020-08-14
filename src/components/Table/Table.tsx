@@ -22,9 +22,7 @@ import {
   TableContainer,
   GameTypeWrapper,
   TableWrapper,
-  Notice,
-  OverlayBg,
-  Information
+  Notice
 } from "./assets/style";
 import "./assets/style.css";
 import notifications from "../../config/notifications.json";
@@ -74,9 +72,9 @@ const Table: React.FunctionComponent = () => {
         <Game />
         {isDeveloperMode && <DeveloperMode />}
 
-        <OverlayBg>
+        <div id="overlayBg">
           {!state.isStartupModal && nodeType === "player" && !backendStatus && (
-            <Information>{notifications.MINING_TX}</Information>
+            <div id="information">{notifications.MINING_TX}</div>
           )}
           <TableContainer overlay={!state.isStartupModal && !backendStatus}>
             <Connections />
@@ -142,7 +140,7 @@ const Table: React.FunctionComponent = () => {
             <Cashier dispatch={dispatch} isOpen={true} state={state} />
             <Backgrounds />
           </TableContainer>
-        </OverlayBg>
+        </div>
         <StartupModal
           dispatch={dispatch}
           isOpen={state.isStartupModal}

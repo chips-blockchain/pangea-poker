@@ -84,20 +84,3 @@ export const Notice = styled.div`
   bottom: 2.5rem;
   position: absolute;
 `;
-
-export const OverlayBg = styled.div`
-  background-color: #000000;
-  position: absolute;
-  height: 37.5rem;
-  width: 50rem;
-  z-index: 999;
-`;
-
-export const Information = styled.div`
-  position: absolute;
-  color: var(--color-text);
-  text-align: center;
-  padding-top: 16rem;
-  height: 37.5rem;
-  width: 50rem;
-`;
