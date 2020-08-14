@@ -17,6 +17,7 @@ export const receiveMessage = (
     action,
     amount,
     addr,
+    backend_status,
     balance,
     big_blind,
     bet_amount,
@@ -26,6 +27,7 @@ export const receiveMessage = (
     possibilities,
     showInfo,
     small_blind,
+    table_stack_in_chips,
     win_amount,
     winners
   } = message;
@@ -35,6 +37,7 @@ export const receiveMessage = (
       action,
       addr,
       amount,
+      backend_status,
       balance,
       big_blind,
       bet_amount,
@@ -44,6 +47,7 @@ export const receiveMessage = (
       possibilities,
       showInfo,
       small_blind,
+      table_stack_in_chips,
       win_amount,
       winners
     }),
@@ -310,24 +314,30 @@ describe("walletInfo", () => {
     const address = "123456789a123456789a123456789a1234";
     const balance = 9.9873;
     const table_stack_in_chips = 10;
+    const backend_status = 1;
     receiveMessage(
       {
         method: "walletInfo",
         addr: address,
         balance,
-        table_stack_in_chips
+        table_stack_in_chips,
+        backend_status
       },
       0
     );
 
     expect(updateStateValueSpy).toHaveBeenCalled();
     expect(updateStateValueSpy).toHaveBeenCalledTimes(4);
-    // @todo test keeps on failing because of the below! fix!
-    // expect(updateStateValueSpy).toHaveBeenCalledWith(
-    //   "currentChipsStack",
-    //   table_stack_in_chips,
-    //   dispatch
-    // );
+    expect(updateStateValueSpy).toHaveBeenCalledWith(
+      "currentChipsStack",
+      table_stack_in_chips,
+      dispatch
+    );
+    expect(updateStateValueSpy).toHaveBeenCalledWith(
+      "backendStatus",
+      backend_status,
+      dispatch
+    );
     expect(updateStateValueSpy).toHaveBeenCalledWith(
       "depositAddress",
       address,
