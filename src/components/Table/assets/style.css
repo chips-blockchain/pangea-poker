@@ -3,3 +3,21 @@
     color: var(--color-text);
     font-size: var(--font-size-l);
 }
+
+#overlayBg {
+    background-color: #000000;
+    position: absolute;
+    height: 37.5rem;
+    width: 50rem;
+    z-index: 999;
+}
+
+#information {
+    position: absolute;
+    color: var(--color-text);
+    text-align: center;
+    padding-top: 16rem;
+    height: 37.5rem;
+    width: 50rem;
+}
+

@@ -1,17 +1,6 @@
 import { INotice } from "../components/Table/assets/types";
 
 /*eslint-disable @typescript-eslint/camelcase*/
-const defaultPlayer: IPlayer = {
-  isPlaying: false,
-  chips: 200,
-  hasCards: false,
-  showCards: false,
-  isBetting: false,
-  betAmount: 0,
-  playerCards: [],
-  connected: false
-};
-
 let local = {};
 try {
   local = require("../config/local.json");
@@ -28,6 +17,9 @@ const initialState: IState = {
   activePlayer: null,
   // The total CHIPS balance the player has in the Pangea Wallet
   balance: 0,
+  // 0 - transaction is still being mined
+  // 1 - backend is ready
+  backendStatus: 0,
   // Current blinds - small and big one
   blinds: [1, 2],
   // Board Cards
@@ -159,6 +151,7 @@ export interface IState {
     player9: IPlayer;
   };
   activePlayer: string;
+  backendStatus: number;
   balance: number;
   blinds: [number, number];
   boardCards: string[];

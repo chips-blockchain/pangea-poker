@@ -32,3 +32,10 @@ export enum Level {
   warning = 2,
   error = 3
 }
+
+export enum BetWarnings {
+  backendNotReady = 0,
+  seatAlreadyTaken = 1,
+  insufficientFunds = 2,
+  tableIsFull = 3
+}
