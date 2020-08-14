@@ -474,6 +474,8 @@ export const onMessage_player = (
       if (!state.depositAddress) {
         walletInfo(state, dispatch);
       }
+      // @todo if I receive seats I guess the backend is ready
+      updateStateValue("backendStatus", 1, dispatch);
       seats(message.seats, dispatch);
       break;
 
