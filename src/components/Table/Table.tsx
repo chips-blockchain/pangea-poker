@@ -86,22 +86,21 @@ const Table: React.FunctionComponent = () => {
               <Board boardCards={boardCards} gameTurn={gameTurn} />
               <PlayerGrid9Max>
                 {nodeType === "player" &&
-                  Object.values(players).map(
-                    (player: IPlayer) =>
-                        <Player
-                          chips={player.chips}
-                          connected={player.connected}
-                          hasCards={player.hasCards}
-                          isActive={activePlayer && activePlayer == player.seat}
-                          playerCards={player.playerCards}
-                          players={players}
-                          seat={player.seat}
-                          showCards={player.showCards}
-                          key={player.seat}
-                          winner={winner}
-                        />
-                      )
-                  )}
+                  Object.values(players).map((player: IPlayer) => (
+                    <Player
+                      chips={player.chips}
+                      connected={player.connected}
+                      hasCards={player.hasCards}
+                      isActive={activePlayer && activePlayer == player.seat}
+                      playerCards={player.playerCards}
+                      players={players}
+                      seat={player.seat}
+                      showCards={player.showCards}
+                      key={player.seat}
+                      winner={winner}
+                    />
+                  ))}
+                )
               </PlayerGrid9Max>
               <ChipGrid chipsCollected={chipsCollected}>
                 {Object.values(players).map(
