@@ -37,6 +37,7 @@ const Table: React.FunctionComponent = () => {
   );
   const {
     activePlayer,
+    balance,
     backendStatus,
     boardCards,
     chipsCollected,
@@ -78,7 +79,8 @@ const Table: React.FunctionComponent = () => {
           )}
           <TableContainer overlay={!state.isStartupModal && !backendStatus}>
             <Connections />
-            <GameTypeWrapper>{gameType}</GameTypeWrapper>
+            <div id="gameType">{gameType}</div>
+            <div id="balanceGame">Balance: {balance}</div>
             <TableWrapper>
               {options.showPotCounter && (
                 <TotalPot state={state} dispatch={dispatch} />
