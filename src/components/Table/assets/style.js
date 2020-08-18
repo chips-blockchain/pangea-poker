@@ -9,15 +9,6 @@ export const TableContainer = styled.div`
   opacity: ${p => (p.overlay ? 0.3 : 1)};
 `;
 
-export const GameTypeWrapper = styled.div`
-  color: white;
-  position: absolute;
-  top: 0.25rem;
-  left: 0.25rem;
-  z-index: 4;
-  font-size: var(--font-size-xs);
-`;
-
 export const TableWrapper = styled.div`
   position: absolute;
   width: 100%;

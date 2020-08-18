@@ -36,7 +36,7 @@ export const DepositAddressContainer = styled.div`
 
 export const CashierButton = styled.div`
   position: absolute;
-  top: 1rem;
+  top: 1.5rem;
   right: 0.5rem;
   z-index: 998;
 `;

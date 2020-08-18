@@ -24,7 +24,7 @@
 #gameType {
     color: white;
     position: absolute;
-    top: 1rem;
+    top: 0.25rem;
     left: 1.3rem;
     z-index: 4;
     font-size: var(--font-size-xs);
@@ -33,7 +33,7 @@
 #balanceGame {
     color: var(--color-accent);
     position: absolute;
-    top: 2.1rem;
+    top: 1.55rem;
     left: 1.3rem;
     z-index: 4;
     font-size: var(--font-size-xs);
