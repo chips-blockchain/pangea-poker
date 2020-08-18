@@ -22,6 +22,7 @@ export const receiveMessage = (
     big_blind,
     bet_amount,
     deal,
+    max_players,
     method,
     playerid,
     possibilities,
@@ -42,6 +43,7 @@ export const receiveMessage = (
       big_blind,
       bet_amount,
       deal,
+      max_players,
       method,
       playerid,
       possibilities,
@@ -315,19 +317,21 @@ describe("walletInfo", () => {
     const balance = 9.9873;
     const table_stack_in_chips = 10;
     const backend_status = 1;
+    const max_players = 2;
     receiveMessage(
       {
         method: "walletInfo",
         addr: address,
         balance,
         table_stack_in_chips,
-        backend_status
+        backend_status,
+        max_players
       },
       0
     );
 
     expect(updateStateValueSpy).toHaveBeenCalled();
-    expect(updateStateValueSpy).toHaveBeenCalledTimes(4);
+    expect(updateStateValueSpy).toHaveBeenCalledTimes(5);
     expect(updateStateValueSpy).toHaveBeenCalledWith(
       "currentChipsStack",
       table_stack_in_chips,
@@ -346,6 +350,11 @@ describe("walletInfo", () => {
     expect(updateStateValueSpy).toHaveBeenCalledWith(
       "balance",
       balance,
+      dispatch
+    );
+    expect(updateStateValueSpy).toHaveBeenCalledWith(
+      "maxPlayers",
+      max_players,
       dispatch
     );
   });
