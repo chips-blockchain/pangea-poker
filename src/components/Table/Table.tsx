@@ -80,7 +80,7 @@ const Table: React.FunctionComponent = () => {
           <TableContainer overlay={!state.isStartupModal && !backendStatus}>
             <Connections />
             <div id="gameType">{gameType}</div>
-            <div id="balanceGame">Balance: {balance}</div>
+            {gameType != "" && <div id="balanceGame">Balance: {balance}</div>}
             <TableWrapper>
               {options.showPotCounter && (
                 <TotalPot state={state} dispatch={dispatch} />
