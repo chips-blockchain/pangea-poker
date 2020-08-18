@@ -48,7 +48,7 @@ const Game: React.FunctionComponent = () => {
         </div>
       )}
 
-      {!isStartupModal && nodeType === "player" && (
+      {state.nodesSet && nodeType === "player" && (
         <WebSocket
           nodeName={Object.keys(nodes)[0]}
           server={SOCKET_URL_PLAYER1}

@@ -4,7 +4,7 @@ import useWebSocket from "react-use-websocket";
 import { DispatchContext, StateContext } from "../../store/context";
 import { onMessage, onMessage_player } from "./onMessage";
 import { IState } from "../../store/initialState";
-import { resetMessage, sendInitMessage } from "../../store/actions";
+import { resetMessage, sendInitMessage, closeStartupModal, updateStateValue, game } from "../../store/actions";
 
 // This component is responsible for the WebSocket connection. It doesn't return and
 
@@ -43,7 +43,17 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   // If the connection status changes, update the state
   useEffect(() => {
     if (state.connection[nodeName] !== readyStateString) {
+      updateStateValue('connectionStatus', readyStateString, dispatch);
       sendInitMessage(readyStateString, nodeName, dispatch);
+      if (readyStateString === 'Connected') {
+        // Start the game if it's a player node
+        nodeName !== "dealer" && game({ gametype: "", pot: [0] }, state, dispatch);
+        closeStartupModal(dispatch);
+      }
+      if (readyStateString === 'Disconnected') {
+        updateStateValue('connectionStatus', 'Could not connect to the node', dispatch); 
+        updateStateValue("nodesSet", false, dispatch);
+      }
     }
   });
 

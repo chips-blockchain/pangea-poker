@@ -65,8 +65,7 @@ const CustomIP: React.FunctionComponent = () => {
     // Start the game if it's a player node
     !isDealer && game({ gametype: "", pot: [0] }, state, dispatch);
 
-    // Close the Startup Modal
-    closeStartupModal(dispatch);
+    updateStateValue("nodesSet", true, dispatch);
   };
 
   const handleInputChange = (node: INode) => (
@@ -112,6 +111,7 @@ const CustomIP: React.FunctionComponent = () => {
                 placeholder={`${node.name}'s IP Address`}
                 type={"text"}
               />
+              <div>{state.connectionStatus}</div>
             </TabPanel>
           );
         })}
