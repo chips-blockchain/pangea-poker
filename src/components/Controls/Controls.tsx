@@ -234,7 +234,7 @@ const Controls: React.FunctionComponent = () => {
       {/* Check/Call Button */}
       <Button
         label={canCheck ? "Check" : "Call"}
-        amount={!canCheck && toCall}
+        amount={!canCheck && callAmount}
         onClick={handleCheckCallClick()}
         data-test={`table-controls-${canCheck ? "check" : "call"}-button`}
       />
