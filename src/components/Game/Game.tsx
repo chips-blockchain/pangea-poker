@@ -38,7 +38,7 @@ const Game: React.FunctionComponent = () => {
         )}
       </GameWrapper>
 
-      {!isStartupModal && nodeType === "dealer" && (
+      {state.nodesSet && nodeType === "dealer" && (
         <div>
           <WebSocket
             nodeName="dcv"
@@ -55,7 +55,7 @@ const Game: React.FunctionComponent = () => {
           message={message[Object.keys(nodes)[0]]}
         />
       )}
-      {!isStartupModal && isDeveloperMode && (
+      {state.nodesSet && isDeveloperMode && (
         <WebSocket
           nodeName="echo"
           server={SOCKET_URL_ECHO}

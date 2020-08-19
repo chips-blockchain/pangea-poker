@@ -77,7 +77,7 @@ const Table: React.FunctionComponent = () => {
           {!state.isStartupModal && nodeType === "player" && !backendStatus && (
             <div id="information">{notifications.MINING_TX}</div>
           )}
-          <TableContainer overlay={!state.isStartupModal && !backendStatus}>
+          <TableContainer overlay={!state.isStartupModal && !backendStatus && nodeType === 'player'}>
             <Connections />
             <div id="gameType">{gameType}</div>
             {gameType != "" && <div id="balanceGame">Balance: {balance}</div>}
