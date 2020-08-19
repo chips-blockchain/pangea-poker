@@ -4,7 +4,7 @@ import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
 import { IMessage } from "../components/Game/onMessage";
-import { Possibilities, GameTurns } from "../lib/constants";
+import { Possibilities, GameTurns, Level } from "../lib/constants";
 import sounds from "../sounds/sounds";
 import log from "../lib/dev";
 import { INotice } from "../components/Table/assets/types";
@@ -498,6 +498,20 @@ export const showControls = (
 export const toggleMainPot = (dispatch: (arg: object) => void): void => {
   dispatch({
     type: "toggleMainPot"
+  });
+};
+
+export const updateConnectionStatus = (
+  text: string,
+  level: Level,
+  dispatch: (arg: object) => void
+): void => {
+  dispatch({
+    type: "updateConnectionStatus",
+    payload: {
+      text,
+      level
+    }
   });
 };
 

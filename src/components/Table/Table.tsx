@@ -18,12 +18,7 @@ import { StartupModal } from "../Modal";
 import DeveloperMode from "../DeveloperMode";
 import LogBox from "../LogBox";
 import Cashier from "../Cashier";
-import {
-  TableContainer,
-  GameTypeWrapper,
-  TableWrapper,
-  Notice
-} from "./assets/style";
+import { TableContainer, TableWrapper, Notice } from "./assets/style";
 import "./assets/style.css";
 import notifications from "../../config/notifications.json";
 

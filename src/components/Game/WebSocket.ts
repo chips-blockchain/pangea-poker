@@ -11,7 +11,8 @@ import {
   sendInitMessage,
   closeStartupModal,
   updateStateValue,
-  game
+  game,
+  updateConnectionStatus
 } from "../../store/actions";
 
 // This component is responsible for the WebSocket connection. It doesn't return and
@@ -51,14 +52,7 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   // If the connection status changes, update the state
   useEffect(() => {
     if (state.connection[nodeName] !== readyStateString) {
-      updateStateValue(
-        "connectionStatus",
-        {
-          text: readyStateString,
-          level: Level.warning
-        },
-        dispatch
-      );
+      updateConnectionStatus(readyStateString, Level.warning, dispatch);
       sendInitMessage(readyStateString, nodeName, dispatch);
       if (readyStateString === "Connected") {
         // Start the game if it's a player node
@@ -67,12 +61,9 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
         closeStartupModal(dispatch);
       }
       if (readyStateString === "Disconnected") {
-        updateStateValue(
-          "connectionStatus",
-          {
-            text: notifications.CONNECTION_FAILED,
-            level: Level.error
-          },
+        updateConnectionStatus(
+          notifications.CONNECTION_FAILED,
+          Level.error,
           dispatch
         );
         updateStateValue("nodesSet", false, dispatch);
