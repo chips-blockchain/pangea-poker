@@ -4,6 +4,8 @@ import useWebSocket from "react-use-websocket";
 import { DispatchContext, StateContext } from "../../store/context";
 import { onMessage, onMessage_player } from "./onMessage";
 import { IState } from "../../store/initialState";
+import notifications from "../../config/notifications.json";
+import { Level } from "../../lib/constants";
 import {
   resetMessage,
   sendInitMessage,
@@ -49,7 +51,14 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   // If the connection status changes, update the state
   useEffect(() => {
     if (state.connection[nodeName] !== readyStateString) {
-      updateStateValue("connectionStatus", readyStateString, dispatch);
+      updateStateValue(
+        "connectionStatus",
+        {
+          text: readyStateString,
+          level: Level.warning
+        },
+        dispatch
+      );
       sendInitMessage(readyStateString, nodeName, dispatch);
       if (readyStateString === "Connected") {
         // Start the game if it's a player node
@@ -60,7 +69,10 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
       if (readyStateString === "Disconnected") {
         updateStateValue(
           "connectionStatus",
-          "Could not connect to the node",
+          {
+            text: notifications.CONNECTION_FAILED,
+            level: Level.error
+          },
           dispatch
         );
         updateStateValue("nodesSet", false, dispatch);

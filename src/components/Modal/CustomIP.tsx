@@ -5,7 +5,7 @@ import { DispatchContext, StateContext } from "../../store/context";
 import { closeStartupModal, game, updateStateValue } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import Button from "../Controls/Button";
-import { ModalButtonsWrapper } from "./assets/style";
+import { ModalButtonsWrapper, ConnectionStatus } from "./assets/style";
 import { Input } from "../Form";
 import development from "../../config/development.json";
 
@@ -111,7 +111,9 @@ const CustomIP: React.FunctionComponent = () => {
                 placeholder={`${node.name}'s IP Address`}
                 type={"text"}
               />
-              <div>{state.connectionStatus}</div>
+              <ConnectionStatus level={state.connectionStatus.level}>
+                {state.connectionStatus.text}
+              </ConnectionStatus>
             </TabPanel>
           );
         })}

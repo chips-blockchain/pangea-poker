@@ -3,5 +3,6 @@
     "CHOOSE_SEAT": "Choose your seat to begin playing.",
     "SITTING": "SITTING...",
     "SIT_HERE": "SIT HERE",
-    "MINING_TX": "Your transaction is being mined. Please allow it 10-30 seconds."
+    "MINING_TX": "Your transaction is being mined. Please allow it 10-30 seconds.",
+    "CONNECTION_FAILED": "Could not connect to the node"
 }

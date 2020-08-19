@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/core";
+import { Level } from "../../../lib/constants";
 
 /** Table Select */
 
@@ -90,4 +91,15 @@ export const tabsStyle = css`
     top: 0;
     left: 0;
   }
+`;
+
+const noticeColors = {
+  [Level.info]: "var(--color-text)",
+  [Level.warning]: "var(--color-accent)",
+  [Level.error]: "var(--color-danger)"
+};
+
+export const ConnectionStatus = styled.div`
+  color: ${props => noticeColors[props.level]};
+  font-size: var(--font-size-s);
 `;

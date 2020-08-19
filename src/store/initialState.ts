@@ -41,7 +41,10 @@ const initialState: IState = {
   cardsDealt: false,
   // Whether the chips have been collected to the middle
   chipsCollected: false,
-  connectionStatus: "",
+  connectionStatus: {
+    text: "",
+    level: 1
+  },
   // current chips stack paid to enter the game
   currentChipsStack: 0,
   // Which player is the dealer
@@ -170,7 +173,7 @@ export interface IState {
   };
   cardsDealt: boolean;
   chipsCollected: boolean;
-  connectionStatus: string;
+  connectionStatus: INotice;
   currentChipsStack: number;
   dealer: number;
   depositAddress: string;
