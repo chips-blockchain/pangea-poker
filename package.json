@@ -74,7 +74,7 @@
     "wait-on": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.11.1",
+    "@babel/core": "7.11.4",
     "@babel/plugin-proposal-object-rest-spread": "7.11.0",
     "@babel/plugin-transform-typescript": "7.11.0",
     "@babel/preset-env": "7.11.0",
