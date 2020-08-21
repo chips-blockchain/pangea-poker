@@ -2,6 +2,7 @@ import { IState, IPlayer } from "./initialState";
 import { INotice } from "../components/Table/assets/types";
 import { Level } from "../lib/constants";
 import { isDev } from "../lib/dev";
+import playerStringToId from "../lib/playerStringToId";
 
 interface IPayload extends IState, IPlayer {
   player: string;
@@ -86,23 +87,28 @@ const reducer = (state: IState, action: IAction): object => {
       };
     }
     case "dealCards": {
+      const ps: object = {};
+      for (const idx in state.players) {
+        ps[idx] = {
+          ...state.players[idx],
+          hasCards: state.players[idx].connected
+        };
+      }
       return {
         ...state,
         cardsDealt: true,
-        players: {
-          ...state.players,
-          player1: {
-            ...state.players.player1,
-            hasCards: true
-          },
-          player2: {
-            ...state.players.player2,
-            hasCards: true
-          }
-        }
+        players: ps
       };
     }
     case "devStart": {
+      const ps: object = {};
+      for (const idx in state.players) {
+        ps[idx] = {
+          ...state.players[idx],
+          isPlaying: true,
+          connected: true
+        };
+      }
       return {
         ...state,
         boardCards: [],
@@ -111,19 +117,7 @@ const reducer = (state: IState, action: IAction): object => {
         showDealer: true,
         showPot: true,
         gameStarted: true,
-        players: {
-          ...state.players,
-          player1: {
-            ...state.players.player1,
-            isPlaying: true,
-            connected: true
-          },
-          player2: {
-            ...state.players.player2,
-            isPlaying: true,
-            connected: true
-          }
-        },
+        players: ps,
         options: {
           showPotCounter: true
         },
@@ -155,27 +149,30 @@ const reducer = (state: IState, action: IAction): object => {
       };
     }
     case "resetTurn": {
+      const ps: object = {};
+      for (const idx in state.players) {
+        ps[idx] = {
+          ...state.players[idx],
+          isBetting: false,
+          betAmount: 0
+        };
+      }
       return {
         ...state,
         chipsCollected: false,
         minRaiseTo: action.payload,
-
-        players: {
-          ...state.players,
-          player1: {
-            ...state.players.player1,
-            isBetting: false,
-            betAmount: 0
-          },
-          player2: {
-            ...state.players.player2,
-            isBetting: false,
-            betAmount: 0
-          }
-        }
+        players: ps
       };
     }
     case "resetHand": {
+      const ps: object = {};
+      for (const idx in state.players) {
+        ps[idx] = {
+          ...state.players[idx],
+          hasCards: true,
+          playerCards: []
+        };
+      }
       return {
         ...state,
         boardCards: [],
@@ -186,19 +183,7 @@ const reducer = (state: IState, action: IAction): object => {
         isShowDown: false,
         lastAction: { player: 0, action: null },
         minRaiseTo: state.blinds[1] * 2,
-        players: {
-          ...state.players,
-          player1: {
-            ...state.players.player1,
-            hasCards: true,
-            playerCards: []
-          },
-          player2: {
-            ...state.players.player2,
-            hasCards: true,
-            playerCards: []
-          }
-        },
+        players: ps,
         pot: [0],
         toCall: state.blinds[1]
       };
@@ -335,22 +320,18 @@ const reducer = (state: IState, action: IAction): object => {
       };
     }
     case "doShowDown": {
+      const ps: object = {};
+      for (const idx in state.players) {
+        ps[idx] = {
+          ...state.players[idx],
+          playerCards: action.payload[playerStringToId(idx)],
+          showCards: true
+        };
+      }
       return {
         ...state,
         isShowDown: true,
-        players: {
-          ...state.players,
-          player1: {
-            ...state.players.player1,
-            playerCards: action.payload[0],
-            showCards: true
-          },
-          player2: {
-            ...state.players.player2,
-            playerCards: action.payload[1],
-            showCards: true
-          }
-        }
+        players: ps
       };
     }
     case "toggleMainPot": {
@@ -412,7 +393,8 @@ const reducer = (state: IState, action: IAction): object => {
             seat: action.payload.seat,
             betAmount: 0,
             chips: action.payload.chips,
-            connected: action.payload.connected
+            connected: action.payload.connected,
+            hasCards: action.payload.connected
           }
         }
       };

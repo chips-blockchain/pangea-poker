@@ -40,7 +40,6 @@ export const bet = (
   if (typeof player === "number") {
     player = playerIdToString(player);
   }
-
   // Calculate the total chips which includes the current
   const totalChips =
     state.players[player].chips + state.players[player].betAmount;
@@ -313,7 +312,14 @@ export const sendMessage = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  if (state.connection[node] === "Connected") {
+  if (
+    state.connection[node] === "Connected" ||
+    (state.players[node] && state.players[node].connected)
+  ) {
+    // @todo some messages are sent to the dcv!
+    if (node !== "dcv") {
+      node = "player";
+    }
     const m = {
       type: "setMessage",
       payload: {
@@ -322,7 +328,7 @@ export const sendMessage = (
       }
     };
     dispatch(m);
-    log(`Sent to ${node}: `, "sent", m);
+    log(`${Date.now()}: Sent to ${node}: `, "sent", m);
   } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
 };
 
@@ -338,7 +344,7 @@ export const sendInitMessage = (
       readyState: readyStateString
     }
   };
-  log(`Sent to ${node}: `, "sent", m);
+  log(`Sent to ${node}: `, "sent", "connect");
   dispatch(m);
 };
 

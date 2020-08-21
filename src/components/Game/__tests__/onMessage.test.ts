@@ -15,15 +15,19 @@ export const receiveMessage = (
 ): void => {
   const {
     action,
+    amount,
     addr,
     backend_status,
     balance,
+    big_blind,
     bet_amount,
     deal,
+    max_players,
     method,
     playerid,
     possibilities,
     showInfo,
+    small_blind,
     table_stack_in_chips,
     win_amount,
     winners
@@ -33,14 +37,18 @@ export const receiveMessage = (
     JSON.stringify({
       action,
       addr,
+      amount,
       backend_status,
       balance,
-      deal,
+      big_blind,
       bet_amount,
+      deal,
+      max_players,
       method,
       playerid,
       possibilities,
       showInfo,
+      small_blind,
       table_stack_in_chips,
       win_amount,
       winners
@@ -51,22 +59,25 @@ export const receiveMessage = (
   );
 };
 
-// Active Player Handling
+/**
+ * Active Player Handling
+ * Active user is player id: 1
+ * State userSeat is player1
+ */
 describe("Active player handling", () => {
   const setActivePlayerSpy = jest.spyOn(actions, "setActivePlayer");
   const showControlsSpy = jest.spyOn(actions, "showControls");
 
-  test("reveal the controls for the player at userSeat", () => {
-    receiveMessage(
-      {
-        action: "round_betting",
-        method: "betting",
-        playerid: 1,
-        possibilities: [4, 5, 6]
-      },
-      1
-    );
+  const round_betting_message = {
+    action: "round_betting",
+    method: "betting",
+    playerid: 0,
+    possibilities: [4, 5, 6]
+  };
 
+  test("reveal the controls for the player at userSeat", () => {
+    // userSeat is playerid + 1
+    receiveMessage(round_betting_message, 1);
     expect(showControlsSpy).toHaveBeenCalledTimes(1);
     expect(showControlsSpy).toHaveBeenCalledWith(true, dispatch);
   });
@@ -74,28 +85,34 @@ describe("Active player handling", () => {
   test("does not reveal the controls when it's the opponent's turn", () => {
     receiveMessage(
       {
-        action: "round_betting",
-        method: "betting",
-        playerid: 0,
-        possibilities: [4, 5, 6]
+        ...round_betting_message,
+        playerid: 1
       },
       1
     );
+    expect(showControlsSpy).toHaveBeenCalledTimes(0);
 
+    receiveMessage(
+      {
+        ...round_betting_message,
+        playerid: 3
+      },
+      1
+    );
+    expect(showControlsSpy).toHaveBeenCalledTimes(0);
+
+    receiveMessage(
+      {
+        ...round_betting_message,
+        playerid: 6
+      },
+      1
+    );
     expect(showControlsSpy).toHaveBeenCalledTimes(0);
   });
 
   test("highlights the correct active player", () => {
-    receiveMessage(
-      {
-        action: "round_betting",
-        method: "betting",
-        playerid: 0,
-        possibilities: [4, 5, 6]
-      },
-      1
-    );
-
+    receiveMessage(round_betting_message, 1);
     expect(setActivePlayerSpy).toHaveBeenCalledTimes(1);
     expect(setActivePlayerSpy).toHaveBeenCalledWith("player1", dispatch);
   });
@@ -104,17 +121,29 @@ describe("Active player handling", () => {
 // Hand History
 describe("handHistory", () => {
   const addToHandHistorySpy = jest.spyOn(actions, "addToHandHistory");
+  const small_blind_message = {
+    action: "small_blind_bet",
+    method: "betting",
+    amount: 2,
+    playerid: 0
+  };
+  const blinds_info = {
+    method: "blindsInfo",
+    small_blind: 2,
+    big_blind: 4
+  };
+  const big_blind_message = {
+    action: "big_blind_bet",
+    method: "betting",
+    // @todo the amount is being sent from the backend
+    // check if it fits the big/small blind which was set before???
+    amount: 4,
+    playerid: 1
+  };
 
   test("logs posting the blinds from the Small Blind's perspective", () => {
-    receiveMessage(
-      {
-        action: "small_blind_bet",
-        method: "betting",
-        playerid: 0
-      },
-      0
-    );
-
+    state.blinds = [2, 4];
+    receiveMessage(small_blind_message, 1);
     expect(addToHandHistorySpy).toHaveBeenCalledTimes(2);
     expect(addToHandHistorySpy).toHaveBeenCalledWith(
       `Player1 posts the Small Blind of ${state.blinds[0]}.`,
@@ -127,10 +156,8 @@ describe("handHistory", () => {
   });
 
   test("logs posting the blinds from the Big Blind's perspective", () => {
-    receiveMessage(
-      { action: "big_blind_bet", method: "betting", playerid: 1 },
-      1
-    );
+    state.blinds = [2, 4];
+    receiveMessage(big_blind_message, 1);
 
     expect(addToHandHistorySpy).toHaveBeenCalledTimes(2);
     expect(addToHandHistorySpy).toHaveBeenCalledWith(
@@ -290,19 +317,21 @@ describe("walletInfo", () => {
     const balance = 9.9873;
     const table_stack_in_chips = 10;
     const backend_status = 1;
+    const max_players = 2;
     receiveMessage(
       {
         method: "walletInfo",
         addr: address,
         balance,
         table_stack_in_chips,
-        backend_status
+        backend_status,
+        max_players
       },
       0
     );
 
     expect(updateStateValueSpy).toHaveBeenCalled();
-    expect(updateStateValueSpy).toHaveBeenCalledTimes(4);
+    expect(updateStateValueSpy).toHaveBeenCalledTimes(5);
     expect(updateStateValueSpy).toHaveBeenCalledWith(
       "currentChipsStack",
       table_stack_in_chips,
@@ -321,6 +350,11 @@ describe("walletInfo", () => {
     expect(updateStateValueSpy).toHaveBeenCalledWith(
       "balance",
       balance,
+      dispatch
+    );
+    expect(updateStateValueSpy).toHaveBeenCalledWith(
+      "maxPlayers",
+      max_players,
       dispatch
     );
   });

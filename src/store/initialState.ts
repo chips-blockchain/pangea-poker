@@ -94,6 +94,7 @@ const initialState: IState = {
     text: "Choose your seat to begin playing",
     level: 1
   },
+  maxPlayers: 9,
   message: {
     dcv: null,
     player1: null,
@@ -193,6 +194,7 @@ export interface IState {
     echo: string | null;
   };
   nodeType: string;
+  maxPlayers: number;
   message: {
     dcv: string | null;
     player1: string | null;
