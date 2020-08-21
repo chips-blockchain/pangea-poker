@@ -7,19 +7,12 @@ import * as actions from "../../../store/actions";
 
 const dispatch = jest.fn();
 
-jest.spyOn(actions, "closeStartupModal");
 jest.spyOn(actions, "connectPlayer");
 jest.spyOn(actions, "game");
 jest.spyOn(actions, "setUserSeat");
 jest.spyOn(actions, "updateStateValue");
 
-const {
-  updateStateValue,
-  closeStartupModal,
-  connectPlayer,
-  game,
-  setUserSeat
-} = actions;
+const { updateStateValue, connectPlayer, game, setUserSeat } = actions;
 
 describe("CustomIP", () => {
   const buildWrapper = stateToTest => {
@@ -81,9 +74,6 @@ describe("CustomIP", () => {
 
     // Does not connect the opponent
     expect(connectPlayer).toHaveBeenCalledTimes(0);
-
-    // Closes the startup modal
-    expect(closeStartupModal).toHaveBeenCalledWith(dispatch);
   });
 
   test("Proceeds correctly with a player node", () => {
@@ -114,15 +104,5 @@ describe("CustomIP", () => {
       "player",
       dispatch
     );
-
-    // Starts the game
-    expect(game).toHaveBeenCalledWith(
-      { gametype: "", pot: [0] },
-      state,
-      dispatch
-    );
-
-    // Closes the startup modal
-    expect(closeStartupModal).toHaveBeenCalledWith(dispatch);
   });
 });

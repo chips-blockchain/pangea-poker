@@ -2,10 +2,10 @@ import React from "react";
 import { useContext, useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { DispatchContext, StateContext } from "../../store/context";
-import { closeStartupModal, game, updateStateValue } from "../../store/actions";
+import { game, updateStateValue } from "../../store/actions";
 import { IState } from "../../store/initialState";
 import Button from "../Controls/Button";
-import { ModalButtonsWrapper } from "./assets/style";
+import { ModalButtonsWrapper, ConnectionStatus } from "./assets/style";
 import { Input } from "../Form";
 import development from "../../config/development.json";
 
@@ -65,8 +65,7 @@ const CustomIP: React.FunctionComponent = () => {
     // Start the game if it's a player node
     !isDealer && game({ gametype: "", pot: [0] }, state, dispatch);
 
-    // Close the Startup Modal
-    closeStartupModal(dispatch);
+    updateStateValue("nodesSet", true, dispatch);
   };
 
   const handleInputChange = (node: INode) => (
@@ -112,6 +111,9 @@ const CustomIP: React.FunctionComponent = () => {
                 placeholder={`${node.name}'s IP Address`}
                 type={"text"}
               />
+              <ConnectionStatus level={state.connectionStatus.level}>
+                {state.connectionStatus.text}
+              </ConnectionStatus>
             </TabPanel>
           );
         })}

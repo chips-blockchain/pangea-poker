@@ -9,7 +9,7 @@
     position: absolute;
     height: 37.5rem;
     width: 50rem;
-    z-index: 999;
+    z-index: 1;
 }
 
 #information {

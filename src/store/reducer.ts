@@ -363,6 +363,12 @@ const reducer = (state: IState, action: IAction): object => {
         }
       };
     }
+    case "updateConnectionStatus": {
+      return {
+        ...state,
+        connectionStatus: action.payload
+      };
+    }
     case "updateGameTurn": {
       return {
         ...state,

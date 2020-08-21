@@ -18,12 +18,7 @@ import { StartupModal } from "../Modal";
 import DeveloperMode from "../DeveloperMode";
 import LogBox from "../LogBox";
 import Cashier from "../Cashier";
-import {
-  TableContainer,
-  GameTypeWrapper,
-  TableWrapper,
-  Notice
-} from "./assets/style";
+import { TableContainer, TableWrapper, Notice } from "./assets/style";
 import "./assets/style.css";
 import notifications from "../../config/notifications.json";
 
@@ -77,7 +72,11 @@ const Table: React.FunctionComponent = () => {
           {!state.isStartupModal && nodeType === "player" && !backendStatus && (
             <div id="information">{notifications.MINING_TX}</div>
           )}
-          <TableContainer overlay={!state.isStartupModal && !backendStatus}>
+          <TableContainer
+            overlay={
+              !state.isStartupModal && !backendStatus && nodeType === "player"
+            }
+          >
             <Connections />
             <div id="gameType">{gameType}</div>
             {gameType != "" && <div id="balanceGame">Balance: {balance}</div>}

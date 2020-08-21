@@ -54,6 +54,10 @@ const initialState: IState = {
     player2: "Not connected",
     echo: "Not connected"
   },
+  connectionStatus: {
+    text: "",
+    level: 1
+  },
   controls: {
     canCheck: true,
     canRaise: true,
