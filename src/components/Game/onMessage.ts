@@ -92,48 +92,8 @@ export const onMessage = (
   dispatch: (arg: object) => void
 ): void => {
   const message: IMessage = JSON.parse(messageString);
-
+  // keep it just in case for now
   log("Received from DCV", "received", message);
-  setLastMessage(message, dispatch);
-
-  switch (message.method) {
-    case "game":
-      game(message.game, state, dispatch);
-      sendMessage({ method: "seats" }, "dcv", state, dispatch);
-      break;
-
-    case "seats":
-      seats(message.seats, dispatch);
-      break;
-
-    case "turn":
-      console.log("Received the turn info");
-      message.gui_playerID = message.playerid;
-      sendMessage(message, "player", state, dispatch);
-      break;
-
-    case "betting":
-      switch (message.action) {
-        case "check":
-        case "call":
-        case "raise":
-        case "fold":
-        case "allin":
-          message.action = message.action + "_player";
-          // @todo do we need this ?
-          if (message.gui_playerID == 0) {
-            message.gui_playerID = 1;
-          } else if (message.gui_playerID == 1) {
-            message.gui_playerID = 0;
-          }
-          sendMessage(message, "player", state, dispatch);
-          break;
-      }
-      break;
-
-    case "blindsInfo":
-    /*update small_blind and big_blind values received from backend to the gui here*/
-  }
 };
 
 export const onMessage_player = (
