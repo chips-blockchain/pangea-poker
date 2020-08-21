@@ -35,17 +35,6 @@ npm run test
 
 `sudo chmod +x ./.git/hooks/pre-push`
 
-### Setup
-
-Create a `local.json` file in the `src/config` folder with the following content. Change according to the needs.
-
-```
-{
-    "isDeveloperMode": true,
-    "isStartupModal": false
-}
-```
-
 ### State Management
 
 https://blog.logrocket.com/use-hooks-and-context-not-react-and-redux/

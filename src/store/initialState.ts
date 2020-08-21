@@ -1,14 +1,6 @@
 import { INotice } from "../components/Table/assets/types";
 
 /*eslint-disable @typescript-eslint/camelcase*/
-let local = {};
-try {
-  local = require("../config/local.json");
-} catch (e) {
-  console.warn(
-    "CHIPS WARNING: You are missing a local configuration file. Check README for more details."
-  );
-}
 
 const initialState: IState = {
   // Object of all players at the table
@@ -66,11 +58,11 @@ const initialState: IState = {
   // Whehter the Cashier is open
   isCashierOpen: false,
   // Whether the app should run in developer mode
-  isDeveloperMode: "isDeveloperMode" in local ? local.isDeveloperMode : false,
+  isDeveloperMode: false,
   // Whether to show the LogBox component
   isLogBox: true,
   // Whether the Startup Modal shows at the beginning of the game
-  isStartupModal: "isStartupModal" in local ? local.isStartupModal : true,
+  isStartupModal: true,
   // Whether players has gone all-in and the showDown is active
   isShowDown: false,
   // Object that stores the last action so we can dispaly it on the UI
