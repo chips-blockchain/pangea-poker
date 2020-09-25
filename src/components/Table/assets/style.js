@@ -33,6 +33,34 @@ const winnerPotLocation = {
   player2: {
     left: "30rem",
     top: "14rem"
+  },
+  player3: {
+    left: "30rem",
+    top: "18.75rem"
+  },
+  player4: {
+    left: "30rem",
+    top: "20rem"
+  },
+  player5: {
+    left: "22.25rem",
+    top: "20rem"
+  },
+  player6: {
+    left: "11.75rem",
+    top: "20rem"
+  },
+  player7: {
+    left: "8.125rem",
+    top: "17.5rem"
+  },
+  player8: {
+    left: "8.125rem",
+    top: "13.125rem"
+  },
+  player9: {
+    left: "15.5rem",
+    top: "9.5rem"
   }
 };
 
