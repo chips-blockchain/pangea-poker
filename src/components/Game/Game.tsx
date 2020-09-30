@@ -52,12 +52,12 @@ const Game: React.FunctionComponent = () => {
       {state.nodesSet && nodeType === "player" && (
         <div>
           <WebSocket
-            nodeName={'player_read'}
+            nodeName={"player_read"}
             server={SOCKET_URL_PLAYER_READ}
             message={message[Object.keys(nodes)[0]]}
           />
           <WebSocket
-            nodeName={'player_write'}
+            nodeName={"player_write"}
             server={SOCKET_URL_PLAYER_WRITE}
             message={message[Object.keys(nodes)[0]]}
           />
