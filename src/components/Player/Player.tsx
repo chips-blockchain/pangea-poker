@@ -14,7 +14,7 @@ import {
 } from "../../store/actions";
 import playerIdToString from "../../lib/playerIdToString";
 import playerStringToId from "../../lib/playerStringToId";
-import { IPlayer, IState } from "../../store/initialState";
+import { IPlayer, IState } from "../../store/types";
 import { IMessage } from "../Game/onMessage";
 import { Possibilities, PlayerActions, GameTurns } from "../../lib/constants";
 import notifications from "../../config/notifications.json";
