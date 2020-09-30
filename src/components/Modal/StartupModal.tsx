@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "./Modal";
 import CustomIP from "./CustomIP";
 import TableSelect from "./TableSelect";
-import { IState } from "../../store/initialState";
+import { IState } from "../../store/types";
 
 // This is the modal that appears at the startup and let's the user to join a table
 

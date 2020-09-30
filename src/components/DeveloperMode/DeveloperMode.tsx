@@ -15,7 +15,7 @@ import {
   playerJoin
 } from "../../store/actions";
 import { DispatchContext, StateContext } from "../../store/context";
-import { IState } from "../../store/initialState";
+import { IState } from "../../store/types";
 
 // This component is only used for testing purposes while in development
 
