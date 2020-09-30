@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useState } from "react";
+import React, { useReducer, useEffect, useState } from "react";
 import diff from "deep-diff";
 import reducer from "../../store/reducer";
 import { StateContext, DispatchContext } from "../../store/context";
@@ -11,7 +11,7 @@ import Board from "../Board";
 import Dealer from "../Dealer";
 import TotalPot from "./TotalPot";
 import { ChipGrid, Bet } from "../Chips";
-import Controls from "../Controls";
+import Controls, { Button } from "../Controls";
 import MainPot from "./MainPot";
 import Game from "../Game";
 import Connections from "./Connections";
@@ -23,7 +23,9 @@ import { TableContainer, TableWrapper, Notice } from "./assets/style";
 import "./assets/style.css";
 import notifications from "../../config/notifications.json";
 import { Conn, NodeType } from "../../lib/constants";
-import { closeStartupModal, game } from "../../store/actions";
+import { isDealer, isPlayer } from "../../lib/helper";
+import { closeStartupModal, game, sendMessage } from "../../store/actions";
+import { DealerContainer, GameWrapper } from "../Game/assets/style";
 
 // This is the current Main component
 
@@ -59,9 +61,17 @@ const Table: React.FunctionComponent = () => {
     notice
   } = state;
 
+  const startGame = () => (): void => {
+    sendMessage({ method: "game" }, "dcv", state, dispatch);
+  };
+
+  const resetGame = () => (): void => {
+    sendMessage({ method: "reset" }, "dcv", state, dispatch);
+  };
+
   useEffect(() => {
     if (
-      nodeType !== NodeType.dealer &&
+      !isDealer(nodeType) &&
       !gameStarted &&
       connectionStatus.status === Conn.connected
     ) {
@@ -82,14 +92,22 @@ const Table: React.FunctionComponent = () => {
       <StateContext.Provider value={state}>
         <Game />
         {isDeveloperMode && <DeveloperMode />}
+        <GameWrapper>
+        {isDealer(nodeType) && (
+          <DealerContainer>
+            <Button label="Start" onClick={startGame()} />
+            <Button label="Reset" onClick={resetGame()} />
+          </DealerContainer>
+        )}
+      </GameWrapper>
 
         <div id="overlayBg">
-          {!state.isStartupModal && nodeType === "player" && !backendStatus && (
+          {!state.isStartupModal && isPlayer(nodeType) && !backendStatus && (
             <div id="information">{notifications.MINING_TX}</div>
           )}
           <TableContainer
             overlay={
-              !state.isStartupModal && !backendStatus && nodeType === "player"
+              !state.isStartupModal && !backendStatus && isPlayer(nodeType)
             }
           >
             <Connections />
@@ -101,7 +119,7 @@ const Table: React.FunctionComponent = () => {
               )}
               <Board boardCards={boardCards} gameTurn={gameTurn} />
               <PlayerGrid9Max>
-                {nodeType === "player" &&
+                {isPlayer(nodeType) &&
                   Object.values(players).map((player: IPlayer) => (
                     <Player
                       chips={player.chips}
@@ -141,7 +159,7 @@ const Table: React.FunctionComponent = () => {
               )}
               {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
               {isLogBox && <LogBox handHistory={handHistory} />}
-              {!state.isStartupModal && nodeType === "player" && (
+              {!state.isStartupModal && isPlayer(nodeType) && (
                 <Notice level={notice.level}>{notice.text}</Notice>
               )}
               {controls.showControls && (

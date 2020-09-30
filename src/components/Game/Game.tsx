@@ -1,10 +1,8 @@
 import { useContext } from "react";
 import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../../store/context";
-import { Button } from "../Controls";
-import { sendMessage } from "../../store/actions";
 import { IState } from "../../store/types";
-import { GameWrapper, DealerContainer } from "./assets/style";
+import { isDealer, isPlayer } from "../../lib/helper";
 
 // This component is responsible for the WebSocket connections, as well as displaying the main Start button
 
@@ -19,26 +17,9 @@ const Game: React.FunctionComponent = () => {
   const SOCKET_URL_DCV = `ws://${nodes.dcv}:9000`;
   const SOCKET_URL_PLAYER1 = `ws://${[Object.values(nodes)[0]]}:9000`;
 
-  const startGame = () => (): void => {
-    sendMessage({ method: "game" }, "dcv", state, dispatch);
-  };
-
-  const resetGame = () => (): void => {
-    sendMessage({ method: "reset" }, "dcv", state, dispatch);
-  };
-
   return (
     <div>
-      <GameWrapper>
-        {nodeType === "dealer" && (
-          <DealerContainer>
-            <Button label="Start" onClick={startGame()} />
-            <Button label="Reset" onClick={resetGame()} />
-          </DealerContainer>
-        )}
-      </GameWrapper>
-
-      {state.nodesSet && nodeType === "dealer" && (
+      {state.nodesSet && isDealer(nodeType) && (
         <div>
           <WebSocket
             nodeName="dcv"
@@ -48,7 +29,7 @@ const Game: React.FunctionComponent = () => {
         </div>
       )}
 
-      {state.nodesSet && nodeType === "player" && (
+      {state.nodesSet && isPlayer(nodeType) && (
         <WebSocket
           nodeName={Object.keys(nodes)[0]}
           server={SOCKET_URL_PLAYER1}
