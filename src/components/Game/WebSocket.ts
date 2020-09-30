@@ -43,7 +43,7 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
 
   // Send a message if props changes
   useEffect(() => {
-    if (message && readyState === 1) {
+    if (message && readyState === 1 && nodeName === 'player_write') {
       sendMessage(message);
       resetMessage(nodeName, dispatch);
     }

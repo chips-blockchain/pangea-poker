@@ -77,7 +77,7 @@ const Table: React.FunctionComponent = () => {
               !state.isStartupModal && !backendStatus && nodeType === "player"
             }
           >
-            <Connections />
+            {/* <Connections /> */}
             <div id="gameType">{gameType}</div>
             {gameType != "" && <div id="balanceGame">Balance: {balance}</div>}
             <TableWrapper>
