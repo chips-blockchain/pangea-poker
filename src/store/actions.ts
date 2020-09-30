@@ -508,8 +508,9 @@ export const updateConnectionStatus = (
   status: string,
   dispatch: (arg: object) => void
 ): void => {
-  let level = status === Conn.disconnected ? Level.error : Level.warning
-  let text =  status === Conn.disconnected ? notifications.CONNECTION_FAILED : status
+  const level = status === Conn.disconnected ? Level.error : Level.warning;
+  const text =
+    status === Conn.disconnected ? notifications.CONNECTION_FAILED : status;
   dispatch({
     type: "updateConnectionStatus",
     payload: {

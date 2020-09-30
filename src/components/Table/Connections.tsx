@@ -20,23 +20,23 @@ const Connections: React.FunctionComponent = () => {
       `}
     >
       return (
+      <span
+        css={css`
+          color: white;
+          font-size: var(--font-size-xs);
+          padding: 0 0.5rem;
+        `}
+      >
+        {nodeType}
         <span
           css={css`
-            color: white;
-            font-size: var(--font-size-xs);
-            padding: 0 0.5rem;
+            color: ${pickColor(connectionStatus.status)};
+            padding-left: 0 0.25rem;
           `}
         >
-          {nodeType}
-          <span
-            css={css`
-              color: ${pickColor(connectionStatus.status)};
-              padding-left: 0 0.25rem;
-            `}
-          >
-            {connectionStatus.status && ": " + connectionStatus.status}
-          </span>
+          {connectionStatus.status && ": " + connectionStatus.status}
         </span>
+      </span>
       )
     </div>
   );

@@ -23,10 +23,7 @@ import { TableContainer, TableWrapper, Notice } from "./assets/style";
 import "./assets/style.css";
 import notifications from "../../config/notifications.json";
 import { Conn, NodeType } from "../../lib/constants";
-import {
-  closeStartupModal,
-  game
-} from "../../store/actions";
+import { closeStartupModal, game } from "../../store/actions";
 
 // This is the current Main component
 
@@ -63,11 +60,15 @@ const Table: React.FunctionComponent = () => {
   } = state;
 
   useEffect(() => {
-    if (nodeType !== NodeType.dealer && !gameStarted && connectionStatus.status === Conn.connected) {
+    if (
+      nodeType !== NodeType.dealer &&
+      !gameStarted &&
+      connectionStatus.status === Conn.connected
+    ) {
       closeStartupModal(dispatch);
       return game({ gametype: "", pot: [0] }, state, dispatch);
     }
-  }, [state])
+  }, [state]);
   // For debugging purposes log the difference betweeen the last and current state
   useEffect(() => {
     const difference = diff(previousState, state);

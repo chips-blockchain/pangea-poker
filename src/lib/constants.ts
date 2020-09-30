@@ -41,20 +41,20 @@ export enum BetWarnings {
 }
 
 export enum Conn {
-  connecting = 'Connecting...',
-  connected = 'Connected',
-  disconnecting = 'Disconnecting...',
-  disconnected = 'Disconnected',
-  uninstantiated = 'Uninstantiated'
+  connecting = "Connecting...",
+  connected = "Connected",
+  disconnecting = "Disconnecting...",
+  disconnected = "Disconnected",
+  uninstantiated = "Uninstantiated"
 }
 
 export enum Node {
-  dcv = 'dcv',
-  player = 'player',
-  echo = 'echo'
+  dcv = "dcv",
+  player = "player",
+  echo = "echo"
 }
 
 export enum NodeType {
-  dealer = 'dealer',
-  player = 'player'
+  dealer = "dealer",
+  player = "player"
 }

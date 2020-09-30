@@ -31,11 +31,7 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const [currentSocketUrl] = useState(server);
-  const { 
-    sendJsonMessage,
-    lastJsonMessage,
-    readyState
-   } = useWebSocket(
+  const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     currentSocketUrl,
     STATIC_OPTIONS
   );
@@ -45,12 +41,12 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
     [ReadyState.OPEN]: Conn.connected,
     [ReadyState.CLOSING]: Conn.disconnecting,
     [ReadyState.CLOSED]: Conn.disconnected,
-    [ReadyState.UNINSTANTIATED]: Conn.uninstantiated,
+    [ReadyState.UNINSTANTIATED]: Conn.uninstantiated
   }[readyState];
 
   // Send a message if props changes
   useEffect(() => {
-    console.log('readyState--', readyState)
+    console.log("readyState--", readyState);
     if (message && readyState === ReadyState.OPEN) {
       sendJsonMessage(message);
       resetMessage(nodeName, dispatch);
@@ -60,11 +56,10 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   // If the connection status changes, update the state
   useEffect(() => {
     if (state.connectionStatus.status !== connectionStatus) {
-
       if (!state.connectionStatus.status) {
         sendInitMessage(connectionStatus, nodeName, dispatch);
       }
-      
+
       updateConnectionStatus(connectionStatus, dispatch);
 
       if (connectionStatus === Conn.disconnected) {
