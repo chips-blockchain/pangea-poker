@@ -104,13 +104,13 @@ export const Notice = styled.div`
   position: absolute;
 `;
 
-export const pickColor = (status) => {
-  switch(status) {
+export const pickColor = status => {
+  switch (status) {
     case Conn.connected:
-      return "var(--color-primaryLight)"
+      return "var(--color-primaryLight)";
     case Conn.connecting:
-      return "var(--color-accent)"
+      return "var(--color-accent)";
     case Conn.disconnected:
-      return "var(--color-danger)"
+      return "var(--color-danger)";
   }
-}
+};

@@ -92,8 +92,7 @@ export const onMessage = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-
-  if(!message || nodeName !== Node.player) {
+  if (!message || nodeName !== Node.player) {
     log("Received an unexpected message from " + nodeName, "received", message);
     return;
   }
