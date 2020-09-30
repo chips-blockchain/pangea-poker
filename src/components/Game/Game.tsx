@@ -14,7 +14,8 @@ const Game: React.FunctionComponent = () => {
   const { isDeveloperMode, nodes, nodeType, message } = state;
 
   const SOCKET_URL_DCV = `ws://${nodes.dcv}:9000`;
-  const SOCKET_URL_PLAYER1 = `ws://${[Object.values(nodes)[0]]}:9000`;
+  const SOCKET_URL_PLAYER_READ = `ws://${[Object.values(nodes)[0]]}:9000`;
+  const SOCKET_URL_PLAYER_WRITE = `ws://${[Object.values(nodes)[0]]}:9001`;
 
   return (
     <div>
@@ -29,11 +30,18 @@ const Game: React.FunctionComponent = () => {
       )}
 
       {state.nodesSet && isPlayer(nodeType) && (
-        <WebSocket
-          nodeName={Object.keys(nodes)[0]}
-          server={SOCKET_URL_PLAYER1}
-          message={message[Object.keys(nodes)[0]]}
-        />
+        <div>
+          <WebSocket
+            nodeName={'player_read'}
+            server={SOCKET_URL_PLAYER_READ}
+            message={message[Object.keys(nodes)[0]]}
+          />
+          <WebSocket
+            nodeName={'player_write'}
+            server={SOCKET_URL_PLAYER_WRITE}
+            message={message[Object.keys(nodes)[0]]}
+          />
+        </div>
       )}
       {state.nodesSet && isDeveloperMode && (
         <WebSocket
