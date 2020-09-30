@@ -3,6 +3,11 @@
   "version": "v0.1.0-alpha.5",
   "description": "Decentralized Poker via the CHIPS Blockchain",
   "main": "src/electron.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx --fix"
+    }
+  },
   "scripts": {
     "build": "parcel build src/index.html --out-dir build --public-url ./",
     "dev": "REDUCER=0 NODE_ENV=development parcel src/index.html",
@@ -119,6 +124,7 @@
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-react": "7.21.2",
     "eslint-plugin-react-hooks": "3.0.0",
+    "husky": "4.3.0",
     "jest": "25.5.4",
     "jsdom": "16.4.0",
     "jsdom-global": "3.0.2",
