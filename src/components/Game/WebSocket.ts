@@ -2,16 +2,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { DispatchContext, StateContext } from "../../store/context";
-import { onMessage, onMessage_player } from "./onMessage";
-import { IState } from "../../store/initialState";
-import notifications from "../../config/notifications.json";
-import { Level, Conn, Node, NodeType } from "../../lib/constants";
+import { onMessage } from "./onMessage";
+import { IState } from "../../store/types";
+import { Conn } from "../../lib/constants";
 import {
   resetMessage,
   sendInitMessage,
-  closeStartupModal,
   updateStateValue,
-  game,
   updateConnectionStatus
 } from "../../store/actions";
 

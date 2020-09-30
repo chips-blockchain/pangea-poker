@@ -3,7 +3,7 @@ import WebSocket from "./WebSocket";
 import { DispatchContext, StateContext } from "../../store/context";
 import { Button } from "../Controls";
 import { sendMessage } from "../../store/actions";
-import { IState } from "../../store/initialState";
+import { IState } from "../../store/types";
 import { GameWrapper, DealerContainer } from "./assets/style";
 
 // This component is responsible for the WebSocket connections, as well as displaying the main Start button

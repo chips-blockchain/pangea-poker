@@ -14,7 +14,7 @@ import {
   showControls
 } from "../../store/actions";
 import log from "../../lib/dev";
-import { IState } from "../../store/initialState";
+import { IState } from "../../store/types";
 import { IMessage } from "../Game/onMessage";
 import { Possibilities, PlayerActions } from "../../lib/constants";
 

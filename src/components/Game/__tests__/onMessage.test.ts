@@ -1,9 +1,10 @@
 /*eslint-disable @typescript-eslint/camelcase*/
 
-import { IMessage, onMessage_player } from "../onMessage";
+import { IMessage, onMessage } from "../onMessage";
 import state from "../../../store/testState";
-import { IState } from "../../../store/initialState";
+import { IState } from "../../../store/types";
 import * as actions from "../../../store/actions";
+import { IncomingMessage } from "electron";
 
 const dispatch = jest.fn();
 const updateStateValueSpy = jest.spyOn(actions, "updateStateValue");
@@ -32,28 +33,29 @@ export const receiveMessage = (
     win_amount,
     winners
   } = message;
-
-  onMessage_player(
-    JSON.stringify({
-      action,
-      addr,
-      amount,
-      backend_status,
-      balance,
-      big_blind,
-      bet_amount,
-      deal,
-      max_players,
-      method,
-      playerid,
-      possibilities,
-      showInfo,
-      small_blind,
-      table_stack_in_chips,
-      win_amount,
-      winners
-    }),
-    `player${userSeat + 1}`,
+  
+  const msg: IMessage = {
+    action,
+    addr,
+    amount,
+    backend_status,
+    balance,
+    big_blind,
+    bet_amount,
+    deal,
+    max_players,
+    method,
+    playerid,
+    possibilities,
+    showInfo,
+    small_blind,
+    table_stack_in_chips,
+    win_amount,
+    winners
+  }
+  onMessage(
+    msg,
+    'player',
     stateToTest,
     dispatch
   );

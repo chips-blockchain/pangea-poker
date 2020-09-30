@@ -40,7 +40,7 @@ import {
 import log from "../../lib/dev";
 import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
-import { IState } from "../../store/initialState";
+import { IState } from "../../store/types";
 import playerIdToString from "../../lib/playerIdToString";
 import arrayToSentence from "../../lib/arrayToSentence";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
@@ -65,6 +65,7 @@ export interface IMessage {
   };
   game?: { gametype: string; pot: number[] };
   gui_playerID?: number;
+  max_players: number;
   method?: string;
   minRaiseTo?: number;
   player_funds?: number[];
@@ -91,7 +92,7 @@ export const onMessage = (
   nodeName: string,
   state: IState,
   dispatch: (arg: object) => void
-): void => {
+): void => {n
   if (!message || nodeName !== Node.player) {
     log("Received an unexpected message from " + nodeName, "received", message);
     return;

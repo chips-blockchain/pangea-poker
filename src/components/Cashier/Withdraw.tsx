@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { css } from "@emotion/core";
 import { useForm } from "react-hook-form";
-import { IState } from "../../store/initialState";
+import { IState } from "../../store/types";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
 import { ModalButtonsWrapper } from "../Modal/assets/style";
