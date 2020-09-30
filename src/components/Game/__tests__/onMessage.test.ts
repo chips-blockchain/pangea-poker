@@ -33,7 +33,7 @@ export const receiveMessage = (
     win_amount,
     winners
   } = message;
-  
+
   const msg: IMessage = {
     action,
     addr,
@@ -52,13 +52,8 @@ export const receiveMessage = (
     table_stack_in_chips,
     win_amount,
     winners
-  }
-  onMessage(
-    msg,
-    'player',
-    stateToTest,
-    dispatch
-  );
+  };
+  onMessage(msg, "player", stateToTest, dispatch);
 };
 
 /**
