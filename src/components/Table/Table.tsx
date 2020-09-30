@@ -2,7 +2,8 @@ import { useReducer, useEffect, useState } from "react";
 import diff from "deep-diff";
 import reducer from "../../store/reducer";
 import { StateContext, DispatchContext } from "../../store/context";
-import initialState, { IPlayer, IState } from "../../store/initialState";
+import initialState from "../../store/initialState";
+import { IPlayer, IState } from "../../store/types";
 import Backgrounds from "./Backgrounds";
 import { PlayerGrid9Max } from "../PlayerGrid";
 import Player from "../Player";
@@ -21,6 +22,11 @@ import Cashier from "../Cashier";
 import { TableContainer, TableWrapper, Notice } from "./assets/style";
 import "./assets/style.css";
 import notifications from "../../config/notifications.json";
+import { Conn, NodeType } from "../../lib/constants";
+import {
+  closeStartupModal,
+  game
+} from "../../store/actions";
 
 // This is the current Main component
 
@@ -36,10 +42,12 @@ const Table: React.FunctionComponent = () => {
     backendStatus,
     boardCards,
     chipsCollected,
+    connectionStatus,
     controls,
     dealer,
     gameType,
     gameTurn,
+    gameStarted,
     handHistory,
     isDeveloperMode,
     isLogBox,
@@ -54,6 +62,12 @@ const Table: React.FunctionComponent = () => {
     notice
   } = state;
 
+  useEffect(() => {
+    if (nodeType !== NodeType.dealer && !gameStarted && connectionStatus.status === Conn.connected) {
+      closeStartupModal(dispatch);
+      return game({ gametype: "", pot: [0] }, state, dispatch);
+    }
+  }, [state])
   // For debugging purposes log the difference betweeen the last and current state
   useEffect(() => {
     const difference = diff(previousState, state);

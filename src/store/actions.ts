@@ -4,10 +4,11 @@ import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
 import { IMessage } from "../components/Game/onMessage";
-import { Possibilities, GameTurns, Level } from "../lib/constants";
+import { Possibilities, GameTurns, Level, Conn } from "../lib/constants";
 import sounds from "../sounds/sounds";
 import log from "../lib/dev";
 import { INotice } from "../components/Table/assets/types";
+import notifications from "../config/notifications.json";
 
 const { preFlop, flop, turn } = GameTurns;
 
@@ -313,13 +314,9 @@ export const sendMessage = (
   dispatch: (arg: object) => void
 ): void => {
   if (
-    state.connection[node] === "Connected" ||
+    state.connectionStatus.status === Conn.connected ||
     (state.players[node] && state.players[node].connected)
   ) {
-    // @todo some messages are sent to the dcv!
-    if (node !== "dcv") {
-      node = "player";
-    }
     const m = {
       type: "setMessage",
       payload: {
@@ -508,15 +505,17 @@ export const toggleMainPot = (dispatch: (arg: object) => void): void => {
 };
 
 export const updateConnectionStatus = (
-  text: string,
-  level: Level,
+  status: string,
   dispatch: (arg: object) => void
 ): void => {
+  let level = status === Conn.disconnected ? Level.error : Level.warning
+  let text =  status === Conn.disconnected ? notifications.CONNECTION_FAILED : status
   dispatch({
     type: "updateConnectionStatus",
     payload: {
-      text,
-      level
+      level,
+      status,
+      text
     }
   });
 };
