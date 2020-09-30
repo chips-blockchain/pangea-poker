@@ -43,7 +43,6 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
 
   // Send a message if props changes
   useEffect(() => {
-    console.log("readyState--", readyState);
     if (message && readyState === ReadyState.OPEN && nodeName === 'player_write') {
       sendJsonMessage(message);
       resetMessage(nodeName, dispatch);
