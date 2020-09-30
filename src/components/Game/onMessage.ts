@@ -45,7 +45,7 @@ import playerIdToString from "../../lib/playerIdToString";
 import arrayToSentence from "../../lib/arrayToSentence";
 import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
-import { GameTurns, Level, BetWarnings } from "../../lib/constants";
+import { GameTurns, Level, BetWarnings, Node } from "../../lib/constants";
 import notifications from "../../config/notifications.json";
 import { blindBet, isCurrentPlayer } from "./helpers";
 export interface IMessage {
@@ -87,25 +87,19 @@ export interface IMessage {
 const { preFlop, flop, turn, showDown } = GameTurns;
 
 export const onMessage = (
-  messageString: string,
+  message: IMessage,
+  nodeName: string,
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  const message: IMessage = JSON.parse(messageString);
-  // keep it just in case for now
-  log("Received from DCV", "received", message);
-};
 
-export const onMessage_player = (
-  messageString: string,
-  player: string,
-  state: IState,
-  dispatch: (arg: object) => void
-): void => {
-  const message: IMessage = JSON.parse(messageString);
+  if(!message || nodeName !== Node.player) {
+    log("Received an unexpected message from " + nodeName, "received", message);
+    return;
+  }
+
   setLastMessage(message, dispatch);
-  log(`${Date.now()}: Received from ${player}: `, "received", message);
-
+  log(`${Date.now()}: Received from ${nodeName}: `, "received", message);
   switch (message.method) {
     case "backend_status":
       updateStateValue("backendStatus", message.backend_status, dispatch);

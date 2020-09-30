@@ -1,4 +1,5 @@
 export interface INotice {
-  text: string;
   level: number;
+  status: string;
+  text: string;
 }

@@ -61,10 +61,6 @@ const CustomIP: React.FunctionComponent = () => {
 
     updateStateValue("nodes", nodesToSet, dispatch);
     updateStateValue("nodeType", nodeTypeToSet, dispatch);
-
-    // Start the game if it's a player node
-    !isDealer && game({ gametype: "", pot: [0] }, state, dispatch);
-
     updateStateValue("nodesSet", true, dispatch);
   };
 
