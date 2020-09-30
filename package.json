@@ -5,7 +5,8 @@
   "main": "src/electron.js",
   "husky": {
     "hooks": {
-      "pre-commit": "npm test && node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx --fix"
+      "pre-commit": "node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx --fix",
+      "pre-push": "npm test"
     }
   },
   "scripts": {
