@@ -93,13 +93,13 @@ const Table: React.FunctionComponent = () => {
         <Game />
         {isDeveloperMode && <DeveloperMode />}
         <GameWrapper>
-        {isDealer(nodeType) && (
-          <DealerContainer>
-            <Button label="Start" onClick={startGame()} />
-            <Button label="Reset" onClick={resetGame()} />
-          </DealerContainer>
-        )}
-      </GameWrapper>
+          {isDealer(nodeType) && (
+            <DealerContainer>
+              <Button label="Start" onClick={startGame()} />
+              <Button label="Reset" onClick={resetGame()} />
+            </DealerContainer>
+          )}
+        </GameWrapper>
 
         <div id="overlayBg">
           {!state.isStartupModal && isPlayer(nodeType) && !backendStatus && (
