@@ -73,10 +73,7 @@ const Table: React.FunctionComponent = () => {
   useEffect(() => {
     if (connectionStatus.status === Conn.connected && isStartupModal) {
       closeStartupModal(dispatch);
-      if (
-        !isDealer(nodeType) &&
-        !gameStarted
-      ) {
+      if (!isDealer(nodeType) && !gameStarted) {
         return game({ gametype: "", pot: [0] }, state, dispatch);
       }
     }
