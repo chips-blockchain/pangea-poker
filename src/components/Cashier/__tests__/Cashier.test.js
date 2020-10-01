@@ -86,7 +86,8 @@ describe("Cashier", () => {
       ...initialState,
       isCashierOpen: false,
       nodeType: "player",
-      isStartupModal: false
+      isStartupModal: false,
+      backendStatus: 1
     };
     const wrapper = buildWrapper(dispatch, state);
 
