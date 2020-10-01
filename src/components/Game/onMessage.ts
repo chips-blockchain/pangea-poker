@@ -9,7 +9,6 @@ import {
   deal,
   dealCards,
   fold,
-  game,
   nextHand,
   playerJoin,
   seats,
@@ -34,11 +33,9 @@ import {
   updateMainPot,
   setNotice,
   clearNotice,
-  walletInfo,
-  backendStatus
+  walletInfo
 } from "../../store/actions";
 import log from "../../lib/dev";
-import playerStringToId from "../../lib/playerStringToId";
 import numberWithCommas from "../../lib/numberWithCommas";
 import { IState } from "../../store/types";
 import playerIdToString from "../../lib/playerIdToString";
@@ -108,7 +105,6 @@ export const onMessage = (
       {
         const bePlayerId: number = message.playerid;
         const betAmount: number = message.bet_amount;
-        const [smallBlind, bigBlind] = state.blinds;
         switch (message.action) {
           // Update the current player's small blind
           case "small_blind_bet":

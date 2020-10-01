@@ -4,7 +4,6 @@ import { IMessage, onMessage } from "../onMessage";
 import state from "../../../store/testState";
 import { IState } from "../../../store/types";
 import * as actions from "../../../store/actions";
-import { IncomingMessage } from "electron";
 
 const dispatch = jest.fn();
 const updateStateValueSpy = jest.spyOn(actions, "updateStateValue");
@@ -123,11 +122,6 @@ describe("handHistory", () => {
     method: "betting",
     amount: 2,
     playerid: 0
-  };
-  const blinds_info = {
-    method: "blindsInfo",
-    small_blind: 2,
-    big_blind: 4
   };
   const big_blind_message = {
     action: "big_blind_bet",

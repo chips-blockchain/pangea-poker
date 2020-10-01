@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import WebSocket from "./WebSocket";
-import { DispatchContext, StateContext } from "../../store/context";
 import { IState } from "../../store/types";
 import { isDealer, isPlayer } from "../../lib/helper";
+import { StateContext } from "../../store/context";
 
 // This component is responsible for the WebSocket connections, as well as displaying the main Start button
 
@@ -10,7 +10,6 @@ import { isDealer, isPlayer } from "../../lib/helper";
 const SOCKET_URL_ECHO = "wss://echo.websocket.org";
 
 const Game: React.FunctionComponent = () => {
-  const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const { isDeveloperMode, nodes, nodeType, message } = state;
 
