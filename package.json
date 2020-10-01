@@ -6,7 +6,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx --fix",
-      "pre-push": "npm test"
+      "pre-push": "npm run test"
     }
   },
   "scripts": {
