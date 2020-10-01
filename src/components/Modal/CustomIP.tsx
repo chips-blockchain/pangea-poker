@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { DispatchContext, StateContext } from "../../store/context";
-import { game, updateStateValue } from "../../store/actions";
+import { updateStateValue } from "../../store/actions";
 import { IState } from "../../store/types";
 import Button from "../Controls/Button";
 import { ModalButtonsWrapper, ConnectionStatus } from "./assets/style";

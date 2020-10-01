@@ -34,7 +34,7 @@ const Connections: React.FunctionComponent = () => {
             padding-left: 0 0.25rem;
           `}
         >
-          {connectionStatus.status && ": " + connectionStatus.status}
+          {connectionStatus.status && " " + connectionStatus.status}
         </span>
       </span>
       )

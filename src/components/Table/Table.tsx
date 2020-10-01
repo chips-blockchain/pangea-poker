@@ -22,7 +22,7 @@ import Cashier from "../Cashier";
 import { TableContainer, TableWrapper, Notice } from "./assets/style";
 import "./assets/style.css";
 import notifications from "../../config/notifications.json";
-import { Conn, NodeType } from "../../lib/constants";
+import { Conn } from "../../lib/constants";
 import { isDealer, isPlayer } from "../../lib/helper";
 import { closeStartupModal, game, sendMessage } from "../../store/actions";
 import { DealerContainer, GameWrapper } from "../Game/assets/style";
@@ -58,7 +58,6 @@ const Table: React.FunctionComponent = () => {
     showMainPot,
     showDealer,
     winner,
-    userSeat,
     notice
   } = state;
 

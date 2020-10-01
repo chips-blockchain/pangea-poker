@@ -39,7 +39,7 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
 
   const handleCashierButtonClick = () => (): void => {
     openCashierModal();
-    sendWithdrawRequest();
+    // sendWithdrawRequest();
   };
 
   return (
@@ -48,6 +48,7 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
         <CashierButton>
           <Button
             label="Cashier"
+            disabled={!state.backendStatus}
             onClick={handleCashierButtonClick()}
             small
             testId="cashier-button"
