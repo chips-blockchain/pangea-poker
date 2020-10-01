@@ -50,6 +50,7 @@ const Table: React.FunctionComponent = () => {
     handHistory,
     isDeveloperMode,
     isLogBox,
+    isStartupModal,
     nodeType,
     players,
     pot,
@@ -70,13 +71,14 @@ const Table: React.FunctionComponent = () => {
   };
 
   useEffect(() => {
-    if (
-      !isDealer(nodeType) &&
-      !gameStarted &&
-      connectionStatus.status === Conn.connected
-    ) {
+    if (connectionStatus.status === Conn.connected && isStartupModal) {
       closeStartupModal(dispatch);
-      return game({ gametype: "", pot: [0] }, state, dispatch);
+      if (
+        !isDealer(nodeType) &&
+        !gameStarted
+      ) {
+        return game({ gametype: "", pot: [0] }, state, dispatch);
+      }
     }
   }, [state]);
   // For debugging purposes log the difference betweeen the last and current state
