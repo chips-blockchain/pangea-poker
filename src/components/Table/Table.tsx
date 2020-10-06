@@ -24,7 +24,12 @@ import "./assets/style.css";
 import notifications from "../../config/notifications.json";
 import { Conn } from "../../lib/constants";
 import { isDealer, isPlayer } from "../../lib/helper";
-import { closeStartupModal, game, sendMessage } from "../../store/actions";
+import {
+  closeStartupModal,
+  game,
+  sendMessage,
+  walletInfo
+} from "../../store/actions";
 import { DealerContainer, GameWrapper } from "../Game/assets/style";
 
 // This is the current Main component
@@ -44,6 +49,7 @@ const Table: React.FunctionComponent = () => {
     connectionStatus,
     controls,
     dealer,
+    depositAddress,
     gameType,
     gameTurn,
     gameStarted,
@@ -73,7 +79,8 @@ const Table: React.FunctionComponent = () => {
     if (connectionStatus.status === Conn.connected && isStartupModal) {
       closeStartupModal(dispatch);
       if (!isDealer(nodeType) && !gameStarted) {
-        return game({ gametype: "", pot: [0] }, state, dispatch);
+        game({ gametype: "", pot: [0] }, state, dispatch);
+        walletInfo(state, dispatch);
       }
     }
   }, [state]);
@@ -81,7 +88,9 @@ const Table: React.FunctionComponent = () => {
   useEffect(() => {
     const difference = diff(previousState, state);
     difference && difference.push(state);
-    console.log(difference);
+    if (difference) {
+      console.log(difference);
+    }
     setPreviousState(state);
   }, [state]);
 
