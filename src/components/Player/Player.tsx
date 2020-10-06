@@ -16,7 +16,12 @@ import playerIdToString from "../../lib/playerIdToString";
 import playerStringToId from "../../lib/playerStringToId";
 import { IPlayer, IState } from "../../store/types";
 import { IMessage } from "../Game/onMessage";
-import { Possibilities, PlayerActions, GameTurns, Node } from "../../lib/constants";
+import {
+  Possibilities,
+  PlayerActions,
+  GameTurns,
+  Node
+} from "../../lib/constants";
 import notifications from "../../config/notifications.json";
 import sounds from "../../sounds/sounds";
 import {
@@ -141,7 +146,7 @@ const Player: React.FunctionComponent<IProps> = ({
 
         // Send the message to the back-end
         nextAction.possibilities = [action];
-        sendMessage(nextAction, Node.playerWrite , state, dispatch);
+        sendMessage(nextAction, Node.playerWrite, state, dispatch);
       }
 
       setActivePlayer(null, dispatch);
