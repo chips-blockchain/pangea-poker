@@ -4,6 +4,7 @@ import { IMessage, onMessage } from "../onMessage";
 import state from "../../../store/testState";
 import { IState } from "../../../store/types";
 import * as actions from "../../../store/actions";
+import { Node } from "../../../lib/constants";
 
 const dispatch = jest.fn();
 const updateStateValueSpy = jest.spyOn(actions, "updateStateValue");
@@ -52,7 +53,7 @@ export const receiveMessage = (
     win_amount,
     winners
   };
-  onMessage(msg, "player", stateToTest, dispatch);
+  onMessage(msg, Node.playerRead, stateToTest, dispatch);
 };
 
 /**
