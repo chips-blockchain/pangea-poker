@@ -368,6 +368,17 @@ const reducer = (state: IState, action: IAction): object => {
         connectionStatus: action.payload
       };
     }
+
+    case "updateSocketConnection": {
+      return {
+        ...state,
+        connection: {
+          ...state.connection,
+          [action.payload.nodeName]: action.payload.connection
+        }
+      };
+    }
+
     case "updateGameTurn": {
       return {
         ...state,
