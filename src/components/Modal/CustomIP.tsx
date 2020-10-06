@@ -52,7 +52,6 @@ const CustomIP: React.FunctionComponent = () => {
 
   const handleSubmit = () => (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
-    console.log('WTTFF')
 
     // Set the node addresses and the node type
     const isDealer = nodeType === "dealer";

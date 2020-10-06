@@ -16,7 +16,7 @@ import {
 import log from "../../lib/dev";
 import { IState } from "../../store/types";
 import { IMessage } from "../Game/onMessage";
-import { Possibilities, PlayerActions } from "../../lib/constants";
+import { Possibilities, PlayerActions, Node } from "../../lib/constants";
 
 // This component displays all the controls (buttons and slider) at the bottom left
 // when the player is active
@@ -119,7 +119,7 @@ const Controls: React.FunctionComponent = () => {
 
     // Send the message to the back-end
     nextAction.possibilities = [action];
-    sendMessage(nextAction, 'player_write', state, dispatch);
+    sendMessage(nextAction, Node.playerWrite, state, dispatch);
   };
 
   enum buttonType {

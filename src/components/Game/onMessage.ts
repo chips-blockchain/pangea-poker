@@ -90,7 +90,7 @@ export const onMessage = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  if (!message || nodeName !== Node.player) {
+  if (!message || nodeName !== Node.playerRead) {
     log("Received an unexpected message from " + nodeName, "received", message);
     return;
   }
@@ -214,7 +214,7 @@ export const onMessage = (
 
           default:
             message.gui_playerID = message.playerid;
-            sendMessage(message, "player_write", state, dispatch);
+            sendMessage(message, Node.playerWrite, state, dispatch);
             break;
         }
       }
@@ -417,21 +417,17 @@ export const onMessage = (
 
     case "requestShare":
       message.gui_playerID = message.toPlayer;
-      sendMessage(message, "player_write", state, dispatch);
+      sendMessage(message, Node.playerWrite, state, dispatch);
       break;
 
     case "seats":
-      if (!state.depositAddress) {
-        walletInfo(state, dispatch);
-      }
-      // @todo if I receive seats I guess the backend is ready
       updateStateValue("backendStatus", 1, dispatch);
       seats(message.seats, dispatch);
       break;
 
     case "share_info":
       message.gui_playerID = message.toPlayer;
-      sendMessage(message, "player_write", state, dispatch);
+      sendMessage(message, Node.playerWrite, state, dispatch);
       break;
 
     case "walletInfo":
