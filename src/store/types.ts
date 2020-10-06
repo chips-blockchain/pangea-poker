@@ -30,9 +30,8 @@ export interface IState {
   blinds: [number, number];
   boardCards: string[];
   connection: {
-    dcv: string;
-    player1: string;
-    player2: string;
+    playerWrite: string;
+    playerRead: string;
     echo: string;
   };
   controls: {
