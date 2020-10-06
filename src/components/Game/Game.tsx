@@ -23,8 +23,9 @@ const Game: React.FunctionComponent = () => {
   // @todo move this to a more appropriate place
   useEffect(() => {
     if (
-      state.connection.playerRead === Conn.connecting ||
-      state.connection.playerWrite === Conn.connecting
+      !state.connectionStatus.status &&
+      (state.connection.playerRead === Conn.connecting ||
+        state.connection.playerWrite === Conn.connecting)
     ) {
       updateConnectionStatus(Conn.connecting, dispatch);
     }
