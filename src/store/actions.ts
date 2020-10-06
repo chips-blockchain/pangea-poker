@@ -9,6 +9,7 @@ import sounds from "../sounds/sounds";
 import log from "../lib/dev";
 import { INotice } from "../components/Table/assets/types";
 import notifications from "../config/notifications.json";
+import { Node } from "../lib/constants";
 
 const { preFlop, flop, turn } = GameTurns;
 
@@ -27,7 +28,7 @@ export const backendStatus = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  sendMessage({ method: "backend_status" }, "player_write", state, dispatch);
+  sendMessage({ method: "backend_status" }, Node.playerWrite, state, dispatch);
 };
 
 // Update the player's current betAmount
@@ -313,7 +314,6 @@ export const sendMessage = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  console.log('the node --->', node)
   if (
     state.connectionStatus.status === Conn.connected ||
     (state.players[node] && state.players[node].connected)
@@ -522,6 +522,20 @@ export const updateConnectionStatus = (
   });
 };
 
+export const updateSocketConnection = (
+  connection: string,
+  nodeName: string,
+  dispatch: (arg: object) => void
+): void => {
+  dispatch({
+    type: "updateSocketConnection",
+    payload: {
+      connection,
+      nodeName
+    }
+  });
+};
+
 export const updateGameTurn = (
   turn: number,
   dispatch: (arg: object) => void
@@ -569,5 +583,5 @@ export const walletInfo = (
   dispatch: (arg: object) => void
 ): void => {
   // const id = Number(seat.slice(-1)) - 1;
-  sendMessage({ method: "walletInfo" }, "player_write", state, dispatch);
+  sendMessage({ method: "walletInfo" }, Node.playerWrite, state, dispatch);
 };

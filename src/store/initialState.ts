@@ -30,6 +30,11 @@ const initialState: IState = {
   /********** GENERAL GAME INFO ***********/
 
   activePlayer: null, // Which seat is the active player
+  connection: {
+    playerRead: null,
+    playerWrite: null,
+    echo: null
+  },
   dealer: 0, // Which player is the dealer
   gameStarted: false,
   gameType: "", // Game type at the top left corner
