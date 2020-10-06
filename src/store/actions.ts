@@ -27,7 +27,7 @@ export const backendStatus = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  sendMessage({ method: "backend_status" }, "player", state, dispatch);
+  sendMessage({ method: "backend_status" }, "player_write", state, dispatch);
 };
 
 // Update the player's current betAmount
@@ -313,6 +313,7 @@ export const sendMessage = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
+  console.log('the node --->', node)
   if (
     state.connectionStatus.status === Conn.connected ||
     (state.players[node] && state.players[node].connected)
@@ -568,5 +569,5 @@ export const walletInfo = (
   dispatch: (arg: object) => void
 ): void => {
   // const id = Number(seat.slice(-1)) - 1;
-  sendMessage({ method: "walletInfo" }, "player", state, dispatch);
+  sendMessage({ method: "walletInfo" }, "player_write", state, dispatch);
 };

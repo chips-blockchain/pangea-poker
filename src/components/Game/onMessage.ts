@@ -214,7 +214,7 @@ export const onMessage = (
 
           default:
             message.gui_playerID = message.playerid;
-            sendMessage(message, "player", state, dispatch);
+            sendMessage(message, "player_write", state, dispatch);
             break;
         }
       }
@@ -417,7 +417,7 @@ export const onMessage = (
 
     case "requestShare":
       message.gui_playerID = message.toPlayer;
-      sendMessage(message, "player", state, dispatch);
+      sendMessage(message, "player_write", state, dispatch);
       break;
 
     case "seats":
@@ -431,7 +431,7 @@ export const onMessage = (
 
     case "share_info":
       message.gui_playerID = message.toPlayer;
-      sendMessage(message, "player", state, dispatch);
+      sendMessage(message, "player_write", state, dispatch);
       break;
 
     case "walletInfo":
