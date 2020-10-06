@@ -55,7 +55,7 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
 
   // If the connection status changes, update the state
   useEffect(() => {
-    if (!state.connectionStatus.status) {
+    if (!state.connection[nodeName]) {
       sendInitMessage(connectionStatus, nodeName, dispatch);
       return;
     }
