@@ -9,7 +9,6 @@ import {
   resetMessage,
   sendInitMessage,
   updateStateValue,
-  updateConnectionStatus,
   updateSocketConnection
 } from "../../store/actions";
 
