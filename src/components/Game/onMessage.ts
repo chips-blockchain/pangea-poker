@@ -32,8 +32,7 @@ import {
   processControls,
   updateMainPot,
   setNotice,
-  clearNotice,
-  walletInfo
+  clearNotice
 } from "../../store/actions";
 import log from "../../lib/dev";
 import numberWithCommas from "../../lib/numberWithCommas";

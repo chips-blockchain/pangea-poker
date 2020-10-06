@@ -49,7 +49,6 @@ const Table: React.FunctionComponent = () => {
     connectionStatus,
     controls,
     dealer,
-    depositAddress,
     gameType,
     gameTurn,
     gameStarted,
