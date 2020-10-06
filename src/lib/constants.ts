@@ -51,6 +51,8 @@ export enum Conn {
 export enum Node {
   dcv = "dcv",
   player = "player",
+  playerRead = "player_read",
+  playerWrite = "player_write",
   echo = "echo"
 }
 
