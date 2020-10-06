@@ -4,12 +4,13 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import { DispatchContext, StateContext } from "../../store/context";
 import { onMessage } from "./onMessage";
 import { IState } from "../../store/types";
-import { Conn } from "../../lib/constants";
+import { Conn, Node } from "../../lib/constants";
 import {
   resetMessage,
   sendInitMessage,
   updateStateValue,
-  updateConnectionStatus
+  updateConnectionStatus,
+  updateSocketConnection
 } from "../../store/actions";
 
 // This component is responsible for the WebSocket connection. It doesn't return and
@@ -43,7 +44,11 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
 
   // Send a message if props changes
   useEffect(() => {
-    if (message && readyState === ReadyState.OPEN && nodeName === 'player_write') {
+    if (
+      message &&
+      readyState === ReadyState.OPEN &&
+      nodeName === Node.playerWrite
+    ) {
       sendJsonMessage(message);
       resetMessage(nodeName, dispatch);
     }
@@ -51,18 +56,17 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
 
   // If the connection status changes, update the state
   useEffect(() => {
-    if (state.connectionStatus.status !== connectionStatus) {
-      if (!state.connectionStatus.status) {
-        sendInitMessage(connectionStatus, nodeName, dispatch);
-      }
-
-      updateConnectionStatus(connectionStatus, dispatch);
-
-      if (connectionStatus === Conn.disconnected) {
-        updateStateValue("nodesSet", false, dispatch);
-      }
+    if (!state.connectionStatus.status) {
+      sendInitMessage(connectionStatus, nodeName, dispatch);
+      return;
     }
-  });
+    if (state.connection[nodeName] !== connectionStatus) {
+      updateSocketConnection(connectionStatus, nodeName, dispatch);
+    }
+    if (connectionStatus === Conn.disconnected) {
+      updateStateValue("nodesSet", false, dispatch);
+    }
+  }, [state]);
 
   // Forward the received message depending on the node
   useEffect(() => {
