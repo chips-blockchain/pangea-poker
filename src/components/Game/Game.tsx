@@ -30,8 +30,8 @@ const Game: React.FunctionComponent = () => {
     }
     if (
       ((state.connection.playerRead === Conn.connected &&
-      state.connection.playerWrite === Conn.connected ) ||
-      state.connection.dcv === Conn.connected) &&
+        state.connection.playerWrite === Conn.connected) ||
+        state.connection.dcv === Conn.connected) &&
       state.connectionStatus.status !== Conn.connected
     ) {
       updateConnectionStatus(Conn.connected, dispatch);
