@@ -65,7 +65,7 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
     if (connectionStatus === Conn.disconnected) {
       updateStateValue("nodesSet", false, dispatch);
     }
-  }, [state]);
+  }, [connectionStatus]);
 
   // Forward the received message depending on the node
   useEffect(() => {

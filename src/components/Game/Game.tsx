@@ -24,14 +24,14 @@ const Game: React.FunctionComponent = () => {
   useEffect(() => {
     if (
       !state.connectionStatus.status &&
-      (state.connection.playerRead === Conn.connecting ||
-        state.connection.playerWrite === Conn.connecting)
+      Object.values(state.connection).indexOf(Conn.connecting) !== -1
     ) {
       updateConnectionStatus(Conn.connecting, dispatch);
     }
     if (
-      state.connection.playerRead === Conn.connected &&
-      state.connection.playerWrite === Conn.connected &&
+      ((state.connection.playerRead === Conn.connected &&
+      state.connection.playerWrite === Conn.connected ) ||
+      state.connection.dcv === Conn.connected) &&
       state.connectionStatus.status !== Conn.connected
     ) {
       updateConnectionStatus(Conn.connected, dispatch);
