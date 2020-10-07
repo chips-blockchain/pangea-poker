@@ -33,6 +33,7 @@ const initialState: IState = {
   connection: {
     playerRead: null,
     playerWrite: null,
+    dcv: null,
     echo: null
   },
   dealer: 0, // Which player is the dealer

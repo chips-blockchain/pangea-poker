@@ -32,6 +32,7 @@ export interface IState {
   connection: {
     playerWrite: string;
     playerRead: string;
+    dcv: string;
     echo: string;
   };
   controls: {
