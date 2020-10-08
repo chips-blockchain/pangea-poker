@@ -31,7 +31,6 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
       {
         method: "withdrawRequest"
       },
-      Node.playerWrite,
       state,
       dispatch
     );

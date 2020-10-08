@@ -146,7 +146,7 @@ const Player: React.FunctionComponent<IProps> = ({
 
         // Send the message to the back-end
         nextAction.possibilities = [action];
-        sendMessage(nextAction, Node.playerWrite, state, dispatch);
+        sendMessage(nextAction, state, dispatch);
       }
 
       setActivePlayer(null, dispatch);

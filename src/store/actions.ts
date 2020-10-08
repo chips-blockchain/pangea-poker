@@ -28,7 +28,7 @@ export const backendStatus = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  sendMessage({ method: "backend_status" }, Node.playerWrite, state, dispatch);
+  sendMessage({ method: "backend_status" }, state, dispatch);
 };
 
 // Update the player's current betAmount
@@ -238,12 +238,7 @@ export const playerJoin = (
 ): void => {
   // subtract 1 because backend seat numbers start from 0
   const id = Number(seat.slice(-1));
-  sendMessage(
-    { method: "player_join", gui_playerID: id },
-    "player",
-    state,
-    dispatch
-  );
+  sendMessage({ method: "player_join", gui_playerID: id }, state, dispatch);
 };
 
 // Defines which buttons to show in Controls by processsing the possibilities array
@@ -308,12 +303,25 @@ export const seats = (
   });
 };
 
+/**
+ *
+ * All the messages are automatically send to playerWrite unless specified using node parameter
+ *
+ * @param message The message being sent through the socket, usually an object
+ * @param state   Application state
+ * @param dispatch
+ * @param node    player|dcv (playerRead|playerWrite)
+ */
 export const sendMessage = (
   message: IMessage,
-  node: string,
   state: IState,
-  dispatch: (arg: object) => void
+  dispatch: (arg: object) => void,
+  node?: Node
 ): void => {
+  if (!node) {
+    node = Node.playerWrite;
+  }
+  console.log(node);
   if (
     state.connectionStatus.status === Conn.connected ||
     (state.players[node] && state.players[node].connected)
@@ -578,10 +586,9 @@ export const updateStateValue = (
 };
 
 export const walletInfo = (
-  // seat,
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
   // const id = Number(seat.slice(-1)) - 1;
-  sendMessage({ method: "walletInfo" }, Node.playerWrite, state, dispatch);
+  sendMessage({ method: "walletInfo" }, state, dispatch);
 };

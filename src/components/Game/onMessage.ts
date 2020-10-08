@@ -213,7 +213,7 @@ export const onMessage = (
 
           default:
             message.gui_playerID = message.playerid;
-            sendMessage(message, Node.playerWrite, state, dispatch);
+            sendMessage(message, state, dispatch);
             break;
         }
       }
@@ -392,12 +392,12 @@ export const onMessage = (
       break;
 
     case "join_req":
-      setBalance(player, message.balance, dispatch);
-      sendMessage(message, "dcv", state, dispatch);
+      setBalance("player" + (message.playerid + 1), message.balance, dispatch);
+      sendMessage(message, state, dispatch, Node.dcv);
       break;
 
     case "playerCardInfo":
-      sendMessage(message, "dcv", state, dispatch);
+      sendMessage(message, state, dispatch, Node.dcv);
       break;
 
     case "replay":
@@ -416,7 +416,7 @@ export const onMessage = (
 
     case "requestShare":
       message.gui_playerID = message.toPlayer;
-      sendMessage(message, Node.playerWrite, state, dispatch);
+      sendMessage(message, state, dispatch);
       break;
 
     case "seats":
@@ -426,7 +426,7 @@ export const onMessage = (
 
     case "share_info":
       message.gui_playerID = message.toPlayer;
-      sendMessage(message, Node.playerWrite, state, dispatch);
+      sendMessage(message, state, dispatch);
       break;
 
     case "walletInfo":
@@ -454,7 +454,5 @@ export const onMessage = (
 
     default:
       console.warn(`Received unknown method type "${message.method}" `);
-    // Temporarily disabled until status_info will be sorted out in the backend
-    // sendMessage(message, "dcv", state, dispatch);
   }
 };
