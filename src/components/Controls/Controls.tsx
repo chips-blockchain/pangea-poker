@@ -119,7 +119,7 @@ const Controls: React.FunctionComponent = () => {
 
     // Send the message to the back-end
     nextAction.possibilities = [action];
-    sendMessage(nextAction, Node.playerWrite, state, dispatch);
+    sendMessage(nextAction, state, dispatch);
   };
 
   enum buttonType {

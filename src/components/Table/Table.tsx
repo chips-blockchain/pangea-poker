@@ -22,7 +22,7 @@ import Cashier from "../Cashier";
 import { TableContainer, TableWrapper, Notice } from "./assets/style";
 import "./assets/style.css";
 import notifications from "../../config/notifications.json";
-import { Conn } from "../../lib/constants";
+import { Conn, Node } from "../../lib/constants";
 import { isDealer, isPlayer } from "../../lib/helper";
 import {
   closeStartupModal,
@@ -67,11 +67,11 @@ const Table: React.FunctionComponent = () => {
   } = state;
 
   const startGame = () => (): void => {
-    sendMessage({ method: "game" }, "dcv", state, dispatch);
+    sendMessage({ method: "game" }, state, dispatch, Node.dcv);
   };
 
   const resetGame = () => (): void => {
-    sendMessage({ method: "reset" }, "dcv", state, dispatch);
+    sendMessage({ method: "reset" }, state, dispatch, Node.dcv);
   };
 
   useEffect(() => {
