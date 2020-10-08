@@ -321,7 +321,6 @@ export const sendMessage = (
   if (!node) {
     node = Node.playerWrite;
   }
-  console.log(node);
   if (
     state.connectionStatus.status === Conn.connected ||
     (state.players[node] && state.players[node].connected)

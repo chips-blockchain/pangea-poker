@@ -4,7 +4,7 @@ import Controls from "../Controls";
 import { StateContext, DispatchContext } from "../../../store/context";
 import testState from "../../../store/testState";
 import * as actions from "../../../store/actions";
-import { Possibilities, PlayerActions, Node } from "../../../lib/constants";
+import { Possibilities, PlayerActions } from "../../../lib/constants";
 
 const dispatch = jest.fn();
 
@@ -172,7 +172,6 @@ describe("Button clicks", () => {
     expect(sendMessage).toHaveBeenCalledTimes(1);
     expect(sendMessage).toHaveBeenCalledWith(
       expect.objectContaining({ possibilities: [Possibilities.fold] }),
-      Node.playerWrite,
       state,
       dispatch
     );
@@ -208,7 +207,6 @@ describe("Button clicks", () => {
     expect(sendMessage).toHaveBeenCalledTimes(1);
     expect(sendMessage).toHaveBeenCalledWith(
       expect.objectContaining({ possibilities: [Possibilities.check] }),
-      Node.playerWrite,
       state,
       dispatch
     );
@@ -251,7 +249,6 @@ describe("Button clicks", () => {
         possibilities: [Possibilities.call],
         bet_amount: 100
       }),
-      Node.playerWrite,
       state,
       dispatch
     );
@@ -298,7 +295,6 @@ describe("Button clicks", () => {
         possibilities: [Possibilities.raise],
         bet_amount: 50
       }),
-      Node.playerWrite,
       state,
       dispatch
     );
@@ -345,7 +341,6 @@ describe("Button clicks", () => {
         possibilities: [Possibilities.allIn],
         bet_amount: 200
       }),
-      Node.playerWrite,
       state,
       dispatch
     );
