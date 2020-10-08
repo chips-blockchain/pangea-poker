@@ -24,11 +24,15 @@ interface IProps {
   server: string;
 }
 
+/**
+ * message  - JSON stringified message
+ * nodeName - dcv|playerRead|playerWrite
+ */
 const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const [currentSocketUrl] = useState(server);
-  const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
+  const { sendMessage, lastJsonMessage, readyState } = useWebSocket(
     currentSocketUrl,
     STATIC_OPTIONS
   );
@@ -45,10 +49,10 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   useEffect(() => {
     if (
       message &&
-      readyState === ReadyState.OPEN &&
+      state.connection[nodeName] === Conn.connected &&
       nodeName === Node.playerWrite
     ) {
-      sendJsonMessage(message);
+      sendMessage(message);
       resetMessage(nodeName, dispatch);
     }
   }, [message]);
