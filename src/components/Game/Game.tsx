@@ -55,12 +55,12 @@ const Game: React.FunctionComponent = () => {
           <WebSocket
             nodeName={Node.playerWrite}
             server={SOCKET_URL_PLAYER_WRITE}
-            message={message[Object.keys(nodes)[0]]}
+            message={message[Node.playerWrite]}
           />
           <WebSocket
             nodeName={Node.playerRead}
             server={SOCKET_URL_PLAYER_READ}
-            message={message[Object.keys(nodes)[0]]}
+            message={message[Node.playerRead]}
           />
         </div>
       )}
