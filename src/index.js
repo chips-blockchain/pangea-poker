@@ -9,6 +9,7 @@ import PTSansBold from "./fonts/PT_Sans-Web-Bold.ttf";
 import PTSansRegular from "./fonts/PTSans-Regular.ttf";
 import "./styles/variables.css";
 import "./styles/tabs.css";
+import { debugContextDevtool } from "react-context-devtool";
 
 Sentry.init({
   dsn: "https://294dbaf87a92469398cac4a9ba3c1106@sentry.io/1841547"
@@ -57,3 +58,6 @@ const App = () => {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
+if (process.env.NODE_ENV === 'development') {
+  debugContextDevtool(rootElement, {});
+}
