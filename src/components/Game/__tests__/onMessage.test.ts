@@ -1,6 +1,7 @@
 /*eslint-disable @typescript-eslint/camelcase*/
 
-import { IMessage, onMessage } from "../onMessage";
+import { onMessage } from "../onMessage";
+import { IMessage } from "../types/IMessage";
 import state from "../../../store/testState";
 import { IState } from "../../../store/types";
 import * as actions from "../../../store/actions";

@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
-import { IState } from "./initialState";
-import { IMessage } from "../components/Game/onMessage";
+import { IState } from "./types";
+import { IMessage } from "../components/Game/types/IMessage";
 import { Possibilities, GameTurns, Level, Conn } from "../lib/constants";
 import sounds from "../sounds/sounds";
 import log from "../lib/dev";
