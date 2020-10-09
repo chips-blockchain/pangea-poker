@@ -58,6 +58,6 @@ const App = () => {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === "development") {
   debugContextDevtool(rootElement, {});
 }
