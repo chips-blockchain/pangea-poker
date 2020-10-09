@@ -30,6 +30,6 @@ export const getBEid = (id: number): number => {
     return id - 1;
   } else
     throw new Error(
-      `The GUI Player ID must be a number between 1 and 9 with no decimals. Instead it is ${id}.`
+      `The BE Player ID must be a number between 1 and 9 with no decimals. Instead it is ${id}.`
     );
 };
