@@ -44,42 +44,8 @@ import sounds from "../../sounds/sounds";
 import { GameTurns, Level, BetWarnings, Node } from "../../lib/constants";
 import notifications from "../../config/notifications.json";
 import { blindBet, isCurrentPlayer } from "./helpers";
-export interface IMessage {
-  action?: string;
-  addr?: string;
-  addrs?: string[];
-  amount?: number;
-  balance?: number;
-  backend_status: number;
-  bet_amount?: number;
-  big_blind?: number;
-  table_stack_in_chips: number;
-  deal?: {
-    balance?: number;
-    board?: string[];
-    holecards?: [string, string];
-  };
-  game?: { gametype: string; pot: number[] };
-  gui_playerID?: number;
-  max_players: number;
-  method?: string;
-  minRaiseTo?: number;
-  player_funds?: number[];
-  playerid?: number;
-  pot?: number;
-  seats?: [{ name: string; playing: number; seat: number }];
-  showInfo?: {
-    allHoleCardsInfo?: string[][];
-    boardCardInfo?: string[];
-  };
-  small_blind?: number;
-  possibilities?: number[];
-  toPlayer?: number;
-  toCall?: number;
-  warning_num: number;
-  win_amount?: number;
-  winners?: number[];
-}
+import playerStringToId from "../../lib/playerStringToId";
+import { IMessage } from "./types/IMessage";
 
 const { preFlop, flop, turn, showDown } = GameTurns;
 
@@ -96,6 +62,7 @@ export const onMessage = (
 
   setLastMessage(message, dispatch);
   log(`${Date.now()}: Received from ${nodeName}: `, "received", message);
+
   switch (message.method) {
     case "backend_status":
       updateStateValue("backendStatus", message.backend_status, dispatch);
