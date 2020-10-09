@@ -5,6 +5,7 @@ export interface IMessage {
   amount?: number;
   balance?: number;
   backend_status: number;
+  beID: number;
   bet_amount?: number;
   big_blind?: number;
   table_stack_in_chips: number;

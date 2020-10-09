@@ -44,8 +44,8 @@ import sounds from "../../sounds/sounds";
 import { GameTurns, Level, BetWarnings, Node } from "../../lib/constants";
 import notifications from "../../config/notifications.json";
 import { blindBet, isCurrentPlayer } from "./helpers";
-import playerStringToId from "../../lib/playerStringToId";
 import { IMessage } from "./types/IMessage";
+import { validBEid, getGUIid, getStringId } from "../../lib/playerIdDecoder";
 
 const { preFlop, flop, turn, showDown } = GameTurns;
 
@@ -63,29 +63,28 @@ export const onMessage = (
   setLastMessage(message, dispatch);
   log(`${Date.now()}: Received from ${nodeName}: `, "received", message);
 
+  // Prepare backend ID and GUI id
+  if (validBEid(message.playerid)) {
+    message.gui_playerID = getGUIid(message.playerid);
+    message.beID = message.playerid;
+  }
+
   switch (message.method) {
     case "backend_status":
       updateStateValue("backendStatus", message.backend_status, dispatch);
       break;
     case "betting":
       {
-        const bePlayerId: number = message.playerid;
         const betAmount: number = message.bet_amount;
         switch (message.action) {
           // Update the current player's small blind
           case "small_blind_bet":
-            blindBet(
-              "Small",
-              message.playerid,
-              message.amount,
-              state,
-              dispatch
-            );
+            blindBet("Small", message.beID, message.amount, state, dispatch);
 
             // // Update the big blind
             blindBet(
               "Big",
-              (message.playerid + 1) % state.maxPlayers,
+              (message.beID + 1) % state.maxPlayers,
               message.amount * 2,
               state,
               dispatch
@@ -97,14 +96,14 @@ export const onMessage = (
             // Update the small blind
             blindBet(
               "Small",
-              (message.playerid - 1 + state.maxPlayers) % state.maxPlayers,
+              (message.beID - 1 + state.maxPlayers) % state.maxPlayers,
               message.amount / 2,
               state,
               dispatch
             );
 
             // Update the current player's big blind
-            blindBet("Big", message.playerid, message.amount, state, dispatch);
+            blindBet("Big", message.beID, message.amount, state, dispatch);
             break;
 
           case "round_betting":
@@ -113,13 +112,13 @@ export const onMessage = (
                 setBalance(playerIdToString(index), balance, dispatch);
               });
 
-            setActivePlayer(playerIdToString(bePlayerId), dispatch);
+            setActivePlayer(playerIdToString(message.beID), dispatch);
             updateTotalPot(message.pot, dispatch);
             setMinRaiseTo(message.minRaiseTo, dispatch);
             setToCall(message.toCall, dispatch);
 
             // Turn on controls if it's the current player's turn
-            if (isCurrentPlayer(bePlayerId, state)) {
+            if (isCurrentPlayer(message.beID, state)) {
               processControls(message.possibilities, dispatch);
               showControls(true, dispatch);
               sounds.alert.play();
@@ -128,15 +127,15 @@ export const onMessage = (
 
           // Update player actions
           case "check":
-            setLastAction(bePlayerId, "check", dispatch);
-            addToHandHistory(`Player${bePlayerId + 1} checks.`, dispatch);
+            setLastAction(message.beID, "check", dispatch);
+            addToHandHistory(`Player${message.gui_playerID} checks.`, dispatch);
             setActivePlayer(null, dispatch);
             sounds.check.play();
             break;
           case "call":
-            bet(bePlayerId, betAmount, state, dispatch);
-            setLastAction(bePlayerId, "call", dispatch);
-            addToHandHistory(`Player${bePlayerId + 1} calls.`, dispatch);
+            bet(message.beID, betAmount, state, dispatch);
+            setLastAction(message.beID, "call", dispatch);
+            addToHandHistory(`Player${message.gui_playerID} calls.`, dispatch);
             setActivePlayer(null, dispatch);
             sounds.call.play();
             break;
@@ -144,10 +143,10 @@ export const onMessage = (
             const isBet = state.toCall === 0;
             const action = isBet ? "bet" : "raise";
 
-            bet(bePlayerId, betAmount, state, dispatch);
-            setLastAction(bePlayerId, action, dispatch);
+            bet(message.beID, betAmount, state, dispatch);
+            setLastAction(message.beID, action, dispatch);
             addToHandHistory(
-              `Player${bePlayerId + 1} ${action}s${
+              `Player${message.gui_playerID} ${action}s${
                 isBet ? "" : " to"
               } ${betAmount}.`,
               dispatch
@@ -157,19 +156,19 @@ export const onMessage = (
             break;
           }
           case "fold":
-            fold(`player${bePlayerId + 1}`, dispatch);
-            setLastAction(bePlayerId, "fold", dispatch);
-            addToHandHistory(`Player${bePlayerId + 1} folds.`, dispatch);
+            fold(`player${message.gui_playerID}`, dispatch);
+            setLastAction(message.beID, "fold", dispatch);
+            addToHandHistory(`Player${message.gui_playerID} folds.`, dispatch);
             setActivePlayer(null, dispatch);
             sounds.fold.play();
             break;
 
           case "allin":
-            bet(bePlayerId, betAmount, state, dispatch);
+            bet(message.beID, betAmount, state, dispatch);
             setToCall(betAmount, dispatch);
-            setLastAction(bePlayerId, "all-in", dispatch);
+            setLastAction(message.beID, "all-in", dispatch);
             addToHandHistory(
-              `Player${bePlayerId + 1} is All-In with ${numberWithCommas(
+              `Player${message.gui_playerID} is All-In with ${numberWithCommas(
                 betAmount
               )}.`,
               dispatch
@@ -179,7 +178,6 @@ export const onMessage = (
             break;
 
           default:
-            message.gui_playerID = message.playerid;
             sendMessage(message, state, dispatch);
             break;
         }
@@ -215,10 +213,10 @@ export const onMessage = (
       break;
 
     case "dealer":
-      setDealer(message.playerid, dispatch);
+      setDealer(message.beID, dispatch);
       addToHandHistory(`A new hand is being dealt.`, dispatch);
       addToHandHistory(
-        `The dealer is Player${message.playerid + 1}.`,
+        `The dealer is Player${message.gui_playerID}.`,
         dispatch
       );
       break;
@@ -340,7 +338,7 @@ export const onMessage = (
         // @todo will be implemented in https://github.com/chips-blockchain/pangea-poker/issues/272
       }
       if (!message.seat_taken) {
-        const player = "player" + (message.playerid + 1);
+        const player = getStringId(message.gui_playerID);
         // @todo id managements (+/- 1) needs to be centralized
         clearNotice(dispatch);
         setUserSeat(player, dispatch);
@@ -359,7 +357,8 @@ export const onMessage = (
       break;
 
     case "join_req":
-      setBalance("player" + (message.playerid + 1), message.balance, dispatch);
+      // @todo the conversion to string id should happen in the action
+      setBalance(getStringId(message.gui_playerID), message.balance, dispatch);
       sendMessage(message, state, dispatch, Node.dcv);
       break;
 
@@ -369,15 +368,15 @@ export const onMessage = (
 
     case "replay":
       message.method = "betting";
-      message.gui_playerID = playerId;
-      setActivePlayer(player, dispatch);
+      // @todo the conversion to string id should happen in the action
+      setActivePlayer(getStringId(message.gui_playerID), dispatch);
       showControls(true, dispatch);
       break;
 
     case "reset":
       setTimeout(() => {
         nextHand(state, dispatch);
-        playerJoin(player, state, dispatch);
+        playerJoin(getStringId(message.gui_playerID), state, dispatch);
       }, 3000);
       break;
 
