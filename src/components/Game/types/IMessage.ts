@@ -14,11 +14,12 @@ export interface IMessage {
     holecards?: [string, string];
   };
   game?: { gametype: string; pot: number[] };
-  gui_playerID?: number;
+  gui_playerID?: number; // frontend playerid
+  max_players: number;
   method?: string;
   minRaiseTo?: number;
   player_funds?: number[];
-  playerid?: number;
+  playerid?: number; // backend playerId
   pot?: number;
   seats?: [{ name: string; playing: number; seat: number }];
   showInfo?: {
