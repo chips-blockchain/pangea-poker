@@ -15,7 +15,7 @@ import {
 } from "../../store/actions";
 import log from "../../lib/dev";
 import { IState } from "../../store/types";
-import { IMessage } from "../Game/types";
+import { IMessage } from "../Game/types/IMessage";
 import { Possibilities, PlayerActions } from "../../lib/constants";
 
 // This component displays all the controls (buttons and slider) at the bottom left
