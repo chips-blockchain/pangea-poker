@@ -290,8 +290,8 @@ export const seats = (
   dispatch: (arg: object) => void
 ): void => {
   if (!seatsArray) {
-    console.warn('The seats method is empty.')
-    return
+    console.warn("The seats method is empty.");
+    return;
   }
   seatsArray.map(seat => {
     dispatch({
