@@ -376,7 +376,7 @@ export const onMessage = (
     case "reset":
       setTimeout(() => {
         nextHand(state, dispatch);
-        playerJoin(getStringId(message.gui_playerID), state, dispatch);
+        playerJoin(state.userSeat, state, dispatch);
       }, 3000);
       break;
 
