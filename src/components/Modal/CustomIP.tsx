@@ -2,8 +2,8 @@ import React from "react";
 import { useContext, useState, useEffect } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { DispatchContext, StateContext } from "../../store/context";
-import { game, updateStateValue } from "../../store/actions";
-import { IState } from "../../store/initialState";
+import { updateStateValue } from "../../store/actions";
+import { IState } from "../../store/types";
 import Button from "../Controls/Button";
 import { ModalButtonsWrapper, ConnectionStatus } from "./assets/style";
 import { Input } from "../Form";
@@ -61,10 +61,6 @@ const CustomIP: React.FunctionComponent = () => {
 
     updateStateValue("nodes", nodesToSet, dispatch);
     updateStateValue("nodeType", nodeTypeToSet, dispatch);
-
-    // Start the game if it's a player node
-    !isDealer && game({ gametype: "", pot: [0] }, state, dispatch);
-
     updateStateValue("nodesSet", true, dispatch);
   };
 

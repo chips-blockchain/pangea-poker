@@ -14,8 +14,8 @@ import {
   showControls
 } from "../../store/actions";
 import log from "../../lib/dev";
-import { IState } from "../../store/initialState";
-import { IMessage } from "../Game/onMessage";
+import { IState } from "../../store/types";
+import { IMessage } from "../Game/types/IMessage";
 import { Possibilities, PlayerActions } from "../../lib/constants";
 
 // This component displays all the controls (buttons and slider) at the bottom left
@@ -119,7 +119,7 @@ const Controls: React.FunctionComponent = () => {
 
     // Send the message to the back-end
     nextAction.possibilities = [action];
-    sendMessage(nextAction, userSeat, state, dispatch);
+    sendMessage(nextAction, state, dispatch);
   };
 
   enum buttonType {

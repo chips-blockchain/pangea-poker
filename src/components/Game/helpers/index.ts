@@ -1,4 +1,4 @@
-import { IState } from "../../../store/initialState";
+import { IState } from "../../../store/types";
 import { bet, setLastAction, addToHandHistory } from "../../../store/actions";
 import log from "../../../lib/dev";
 import playerStringToId from "../../../lib/playerStringToId";

@@ -5,9 +5,9 @@ import Withdraw from "./Withdraw";
 import { Button } from "../Controls";
 import { sendMessage } from "../../store/actions";
 import { updateStateValue } from "../../store/actions";
-import { IState } from "../../store/initialState";
+import { IState } from "../../store/types";
 import { CashierButton } from "./assets/style";
-
+import { Node } from "../../lib/constants";
 // This modal opens up when the player clicks the Cashier button and allows the player to
 // move funds to and away from the account
 
@@ -31,7 +31,6 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
       {
         method: "withdrawRequest"
       },
-      state.userSeat,
       state,
       dispatch
     );
@@ -39,7 +38,7 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
 
   const handleCashierButtonClick = () => (): void => {
     openCashierModal();
-    sendWithdrawRequest();
+    // sendWithdrawRequest();
   };
 
   return (
@@ -48,6 +47,7 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
         <CashierButton>
           <Button
             label="Cashier"
+            disabled={!state.backendStatus}
             onClick={handleCashierButtonClick()}
             small
             testId="cashier-button"
