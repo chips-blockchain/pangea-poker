@@ -289,6 +289,10 @@ export const seats = (
   seatsArray: [{ name: string; playing: number; seat: number }],
   dispatch: (arg: object) => void
 ): void => {
+  if (!seatsArray) {
+    console.warn('The seats method is empty.')
+    return
+  }
   seatsArray.map(seat => {
     dispatch({
       type: "updateSeats",
