@@ -1,0 +1,19 @@
+.infoLine {
+  display: flex;
+  flex-direction: row;
+  font-size: var(--font-size-s);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.infoLine h5, div{
+  margin: 0
+}
+
+.infoLine div {
+  color: var(--color-chipsTealLight)
+}
+
+#cashierInfo {
+  padding: 0 2rem 0 2rem;
+}

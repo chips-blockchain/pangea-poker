@@ -14,6 +14,8 @@ export const dropdownStyle = css`
   background-repeat: no-repeat;
   background-position: right 0.5rem center;
   padding: 0.5rem 2rem 0.5rem 1rem;
+  font-size: 0.75rem;
+  margin-top: 5px;
 `;
 
 /** Input */
@@ -48,15 +50,16 @@ export const InputWrapper = styled.div`
 /** Input with Button */
 
 export const customInputStyle = css`
-  padding: 0.5rem 2.25rem 0.5rem 1rem;
+  max-width: 16rem;
+  background-color: black;
 `;
 
 export const customButtonStyle = css`
   position: absolute;
   height: 1.25rem;
   width: 2rem;
-  top: 32;
-  right: 48;
+  top: 2rem;
+  right: 2rem;
 `;
 
 export const Wrapper = styled.div`

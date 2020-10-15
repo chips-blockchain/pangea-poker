@@ -86,6 +86,7 @@ export interface IState {
   showMainPot: boolean;
   totalPot: number;
   toCall: number;
+  transactionFee: number;
   userSeat: string;
   winner: string;
   winners: string[] | null;

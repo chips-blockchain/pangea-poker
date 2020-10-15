@@ -3,7 +3,6 @@ import Modal from "../Modal";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import { Button } from "../Controls";
-import { sendMessage } from "../../store/actions";
 import { updateStateValue } from "../../store/actions";
 import { IState } from "../../store/types";
 import { CashierButton } from "./assets/style";
@@ -26,19 +25,8 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
     updateStateValue("isCashierOpen", false, dispatch);
   };
 
-  const sendWithdrawRequest = (): void => {
-    sendMessage(
-      {
-        method: "withdrawRequest"
-      },
-      state,
-      dispatch
-    );
-  };
-
   const handleCashierButtonClick = () => (): void => {
     openCashierModal();
-    // sendWithdrawRequest();
   };
 
   return (
