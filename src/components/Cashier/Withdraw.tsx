@@ -66,10 +66,13 @@ const Withdraw: React.FunctionComponent<IProps> = ({
     // if (e.target.value > balanceNumber) setAmountToWithdraw(balanceNumber);
   };
 
-  // // Handle select selection
-  // const handleSelect = () => (e): void => {
-  //   setWithdrawAddress(e.target.value);
-  // };
+  // Handle address input
+  const handleAddressInput = () => (e): void => {
+    const addr = e.target.value;
+    if (isValidAddress(addr)) {
+      setWithdrawAddress(addr);
+    }
+  };
 
   const setMaxAmount = () => (): void => setAmountToWithdraw(balanceNumber);
 
@@ -111,8 +114,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               forwardRef={forwardRef}
               label="CHIPS address"
               name={"withdraw-address"}
-              onChange={handleAmountInput()}
-              onBlur={handleOnBlur()}
+              onChange={handleAddressInput()}
               placeholder=""
               required={true}
               type="string"
@@ -135,7 +137,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
           </InputWrapper>
         </React.Fragment>
       )}
-      <ModalButtonsWrapper>
+      <div className="cashierButtons">
         <Button
           label="Close"
           onClick={closeCashierModal()}
@@ -157,7 +159,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
             }
           />
         )}
-      </ModalButtonsWrapper>
+      </div>
     </form>
   );
 };
