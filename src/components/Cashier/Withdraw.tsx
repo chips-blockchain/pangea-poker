@@ -37,6 +37,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
 
   const [amountToWithdraw, setAmountToWithdraw] = useState<IBalance>(0);
   const [difference, setDifference] = useState(0);
+  const [addressError, setAddressError] = useState(" ");
   const [withdrawAddress, setWithdrawAddress] = useState("");
   const [withdrawStatus, setWithdrawStatus] = useState(Status.Initial);
 
@@ -54,7 +55,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
       setAmountToWithdraw(Number(amount));
     }
     const diff: number = Number(amount) - Number(state.transactionFee);
-    setDifference(displayBalanceDecimals(diff));
+    setDifference(Number(displayBalanceDecimals(diff)));
   };
 
   // Handle focusing out from the input component
@@ -68,11 +69,17 @@ const Withdraw: React.FunctionComponent<IProps> = ({
 
   // Handle address input
   const handleAddressInput = () => (e): void => {
-    const addr = e.target.value;
-    if (isValidAddress(addr)) {
-      setWithdrawAddress(addr);
+    if(addressError) {
+      setAddressError(" ");
     }
+    setWithdrawAddress(e.target.value);
   };
+
+  const onAddressBlur = () => (e): void => {
+    if(!isValidAddress(e.target.value)) {
+      setAddressError('The specified address is invalid.');
+    }
+  }
 
   const setMaxAmount = () => (): void => setAmountToWithdraw(balanceNumber);
 
@@ -104,22 +111,24 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               type="number"
               value={amountToWithdraw}
             />
-            <ErrorMessage>
-              {errors["withdraw-amount"] && "Please set a withdaw amount"}
-            </ErrorMessage>
             <Input
               customStyle={customInputStyle}
               customLabelStyle={customLabelStyle}
               data-test="address-input"
-              forwardRef={forwardRef}
+              forwardRef={register({ required: true })}
               label="CHIPS address"
               name={"withdraw-address"}
               onChange={handleAddressInput()}
+              onBlur={onAddressBlur()}
               placeholder=""
               required={true}
               type="string"
               value={withdrawAddress}
             />
+            <ErrorMessage>
+              {addressError}
+              {errors["withdraw-amount"] && "Please set a withdaw amount"}
+            </ErrorMessage>
             <div id="cashierInfo">
               <div className="infoLine">
                 <h5>Fee</h5>
@@ -130,10 +139,6 @@ const Withdraw: React.FunctionComponent<IProps> = ({
                 <div>{difference} CHIPS</div>
               </div>
             </div>
-            <ErrorMessage>
-              {errors["withdraw-address-list"] &&
-                "Please select a withdraw address"}
-            </ErrorMessage>
           </InputWrapper>
         </React.Fragment>
       )}

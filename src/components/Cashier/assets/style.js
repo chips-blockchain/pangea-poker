@@ -45,8 +45,9 @@ export const CashierButton = styled.div`
 /** WITHDRAW */
 
 export const ErrorMessage = styled.div`
-  color: var(--color-accent);
+  color: var(--color-danger);
   font-size: var(--font-size-xs);
+  height: 1rem;
 `;
 
 export const InputWrapper = styled.div`

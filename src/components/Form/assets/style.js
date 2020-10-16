@@ -44,7 +44,7 @@ export const inputStyle = css`
 `;
 
 export const InputWrapper = styled.div`
-  padding: 0 0.5rem 0.5rem 0.5rem;
+  padding: 0.5rem 0 0 0;
 `;
 
 /** Input with Button */
@@ -59,7 +59,7 @@ export const customButtonStyle = css`
   position: absolute;
   height: 1.25rem;
   width: 2rem;
-  top: 1.5rem;
+  top: 2rem;
   right: 0.5rem;
 `;
 
