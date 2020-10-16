@@ -21,7 +21,7 @@ const Dropdown: React.FunctionComponent<IProps> = ({
 }) => {
   return (
     <DropdownWrapper>
-      {label && <Label htmlFor={name}>{label}</Label>}
+      {label && <label htmlFor={name}>{label}</label>}
       <select
         css={dropdownStyle}
         name={name}

@@ -50,7 +50,7 @@ const Deposit: React.FunctionComponent<IProps> = ({
   return (
     <section>
       <Balance data-test="balance-cashier-deposit">
-        Available CHIPS: {balanceWithDecimals(balance)}
+        Available: {balanceWithDecimals(balance) + " CHIPS"}
       </Balance>
       <AddressLabel>Your CHIPS deposit address:</AddressLabel>
       <DepositAddressContainer

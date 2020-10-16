@@ -44,7 +44,7 @@ export const inputStyle = css`
 `;
 
 export const InputWrapper = styled.div`
-  padding: 0.5rem;
+  padding: 0 0.5rem 0.5rem 0.5rem;
 `;
 
 /** Input with Button */
@@ -58,10 +58,16 @@ export const customButtonStyle = css`
   position: absolute;
   height: 1.25rem;
   width: 2rem;
-  top: 2rem;
+  top: 1.5rem;
   right: 2rem;
 `;
 
 export const Wrapper = styled.div`
   position: relative;
+`;
+
+export const customLabelStyle = css`
+  text-align: left;
+  margin-left: 1.5rem;
+  opacity: 0.5;
 `;

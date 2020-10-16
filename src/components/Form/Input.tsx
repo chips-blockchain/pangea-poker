@@ -1,6 +1,6 @@
 import React from "react";
 import { css, SerializedStyles } from "@emotion/core";
-import Label from "./Label";
+import "./assets/style.css";
 import { inputStyle, InputWrapper } from "./assets/style";
 
 export interface IProps {
@@ -11,6 +11,7 @@ export interface IProps {
   max?: number;
   min?: number;
   label?: string;
+  customLabelStyle?: SerializedStyles;
   onChange?: React.ChangeEventHandler;
   onBlur: React.ChangeEventHandler;
   placeholder?: string;
@@ -25,6 +26,7 @@ const Input: React.FunctionComponent<IProps> = ({
   defaultValue,
   forwardRef,
   label,
+  customLabelStyle,
   max,
   min,
   name,
@@ -38,7 +40,16 @@ const Input: React.FunctionComponent<IProps> = ({
 }) => {
   return (
     <InputWrapper>
-      {label && <Label htmlFor={name}>{label}</Label>}
+      {label && (
+        <label
+          css={css`
+            ${customLabelStyle}
+          `}
+          htmlFor={name}
+        >
+          {label}
+        </label>
+      )}
       <input
         css={css`
           ${inputStyle}

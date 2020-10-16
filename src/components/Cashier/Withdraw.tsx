@@ -19,7 +19,7 @@ import {
 } from "./assets/style";
 import { inputIsValid } from "./helpers";
 import { IBalance, IProps } from "./types";
-import { customInputStyle } from "../Form/assets/style";
+import { customInputStyle, customLabelStyle } from "../Form/assets/style";
 
 const Withdraw: React.FunctionComponent<IProps> = ({
   state,
@@ -82,9 +82,9 @@ const Withdraw: React.FunctionComponent<IProps> = ({
         </SuccessMessage>
       ) : (
         <React.Fragment>
-          {/* <Balance data-test="withdraw-balance">
-            Avlb: {balanceWithDecimals(balanceNumber) CHIPS}
-          </Balance> */}
+          <Balance data-test="withdraw-balance">
+            Available: {balanceWithDecimals(balanceNumber)} CHIPS
+          </Balance>
           <InputWrapper>
             <InputWithButton
               data-test="withdraw-amount"
@@ -106,6 +106,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
             </ErrorMessage>
             <Input
               customStyle={customInputStyle}
+              customLabelStyle={customLabelStyle}
               data-test="address-input"
               forwardRef={forwardRef}
               label="CHIPS address"
@@ -119,11 +120,11 @@ const Withdraw: React.FunctionComponent<IProps> = ({
             />
             <div id="cashierInfo">
               <div className="infoLine">
-                <h5>Tx fee:</h5>
+                <h5>Fee</h5>
                 <div>{displayBalanceDecimals(state.transactionFee)} CHIPS</div>
               </div>
               <div className="infoLine">
-                <h5>Total: </h5>
+                <h5>Total</h5>
                 <div>{difference} CHIPS</div>
               </div>
             </div>

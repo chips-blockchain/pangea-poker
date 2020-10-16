@@ -1,0 +1,7 @@
+label {
+    color: var(--color-text);
+    display: block;
+    font-size: var(--font-size-s);
+    text-align: center;
+    font-family: var(--font-family-secondary);
+}

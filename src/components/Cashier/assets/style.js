@@ -14,6 +14,7 @@ export const AddressLabel = styled.h2`
   font-weight: 400;
   font-size: var(--font-size-s);
   margin-top: 2rem;
+  text-align: center;
 `;
 
 export const Balance = styled.div`
