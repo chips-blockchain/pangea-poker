@@ -13,7 +13,7 @@ export interface IProps {
   label?: string;
   customLabelStyle?: SerializedStyles;
   onChange?: React.ChangeEventHandler;
-  onBlur: React.ChangeEventHandler;
+  onBlur?: React.ChangeEventHandler;
   placeholder?: string;
   required?: boolean;
   type: string;

@@ -50,8 +50,9 @@ export const InputWrapper = styled.div`
 /** Input with Button */
 
 export const customInputStyle = css`
-  max-width: 16rem;
+  max-width: 19rem;
   background-color: black;
+  font-size: var(--font-size-s);
 `;
 
 export const customButtonStyle = css`
@@ -59,7 +60,7 @@ export const customButtonStyle = css`
   height: 1.25rem;
   width: 2rem;
   top: 1.5rem;
-  right: 2rem;
+  right: 0.5rem;
 `;
 
 export const Wrapper = styled.div`
@@ -68,6 +69,6 @@ export const Wrapper = styled.div`
 
 export const customLabelStyle = css`
   text-align: left;
-  margin-left: 1.5rem;
+  margin-left: 0.5rem;
   opacity: 0.5;
 `;
