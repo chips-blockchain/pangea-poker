@@ -70,7 +70,7 @@
     "emotion": "^10.0.27",
     "howler": "2.2.0",
     "normalize.css": "^8.0.1",
-    "rc-slider": "9.5.1",
+    "rc-slider": "9.5.3",
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "react-hook-form": "5.7.2",
