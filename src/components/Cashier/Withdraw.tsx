@@ -64,7 +64,10 @@ const Withdraw: React.FunctionComponent<IProps> = ({
     setAmountToWithdraw(displayBalanceDecimals(amountToWithdraw));
 
     // Reset the input field to the max amount (i.e. the balance) when focus changes
-    if (e.target.value > balanceNumber) setAmountToWithdraw(balanceNumber);
+    if (e.target.value > balanceNumber) {
+      setAmountToWithdraw(balanceNumber);
+      setDifference(0);
+    }
   };
 
   // Handle address input
