@@ -64,22 +64,22 @@ const Withdraw: React.FunctionComponent<IProps> = ({
     setAmountToWithdraw(displayBalanceDecimals(amountToWithdraw));
 
     // Reset the input field to the max amount (i.e. the balance) when focus changes
-    // if (e.target.value > balanceNumber) setAmountToWithdraw(balanceNumber);
+    if (e.target.value > balanceNumber) setAmountToWithdraw(balanceNumber);
   };
 
   // Handle address input
   const handleAddressInput = () => (e): void => {
-    if(addressError) {
+    if (addressError) {
       setAddressError(" ");
     }
     setWithdrawAddress(e.target.value);
   };
 
   const onAddressBlur = () => (e): void => {
-    if(!isValidAddress(e.target.value)) {
-      setAddressError('The specified address is invalid.');
+    if (!isValidAddress(e.target.value)) {
+      setAddressError("The specified address is invalid.");
     }
-  }
+  };
 
   const setMaxAmount = () => (): void => setAmountToWithdraw(balanceNumber);
 
