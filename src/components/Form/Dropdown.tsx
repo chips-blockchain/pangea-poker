@@ -1,6 +1,5 @@
 import React from "react";
 import { DropdownWrapper, dropdownStyle } from "./assets/style";
-import Label from "./Label";
 
 interface IProps {
   forwardRef?: (ref: object) => void;

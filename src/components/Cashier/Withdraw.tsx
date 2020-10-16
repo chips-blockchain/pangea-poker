@@ -1,11 +1,10 @@
-import React, { useState, useEffect, forwardRef } from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/core";
 import { useForm } from "react-hook-form";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
-import { ModalButtonsWrapper } from "../Modal/assets/style";
 import { Button } from "../Controls";
-import { Dropdown, Input } from "../Form";
+import { Input } from "../Form";
 import InputWithButton from "../Form/InputWIthButton";
 import "../../styles/tooltip.css";
 import "./assets/style.css";
@@ -25,7 +24,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
   state,
   closeCashierModal
 }) => {
-  const { balance, withdrawAddressList } = state;
+  const { balance } = state;
   const balanceNumber = Number(balance);
 
   enum Status {
