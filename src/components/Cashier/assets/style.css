@@ -10,6 +10,13 @@
   margin: 0
 }
 
+.infoLine h5 {
+  opacity: 0.5;
+  font-size: var(--font-size-s);
+  font-weight: 400;
+  margin-top: 3px;
+}
+
 .infoLine div {
   color: var(--color-chipsTealLight)
 }

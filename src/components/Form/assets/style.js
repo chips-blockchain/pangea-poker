@@ -53,13 +53,14 @@ export const customInputStyle = css`
   max-width: 19rem;
   background-color: black;
   font-size: var(--font-size-s);
+  margin-top: 5px;
 `;
 
 export const customButtonStyle = css`
   position: absolute;
   height: 1.25rem;
   width: 2rem;
-  top: 2rem;
+  top: 1.85rem;
   right: 0.5rem;
 `;
 
