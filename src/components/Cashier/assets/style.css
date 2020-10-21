@@ -14,7 +14,7 @@
   opacity: 0.5;
   font-size: var(--font-size-s);
   font-weight: 400;
-  margin-top: 3px;
+  margin-top: 0.25rem;
 }
 
 .infoLine div {

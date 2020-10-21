@@ -15,7 +15,7 @@ export const dropdownStyle = css`
   background-position: right 0.5rem center;
   padding: 0.5rem 2rem 0.5rem 1rem;
   font-size: 0.75rem;
-  margin-top: 5px;
+  margin-top: 0.25rem;
 `;
 
 /** Input */
@@ -53,7 +53,7 @@ export const customInputStyle = css`
   max-width: 19rem;
   background-color: black;
   font-size: var(--font-size-s);
-  margin-top: 5px;
+  margin-top: 0.25rem;
 `;
 
 export const customButtonStyle = css`
