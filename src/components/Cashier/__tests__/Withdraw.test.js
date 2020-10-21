@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import Withdraw from "../Withdraw";
 import { StateContext, DispatchContext } from "../../../store/context";
-import initialState from "../../../store/initialState";
+import initialState from "../../../store/testState";
 
 const dispatch = jest.fn();
 const closeCashierModal = jest.fn();
@@ -87,7 +87,7 @@ describe("Withdraw", () => {
     expect(wrapper.find(`InputWithButton Button`)).toHaveLength(1);
     wrapper.find(`InputWithButton Button`).simulate("click");
     expect(wrapper.find(`InputWithButton input`).props().value).toEqual(
-      balance
+      "" + balance
     );
   });
 
@@ -112,22 +112,21 @@ describe("Withdraw", () => {
 
   test("Withdraw button is enabled when amount and withdraw address are set", () => {
     const wrapper = createWrapper();
-
     wrapper.find(`input#withdraw-amount`).simulate("change");
-    wrapper.find(`input#withdraw-address`).simulate("change");    
-    //@TODO FIX
-    // expect(
-    //   wrapper.find(`Button[data-test="withdraw-button"]`).props()["disabled"]
-    // ).toBe(false);
+    wrapper.find(`input#withdraw-address`).simulate("change", { target: { value: "RMwqv9VNBu7wjrEvQtMrDD7c6ddogyStBG" } });
+    expect(
+      wrapper.find(`Button[data-test="withdraw-button"]`).props()["disabled"]
+    ).toBe(false);
   });
 
   test("Amount can't be set to be more than the balance ", () => {
+    const value = "1.00000000";
     const wrapper = createWrapper({ balance: 1 });
 
     wrapper
       .find(`input#withdraw-amount`)
       .simulate("change", { target: { value: 2 } });
     wrapper.find(`input#withdraw-amount`).simulate("blur");
-    expect(wrapper.find(`input#withdraw-amount`).props().value).toBe(1);
+    expect(wrapper.find(`input#withdraw-amount`).props().value).toBe(value);
   });
 });
