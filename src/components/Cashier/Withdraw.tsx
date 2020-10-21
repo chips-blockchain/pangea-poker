@@ -112,9 +112,9 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               value={amountToWithdraw}
             />
             <Input
+              data-test="withdraw-address"
               customStyle={customInputStyle}
               customLabelStyle={customLabelStyle}
-              data-test="withdraw-address"
               forwardRef={register({ required: true })}
               label="CHIPS address"
               name={"withdraw-address"}
