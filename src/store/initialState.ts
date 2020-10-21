@@ -23,9 +23,17 @@ const initialState: IState = {
   backendStatus: 0,
 
   /********** CONTROLS ***********/
-
+  controls: {
+    showControls: false,
+    showFirstRow: true,
+    canCheck: false,
+    canRaise: true
+  },
   isStartupModal: true, // Whether the Startup Modal shows at the beginning of the game
   isDeveloperMode: false, // Whether the app should run in developer mode
+  isCashierOpen: false,
+  isLogBox: true,
+  isShowDown: false,
 
   /********** GENERAL GAME INFO ***********/
 
@@ -39,33 +47,25 @@ const initialState: IState = {
   dealer: 0, // Which player is the dealer
   gameStarted: false,
   gameType: "", // Game type at the top left corner
+  maxPlayers: 9,
   notice: {
     text: "Choose your seat to begin playing",
     status: null,
     level: 1
   },
   players: {}, // Object of all players at the table
-  maxPlayers: 9,
+  transactionFee: 0.005,
 
   /********** POKER INFO ***********/
 
   blinds: [1, 2], // Current blinds - small and big one
   boardCards: [],
-  controls: {
-    showControls: false,
-    showFirstRow: true,
-    canCheck: false,
-    canRaise: true
-  },
   cardsDealt: false,
   chipsCollected: false, // chips collected to the middle
   currentChipsStack: 0, // current chips stack paid to enter the game
   gameTurn: 0, // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river, 4: showDown
   handHistory: [], // Log of all palyer actions
   handsPlayed: 0, // Total number of hands played in this session
-  isCashierOpen: false,
-  isLogBox: true,
-  isShowDown: false,
   lastAction: { player: 0, action: null }, // Object that stores the last action so we can dispaly it on the UI
   // Messages to send to the nodes - when updated, the message will be sent
   lastMessage: {

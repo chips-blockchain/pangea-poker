@@ -1,0 +1,16 @@
+label {
+    color: var(--color-text);
+    display: block;
+    font-size: var(--font-size-s);
+    text-align: center;
+    font-family: var(--font-family-secondary);
+}
+
+.cashierButtons {
+    display: flex;
+    width: 19rem;
+    text-align: center;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0.5rem 0 0 0;
+}

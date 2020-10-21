@@ -14,6 +14,7 @@ export const AddressLabel = styled.h2`
   font-weight: 400;
   font-size: var(--font-size-s);
   margin-top: 2rem;
+  text-align: center;
 `;
 
 export const Balance = styled.div`
@@ -44,8 +45,9 @@ export const CashierButton = styled.div`
 /** WITHDRAW */
 
 export const ErrorMessage = styled.div`
-  color: var(--color-accent);
+  color: var(--color-danger);
   font-size: var(--font-size-xs);
+  height: 1rem;
 `;
 
 export const InputWrapper = styled.div`

@@ -60,3 +60,10 @@ export enum NodeType {
   dealer = "dealer",
   player = "player"
 }
+
+export enum Status {
+  Initial,
+  Processing,
+  Success,
+  Error
+}
