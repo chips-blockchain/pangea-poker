@@ -18,6 +18,38 @@ Currently, to play, you will need to run your own back-end nodes. We are working
 
 Run `npm electron-pack` to package the app with electron-builder for MacOS, Windows and Linux.
 
+### Pre-push GitHook 
+
+In order not to fail Gitub CI all the time, set up a local git hook to check lint and run tests before a push to the repo.
+
+ [Pre push Github docs](https://www.git-scm.com/docs/githooks#_pre_push)
+
+
+`nano ./.git/hooks/pre-push`
+
+```
+set -e
+node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx
+npm run test
+```
+
+`sudo chmod +x ./.git/hooks/pre-push`
+
+### State Management
+
+https://blog.logrocket.com/use-hooks-and-context-not-react-and-redux/
+
+Good video explaining redux vs context state management approach
+https://www.youtube.com/watch?time_continue=134&v=eBYJ7O482Dc&feature=emb_title
+
+### Developer Mode
+
+You can activate developer mode and skip the startup modal by adjusting the `src/config/local.json`.
+
+### Environment variables in scripts
+
+REDUCER - adds extra logging from reducer to the console output.
+
 ## Contributing
 
 Please reach out to us via [Discord](https://discord.gg/NGPu4g) and check out the open [Issues](https://github.com/chips-blockchain/pangea-poker/issues).

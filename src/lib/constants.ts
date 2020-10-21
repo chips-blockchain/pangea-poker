@@ -26,3 +26,16 @@ export enum GameTurns {
   "river" = 3,
   "showDown" = 4
 }
+
+export enum Level {
+  info = 1,
+  warning = 2,
+  error = 3
+}
+
+export enum BetWarnings {
+  backendNotReady = 0,
+  seatAlreadyTaken = 1,
+  insufficientFunds = 2,
+  tableIsFull = 3
+}

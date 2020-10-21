@@ -3,9 +3,17 @@ import React, { useState, useEffect, useContext } from "react";
 import useWebSocket from "react-use-websocket";
 import { DispatchContext, StateContext } from "../../store/context";
 import { onMessage, onMessage_player } from "./onMessage";
-import { log } from "../../store/actions";
 import { IState } from "../../store/initialState";
-import { resetMessage } from "../../store/actions";
+import notifications from "../../config/notifications.json";
+import { Level } from "../../lib/constants";
+import {
+  resetMessage,
+  sendInitMessage,
+  closeStartupModal,
+  updateStateValue,
+  game,
+  updateConnectionStatus
+} from "../../store/actions";
 
 // This component is responsible for the WebSocket connection. It doesn't return and
 
@@ -36,7 +44,6 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   // Send a message if props changes
   useEffect(() => {
     if (message && readyState === 1) {
-      log(`Sent to ${nodeName}: `, "sent", JSON.parse(message));
       sendMessage(message);
       resetMessage(nodeName, dispatch);
     }
@@ -45,14 +52,26 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   // If the connection status changes, update the state
   useEffect(() => {
     if (state.connection[nodeName] !== readyStateString) {
-      dispatch({
-        type: "connect",
-        payload: { nodeName: nodeName, readyState: readyStateString }
-      });
+      updateConnectionStatus(readyStateString, Level.warning, dispatch);
+      sendInitMessage(readyStateString, nodeName, dispatch);
+      if (readyStateString === "Connected") {
+        // Start the game if it's a player node
+        nodeName !== "dealer" &&
+          game({ gametype: "", pot: [0] }, state, dispatch);
+        closeStartupModal(dispatch);
+      }
+      if (readyStateString === "Disconnected") {
+        updateConnectionStatus(
+          notifications.CONNECTION_FAILED,
+          Level.error,
+          dispatch
+        );
+        updateStateValue("nodesSet", false, dispatch);
+      }
     }
   });
 
-  // Parese the received message depending on the node
+  // Parse the received message depending on the node
   useEffect(() => {
     if (lastMessage) {
       switch (nodeName) {

@@ -1,49 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { css } from "@emotion/core";
-import styled from "@emotion/styled";
 import ReactTooltip from "react-tooltip";
 import { IState } from "../../store/initialState";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
-import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
+import { ModalButtonsWrapper } from "../Modal/assets/style";
 import { Button } from "../Controls";
 import "../../styles/tooltip.css";
+import {
+  AdditionalInfo,
+  AddressLabel,
+  Balance,
+  DepositAddress,
+  DepositAddressContainer
+} from "./assets/style";
 
 interface IProps {
   dispatch: (arg: object) => void;
   state: IState;
   closeCashierModal: () => () => void;
 }
-
-const AdditionalInfo = styled.p`
-  font-family: var(--font-family-secondary);
-  font-weight: 400;
-  font-size: var(--font-size-s);
-  margin-top: 1.5rem;
-`;
-
-const AddressLabel = styled.h2`
-  font-family: var(--font-family-secondary);
-  font-weight: 400;
-  font-size: var(--font-size-s);
-  margin-top: 2rem;
-`;
-
-const Balance = styled.div`
-  color: var(--color-accent);
-`;
-
-const DepositAddress = styled.span`
-  color: var(--color-primaryLight);
-  font-size: var(--font-size-s);
-`;
-
-const DepositAddressContainer = styled.div`
-  background-color: var(--darkGrey);
-  border: 1px solid var(--color-primary);
-  border-radius: 4px;
-  padding: 0.5rem;
-`;
 
 const Deposit: React.FunctionComponent<IProps> = ({
   state,

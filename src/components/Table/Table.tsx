@@ -1,4 +1,3 @@
-import { css } from "@emotion/core";
 import { useReducer, useEffect, useState } from "react";
 import diff from "deep-diff";
 import reducer from "../../store/reducer";
@@ -19,6 +18,9 @@ import { StartupModal } from "../Modal";
 import DeveloperMode from "../DeveloperMode";
 import LogBox from "../LogBox";
 import Cashier from "../Cashier";
+import { TableContainer, TableWrapper, Notice } from "./assets/style";
+import "./assets/style.css";
+import notifications from "../../config/notifications.json";
 
 // This is the current Main component
 
@@ -30,6 +32,8 @@ const Table: React.FunctionComponent = () => {
   );
   const {
     activePlayer,
+    balance,
+    backendStatus,
     boardCards,
     chipsCollected,
     controls,
@@ -45,7 +49,9 @@ const Table: React.FunctionComponent = () => {
     options,
     showMainPot,
     showDealer,
-    winner
+    winner,
+    userSeat,
+    notice
   } = state;
 
   // For debugging purposes log the difference betweeen the last and current state
@@ -61,96 +67,78 @@ const Table: React.FunctionComponent = () => {
       <StateContext.Provider value={state}>
         <Game />
         {isDeveloperMode && <DeveloperMode />}
-        <div
-          css={css`
-            background-color: var(--dark);
-            height: 37.5rem;
-            width: 50rem;
-            position: relative;
-          `}
-        >
-          <Connections />
-          <div
-            css={css`
-              color: white;
-              position: absolute;
-              top: 0.25rem;
-              left: 0.25rem;
-              z-index: 4;
-              font-size: var(--font-size-xs);
-            `}
+
+        <div id="overlayBg">
+          {!state.isStartupModal && nodeType === "player" && !backendStatus && (
+            <div id="information">{notifications.MINING_TX}</div>
+          )}
+          <TableContainer
+            overlay={
+              !state.isStartupModal && !backendStatus && nodeType === "player"
+            }
           >
-            {gameType}
-          </div>
-          <div
-            css={css`
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              z-index: 1;
-            `}
-          >
-            <div
-              css={css`
-                position: absolute;
-              `}
-            />
-            {options.showPotCounter && (
-              <TotalPot state={state} dispatch={dispatch} />
-            )}
-            <Board boardCards={boardCards} gameTurn={gameTurn} />
-            <PlayerGrid9Max>
-              {nodeType === "player" &&
-                Object.values(players).map(
+            <Connections />
+            <div id="gameType">{gameType}</div>
+            {gameType != "" && <div id="balanceGame">Balance: {balance}</div>}
+            <TableWrapper>
+              {options.showPotCounter && (
+                <TotalPot state={state} dispatch={dispatch} />
+              )}
+              <Board boardCards={boardCards} gameTurn={gameTurn} />
+              <PlayerGrid9Max>
+                {nodeType === "player" &&
+                  Object.values(players).map((player: IPlayer) => (
+                    <Player
+                      chips={player.chips}
+                      connected={player.connected}
+                      hasCards={player.hasCards}
+                      isActive={activePlayer && activePlayer == player.seat}
+                      playerCards={player.playerCards}
+                      players={players}
+                      seat={player.seat}
+                      showCards={player.showCards}
+                      key={player.seat}
+                      winner={winner}
+                    />
+                  ))}
+                )
+              </PlayerGrid9Max>
+              <ChipGrid chipsCollected={chipsCollected}>
+                {Object.values(players).map(
                   (player: IPlayer) =>
-                    player.isPlaying && (
-                      <Player
-                        chips={player.chips}
-                        connected={player.connected}
-                        hasCards={player.hasCards}
-                        isActive={activePlayer && activePlayer == player.seat}
-                        playerCards={player.playerCards}
-                        players={players}
-                        seat={player.seat}
-                        showCards={player.showCards}
+                    player.isBetting && (
+                      <Bet
+                        betAmount={player.betAmount}
+                        forPlayer={player.seat}
+                        chipsCollected={chipsCollected}
+                        playerBet
                         key={player.seat}
-                        winner={winner}
                       />
                     )
                 )}
-            </PlayerGrid9Max>
-            <ChipGrid chipsCollected={chipsCollected}>
-              {Object.values(players).map(
-                (player: IPlayer) =>
-                  player.isBetting && (
-                    <Bet
-                      betAmount={player.betAmount}
-                      forPlayer={player.seat}
-                      chipsCollected={chipsCollected}
-                      playerBet
-                      key={player.seat}
-                    />
-                  )
+              </ChipGrid>
+              {showMainPot && pot[0] !== 0 && (
+                <MainPot
+                  pot={pot}
+                  gameTurn={state.gameTurn}
+                  winners={state.winners}
+                />
               )}
-            </ChipGrid>
-            {showMainPot && pot[0] !== 0 && (
-              <MainPot
-                pot={pot}
-                gameTurn={state.gameTurn}
-                winners={state.winners}
-              />
-            )}
-            {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
-            {isLogBox && <LogBox handHistory={handHistory} />}
-            {controls.showControls && (
-              <div>
-                <Controls />
-              </div>
-            )}
-          </div>
+              {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
+              {isLogBox && <LogBox handHistory={handHistory} />}
+              {!state.isStartupModal && nodeType === "player" && (
+                <Notice level={notice.level}>{notice.text}</Notice>
+              )}
+              {controls.showControls && (
+                <div>
+                  <Controls />
+                </div>
+              )}
+            </TableWrapper>
 
-          <Cashier dispatch={dispatch} isOpen={true} state={state} />
-          <Backgrounds />
+            <Cashier dispatch={dispatch} isOpen={true} state={state} />
+            <Backgrounds />
+          </TableContainer>
         </div>
         <StartupModal
           dispatch={dispatch}

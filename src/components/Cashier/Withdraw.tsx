@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
-import styled from "@emotion/styled";
 import { css } from "@emotion/core";
 import { useForm } from "react-hook-form";
 import { IState } from "../../store/initialState";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
-import ModalButtonsWrapper from "../Modal/ModalButtonsWrapper";
+import { ModalButtonsWrapper } from "../Modal/assets/style";
 import { Button } from "../Controls";
 import { Dropdown } from "../Form";
 import InputWithButton from "../Form/InputWIthButton";
 
 import "../../styles/tooltip.css";
 import displayBalanceDecimals from "../../lib/balanceWithDecimals";
+
+import {
+  Balance,
+  ErrorMessage,
+  InputWrapper,
+  SuccessMessage
+} from "./assets/style";
 
 interface IProps {
   dispatch: (arg: object) => void;
@@ -20,28 +26,6 @@ interface IProps {
 }
 
 type IBalance = number | string;
-
-const Balance = styled.div`
-  color: var(--color-accent);
-`;
-
-const ErrorMessage = styled.div`
-  color: var(--color-accent);
-  font-size: var(--font-size-xs);
-`;
-
-const InputWrapper = styled.div`
-  margin-top: 1rem;
-`;
-
-const SuccessMessage = styled.div`
-  color: var(--color-primaryLight);
-  padding-top: 2rem;
-  & > div {
-    font-size: 4rem;
-    padding-bottom: 1rem;
-  }
-`;
 
 const Withdraw: React.FunctionComponent<IProps> = ({
   state,
@@ -164,7 +148,6 @@ const Withdraw: React.FunctionComponent<IProps> = ({
           data-test="close-button-cashier-withdraw"
         />
         {withdrawStatus !== Status.Success && (
-          // <MainButtonWrapper>
           <Button
             css={css`
               display: none;
@@ -179,7 +162,6 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               withdrawStatus === Status.Processing
             }
           />
-          // </MainButtonWrapper>
         )}
       </ModalButtonsWrapper>
     </form>

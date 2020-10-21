@@ -4,3 +4,6 @@
 /.cache/
 /.env
 /.netlify/
+.DS_Store
+
+/src/config/local.json

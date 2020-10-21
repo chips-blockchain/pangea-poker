@@ -1,35 +1,17 @@
+import { INotice } from "../components/Table/assets/types";
+
 /*eslint-disable @typescript-eslint/camelcase*/
 
 const initialState: IState = {
   // Object of all players at the table
-  players: {
-    player1: {
-      isPlaying: true,
-      seat: "player1",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    },
-    player2: {
-      isPlaying: true,
-      seat: "player2",
-      chips: 200,
-      hasCards: true,
-      showCards: true,
-      isBetting: false,
-      betAmount: 0,
-      playerCards: [],
-      connected: false
-    }
-  },
+  players: {},
   // Which seat is the active player
   activePlayer: null,
   // The total CHIPS balance the player has in the Pangea Wallet
   balance: 0,
+  // 0 - transaction is still being mined
+  // 1 - backend is ready
+  backendStatus: 0,
   // Current blinds - small and big one
   blinds: [1, 2],
   // Board Cards
@@ -51,6 +33,12 @@ const initialState: IState = {
   cardsDealt: false,
   // Whether the chips have been collected to the middle
   chipsCollected: false,
+  connectionStatus: {
+    text: "",
+    level: 1
+  },
+  // current chips stack paid to enter the game
+  currentChipsStack: 0,
   // Which player is the dealer
   dealer: 0,
   // Pangea wallet address to deposit to
@@ -98,6 +86,11 @@ const initialState: IState = {
     player2: "0.0.0.0",
     echo: "0.0.0.0"
   },
+  notice: {
+    text: "Choose your seat to begin playing",
+    level: 1
+  },
+  maxPlayers: 9,
   message: {
     dcv: null,
     player1: null,
@@ -143,8 +136,19 @@ export interface IPlayer {
 }
 
 export interface IState {
-  players: { player1: IPlayer; player2: IPlayer };
+  players: {
+    player1: IPlayer;
+    player2: IPlayer;
+    player3: IPlayer;
+    player4: IPlayer;
+    player5: IPlayer;
+    player6: IPlayer;
+    player7: IPlayer;
+    player8: IPlayer;
+    player9: IPlayer;
+  };
   activePlayer: string;
+  backendStatus: number;
   balance: number;
   blinds: [number, number];
   boardCards: string[];
@@ -162,6 +166,8 @@ export interface IState {
   };
   cardsDealt: boolean;
   chipsCollected: boolean;
+  connectionStatus: INotice;
+  currentChipsStack: number;
   dealer: number;
   depositAddress: string;
   gameStarted: boolean;
@@ -177,6 +183,7 @@ export interface IState {
   isStartupModal: boolean;
   lastAction: { player: number; action: string | null };
   lastMessage: object;
+  notice: INotice;
   nodes: {
     dcv: string | null;
     player1: string | null;
@@ -184,6 +191,7 @@ export interface IState {
     echo: string | null;
   };
   nodeType: string;
+  maxPlayers: number;
   message: {
     dcv: string | null;
     player1: string | null;

@@ -4,8 +4,10 @@ import playerIdToString from "../lib/playerIdToString";
 import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
 import { IState } from "./initialState";
 import { IMessage } from "../components/Game/onMessage";
-import { Possibilities, GameTurns } from "../lib/constants";
+import { Possibilities, GameTurns, Level } from "../lib/constants";
 import sounds from "../sounds/sounds";
+import log from "../lib/dev";
+import { INotice } from "../components/Table/assets/types";
 
 const { preFlop, flop, turn } = GameTurns;
 
@@ -20,6 +22,13 @@ export const addToHandHistory = (
   });
 };
 
+export const backendStatus = (
+  state: IState,
+  dispatch: (arg: object) => void
+): void => {
+  sendMessage({ method: "backend_status" }, "player", state, dispatch);
+};
+
 // Update the player's current betAmount
 export const bet = (
   player: string | number,
@@ -31,7 +40,6 @@ export const bet = (
   if (typeof player === "number") {
     player = playerIdToString(player);
   }
-
   // Calculate the total chips which includes the current
   const totalChips =
     state.players[player].chips + state.players[player].betAmount;
@@ -47,25 +55,6 @@ export const bet = (
       chips: remainingChips
     }
   });
-};
-
-// A colored console.log
-export const log = (text: string, color: string, message?: IMessage): void => {
-  console.log(
-    "%c" + text,
-    `color: ${
-      color === "sent"
-        ? "var(--color-accent)"
-        : color === "info"
-        ? "#89ca77"
-        : color === "received"
-        ? "#e0be1d"
-        : color === "danger"
-        ? "var(--color-danger)"
-        : ""
-    }; background-color: #2a2b2e;`,
-    message ? message : ""
-  );
 };
 
 // Collect the chips from the player before a new turn
@@ -94,6 +83,12 @@ export const connectPlayer = (
   dispatch({
     type: "connectPlayer",
     payload: player
+  });
+};
+
+export const clearNotice = (dispatch: (arg: object) => void): void => {
+  dispatch({
+    type: "clearNotice"
   });
 };
 
@@ -235,14 +230,15 @@ export const nextHand = (
 };
 
 export const playerJoin = (
-  player: string,
+  seat: string,
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  const id = Number(player.slice(-1)) - 1;
+  // subtract 1 because backend seat numbers start from 0
+  const id = Number(seat.slice(-1));
   sendMessage(
     { method: "player_join", gui_playerID: id },
-    player,
+    "player",
     state,
     dispatch
   );
@@ -300,9 +296,11 @@ export const seats = (
     dispatch({
       type: "updateSeats",
       payload: {
-        isPlaying: seat.playing === 1 ? true : false,
+        isPlaying: !seat.playing,
         player: seat.name,
-        seat: `player${seat.seat + 1}`
+        seat: `player${seat.seat + 1}`,
+        chips: seat.chips,
+        connected: !seat.empty
       }
     });
   });
@@ -314,15 +312,40 @@ export const sendMessage = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  if (state.connection[node] === "Connected") {
-    dispatch({
+  if (
+    state.connection[node] === "Connected" ||
+    (state.players[node] && state.players[node].connected)
+  ) {
+    // @todo some messages are sent to the dcv!
+    if (node !== "dcv") {
+      node = "player";
+    }
+    const m = {
       type: "setMessage",
       payload: {
         node: [node],
         message: JSON.stringify(message)
       }
-    });
+    };
+    dispatch(m);
+    log(`${Date.now()}: Sent to ${node}: `, "sent", m);
   } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
+};
+
+export const sendInitMessage = (
+  readyStateString: string,
+  node: string,
+  dispatch: (arg: object) => void
+): void => {
+  const m = {
+    type: "connect",
+    payload: {
+      nodeName: node,
+      readyState: readyStateString
+    }
+  };
+  log(`Sent to ${node}: `, "sent", "connect");
+  dispatch(m);
 };
 
 export const setActivePlayer = (
@@ -420,6 +443,18 @@ export const setMinRaiseTo = (
   });
 };
 
+export const setNotice = (
+  notice: INotice,
+  dispatch: (arg: object) => void
+): void => {
+  dispatch({
+    type: "setNotice",
+    payload: {
+      ...notice
+    }
+  });
+};
+
 export const setToCall = (
   amount: number,
   dispatch: (arg: object) => void
@@ -472,6 +507,20 @@ export const toggleMainPot = (dispatch: (arg: object) => void): void => {
   });
 };
 
+export const updateConnectionStatus = (
+  text: string,
+  level: Level,
+  dispatch: (arg: object) => void
+): void => {
+  dispatch({
+    type: "updateConnectionStatus",
+    payload: {
+      text,
+      level
+    }
+  });
+};
+
 export const updateGameTurn = (
   turn: number,
   dispatch: (arg: object) => void
@@ -511,4 +560,13 @@ export const updateStateValue = (
     type: "updateStateValue",
     payload: { key, value }
   });
+};
+
+export const walletInfo = (
+  // seat,
+  state: IState,
+  dispatch: (arg: object) => void
+): void => {
+  // const id = Number(seat.slice(-1)) - 1;
+  sendMessage({ method: "walletInfo" }, "player", state, dispatch);
 };
