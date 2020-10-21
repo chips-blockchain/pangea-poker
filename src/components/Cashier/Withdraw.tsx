@@ -1,79 +1,79 @@
 import React, { useState } from "react";
-import { css } from "@emotion/core";
 import { useForm } from "react-hook-form";
-import balanceWithDecimals from "../../lib/balanceWithDecimals";
+
 import isValidAddress from "../../lib/isValidAddress";
+import displayBalanceDecimals from "../../lib/balanceWithDecimals";
+import { getTotal, inputIsValid } from "./helpers";
+import { IBalance, IProps } from "./types";
+import { Status } from "../../lib/constants";
+
+import { css } from "@emotion/core";
 import { Button } from "../Controls";
 import { Input } from "../Form";
 import InputWithButton from "../Form/InputWIthButton";
 import "../../styles/tooltip.css";
 import "./assets/style.css";
-import displayBalanceDecimals from "../../lib/balanceWithDecimals";
-
 import {
   Balance,
   ErrorMessage,
   InputWrapper,
   SuccessMessage
 } from "./assets/style";
-import { inputIsValid } from "./helpers";
-import { IBalance, IProps } from "./types";
 import { customInputStyle, customLabelStyle } from "../Form/assets/style";
 
 const Withdraw: React.FunctionComponent<IProps> = ({
   state,
   closeCashierModal
 }) => {
-  const { balance } = state;
-  const balanceNumber = Number(balance);
-
-  enum Status {
-    Initial,
-    Processing,
-    Success,
-    Error
-  }
-
+  const { balance, transactionFee } = state;
   const [amountToWithdraw, setAmountToWithdraw] = useState<IBalance>(0);
   const [difference, setDifference] = useState(0);
   const [addressError, setAddressError] = useState(" ");
   const [withdrawAddress, setWithdrawAddress] = useState("");
   const [withdrawStatus, setWithdrawStatus] = useState(Status.Initial);
 
-  // Form handling
   const { register, handleSubmit, errors } = useForm();
+
+  const setWithdrawAmount = (amount: string | number): void =>
+    setAmountToWithdraw(displayBalanceDecimals(amount));
+
+  const setDifferenceAmount = (amount: string | number): void =>
+    setDifference(
+      Number(displayBalanceDecimals(getTotal(amount, transactionFee)))
+    );
+
+  const setAmount = (amount: string | number): void => {
+    setWithdrawAmount(amount);
+    setDifferenceAmount(amount);
+  };
+
+  const setMaxAmount = () => (): void => setAmount(balance);
+
+  /****** HANDLERS ******/
+
   const onSubmit = (): void => {
     // TODO: Add withdraw message to dcv
     setWithdrawStatus(Status.Success);
   };
 
-  // Handle Amount Input
   const handleAmountInput = () => (e): void => {
-    const amount: string = e.target.value;
-    if (inputIsValid(amount)) {
-      setAmountToWithdraw(Number(amount));
+    if (inputIsValid(e.target.value)) {
+      setAmount(e.target.value);
     }
-    const diff: number = Number(amount) - Number(state.transactionFee);
-    setDifference(Number(displayBalanceDecimals(diff)));
   };
 
-  // Handle focusing out from the input component
   const handleOnBlur = () => (e): void => {
-    // Convert the amount to 8 decimals when the focus changes
-    setAmountToWithdraw(displayBalanceDecimals(amountToWithdraw));
-
-    // Reset the input field to the max amount (i.e. the balance) when focus changes
-    if (e.target.value > balanceNumber) {
-      setAmountToWithdraw(balanceNumber);
-      setDifference(0);
+    if (e.target.value > balance) {
+      setWithdrawAmount(balance);
+      setDifferenceAmount(0);
+      return;
     }
+    setWithdrawAmount(e.target.value);
   };
 
   // Handle address input
   const handleAddressInput = () => (e): void => {
-    if (addressError) {
-      setAddressError(" ");
-    }
+    setAddressError(" ");
     setWithdrawAddress(e.target.value);
   };
 
@@ -82,8 +82,6 @@ const Withdraw: React.FunctionComponent<IProps> = ({
       setAddressError("The specified address is invalid.");
     }
   };
-
-  const setMaxAmount = () => (): void => setAmountToWithdraw(balanceNumber);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} data-test="withdraw-tab">
@@ -95,7 +93,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
       ) : (
         <React.Fragment>
           <Balance data-test="withdraw-balance">
-            Available: {balanceWithDecimals(balanceNumber)} CHIPS
+            Available: {displayBalanceDecimals(balance)} CHIPS
           </Balance>
           <InputWrapper>
             <InputWithButton
@@ -105,7 +103,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               handleButtonClick={setMaxAmount()}
               label="Enter amount"
               min={0}
-              max={balanceNumber}
+              max={balance}
               name="withdraw-amount"
               onChange={handleAmountInput()}
               onBlur={handleOnBlur()}
@@ -134,7 +132,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
             <div id="cashierInfo">
               <div className="infoLine">
                 <h5>Fee</h5>
-                <div>{displayBalanceDecimals(state.transactionFee)} CHIPS</div>
+                <div>{displayBalanceDecimals(transactionFee)} CHIPS</div>
               </div>
               <div className="infoLine">
                 <h5>Total</h5>
