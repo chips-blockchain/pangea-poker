@@ -28,7 +28,7 @@ describe("Deposit", () => {
 
     expect(
       wrapper.find(`div[data-test="balance-cashier-deposit"]`).text()
-    ).toBe("Available CHIPS: 8.00000000");
+    ).toBe("Available: 8.00000000 CHIPS");
   });
 
   test("displays correct deposit address", () => {

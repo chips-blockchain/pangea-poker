@@ -1,99 +1,87 @@
-import React, { useState, useEffect } from "react";
-import { css } from "@emotion/core";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { IState } from "../../store/types";
-import balanceWithDecimals from "../../lib/balanceWithDecimals";
+
 import isValidAddress from "../../lib/isValidAddress";
-import { ModalButtonsWrapper } from "../Modal/assets/style";
-import { Button } from "../Controls";
-import { Dropdown } from "../Form";
-import InputWithButton from "../Form/InputWIthButton";
-
-import "../../styles/tooltip.css";
 import displayBalanceDecimals from "../../lib/balanceWithDecimals";
+import { getTotal, inputIsValid } from "./helpers";
+import { IBalance, IProps } from "./types";
+import { Status } from "../../lib/constants";
 
+import { css } from "@emotion/core";
+import { Button } from "../Controls";
+import { Input } from "../Form";
+import InputWithButton from "../Form/InputWIthButton";
+import "../../styles/tooltip.css";
+import "./assets/style.css";
 import {
   Balance,
   ErrorMessage,
   InputWrapper,
   SuccessMessage
 } from "./assets/style";
-
-interface IProps {
-  dispatch: (arg: object) => void;
-  state: IState;
-  closeCashierModal: () => () => void;
-}
-
-type IBalance = number | string;
+import { customInputStyle, customLabelStyle } from "../Form/assets/style";
 
 const Withdraw: React.FunctionComponent<IProps> = ({
   state,
   closeCashierModal
 }) => {
-  const { balance, withdrawAddressList } = state;
-  const balanceNumber = Number(balance);
-
-  enum Status {
-    Initial,
-    Processing,
-    Success,
-    Error
-  }
-
+  const { balance, transactionFee } = state;
   const [amountToWithdraw, setAmountToWithdraw] = useState<IBalance>(0);
+  const [difference, setDifference] = useState(0);
+  const [addressError, setAddressError] = useState(" ");
   const [withdrawAddress, setWithdrawAddress] = useState("");
-  const [
-    validatedWithdrawAddressList,
-    setValidatedWithdrawAddressList
-  ] = useState([]);
   const [withdrawStatus, setWithdrawStatus] = useState(Status.Initial);
 
-  // Form handling
   const { register, handleSubmit, errors } = useForm();
+
+  const setWithdrawAmount = (amount: string | number): void =>
+    setAmountToWithdraw(displayBalanceDecimals(amount));
+
+  const setDifferenceAmount = (amount: string | number): void =>
+    setDifference(
+      Number(displayBalanceDecimals(getTotal(amount, transactionFee)))
+    );
+
+  const setAmount = (amount: string | number): void => {
+    setWithdrawAmount(amount);
+    setDifferenceAmount(amount);
+  };
+
+  const setMaxAmount = () => (): void => setAmount(balance);
+
+  /****** HANDLERS ******/
+
   const onSubmit = (): void => {
     // TODO: Add withdraw message to dcv
     setWithdrawStatus(Status.Success);
   };
 
-  // Handle Amount Input
   const handleAmountInput = () => (e): void => {
-    const amount = e.target.value;
-    // Limit input to 8 decimal points maximum
-    const reg = /^[0-9]|[0-9]+(\.[0-9]{1,8})$/g;
-    if (reg.test(amount) || amount === "") {
-      setAmountToWithdraw(amount);
+    if (inputIsValid(e.target.value)) {
+      setAmount(e.target.value);
     }
   };
 
-  // Handle focusing out from the input component
   const handleOnBlur = () => (e): void => {
-    // Convert the amount to 8 decimals when the focus changes
-    setAmountToWithdraw(displayBalanceDecimals(amountToWithdraw));
-    // Reset the input field to the max amount (i.e. the balance) when focus changes
-    if (e.target.value > balanceNumber) setAmountToWithdraw(balanceNumber);
+    if (e.target.value > balance) {
+      setWithdrawAmount(balance);
+      setDifferenceAmount(0);
+      return;
+    }
+    setWithdrawAmount(e.target.value);
   };
 
-  // Handle select selection
-  const handleSelect = () => (e): void => {
+  // Handle address input
+  const handleAddressInput = () => (e): void => {
+    setAddressError(" ");
     setWithdrawAddress(e.target.value);
   };
 
-  // Validate withdraw addresses before displaying them on the UI
-  useEffect(() => {
-    const validAddressList = withdrawAddressList.map(address => {
-      if (isValidAddress(address)) return address;
-    });
-
-    setValidatedWithdrawAddressList(validAddressList);
-  }, [state.withdrawAddressList]);
-
-  // Set the first withdraw address in state to match the default select state
-  useEffect(() => {
-    setWithdrawAddress(validatedWithdrawAddressList[0]);
-  }, [validatedWithdrawAddressList]);
-
-  const setMaxAmount = () => (): void => setAmountToWithdraw(balanceNumber);
+  const onAddressBlur = () => (e): void => {
+    if (!isValidAddress(e.target.value)) {
+      setAddressError("The specified address is invalid.");
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} data-test="withdraw-tab">
@@ -105,7 +93,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
       ) : (
         <React.Fragment>
           <Balance data-test="withdraw-balance">
-            Available CHIPS: {balanceWithDecimals(balanceNumber)}
+            Available: {displayBalanceDecimals(balance)} CHIPS
           </Balance>
           <InputWrapper>
             <InputWithButton
@@ -113,9 +101,9 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               buttonLabel="Max"
               forwardRef={register({ required: true })}
               handleButtonClick={setMaxAmount()}
-              label="Amount to withdraw"
+              label="Enter amount"
               min={0}
-              max={balanceNumber}
+              max={balance}
               name="withdraw-amount"
               onChange={handleAmountInput()}
               onBlur={handleOnBlur()}
@@ -123,25 +111,38 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               type="number"
               value={amountToWithdraw}
             />
-            <ErrorMessage>
-              {errors["withdraw-amount"] && "Please set a withdaw amount"}
-            </ErrorMessage>
-            <Dropdown
-              data-test="withdraw-address-list"
-              name="withdraw-address-list"
-              label="CHIPS address to withdraw to:"
-              options={validatedWithdrawAddressList}
+            <Input
+              data-test="withdraw-address"
+              customStyle={customInputStyle}
+              customLabelStyle={customLabelStyle}
               forwardRef={register({ required: true })}
-              onChange={handleSelect()}
+              label="CHIPS address"
+              name={"withdraw-address"}
+              onChange={handleAddressInput()}
+              onBlur={onAddressBlur()}
+              placeholder=""
+              required={true}
+              type="string"
+              value={withdrawAddress}
             />
             <ErrorMessage>
-              {errors["withdraw-address-list"] &&
-                "Please select a withdraw address"}
+              {addressError}
+              {errors["withdraw-amount"] && "Please set a withdaw amount"}
             </ErrorMessage>
+            <div id="cashierInfo">
+              <div className="infoLine">
+                <h5>Fee</h5>
+                <div>{displayBalanceDecimals(transactionFee)} CHIPS</div>
+              </div>
+              <div className="infoLine">
+                <h5>Total</h5>
+                <div>{difference} CHIPS</div>
+              </div>
+            </div>
           </InputWrapper>
         </React.Fragment>
       )}
-      <ModalButtonsWrapper>
+      <div className="cashierButtons">
         <Button
           label="Close"
           onClick={closeCashierModal()}
@@ -163,7 +164,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
             }
           />
         )}
-      </ModalButtonsWrapper>
+      </div>
     </form>
   );
 };

@@ -1,7 +1,7 @@
 export const getStringId = (id: number): string =>
   "player".concat(id.toString());
 
-export const validID = (min: number, max: number, id: number) =>
+export const validID = (min: number, max: number, id: number): boolean =>
   typeof id === "number" && id <= max && id >= min && id % 1 === 0;
 
 export const validBEid = (id: number): boolean => validID(0, 8, id);
