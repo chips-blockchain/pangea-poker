@@ -595,3 +595,20 @@ export const walletInfo = (
   // const id = Number(seat.slice(-1)) - 1;
   sendMessage({ method: "walletInfo" }, state, dispatch);
 };
+
+export const withdraw = (
+  address: string,
+  amount: number,
+  state: IState,
+  dispatch: (arg: object) => void
+): void => {
+  sendMessage(
+    {
+      method: "withdraw",
+      addr: address,
+      amount: amount
+    },
+    state,
+    dispatch
+  );
+};
