@@ -14,6 +14,7 @@ const initialState: IState = {
   depositAddress: undefined, // Pangea wallet address to deposit to
   holeCards: [], // Cards of the user
   nodeType: null,
+  latestTransactionId: null,
   userSeat: null, // Where does the user sit (player1, player2, etc)
   withdrawAddressList: [], // List of addresses where the player can withdraw to. See: https://github.com/chips-blockchain/bet/blob/master/handling_funds.md#withdrawing-the-funds
 
