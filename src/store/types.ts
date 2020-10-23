@@ -60,6 +60,7 @@ export interface IState {
   isStartupModal: boolean;
   lastAction: { player: number; action: string | null };
   lastMessage: object;
+  latestTransactionId: string;
   nodesSet: boolean;
   notice: INotice;
   nodes: {
