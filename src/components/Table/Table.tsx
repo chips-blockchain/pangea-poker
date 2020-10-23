@@ -14,7 +14,6 @@ import { ChipGrid, Bet } from "../Chips";
 import Controls, { Button } from "../Controls";
 import MainPot from "./MainPot";
 import Game from "../Game";
-import Connections from "./Connections";
 import { StartupModal } from "../Modal";
 import DeveloperMode from "../DeveloperMode";
 import LogBox from "../LogBox";

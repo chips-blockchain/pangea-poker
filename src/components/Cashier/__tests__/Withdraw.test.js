@@ -103,8 +103,6 @@ describe("Withdraw", () => {
   test("The withdraw button is disabled by default", () => {
     const wrapper = createWrapper();
 
-    console.log(wrapper.debug());
-
     expect(
       wrapper.find(`Button[data-test="withdraw-button"]`).props()["disabled"]
     ).toBe(true);
@@ -112,10 +110,13 @@ describe("Withdraw", () => {
 
   test("Withdraw button is enabled when amount and withdraw address are set", () => {
     const wrapper = createWrapper();
-    wrapper.find(`input#withdraw-amount`).simulate("change");
+    wrapper.find(`input#withdraw-amount`).simulate("change",{
+      target: { value: 0.223 }
+    });
     wrapper.find(`input#withdraw-address`).simulate("change", {
       target: { value: "RMwqv9VNBu7wjrEvQtMrDD7c6ddogyStBG" }
     });
+    // console.log(wrapper.debug());
     expect(
       wrapper.find(`Button[data-test="withdraw-button"]`).props()["disabled"]
     ).toBe(false);
