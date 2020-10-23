@@ -99,7 +99,6 @@ const Withdraw: React.FunctionComponent<IProps> = ({
           <Button
             label="Close"
             onClick={closeCashierModal()}
-            data-test="close-button-cashier-withdraw"
           />
         </div>
       ) : (
