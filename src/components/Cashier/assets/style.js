@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Status } from "../../../lib/constants";
 
 /** DEPOSIT */
 
@@ -27,7 +28,7 @@ export const DepositAddress = styled.span`
 `;
 
 export const DepositAddressContainer = styled.div`
-  background-color: var(--darkGrey);
+  background-color: black;
   border: 1px solid var(--color-primary);
   border-radius: 4px;
   padding: 0.5rem;
@@ -55,10 +56,16 @@ export const InputWrapper = styled.div`
 `;
 
 export const SuccessMessage = styled.div`
-  color: var(--color-primaryLight);
-  padding-top: 2rem;
-  & > div {
-    font-size: 4rem;
-    padding-bottom: 1rem;
+  color: ${p =>
+    p.status == Status.Success
+      ? "var(--color-accent)"
+      : p.status == Status.Processing
+      ? "var(--color-lightGray)"
+      : "var(--color-danger)"};
+  font-size: var(--font-size-m);
+  grid-area: success;
+
+  & > p {
+    font-size: var(--font-size-m);
   }
 `;

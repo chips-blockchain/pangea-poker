@@ -418,6 +418,11 @@ export const onMessage = (
       updateStateValue("withdrawAddressList", message.addrs, dispatch);
       break;
 
+    case "withdrawInfo":
+      updateStateValue("latestTransactionId", message.tx, dispatch);
+      console.log(message);
+      break;
+
     default:
       console.warn(`Received unknown method type "${message.method}" `);
   }
