@@ -13,23 +13,9 @@ To enter the game using GUI you will only need to know your own player node IP.
 
 Both player and dealer node are run by bet.
 
-You can setup bet either [manually]() or using [Docker](https://github.com/chips-blockchain/docker).
+You can setup CHIPS, LN and Bet either [manually]() or using [Docker](https://github.com/chips-blockchain/docker).
 
-## 1. Player node
-
-To run the player node:
-
-`cd ./bet/privatebet && ./bet player`
-
-The player automatically searches for the available dealer and connects to them. So make sure you are only running one dealer node. This functionality will change in the future and players will be able to specify the dealer they want to connect to.
-
-If the player has successfully connected to the dealer you will see this.
-
-<img src="assets/player_terminal.png" width="800">
-
-Note that there is transaction information `:txid::"dc3e321cb0a5c36270b6ff166be697a467c5f025f4309fe47ac1e86ae9f85faf"` This transaction is your payment for entering the table, the buy in.
-
-## 2. Dealer node
+## 1. Dealer node
 
 To run the dealer node:
 
@@ -47,6 +33,24 @@ The dealer GUI does not have much functionality at the moment. It is important t
 
 <img src="assets/dealer_view.png" width="500">
 
+## 2. Player node
+
+To run the player node:
+
+`cd ./bet/privatebet && ./bet player`
+
+The player automatically searches for the available dealer and connects to them. So make sure you are only running one dealer node. This functionality will change in the future and players will be able to specify the dealer they want to connect to.
+
+If the player has successfully connected to the dealer you will see this.
+
+<img src="assets/player_terminal.png" width="800">
+
+Note that there is transaction information `:txid::"dc3e321cb0a5c36270b6ff166be697a467c5f025f4309fe47ac1e86ae9f85faf"` This transaction is your payment for entering the table, the buy in.
 
 
+## FAQ
+
+### The game seems to be frozen
+
+Ah, it could be frozen.
 
