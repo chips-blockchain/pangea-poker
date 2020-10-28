@@ -110,7 +110,7 @@ describe("Withdraw", () => {
 
   test("Withdraw button is enabled when amount and withdraw address are set", () => {
     const wrapper = createWrapper();
-    wrapper.find(`input#withdraw-amount`).simulate("change",{
+    wrapper.find(`input#withdraw-amount`).simulate("change", {
       target: { value: 0.223 }
     });
     wrapper.find(`input#withdraw-address`).simulate("change", {

@@ -80,7 +80,7 @@ describe("Cashier", () => {
       1
     );
   });
-  
+
   // @TODO FIX THIS TEST
   // test("opens when the Cashier button is clicked", () => {
   //   const state = {

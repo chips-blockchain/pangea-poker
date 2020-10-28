@@ -96,10 +96,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
             amount={String(amountToWithdraw)}
             address={withdrawAddress}
           />
-          <Button
-            label="Close"
-            onClick={closeCashierModal()}
-          />
+          <Button label="Close" onClick={closeCashierModal()} />
         </div>
       ) : (
         <React.Fragment>
