@@ -21,11 +21,11 @@ To run the player node:
 
 `cd ./bet/privatebet && ./bet player`
 
-The player automatically searches for the available dealer and connects to him. So make sure you are only running one dealer node. This functionality will change in the future and players will be able to specify the dealer they want to connect to.
+The player automatically searches for the available dealer and connects to them. So make sure you are only running one dealer node. This functionality will change in the future and players will be able to specify the dealer they want to connect to.
 
 If the player has successfully connected to the dealer you will see this.
 
-<img src="assets/player_terminal.png" width="500">
+<img src="assets/player_terminal.png" width="800">
 
 Note that there is transaction information `:txid::"dc3e321cb0a5c36270b6ff166be697a467c5f025f4309fe47ac1e86ae9f85faf"` This transaction is your payment for entering the table, the buy in.
 
@@ -37,7 +37,7 @@ To run the dealer node:
 
 You should see something like this:
 
-<img src="assets/dealer_output.png" width="500">
+<img src="assets/dcv_output.png" width="800">
 
 If it seems like it is working, head to GUI and enter your dealer IP to open the dealer GUI.
 
