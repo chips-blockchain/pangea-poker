@@ -47,7 +47,7 @@ const initialState: IState = {
   dealer: 0, // Which player is the dealer
   gameStarted: false,
   gameType: "", // Game type at the top left corner
-  maxPlayers: 9,
+  maxPlayers: 2,
   notice: {
     text: "Choose your seat to begin playing",
     status: null,
