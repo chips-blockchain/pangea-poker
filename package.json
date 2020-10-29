@@ -11,11 +11,9 @@
   },
   "scripts": {
     "build": "parcel build src/index.html --out-dir build --public-url ./",
-    "dev": "REDUCER=0 NODE_ENV=development parcel src/index.html",
-    "devlog": "REDUCER=1 NODE_ENV=development parcel src/index.html",
+    "dev": "parcel src/index.html",
     "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:1234 && electron .\"",
     "electron-pack": "electron-builder -mwl",
-    "prod": "REDUCER=0 NODE_ENV=production parcel src/index.html --open --out-dir build",
     "start": "parcel src/index.html --open --out-dir build",
     "test": "NODE_ENV=test jest",
     "lint:fix": "node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx --fix",
