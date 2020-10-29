@@ -7,15 +7,15 @@ In order to play a game of poker using Pangea one needs:
 2. Have CHIPS and LN synced
 3. Run your own player node
 4. Run a dealer node or have someone run a node for you. The dealer node facilitates the game and creates a table. 
-5. Have access to GUI. Can run it locally or access it via https://dev.chips.cash.
+5. Have access to GUI. Can run it locally or access it at http://dev.chips.cash.
 
-https://dev.chips.cash has the latest playable version of the GUI. 
+http://dev.chips.cash has the latest playable version of the GUI. 
 
 To enter the game using GUI you will only need to know your own player node IP.
 
-Both player and dealer node are run by bet.
+Both player and dealer node are run using [bet](https://github.com/chips-blockchain/bet).
 
-You can setup CHIPS, LN and Bet either [manually]() or using [Docker](https://github.com/chips-blockchain/docker).
+You can setup CHIPS, LN and Bet either [manually](https://github.com/chips-blockchain/bet/blob/master/compile.md) or using [Docker](https://github.com/chips-blockchain/docker).
 
 ## 1. Dealer node
 
