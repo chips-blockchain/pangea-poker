@@ -1,4 +1,4 @@
-# Pangea Poker Tutorial
+# Pre-Alpha Pangea Poker Tutorial
 
 In order to play a game of poker using Pangea one needs:
 
