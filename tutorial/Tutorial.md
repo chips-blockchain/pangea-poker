@@ -49,6 +49,16 @@ If the player has successfully connected to the dealer you will see this.
 
 Note that there is transaction information `:txid::"dc3e321cb0a5c36270b6ff166be697a467c5f025f4309fe47ac1e86ae9f85faf"` This transaction is your payment for entering the table, the buy in. You can check the transaction in the explorer. 
 
+Now head to the GUI and enter you player node ip.
+
+<img src="assets/player_ip.png" width="500">
+
+You will either be allowed to the table straight away or you will have to wait a little bit for your transaction to be mined.
+
+<img src="assets/tx_mining.png" width="500">
+
+
+> Please note, there could be a delay in communication between the player node and the GUI or between dealer nodes and player nodes, so the game might seem a bit slow. The best you can do is wait and take note if something took particularly long and provide us feedback. Thank you.
 
 ## FAQ
 
