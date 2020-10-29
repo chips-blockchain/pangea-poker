@@ -1,13 +1,15 @@
 # Pangea Poker Tutorial
 
-In order to play a game of poker using Pangea one needs to:
+In order to play a game of poker using Pangea one needs:
 
-1. Have a publicly available IP for your player/dealer node
+1. Publicly available IP for your player/dealer node
 2. Setup CHIPS, LN and BET
 2. Have CHIPS and LN synced
 3. Run your own player node
 4. Run a dealer node or have someone run a node for you. The dealer node facilitates the game and creates a table. 
-5. Have access to GUI. Can run it locally or access it via.
+5. Have access to GUI. Can run it locally or access it via https://dev.chips.cash.
+
+https://dev.chips.cash has the latest playable version of the GUI. 
 
 To enter the game using GUI you will only need to know your own player node IP.
 
