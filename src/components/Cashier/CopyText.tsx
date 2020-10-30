@@ -18,7 +18,6 @@ const CopyText: React.FunctionComponent<ICopyProps> = ({ textToCopy }) => {
 
   // Copy the text to the clipboard and hide the tooltip when clicked
   const copyToClipBoard = () => (): void => {
-    console.log(textToCopy);
     navigator.clipboard.writeText(String(textToCopy));
     setIsTextCopied(true);
     ReactTooltip.hide();

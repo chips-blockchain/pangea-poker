@@ -22,12 +22,12 @@
     color: var(--color-superLightGray);
   }
   
-  
   #withdrawalInfo div{
     display: flex;
     flex-direction: row;
     justify-content: start;
   }
+  
   #withdrawalInfo div div{
     padding-left: 10px;
     font-family: var(--font-family-secondary);

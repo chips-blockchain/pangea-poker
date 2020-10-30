@@ -63,7 +63,6 @@ export const SuccessMessage = styled.div`
       ? "var(--color-lightGray)"
       : "var(--color-danger)"};
   font-size: var(--font-size-m);
-  grid-area: success;
 
   & > p {
     font-size: var(--font-size-m);

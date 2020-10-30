@@ -422,7 +422,6 @@ export const onMessage = (
 
     case "withdrawInfo":
       updateStateValue("latestTransactionId", message.tx, dispatch);
-      console.log(message);
       break;
 
     default:
