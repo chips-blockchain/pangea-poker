@@ -72,7 +72,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
       setDifferenceAmount(0);
       return;
     }
-    setWithdrawAmount(e.target.value);
+    setAmount(e.target.value);
   };
 
   // Handle address input
