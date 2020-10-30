@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import isValidAddress from "../../lib/isValidAddress";
 import displayBalanceDecimals from "../../lib/balanceWithDecimals";
@@ -10,21 +10,20 @@ import { css } from "@emotion/core";
 import { Button } from "../Controls";
 import { Input } from "../Form";
 import InputWithButton from "../Form/InputWIthButton";
-import "../../styles/tooltip.css";
 import "./assets/style.css";
-import {
-  Balance,
-  ErrorMessage,
-  InputWrapper,
-  SuccessMessage
-} from "./assets/style";
+import { Balance, ErrorMessage, InputWrapper } from "./assets/style";
 import { customInputStyle, customLabelStyle } from "../Form/assets/style";
+
+import WithdrawalResult from "./WithdrawalResult";
+import { withdraw } from "../../store/actions";
+import { DispatchContext } from "../../store/context";
 
 const Withdraw: React.FunctionComponent<IProps> = ({
   state,
   closeCashierModal
 }) => {
-  const { balance, transactionFee } = state;
+  const dispatch: (arg: object) => void = useContext(DispatchContext);
+  const { balance, transactionFee, latestTransactionId } = state;
   const [amountToWithdraw, setAmountToWithdraw] = useState<IBalance>(0);
   const [difference, setDifference] = useState(0);
   const [addressError, setAddressError] = useState(" ");
@@ -32,6 +31,12 @@ const Withdraw: React.FunctionComponent<IProps> = ({
   const [withdrawStatus, setWithdrawStatus] = useState(Status.Initial);
 
   const { register, handleSubmit, errors } = useForm();
+
+  useEffect(() => {
+    if (latestTransactionId) {
+      setWithdrawStatus(Status.Success);
+    }
+  }, [latestTransactionId]);
 
   const setWithdrawAmount = (amount: string | number): void =>
     setAmountToWithdraw(displayBalanceDecimals(amount));
@@ -51,13 +56,13 @@ const Withdraw: React.FunctionComponent<IProps> = ({
   /****** HANDLERS ******/
 
   const onSubmit = (): void => {
-    // TODO: Add withdraw message to dcv
-    setWithdrawStatus(Status.Success);
+    withdraw(withdrawAddress, Number(amountToWithdraw), state, dispatch);
+    setWithdrawStatus(Status.Processing);
   };
 
   const handleAmountInput = () => (e): void => {
     if (inputIsValid(e.target.value)) {
-      setAmount(e.target.value);
+      setAmountToWithdraw(Number(e.target.value));
     }
   };
 
@@ -67,7 +72,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
       setDifferenceAmount(0);
       return;
     }
-    setWithdrawAmount(e.target.value);
+    setAmount(e.target.value);
   };
 
   // Handle address input
@@ -81,14 +86,18 @@ const Withdraw: React.FunctionComponent<IProps> = ({
       setAddressError("The specified address is invalid.");
     }
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} data-test="withdraw-tab">
-      {withdrawStatus === Status.Success ? (
-        <SuccessMessage>
-          <div>🤑</div>
-          {amountToWithdraw} has been succesfully withdrawn to {withdrawAddress}
-        </SuccessMessage>
+      {withdrawStatus ? (
+        <div>
+          <WithdrawalResult
+            latestTransactionId={latestTransactionId}
+            withdrawStatus={withdrawStatus}
+            amount={String(amountToWithdraw)}
+            address={withdrawAddress}
+          />
+          <Button label="Close" onClick={closeCashierModal()} />
+        </div>
       ) : (
         <React.Fragment>
           <Balance data-test="withdraw-balance">
@@ -139,31 +148,31 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               </div>
             </div>
           </InputWrapper>
+          <div className="cashierButtons">
+            <Button
+              label="Close"
+              onClick={closeCashierModal()}
+              data-test="close-button-cashier-withdraw"
+            />
+            {withdrawStatus !== Status.Success && (
+              <Button
+                css={css`
+                  display: none;
+                `}
+                label="Withdraw"
+                data-test="withdraw-button"
+                isHighlighted
+                isSubmit
+                disabled={
+                  !amountToWithdraw ||
+                  !withdrawAddress ||
+                  withdrawStatus === Status.Processing
+                }
+              />
+            )}
+          </div>
         </React.Fragment>
       )}
-      <div className="cashierButtons">
-        <Button
-          label="Close"
-          onClick={closeCashierModal()}
-          data-test="close-button-cashier-withdraw"
-        />
-        {withdrawStatus !== Status.Success && (
-          <Button
-            css={css`
-              display: none;
-            `}
-            label="Withdraw"
-            data-test="withdraw-button"
-            isHighlighted
-            isSubmit
-            disabled={
-              !amountToWithdraw ||
-              !withdrawAddress ||
-              withdrawStatus === Status.Processing
-            }
-          />
-        )}
-      </div>
     </form>
   );
 };

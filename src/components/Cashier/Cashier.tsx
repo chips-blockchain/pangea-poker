@@ -34,7 +34,7 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
         <CashierButton>
           <Button
             label="Cashier"
-            disabled={!state.backendStatus}
+            disabled={!state.backendStatus || !state.depositAddress}
             onClick={handleCashierButtonClick()}
             small
             testId="cashier-button"

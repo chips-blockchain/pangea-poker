@@ -6,7 +6,7 @@ import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
 import { ModalButtonsWrapper } from "../Modal/assets/style";
 import { Button } from "../Controls";
-import "../../styles/tooltip.css";
+import "./assets/tooltip.css";
 import {
   AdditionalInfo,
   AddressLabel,

@@ -100,7 +100,6 @@ const CustomIP: React.FunctionComponent = () => {
           return (
             <TabPanel key={key}>
               <Input
-                defaultValue={node.devAddress}
                 label={node.name}
                 name={node.name}
                 onChange={handleInputChange(node)}

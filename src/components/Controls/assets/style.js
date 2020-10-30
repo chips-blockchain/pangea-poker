@@ -23,7 +23,7 @@ export const ButtonStyle = styled.button`
   font-size: ${props => (props.small ? ".75rem" : "1rem")};
   font-weight: 700;
   height: ${props => (props.small ? "1.75rem" : "2.5rem")};
-  margin: 0.5rem;
+  margin-right: 0.25rem;
   opacity: ${props => props.disabled && "0.5"};
   line-height: 1rem;
   transition: 0.1s ease;
@@ -68,7 +68,7 @@ export const ButtonInnerWrapper = styled.div`
   `;
 
 export const SliderContainer = styled.div`
-  margin: 0.125rem 0.125rem 0.25rem 0.125rem;
+  margin: 0rem 0rem 0.25rem 0rem;
 `;
 
 export const SliderWrapper = styled.div`
@@ -80,4 +80,5 @@ export const SliderWrapper = styled.div`
   border-radius: 0.125rem;
   height: 1.6rem;
   justify-content: flex-start;
+  width: 180px;
 `;

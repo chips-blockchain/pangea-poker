@@ -32,7 +32,8 @@ import {
   processControls,
   updateMainPot,
   setNotice,
-  clearNotice
+  clearNotice,
+  walletInfo
 } from "../../store/actions";
 import log from "../../lib/dev";
 import numberWithCommas from "../../lib/numberWithCommas";
@@ -72,6 +73,7 @@ export const onMessage = (
   switch (message.method) {
     case "backend_status":
       updateStateValue("backendStatus", message.backend_status, dispatch);
+      walletInfo(state, dispatch);
       break;
     case "betting":
       {
@@ -416,6 +418,10 @@ export const onMessage = (
     case "withdrawResponse":
       updateStateValue("balance", message.balance, dispatch);
       updateStateValue("withdrawAddressList", message.addrs, dispatch);
+      break;
+
+    case "withdrawInfo":
+      updateStateValue("latestTransactionId", message.tx, dispatch);
       break;
 
     default:

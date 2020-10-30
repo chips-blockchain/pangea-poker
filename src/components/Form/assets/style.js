@@ -60,8 +60,8 @@ export const customButtonStyle = css`
   position: absolute;
   height: 1.25rem;
   width: 2rem;
-  top: 1.85rem;
-  right: 0.5rem;
+  top: 2.25rem;
+  right: 0.75rem;
 `;
 
 export const Wrapper = styled.div`
