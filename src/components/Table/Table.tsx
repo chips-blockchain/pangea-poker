@@ -78,7 +78,6 @@ const Table: React.FunctionComponent = () => {
       closeStartupModal(dispatch);
       if (!isDealer(nodeType) && !gameStarted) {
         game({ gametype: "", pot: [0] }, state, dispatch);
-        walletInfo(state, dispatch);
       }
     }
   }, [state]);
