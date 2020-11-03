@@ -83,7 +83,7 @@
     "@babel/plugin-proposal-object-rest-spread": "7.12.1",
     "@babel/plugin-transform-typescript": "7.12.1",
     "@babel/preset-env": "7.12.1",
-    "@babel/preset-react": "7.12.1",
+    "@babel/preset-react": "7.12.5",
     "@babel/preset-typescript": "7.12.1",
     "@emotion/babel-preset-css-prop": "10.1.0",
     "@types/babel__core": "7.1.10",
