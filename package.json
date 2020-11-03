@@ -86,7 +86,7 @@
     "@babel/preset-react": "7.12.1",
     "@babel/preset-typescript": "7.12.1",
     "@emotion/babel-preset-css-prop": "10.1.0",
-    "@types/babel__core": "7.1.10",
+    "@types/babel__core": "7.1.12",
     "@types/cssnano": "4.0.0",
     "@types/deep-diff": "1.0.0",
     "@types/enzyme": "3.10.8",
