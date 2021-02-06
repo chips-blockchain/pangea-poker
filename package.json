@@ -73,7 +73,7 @@
     "react-dom": "16.14.0",
     "react-hook-form": "5.7.2",
     "react-modal": "3.12.1",
-    "react-tabs": "3.1.1",
+    "react-tabs": "3.2.0",
     "react-tooltip": "4.2.13",
     "react-use-websocket": "^2.0.0",
     "wait-on": "4.0.2"
