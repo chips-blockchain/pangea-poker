@@ -50,19 +50,22 @@
   text-align: center;
 }
 
-#depositAddressContainer {
+#cashierInput {
   background-color: black;
   border: 1px solid var(--color-primary);
   border-radius: 4px;
   padding: 0.5rem;
   display: flex;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-#depositBalance {
+#cashierBalance {
   color: var(--color-accent);
 }
 
-#depositAddress {
+#textInsideInput {
   color: var(--color-primaryLight);
   font-size: var(--font-size-s);
   padding-right: 1rem;

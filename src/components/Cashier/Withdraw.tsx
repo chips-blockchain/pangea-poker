@@ -11,7 +11,7 @@ import { Button } from "../Controls";
 import { Input } from "../Form";
 import InputWithButton from "../Form/InputWIthButton";
 import "./assets/style.css";
-import { Balance, ErrorMessage, InputWrapper } from "./assets/style";
+import { ErrorMessage, InputWrapper } from "./assets/style";
 import { customInputStyle, customLabelStyle } from "../Form/assets/style";
 
 import WithdrawalResult from "./WithdrawalResult";
@@ -100,9 +100,9 @@ const Withdraw: React.FunctionComponent<IProps> = ({
         </div>
       ) : (
         <React.Fragment>
-          <Balance data-test="withdraw-balance">
+          <p id="cashierBalance" data-test="withdraw-balance">
             Available: {displayBalanceDecimals(balance)} CHIPS
-          </Balance>
+          </p>
           <InputWrapper>
             <InputWithButton
               data-test="withdraw-amount"
