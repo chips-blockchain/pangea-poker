@@ -1,5 +1,5 @@
 const data = {
-    explorerLink: 'https://explorer.chips.cash/tx/'
-}
+  explorerLink: "https://explorer.chips.cash/tx/"
+};
 
-export default data
+export default data;

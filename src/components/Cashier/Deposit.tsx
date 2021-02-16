@@ -28,13 +28,10 @@ const Deposit: React.FunctionComponent<IProps> = ({
   return (
     <section>
       <div id="cashierBalance" data-test="balance-cashier-deposit">
-        Available: {balanceWithDecimals(balance) + ' ' + c.CHIPS}
+        Available: {balanceWithDecimals(balance) + " " + c.CHIPS}
       </div>
       <h2 id="depositAddrLabel">{c.ADDRESS_LABEL}</h2>
-      <div
-        id="cashierInput"
-        data-test="address-container-cashier-deposit"
-      >
+      <div id="cashierInput" data-test="address-container-cashier-deposit">
         <div id="textInsideInput" data-test="address-cashier-deposit">
           {isDepositAddressValid
             ? depositAddress.substr(0, 30) + "..."

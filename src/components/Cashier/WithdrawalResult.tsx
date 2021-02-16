@@ -1,12 +1,11 @@
-
 import React from "react";
 import { ISuccessWithdrawProps } from "./types";
 import { Status } from "../../lib/constants";
 import "./assets/withdrawalResult.css";
 import { SuccessMessage } from "./assets/style";
 import CopyToClipboard from "./CopyToClipboard";
-import data from "../../data"
-import c from "./assets/constants"
+import data from "../../data";
+import c from "./assets/constants";
 
 const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
   latestTransactionId,
@@ -14,8 +13,7 @@ const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
   address,
   withdrawStatus
 }) => {
-
-  const txUrl = data.explorerLink.concat(latestTransactionId)
+  const txUrl = data.explorerLink.concat(latestTransactionId);
 
   return (
     <div>
@@ -28,16 +26,18 @@ const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
       {withdrawStatus === Status.Success && (
         <div id="transactionId">
           <div id="transactionIdText">{c.TX_LABEL}</div>
-          <div id='cashierInput'>
-            <div id="textInsideInput">{latestTransactionId.substr(0, 30) + "..."}</div>
-            <CopyToClipboard textToCopy={latestTransactionId}/>
+          <div id="cashierInput">
+            <div id="textInsideInput">
+              {latestTransactionId.substr(0, 30) + "..."}
+            </div>
+            <CopyToClipboard textToCopy={latestTransactionId} />
           </div>
         </div>
       )}
       <div id="withdrawalInfo">
         <div className="infoRow">
           <label>{c.AMOUNT}</label>
-          <div>{amount.concat(' ', c.CHIPS)}</div>
+          <div>{amount.concat(" ", c.CHIPS)}</div>
         </div>
         <div className="infoRow">
           <label>{c.ADDR}</label>
