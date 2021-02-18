@@ -6,7 +6,7 @@ import CopyToClipboard from "../_General/CopyToClipboard";
 import data from "../../data";
 import c from "./assets/constants";
 import substr from "../../lib/substr";
-import styled from "@emotion/styled"
+import styled from "@emotion/styled";
 
 export const SuccessMessage = styled.div`
   color: ${p =>

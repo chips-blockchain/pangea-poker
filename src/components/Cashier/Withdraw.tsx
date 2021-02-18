@@ -107,7 +107,11 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               "CHIPS"
             )}
           </p>
-          <div css={css`margin-top: 1rem;`}>
+          <div
+            css={css`
+              margin-top: 1rem;
+            `}
+          >
             <InputWithButton
               data-test="withdraw-amount"
               buttonLabel="Max"

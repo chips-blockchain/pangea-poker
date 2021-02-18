@@ -5,7 +5,7 @@ import Withdraw from "./Withdraw";
 import { Button } from "../Controls";
 import { updateStateValue } from "../../store/actions";
 import { IState } from "../../store/types";
-import styled from "@emotion/styled"
+import styled from "@emotion/styled";
 // This modal opens up when the player clicks the Cashier button and allows the player to
 // move funds to and away from the account
 
