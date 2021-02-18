@@ -6,7 +6,7 @@ import "./tooltip.css";
 import copyIcon from "./copyToClipboard.svg";
 import ReactTooltip from "react-tooltip";
 
-const COPIED = 'Copied!'
+const COPIED = "Copied!";
 const IconWrapper = styled.div`
   cursor: pointer;
 `;
