@@ -33,9 +33,9 @@ const Deposit: React.FunctionComponent<IProps> = ({
       </div>
       <h2 id="depositAddrLabel">{c.ADDRESS_LABEL}</h2>
       <div id="cashierInput" data-test="address-container-cashier-deposit">
-        <div id="textInsideInput" data-test="address-cashier-deposit">
+        <p data-test="address-cashier-deposit">
           {isDepositAddressValid ? substr(depositAddress) : "Invalid address"}
-        </div>
+        </p>
         {isDepositAddressValid ? (
           <CopyToClipboard textToCopy={depositAddress} />
         ) : (

@@ -3,7 +3,7 @@ import { ISuccessWithdrawProps } from "./types";
 import { Status } from "../../lib/constants";
 import "./assets/withdrawalResult.css";
 import { SuccessMessage } from "./assets/style";
-import CopyToClipboard from "../_General/CopyToClipboard/CopyToClipboard";
+import CopyToClipboard from "../_General/CopyToClipboard";
 import data from "../../data";
 import c from "./assets/constants";
 import substr from "../../lib/substr";
@@ -28,7 +28,7 @@ const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
         <div id="transactionId">
           <div id="transactionIdText">{c.TX_LABEL}</div>
           <div id="cashierInput">
-            <div id="textInsideInput">{substr(latestTransactionId)}</div>
+            <p>{substr(latestTransactionId)}</p>
             <CopyToClipboard textToCopy={latestTransactionId} />
           </div>
         </div>
