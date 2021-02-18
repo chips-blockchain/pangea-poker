@@ -3,10 +3,10 @@ import { IState } from "../../store/types";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
 import { Button } from "../Controls";
-import substr from "../../lib/substr"
+import substr from "../../lib/substr";
 
 import c from "./assets/constants";
-import CopyToClipboard from "./CopyToClipboard";
+import CopyToClipboard from "../_General/CopyToClipboard";
 
 interface IProps {
   dispatch: (arg: object) => void;
@@ -34,9 +34,7 @@ const Deposit: React.FunctionComponent<IProps> = ({
       <h2 id="depositAddrLabel">{c.ADDRESS_LABEL}</h2>
       <div id="cashierInput" data-test="address-container-cashier-deposit">
         <div id="textInsideInput" data-test="address-cashier-deposit">
-          {isDepositAddressValid
-            ? substr(depositAddress)
-            : "Invalid address"}
+          {isDepositAddressValid ? substr(depositAddress) : "Invalid address"}
         </div>
         {isDepositAddressValid ? (
           <CopyToClipboard textToCopy={depositAddress} />

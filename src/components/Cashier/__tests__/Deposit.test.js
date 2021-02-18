@@ -66,9 +66,7 @@ describe("Deposit", () => {
 
     navigator.clipboard = { writeText: jest.fn() };
 
-    wrapper
-      .find(`div[data-test="clipboard"]`)
-      .simulate("click");
+    wrapper.find(`div[data-test="clipboard"]`).simulate("click");
     expect(navigator.clipboard.writeText).toHaveBeenCalled();
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(depositAddress);
   });

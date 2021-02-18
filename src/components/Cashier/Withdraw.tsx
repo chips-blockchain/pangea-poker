@@ -101,7 +101,12 @@ const Withdraw: React.FunctionComponent<IProps> = ({
       ) : (
         <React.Fragment>
           <p id="cashierBalance" data-test="withdraw-balance">
-            {'Available:'.concat(' ', String(displayBalanceDecimals(balance)), ' ', 'CHIPS')}
+            {"Available:".concat(
+              " ",
+              String(displayBalanceDecimals(balance)),
+              " ",
+              "CHIPS"
+            )}
           </p>
           <InputWrapper>
             <InputWithButton

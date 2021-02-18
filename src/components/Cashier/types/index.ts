@@ -8,11 +8,6 @@ export interface IProps {
   state: IState;
   closeCashierModal: () => () => void;
 }
-
-export interface ICopyProps {
-  textToCopy: string;
-}
-
 export interface ISuccessWithdrawProps {
   latestTransactionId: string;
   amount: string;

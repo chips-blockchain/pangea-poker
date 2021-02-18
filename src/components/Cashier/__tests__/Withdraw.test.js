@@ -7,7 +7,11 @@ import initialState from "../../../store/initialState";
 const dispatch = jest.fn();
 const closeCashierModal = jest.fn();
 
-const cashierState = { ...initialState, isCashierOpen: true, isStartupModal: false };
+const cashierState = {
+  ...initialState,
+  isCashierOpen: true,
+  isStartupModal: false
+};
 
 const buildWrapper = (dispatch, state) => {
   return mount(

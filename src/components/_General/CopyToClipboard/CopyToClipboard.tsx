@@ -1,14 +1,19 @@
 import React, { useRef } from "react";
-import { ICopyProps } from "./types";
+import { ICopyProps } from "../../Cashier/types";
 import styled from "@emotion/styled";
-import "./assets/tooltip.css";
+import "./tooltip.css";
 
-import copyIcon from "./assets/copyToClipboard.svg";
+import copyIcon from "./copyToClipboard.svg";
 import ReactTooltip from "react-tooltip";
 
+const COPIED = 'Copied!'
 const IconWrapper = styled.div`
   cursor: pointer;
 `;
+
+export interface ICopyProps {
+  textToCopy: string;
+}
 
 const CopyToClipboard: React.FunctionComponent<ICopyProps> = ({
   textToCopy
@@ -22,7 +27,7 @@ const CopyToClipboard: React.FunctionComponent<ICopyProps> = ({
 
   return (
     <IconWrapper data-test="clipboard" onClick={copy()}>
-      <div data-tip={"Copied!"} ref={idRef} />
+      <div data-tip={COPIED} ref={idRef} />
       <img src={copyIcon} onClick={copy()} />
       <ReactTooltip
         className="react-tooltip"

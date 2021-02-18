@@ -64,7 +64,6 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
                 dispatch={dispatch}
                 state={state}
                 closeCashierModal={closeCashierModal}
-                testId="withdrawTab"
               />
             ),
             name: "Withdraw",
