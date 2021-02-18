@@ -11,7 +11,7 @@ const initialState: IState = {
     status: null,
     text: ""
   },
-  depositAddress: "RMwqv9VNBu7wjrEvQtMrYX7c6ddogyStBG", // Pangea wallet address to deposit to
+  depositAddress: undefined, // Pangea wallet address to deposit to
   holeCards: [], // Cards of the user
   nodeType: null,
   latestTransactionId: null,
@@ -30,9 +30,9 @@ const initialState: IState = {
     canCheck: false,
     canRaise: true
   },
-  isStartupModal: false, // Whether the Startup Modal shows at the beginning of the game
+  isStartupModal: true, // Whether the Startup Modal shows at the beginning of the game
   isDeveloperMode: false, // Whether the app should run in developer mode
-  isCashierOpen: true,
+  isCashierOpen: false,
   isLogBox: true,
   isShowDown: false,
 
