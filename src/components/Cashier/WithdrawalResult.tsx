@@ -6,6 +6,7 @@ import { SuccessMessage } from "./assets/style";
 import CopyToClipboard from "./CopyToClipboard";
 import data from "../../data";
 import c from "./assets/constants";
+import substr from "../../lib/substr"
 
 const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
   latestTransactionId,
@@ -28,7 +29,7 @@ const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
           <div id="transactionIdText">{c.TX_LABEL}</div>
           <div id="cashierInput">
             <div id="textInsideInput">
-              {latestTransactionId.substr(0, 30) + "..."}
+              {substr(latestTransactionId)}
             </div>
             <CopyToClipboard textToCopy={latestTransactionId} />
           </div>

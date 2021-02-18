@@ -21,7 +21,7 @@ const CopyToClipboard: React.FunctionComponent<ICopyProps> = ({
   };
 
   return (
-    <IconWrapper onClick={copy()}>
+    <IconWrapper data-test="clipboard" onClick={copy()}>
       <div data-tip={"Copied!"} ref={idRef} />
       <img src={copyIcon} onClick={copy()} />
       <ReactTooltip

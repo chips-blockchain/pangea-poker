@@ -3,6 +3,7 @@ import { IState } from "../../store/types";
 import balanceWithDecimals from "../../lib/balanceWithDecimals";
 import isValidAddress from "../../lib/isValidAddress";
 import { Button } from "../Controls";
+import substr from "../../lib/substr"
 
 import c from "./assets/constants";
 import CopyToClipboard from "./CopyToClipboard";
@@ -34,7 +35,7 @@ const Deposit: React.FunctionComponent<IProps> = ({
       <div id="cashierInput" data-test="address-container-cashier-deposit">
         <div id="textInsideInput" data-test="address-cashier-deposit">
           {isDepositAddressValid
-            ? depositAddress.substr(0, 30) + "..."
+            ? substr(depositAddress)
             : "Invalid address"}
         </div>
         {isDepositAddressValid ? (

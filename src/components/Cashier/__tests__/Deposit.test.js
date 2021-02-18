@@ -3,6 +3,7 @@ import { mount } from "enzyme";
 import Deposit from "../Deposit";
 import { StateContext, DispatchContext } from "../../../store/context";
 import initialState from "../../../store/initialState";
+import substr from "../../../lib/substr";
 
 const dispatch = jest.fn();
 const closeCashierModal = jest.fn();
@@ -39,8 +40,8 @@ describe("Deposit", () => {
     const wrapper = buildWrapper(dispatch, state);
 
     expect(
-      wrapper.find(`span[data-test="address-cashier-deposit"]`).text()
-    ).toBe("123456789a123456789a123456789a1234");
+      wrapper.find(`div[data-test="address-cashier-deposit"]`).text()
+    ).toBe(substr("123456789a123456789a123456789a1234"));
   });
 
   test("displays the error message for invalid addresses", () => {
@@ -51,7 +52,7 @@ describe("Deposit", () => {
     const wrapper = buildWrapper(dispatch, state);
 
     expect(
-      wrapper.find(`span[data-test="address-cashier-deposit"]`).text()
+      wrapper.find(`div[data-test="address-cashier-deposit"]`).text()
     ).toBe("Invalid address");
   });
 
@@ -66,7 +67,7 @@ describe("Deposit", () => {
     navigator.clipboard = { writeText: jest.fn() };
 
     wrapper
-      .find(`div[data-test="address-container-cashier-deposit"]`)
+      .find(`div[data-test="clipboard"]`)
       .simulate("click");
     expect(navigator.clipboard.writeText).toHaveBeenCalled();
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(depositAddress);
