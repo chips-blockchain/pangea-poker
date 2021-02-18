@@ -39,9 +39,9 @@ describe("Deposit", () => {
     };
     const wrapper = buildWrapper(dispatch, state);
 
-    expect(
-      wrapper.find(`p[data-test="address-cashier-deposit"]`).text()
-    ).toBe(substr("123456789a123456789a123456789a1234"));
+    expect(wrapper.find(`p[data-test="address-cashier-deposit"]`).text()).toBe(
+      substr("123456789a123456789a123456789a1234")
+    );
   });
 
   test("displays the error message for invalid addresses", () => {
@@ -51,9 +51,9 @@ describe("Deposit", () => {
     };
     const wrapper = buildWrapper(dispatch, state);
 
-    expect(
-      wrapper.find(`p[data-test="address-cashier-deposit"]`).text()
-    ).toBe("Invalid address");
+    expect(wrapper.find(`p[data-test="address-cashier-deposit"]`).text()).toBe(
+      "Invalid address"
+    );
   });
 
   test("Copies the deposit address to the clipboard after clicking on the address bar", () => {

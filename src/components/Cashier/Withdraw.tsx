@@ -11,7 +11,6 @@ import { Button } from "../Controls";
 import { Input } from "../Form";
 import InputWithButton from "../Form/InputWIthButton";
 import "./assets/style.css";
-import { ErrorMessage, InputWrapper } from "./assets/style";
 import { customInputStyle, customLabelStyle } from "../Form/assets/style";
 
 import WithdrawalResult from "./WithdrawalResult";
@@ -108,7 +107,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               "CHIPS"
             )}
           </p>
-          <InputWrapper>
+          <div css={css`margin-top: 1rem;`}>
             <InputWithButton
               data-test="withdraw-amount"
               buttonLabel="Max"
@@ -138,10 +137,10 @@ const Withdraw: React.FunctionComponent<IProps> = ({
               type="string"
               value={withdrawAddress}
             />
-            <ErrorMessage>
+            <div id="withdrawError">
               {addressError}
               {errors["withdraw-amount"] && "Please set a withdaw amount"}
-            </ErrorMessage>
+            </div>
             <div id="cashierInfo">
               <div className="infoLine">
                 <h5>Fee</h5>
@@ -152,7 +151,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({
                 <div>{difference} CHIPS</div>
               </div>
             </div>
-          </InputWrapper>
+          </div>
           <div className="cashierButtons">
             <Button
               label="Close"

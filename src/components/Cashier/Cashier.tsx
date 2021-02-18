@@ -5,10 +5,16 @@ import Withdraw from "./Withdraw";
 import { Button } from "../Controls";
 import { updateStateValue } from "../../store/actions";
 import { IState } from "../../store/types";
-import { CashierButton } from "./assets/style";
+import styled from "@emotion/styled"
 // This modal opens up when the player clicks the Cashier button and allows the player to
 // move funds to and away from the account
 
+export const CashierButton = styled.div`
+  position: absolute;
+  top: 1.5rem;
+  right: 0.5rem;
+  z-index: 998;
+`;
 interface IProps {
   dispatch: (arg: object) => void;
   state: IState;

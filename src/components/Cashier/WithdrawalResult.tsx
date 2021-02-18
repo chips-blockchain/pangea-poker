@@ -2,11 +2,25 @@ import React from "react";
 import { ISuccessWithdrawProps } from "./types";
 import { Status } from "../../lib/constants";
 import "./assets/withdrawalResult.css";
-import { SuccessMessage } from "./assets/style";
 import CopyToClipboard from "../_General/CopyToClipboard";
 import data from "../../data";
 import c from "./assets/constants";
 import substr from "../../lib/substr";
+import styled from "@emotion/styled"
+
+export const SuccessMessage = styled.div`
+  color: ${p =>
+    p.status == Status.Success
+      ? "var(--color-accent)"
+      : p.status == Status.Processing
+      ? "var(--color-lightGray)"
+      : "var(--color-danger)"};
+  font-size: var(--font-size-m);
+
+  & > p {
+    font-size: var(--font-size-m);
+  }
+`;
 
 const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
   latestTransactionId,

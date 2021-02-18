@@ -1,3 +1,5 @@
+/** WITHDRAW */
+
 .infoLine {
   display: flex;
   flex-direction: row;
@@ -25,7 +27,13 @@
   padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
-/** DEPOSIT */
+.withdrawError {
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+  height: 1rem;
+}
+
+/** DEPOSIT **/
 
 #additionalInfo {
   font-family: var(--font-family-secondary);
