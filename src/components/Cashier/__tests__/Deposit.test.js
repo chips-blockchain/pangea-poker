@@ -40,7 +40,7 @@ describe("Deposit", () => {
     const wrapper = buildWrapper(dispatch, state);
 
     expect(
-      wrapper.find(`div[data-test="address-cashier-deposit"]`).text()
+      wrapper.find(`p[data-test="address-cashier-deposit"]`).text()
     ).toBe(substr("123456789a123456789a123456789a1234"));
   });
 
@@ -52,7 +52,7 @@ describe("Deposit", () => {
     const wrapper = buildWrapper(dispatch, state);
 
     expect(
-      wrapper.find(`div[data-test="address-cashier-deposit"]`).text()
+      wrapper.find(`p[data-test="address-cashier-deposit"]`).text()
     ).toBe("Invalid address");
   });
 
