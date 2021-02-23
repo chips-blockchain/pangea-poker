@@ -17,7 +17,6 @@ import { css } from "@emotion/core";
 import { customInputStyle, customLabelStyle } from "../Form/assets/style";
 import "./assets/style.css";
 
-
 const WithdrawalForm: React.FunctionComponent<IProps> = ({
   onSubmitForm,
   closeCashierModal,

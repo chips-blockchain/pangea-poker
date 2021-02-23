@@ -49,12 +49,8 @@ const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
         </div>
       )}
       <div id="withdrawalInfo">
-        <InfoRow label={c.AMOUNT}>
-         {amount.concat(" ", c.CHIPS)}
-        </InfoRow>
-        <InfoRow label={c.ADDR}>
-          {address}
-        </InfoRow>
+        <InfoRow label={c.AMOUNT}>{amount.concat(" ", c.CHIPS)}</InfoRow>
+        <InfoRow label={c.ADDR}>{address}</InfoRow>
         {latestTransactionId && (
           <InfoRow label={c.TX_INFO}>
             <a href={txUrl} target="_blank" rel="noreferrer">
