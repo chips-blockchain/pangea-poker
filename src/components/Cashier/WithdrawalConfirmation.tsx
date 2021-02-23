@@ -14,7 +14,7 @@ const WithdrawalConfirmation: React.FunctionComponent<IWithdrawalConfirmationPro
       <h1>Please confirm your transaction</h1>
 
       <h2>
-        You are withdrawing {amount} to {address}. Is that correct?
+        You are withdrawing {amount} CHIPS to {address}. Is that correct?
       </h2>
       <div className="cashierButtons">
         <Button label="Back" onClick={back} />

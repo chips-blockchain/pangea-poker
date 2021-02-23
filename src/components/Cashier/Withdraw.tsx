@@ -36,7 +36,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({ closeCashierModal }) => {
   // potential optimization if there are speed issues
   // https://reactjs.org/docs/hooks-reference.html#usecallback
   const goForward = (): void => {
-    // withdraw(withdrawAddress, Number(amountToWithdraw), state, dispatch);
+    withdraw(withdrawAddress, Number(amountToWithdraw), state, dispatch);
     setWithdrawStatus(Status.Processing);
     setStep(steps.STEP3);
   };

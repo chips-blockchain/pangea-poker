@@ -24,7 +24,7 @@ const WithdrawalForm: React.FunctionComponent<IProps> = ({
   address
 }) => {
   const { balance, transactionFee } = useContext(StateContext);
-  const [amountToWithdraw, setAmountToWithdraw] = useState(amount);
+  const [amountToWithdraw, setAmountToWithdraw] = useState("");
   const [difference, setDifference] = useState(0);
   const [addressError, setAddressError] = useState(" ");
   const [withdrawAddress, setWithdrawAddress] = useState(address);
@@ -34,9 +34,8 @@ const WithdrawalForm: React.FunctionComponent<IProps> = ({
 
   /****** AMOUNT HANDLERS ******/
 
-  const setWithdrawAmount = (amount: string | number): void => {
-    const amnt = displayBalanceDecimals(amount);
-    setAmountToWithdraw(amnt);
+  const setDecimalAmount = (amount: string | number): void => {
+    setAmountToWithdraw(displayBalanceDecimals(amount));
   };
 
   const setDifferenceAmount = (amount: string | number): void =>
@@ -45,7 +44,7 @@ const WithdrawalForm: React.FunctionComponent<IProps> = ({
     );
 
   const setAmount = (amount: string | number): void => {
-    setWithdrawAmount(amount);
+    setDecimalAmount(amount);
     setDifferenceAmount(amount);
   };
 
@@ -54,14 +53,20 @@ const WithdrawalForm: React.FunctionComponent<IProps> = ({
   /****** FORM HANDLERS ******/
 
   const handleAmountInput = () => (e): void => {
+    if (e.target.value === "") {
+      setAmountToWithdraw("");
+    }
     if (inputIsValid(e.target.value)) {
       setAmountToWithdraw(Number(e.target.value));
     }
   };
 
   const handleOnBlur = () => (e): void => {
+    if (e.target.value === "") {
+      return;
+    }
     if (e.target.value > balance) {
-      setWithdrawAmount(balance);
+      setDecimalAmount(balance);
       setDifferenceAmount(0);
       return;
     }
@@ -72,9 +77,6 @@ const WithdrawalForm: React.FunctionComponent<IProps> = ({
   const handleAddressInput = () => (e): void => {
     setAddressError(" ");
     setWithdrawAddress(e.target.value);
-  };
-
-  const onAddressBlur = () => (e): void => {
     if (!isValidAddress(e.target.value)) {
       setAddressError("The specified address is invalid.");
       setValidAddress(false);
@@ -123,7 +125,6 @@ const WithdrawalForm: React.FunctionComponent<IProps> = ({
             label="CHIPS address"
             name={"withdraw-address"}
             onChange={handleAddressInput()}
-            onBlur={onAddressBlur()}
             placeholder={address}
             required={true}
             type="string"
