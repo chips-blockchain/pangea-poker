@@ -1,35 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import isValidAddress from "../../lib/isValidAddress";
-import displayBalanceDecimals from "../../lib/balanceWithDecimals";
-import { getTotal, inputIsValid } from "./helpers";
 import { IBalance, IProps } from "./types";
 import { Status } from "../../lib/constants";
-
-import { css } from "@emotion/core";
-import { Button } from "../Controls";
-import { Input } from "../Form";
-import InputWithButton from "../Form/InputWIthButton";
 import "./assets/style.css";
-import { customInputStyle, customLabelStyle } from "../Form/assets/style";
 
 import WithdrawalResult from "./WithdrawalResult";
+import { DispatchContext, StateContext } from "../../store/context";
+import WithdrawalConfirmation from "./WithdrawalConfirmation";
+import WithdrawalForm from "./WithdrawalForm";
 import { withdraw } from "../../store/actions";
-import { DispatchContext } from "../../store/context";
+import { IState } from "../../store/types";
 
-const Withdraw: React.FunctionComponent<IProps> = ({
-  state,
-  closeCashierModal
-}) => {
+const steps = {
+  STEP1: "Input",
+  STEP2: "ConfirmationDialog",
+  STEP3: "Confirmation"
+};
+const Withdraw: React.FunctionComponent<IProps> = ({ closeCashierModal }) => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
-  const { balance, transactionFee, latestTransactionId } = state;
+  const state: IState = useContext(StateContext);
+  const { latestTransactionId } = useContext(StateContext);
   const [amountToWithdraw, setAmountToWithdraw] = useState<IBalance>(0);
-  const [difference, setDifference] = useState(0);
-  const [addressError, setAddressError] = useState(" ");
   const [withdrawAddress, setWithdrawAddress] = useState("");
   const [withdrawStatus, setWithdrawStatus] = useState(Status.Initial);
-
-  const { register, handleSubmit, errors } = useForm();
+  const [step, setStep] = useState(steps.STEP1);
 
   useEffect(() => {
     if (latestTransactionId) {
@@ -37,151 +30,56 @@ const Withdraw: React.FunctionComponent<IProps> = ({
     }
   }, [latestTransactionId]);
 
-  const setWithdrawAmount = (amount: string | number): void =>
-    setAmountToWithdraw(displayBalanceDecimals(amount));
+  const goBack = (): void => setStep(steps.STEP1);
 
-  const setDifferenceAmount = (amount: string | number): void =>
-    setDifference(
-      Number(displayBalanceDecimals(getTotal(amount, transactionFee)))
-    );
-
-  const setAmount = (amount: string | number): void => {
-    setWithdrawAmount(amount);
-    setDifferenceAmount(amount);
-  };
-
-  const setMaxAmount = () => (): void => setAmount(balance);
-
-  /****** HANDLERS ******/
-
-  const onSubmit = (): void => {
-    withdraw(withdrawAddress, Number(amountToWithdraw), state, dispatch);
+  /****** HANDLER ON WITHDRAWAL PROCEED ******/
+  // potential optimization if there are speed issues
+  // https://reactjs.org/docs/hooks-reference.html#usecallback
+  const goForward = (): void => {
+    // withdraw(withdrawAddress, Number(amountToWithdraw), state, dispatch);
     setWithdrawStatus(Status.Processing);
+    setStep(steps.STEP3);
   };
 
-  const handleAmountInput = () => (e): void => {
-    if (inputIsValid(e.target.value)) {
-      setAmountToWithdraw(Number(e.target.value));
+  /****** HANDLER ON WITHDRAWAL CONFIRMATION ******/
+
+  const onSubmit = (data): void => {
+    if (data["withdraw-amount"] && data["withdraw-address"]) {
+      setAmountToWithdraw(data["withdraw-amount"]);
+      setWithdrawAddress(data["withdraw-address"]);
+      setStep(steps.STEP2);
+    } else {
+      alert("There as been an unexpected Error");
     }
   };
 
-  const handleOnBlur = () => (e): void => {
-    if (e.target.value > balance) {
-      setWithdrawAmount(balance);
-      setDifferenceAmount(0);
-      return;
-    }
-    setAmount(e.target.value);
-  };
-
-  // Handle address input
-  const handleAddressInput = () => (e): void => {
-    setAddressError(" ");
-    setWithdrawAddress(e.target.value);
-  };
-
-  const onAddressBlur = () => (e): void => {
-    if (!isValidAddress(e.target.value)) {
-      setAddressError("The specified address is invalid.");
-    }
-  };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} data-test="withdraw-tab">
-      {withdrawStatus ? (
-        <div>
-          <WithdrawalResult
-            latestTransactionId={latestTransactionId}
-            withdrawStatus={withdrawStatus}
-            amount={String(amountToWithdraw)}
-            address={withdrawAddress}
-          />
-          <Button label="Close" onClick={closeCashierModal()} />
-        </div>
-      ) : (
-        <React.Fragment>
-          <p id="cashierBalance" data-test="withdraw-balance">
-            {"Available:".concat(
-              " ",
-              String(displayBalanceDecimals(balance)),
-              " ",
-              "CHIPS"
-            )}
-          </p>
-          <div
-            css={css`
-              margin-top: 1rem;
-            `}
-          >
-            <InputWithButton
-              data-test="withdraw-amount"
-              buttonLabel="Max"
-              forwardRef={register({ required: true })}
-              handleButtonClick={setMaxAmount()}
-              label="Enter amount"
-              min={0}
-              max={balance}
-              name="withdraw-amount"
-              onChange={handleAmountInput()}
-              onBlur={handleOnBlur()}
-              step={0.00000001}
-              type="number"
-              value={amountToWithdraw}
-            />
-            <Input
-              data-test="withdraw-address"
-              customStyle={customInputStyle}
-              customLabelStyle={customLabelStyle}
-              forwardRef={register({ required: true })}
-              label="CHIPS address"
-              name={"withdraw-address"}
-              onChange={handleAddressInput()}
-              onBlur={onAddressBlur()}
-              placeholder=""
-              required={true}
-              type="string"
-              value={withdrawAddress}
-            />
-            <div id="withdrawError">
-              {addressError}
-              {errors["withdraw-amount"] && "Please set a withdaw amount"}
-            </div>
-            <div id="cashierInfo">
-              <div className="infoLine">
-                <h5>Fee</h5>
-                <div>{displayBalanceDecimals(transactionFee)} CHIPS</div>
-              </div>
-              <div className="infoLine">
-                <h5>Total</h5>
-                <div>{difference} CHIPS</div>
-              </div>
-            </div>
-          </div>
-          <div className="cashierButtons">
-            <Button
-              label="Close"
-              onClick={closeCashierModal()}
-              data-test="close-button-cashier-withdraw"
-            />
-            {withdrawStatus !== Status.Success && (
-              <Button
-                css={css`
-                  display: none;
-                `}
-                label="Withdraw"
-                data-test="withdraw-button"
-                isHighlighted
-                isSubmit
-                disabled={
-                  !amountToWithdraw ||
-                  !withdrawAddress ||
-                  withdrawStatus === Status.Processing
-                }
-              />
-            )}
-          </div>
-        </React.Fragment>
+    <div>
+      {step === steps.STEP1 && (
+        <WithdrawalForm
+          onSubmitForm={onSubmit}
+          closeCashierModal={closeCashierModal}
+          address={withdrawAddress}
+          amount={amountToWithdraw}
+        />
       )}
-    </form>
+      {step === steps.STEP2 && (
+        <WithdrawalConfirmation
+          amount={amountToWithdraw}
+          back={goBack}
+          goForward={goForward}
+          address={withdrawAddress}
+        />
+      )}
+      {step === steps.STEP3 && (
+        <WithdrawalResult
+          latestTransactionId={latestTransactionId}
+          amount={amountToWithdraw}
+          address={withdrawAddress}
+          withdrawStatus={withdrawStatus}
+        />
+      )}
+    </div>
   );
 };
 

@@ -7,6 +7,7 @@ import data from "../../data";
 import c from "./assets/constants";
 import substr from "../../lib/substr";
 import styled from "@emotion/styled";
+import InfoRow from "./InfoRow";
 
 export const SuccessMessage = styled.div`
   color: ${p =>
@@ -48,22 +49,19 @@ const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
         </div>
       )}
       <div id="withdrawalInfo">
-        <div className="infoRow">
-          <label>{c.AMOUNT}</label>
-          <div>{amount.concat(" ", c.CHIPS)}</div>
-        </div>
-        <div className="infoRow">
-          <label>{c.ADDR}</label>
-          <div>{address}</div>
-        </div>
-        <div className="infoRow">
-          <label>{c.TX_INFO}</label>
-          <div>
+        <InfoRow label={c.AMOUNT}>
+         {amount.concat(" ", c.CHIPS)}
+        </InfoRow>
+        <InfoRow label={c.ADDR}>
+          {address}
+        </InfoRow>
+        {latestTransactionId && (
+          <InfoRow label={c.TX_INFO}>
             <a href={txUrl} target="_blank" rel="noreferrer">
               {c.TX_CONFIRMATION}
             </a>
-          </div>
-        </div>
+          </InfoRow>
+        )}
       </div>
     </div>
   );

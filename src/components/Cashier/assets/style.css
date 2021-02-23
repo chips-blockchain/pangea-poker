@@ -1,33 +1,6 @@
 /** WITHDRAW */
 
-.infoLine {
-  display: flex;
-  flex-direction: row;
-  font-size: var(--font-size-s);
-  justify-content: space-between;
-  align-items: center;
-}
-
-.infoLine h5, div{
-  margin: 0
-}
-
-.infoLine h5 {
-  opacity: 0.5;
-  font-size: var(--font-size-s);
-  font-weight: 400;
-  margin-top: 0.25rem;
-}
-
-.infoLine div {
-  color: var(--color-chipsTealLight)
-}
-
-#cashierInfo {
-  padding: 0.5rem 0.5rem 0 0.5rem;
-}
-
-.withdrawError {
+#withdrawError {
   color: var(--color-danger);
   font-size: var(--font-size-xs);
   height: 1rem;
