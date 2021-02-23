@@ -1,9 +1,26 @@
+import React from "react";
 import { ISuccessWithdrawProps } from "./types";
 import { Status } from "../../lib/constants";
 import "./assets/withdrawalResult.css";
-import { SuccessMessage } from "./assets/style";
+import CopyToClipboard from "../_General/CopyToClipboard";
+import data from "../../data";
+import c from "./assets/constants";
+import substr from "../../lib/substr";
+import styled from "@emotion/styled";
 
-import CopyText from "./CopyText";
+export const SuccessMessage = styled.div`
+  color: ${p =>
+    p.status == Status.Success
+      ? "var(--color-accent)"
+      : p.status == Status.Processing
+      ? "var(--color-lightGray)"
+      : "var(--color-danger)"};
+  font-size: var(--font-size-m);
+
+  & > p {
+    font-size: var(--font-size-m);
+  }
+`;
 
 const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
   latestTransactionId,
@@ -11,37 +28,39 @@ const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
   address,
   withdrawStatus
 }) => {
-  const transactionLink =
-    "https://explorer.chips.cash/tx/" + latestTransactionId;
+  const txUrl = data.explorerLink.concat(latestTransactionId);
 
   return (
     <div>
       <SuccessMessage status={withdrawStatus}>
         {Status[withdrawStatus]}
         {withdrawStatus === Status.Processing && (
-          <div id="transactionIdText">Allow a few moments to process...</div>
+          <div id="transactionIdText">{c.PROCESSING}</div>
         )}
       </SuccessMessage>
       {withdrawStatus === Status.Success && (
-        <div>
-          <div id="transactionIdText">Your transaction id</div>
-          <CopyText textToCopy={latestTransactionId} />
+        <div id="transactionId">
+          <div id="transactionIdText">{c.TX_LABEL}</div>
+          <div id="cashierInput">
+            <p>{substr(latestTransactionId)}</p>
+            <CopyToClipboard textToCopy={latestTransactionId} />
+          </div>
         </div>
       )}
       <div id="withdrawalInfo">
         <div className="infoRow">
-          <label>Amount</label>
-          <div>{amount} CHIPS</div>
+          <label>{c.AMOUNT}</label>
+          <div>{amount.concat(" ", c.CHIPS)}</div>
         </div>
         <div className="infoRow">
-          <label>Addr</label>
+          <label>{c.ADDR}</label>
           <div>{address}</div>
         </div>
         <div className="infoRow">
-          <label>Tx info</label>
+          <label>{c.TX_INFO}</label>
           <div>
-            <a href={transactionLink} target="_blank" rel="noreferrer">
-              CHIPS Explorer
+            <a href={txUrl} target="_blank" rel="noreferrer">
+              {c.TX_CONFIRMATION}
             </a>
           </div>
         </div>

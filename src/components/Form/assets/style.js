@@ -54,6 +54,7 @@ export const customInputStyle = css`
   background-color: black;
   font-size: var(--font-size-s);
   margin-top: 0.25rem;
+  border-radius: 4;
 `;
 
 export const customButtonStyle = css`

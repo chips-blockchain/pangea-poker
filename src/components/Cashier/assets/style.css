@@ -1,3 +1,5 @@
+/** WITHDRAW */
+
 .infoLine {
   display: flex;
   flex-direction: row;
@@ -23,4 +25,58 @@
 
 #cashierInfo {
   padding: 0.5rem 0.5rem 0 0.5rem;
+}
+
+.withdrawError {
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+  height: 1rem;
+}
+
+/** DEPOSIT **/
+
+#additionalInfo {
+  font-family: var(--font-family-secondary);
+  font-weight: 400;
+  font-size: var(--font-size-s);
+  margin-top: 1.5rem;
+}
+
+#depositModalbuttons {
+  bottom: 2rem;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+#depositAddrLabel {
+  font-family: var(--font-family-secondary);
+  font-weight: 400;
+  font-size: var(--font-size-s);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+#cashierInput {
+  background-color: black;
+  /* border: 1px solid var(--color-primary); */
+  border-radius: 4px;
+  padding: 0.5rem;
+  display: flex;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 1.5rem;
+}
+
+#cashierBalance {
+  color: var(--color-accent);
+}
+
+#cashierInput > p {
+  color: var(--color-primaryLight);
+  font-size: var(--font-size-s);
+  padding-right: 1rem;
+  margin: 0;
 }

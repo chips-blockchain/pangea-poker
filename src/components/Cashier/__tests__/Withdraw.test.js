@@ -2,12 +2,16 @@ import React from "react";
 import { mount } from "enzyme";
 import Withdraw from "../Withdraw";
 import { StateContext, DispatchContext } from "../../../store/context";
-import initialState from "../../../store/testState";
+import initialState from "../../../store/initialState";
 
 const dispatch = jest.fn();
 const closeCashierModal = jest.fn();
 
-const cashierState = { ...initialState, isCashierOpen: true };
+const cashierState = {
+  ...initialState,
+  isCashierOpen: true,
+  isStartupModal: false
+};
 
 const buildWrapper = (dispatch, state) => {
   return mount(
@@ -58,17 +62,8 @@ describe("Withdraw", () => {
   test("displays correct CHIPS balance", () => {
     const wrapper = createWrapper({ balance: 9 });
 
-    expect(wrapper.find(`div[data-test="withdraw-balance"]`)).toHaveLength(1);
-    expect(wrapper.find(`div[data-test="withdraw-balance"]`).text()).toBe(
-      "Available: 9.00000000 CHIPS"
-    );
-  });
-
-  test("displays correct CHIPS balance", () => {
-    const wrapper = createWrapper({ balance: 9 });
-
-    expect(wrapper.find(`div[data-test="withdraw-balance"]`)).toHaveLength(1);
-    expect(wrapper.find(`div[data-test="withdraw-balance"]`).text()).toBe(
+    expect(wrapper.find(`p[data-test="withdraw-balance"]`)).toHaveLength(1);
+    expect(wrapper.find(`p[data-test="withdraw-balance"]`).text()).toBe(
       "Available: 9.00000000 CHIPS"
     );
   });
