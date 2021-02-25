@@ -20,14 +20,10 @@ const Withdraw: React.FunctionComponent<IProps> = ({ closeCashierModal }) => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const { latestTransactionId } = useContext(StateContext);
-  const [amountToWithdraw, setAmountToWithdraw] = useState<IBalance>(
-    displayBalanceDecimals(5)
-  );
-  const [withdrawAddress, setWithdrawAddress] = useState(
-    "RMwqv9VNBu7wjrEvQtMrYX7c6ddogyStBG"
-  );
+  const [amountToWithdraw, setAmountToWithdraw] = useState<IBalance>();
+  const [withdrawAddress, setWithdrawAddress] = useState("");
   const [withdrawStatus, setWithdrawStatus] = useState(Status.Initial);
-  const [step, setStep] = useState(steps.STEP2);
+  const [step, setStep] = useState(steps.STEP1);
 
   useEffect(() => {
     if (latestTransactionId) {

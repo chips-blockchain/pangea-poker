@@ -16,7 +16,6 @@ const ConfirmationInformation = styled.div`
     }
   }
   grid-area: confirmation;
-  text-align: left;
   line-height: 130%;
 `;
 
@@ -30,18 +29,15 @@ const customStyleButton = css`
 `;
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 20px auto 20px;
-  grid-template-rows: 50px 90px 100px auto 30px;
+  grid-template-columns: auto;
+  grid-template-rows: 50px 90px 104px auto 28px;
 
   grid-template-areas:
-    ". . ."
-    ". confirmation ."
-    ". confirmation ."
-    ". buttons ."
-    ". . . ";
-`;
-const CashierButtons = styled.div`
-  grid-area: buttons;
+    ". "
+    "confirmation"
+    "confirmation"
+    "buttons"
+    ". ";
 `;
 
 const WithdrawalConfirmation: React.FunctionComponent<IWithdrawalConfirmationProps> = ({
@@ -67,14 +63,14 @@ const WithdrawalConfirmation: React.FunctionComponent<IWithdrawalConfirmationPro
           Is that correct?
         </p>
       </ConfirmationInformation>
-      <CashierButtons className="cashierButtons">
+      <div className="cashierButtons">
         <Button label="Back" onClick={back} />
         <Button
           customStyle={customStyleButton}
           label="Confirm"
           onClick={goForward}
         />
-      </CashierButtons>
+      </div>
     </Container>
   );
 };

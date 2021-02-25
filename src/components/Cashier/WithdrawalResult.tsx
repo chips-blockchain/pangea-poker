@@ -28,13 +28,13 @@ export const SuccessMessage = styled.div`
 const Container = styled.div`
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 50px 90px 100px auto 30px;
+  grid-template-rows: 50px 90px 112px auto 20px;
   grid-template-areas:
-    ". resultMessage ."
-    ". txId ."
-    ". withdrawalInfo ."
-    ". buttons . "
-    ". . . ";
+    "resultMessage"
+    "txId"
+    "withdrawalInfo"
+    "buttons"
+    ".";
 `;
 
 const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
