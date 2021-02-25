@@ -18,7 +18,7 @@ export const SuccessMessage = styled.div`
       ? "var(--color-lightGray)"
       : "var(--color-danger)"};
   font-size: var(--font-size-m);
-
+  padding-top: 1rem;
   & > p {
     font-size: var(--font-size-m);
   }
@@ -28,7 +28,7 @@ export const SuccessMessage = styled.div`
 const Container = styled.div`
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 50px 90px 112px auto 20px;
+  grid-template-rows: 50px 70px 132px auto 20px;
   grid-template-areas:
     "resultMessage"
     "txId"
@@ -45,7 +45,6 @@ const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
   closeCashierModal
 }) => {
   const txUrl = data.explorerLink.concat(latestTransactionId);
-
   return (
     <Container>
       <SuccessMessage status={withdrawStatus}>
@@ -57,16 +56,17 @@ const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
 
       <div id="transactionId" style={{ gridArea: "txId" }}>
         <div id="transactionIdText">{c.TX_LABEL}</div>
-        <div id="cashierInput">
           {withdrawStatus === Status.Success ? (
-            <div>
+
+            <div id="cashierInput">
               <p>{substr(latestTransactionId)}</p>
               <CopyToClipboard textToCopy={latestTransactionId} />
             </div>
           ) : (
-            <p>----</p>
+            <div id="cashierInput">
+              <p>----</p>
+            </div>
           )}
-        </div>
       </div>
       <div id="withdrawalInfo" style={{ gridArea: "withdrawalInfo" }}>
         <InfoRow label={c.AMOUNT}>{amount.concat(" ", c.CHIPS)}</InfoRow>

@@ -45,8 +45,7 @@
     font-family: var(--font-family-secondary);
     font-weight: 400;
     font-size: var(--font-size-s);
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin: 0.5rem 0 0.75rem 0;
     text-align: center;
   }
 
