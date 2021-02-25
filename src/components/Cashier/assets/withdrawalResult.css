@@ -14,7 +14,7 @@
   }
   
   #withdrawalInfo {
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
     margin-bottom: 3rem;
   }
   
@@ -45,7 +45,17 @@
     font-family: var(--font-family-secondary);
     font-weight: 400;
     font-size: var(--font-size-s);
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     margin-bottom: 0.5rem;
     text-align: center;
+  }
+
+  #processingText {
+    font-family: var(--font-family-secondary);
+    font-weight: 400;
+    font-size: var(--font-size-xs);
+    opacity: 0.5;
+    margin-top: 0.5rem;
+    text-align: center;
+
   }

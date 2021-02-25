@@ -8,6 +8,7 @@ import c from "./assets/constants";
 import substr from "../../lib/substr";
 import styled from "@emotion/styled";
 import InfoRow from "./InfoRow";
+import { Button } from "../Controls";
 
 export const SuccessMessage = styled.div`
   color: ${p =>
@@ -21,34 +22,53 @@ export const SuccessMessage = styled.div`
   & > p {
     font-size: var(--font-size-m);
   }
+  grid-area: resultMessage;
+`;
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 50px 90px 100px auto 30px;
+  grid-template-areas:
+    ". resultMessage ."
+    ". txId ."
+    ". withdrawalInfo ."
+    ". buttons . "
+    ". . . ";
 `;
 
 const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
   latestTransactionId,
   amount,
   address,
-  withdrawStatus
+  withdrawStatus,
+  closeCashierModal
 }) => {
   const txUrl = data.explorerLink.concat(latestTransactionId);
 
   return (
-    <div>
+    <Container>
       <SuccessMessage status={withdrawStatus}>
         {Status[withdrawStatus]}
         {withdrawStatus === Status.Processing && (
-          <div id="transactionIdText">{c.PROCESSING}</div>
+          <div id="processingText">{c.PROCESSING}</div>
         )}
       </SuccessMessage>
-      {withdrawStatus === Status.Success && (
-        <div id="transactionId">
-          <div id="transactionIdText">{c.TX_LABEL}</div>
-          <div id="cashierInput">
-            <p>{substr(latestTransactionId)}</p>
-            <CopyToClipboard textToCopy={latestTransactionId} />
-          </div>
+
+      <div id="transactionId" style={{ gridArea: "txId" }}>
+        <div id="transactionIdText">{c.TX_LABEL}</div>
+        <div id="cashierInput">
+          {withdrawStatus === Status.Success ? (
+            <div>
+              <p>{substr(latestTransactionId)}</p>
+              <CopyToClipboard textToCopy={latestTransactionId} />
+            </div>
+          ) : (
+            <p>----</p>
+          )}
         </div>
-      )}
-      <div id="withdrawalInfo">
+      </div>
+      <div id="withdrawalInfo" style={{ gridArea: "withdrawalInfo" }}>
         <InfoRow label={c.AMOUNT}>{amount.concat(" ", c.CHIPS)}</InfoRow>
         <InfoRow label={c.ADDR}>{address}</InfoRow>
         {latestTransactionId && (
@@ -59,7 +79,14 @@ const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
           </InfoRow>
         )}
       </div>
-    </div>
+      <div style={{ gridArea: "buttons" }}>
+        <Button
+          label="Close"
+          onClick={closeCashierModal()}
+          data-test="close-button-cashier-withdraw"
+        />
+      </div>
+    </Container>
   );
 };
 

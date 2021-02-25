@@ -9,6 +9,7 @@ import WithdrawalConfirmation from "./WithdrawalConfirmation";
 import WithdrawalForm from "./WithdrawalForm";
 import { withdraw } from "../../store/actions";
 import { IState } from "../../store/types";
+import displayBalanceDecimals from "../../lib/balanceWithDecimals";
 
 const steps = {
   STEP1: "Input",
@@ -19,10 +20,14 @@ const Withdraw: React.FunctionComponent<IProps> = ({ closeCashierModal }) => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const { latestTransactionId } = useContext(StateContext);
-  const [amountToWithdraw, setAmountToWithdraw] = useState<IBalance>(0);
-  const [withdrawAddress, setWithdrawAddress] = useState("");
+  const [amountToWithdraw, setAmountToWithdraw] = useState<IBalance>(
+    displayBalanceDecimals(5)
+  );
+  const [withdrawAddress, setWithdrawAddress] = useState(
+    "RMwqv9VNBu7wjrEvQtMrYX7c6ddogyStBG"
+  );
   const [withdrawStatus, setWithdrawStatus] = useState(Status.Initial);
-  const [step, setStep] = useState(steps.STEP1);
+  const [step, setStep] = useState(steps.STEP2);
 
   useEffect(() => {
     if (latestTransactionId) {
@@ -77,6 +82,7 @@ const Withdraw: React.FunctionComponent<IProps> = ({ closeCashierModal }) => {
           amount={amountToWithdraw}
           address={withdrawAddress}
           withdrawStatus={withdrawStatus}
+          closeCashierModal={closeCashierModal}
         />
       )}
     </div>
