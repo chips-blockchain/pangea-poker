@@ -72,7 +72,7 @@ describe("Withdraw", () => {
     const wrapper = createWrapper();
 
     expect(wrapper.find(`InputWithButton`)).toHaveLength(1);
-    expect(wrapper.find(`InputWithButton input`).props().value).toEqual(0);
+    expect(wrapper.find(`InputWithButton input`).props().value).toEqual("");
   });
 
   test("handles clicking on the max button", () => {

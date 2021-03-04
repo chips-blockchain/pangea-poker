@@ -4,7 +4,7 @@ const constants = {
     "Please only deposit CHIPS to this address. Transactions might take up to 10 minutes to confirm.",
   PROCESSING: "Allow a few moments to process...",
   TX_LABEL: "Your transaction id",
-  TX_CONFIRMATION: "Tx Confirmation",
+  TX_CONFIRMATION: "Chips Explorer",
   TX_INFO: "Tx info",
   AMOUNT: "Amount",
   ADDR: "Addr",
