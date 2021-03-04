@@ -56,17 +56,16 @@ const WithdrawalResult: React.FunctionComponent<ISuccessWithdrawProps> = ({
 
       <div id="transactionId" style={{ gridArea: "txId" }}>
         <div id="transactionIdText">{c.TX_LABEL}</div>
-          {withdrawStatus === Status.Success ? (
-
-            <div id="cashierInput">
-              <p>{substr(latestTransactionId)}</p>
-              <CopyToClipboard textToCopy={latestTransactionId} />
-            </div>
-          ) : (
-            <div id="cashierInput">
-              <p>----</p>
-            </div>
-          )}
+        {withdrawStatus === Status.Success ? (
+          <div id="cashierInput">
+            <p>{substr(latestTransactionId)}</p>
+            <CopyToClipboard textToCopy={latestTransactionId} />
+          </div>
+        ) : (
+          <div id="cashierInput">
+            <p>----</p>
+          </div>
+        )}
       </div>
       <div id="withdrawalInfo" style={{ gridArea: "withdrawalInfo" }}>
         <InfoRow label={c.AMOUNT}>{amount.concat(" ", c.CHIPS)}</InfoRow>

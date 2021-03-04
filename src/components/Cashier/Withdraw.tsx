@@ -9,7 +9,6 @@ import WithdrawalConfirmation from "./WithdrawalConfirmation";
 import WithdrawalForm from "./WithdrawalForm";
 import { withdraw } from "../../store/actions";
 import { IState } from "../../store/types";
-import displayBalanceDecimals from "../../lib/balanceWithDecimals";
 
 const steps = {
   STEP1: "Input",
