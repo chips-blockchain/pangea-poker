@@ -9,7 +9,10 @@ import {
   resetMessage,
   sendInitMessage,
   updateStateValue,
-  updateSocketConnection
+  updateSocketConnection,
+  updateConnectionStatus,
+  showControls,
+  setActivePlayer
 } from "../../store/actions";
 
 // This component is responsible for the WebSocket connection. It doesn't return and
@@ -67,7 +70,13 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
       updateSocketConnection(connectionStatus, nodeName, dispatch);
     }
     if (connectionStatus === Conn.disconnected) {
+      console.log(nodeName, ' has been disconnected ');
+      alert('You have been disconnected.');
       updateStateValue("nodesSet", false, dispatch);
+      updateStateValue("nodes", [], dispatch);
+      showControls(false, dispatch);
+      setActivePlayer(null, dispatch);
+      updateConnectionStatus(Conn.disconnected, dispatch);
     }
   }, [connectionStatus]);
 
