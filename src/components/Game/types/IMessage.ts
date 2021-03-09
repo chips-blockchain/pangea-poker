@@ -29,6 +29,7 @@ export interface IMessage {
   };
   small_blind?: number;
   possibilities?: number[];
+  player_status: number[];
   toPlayer?: number;
   toCall?: number;
   warning_num: number;

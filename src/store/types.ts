@@ -81,6 +81,7 @@ export interface IState {
   options: {
     showPotCounter: boolean;
   };
+  playerStatus: number[];
   pot: number[];
   seats: number;
   showDealer: boolean;

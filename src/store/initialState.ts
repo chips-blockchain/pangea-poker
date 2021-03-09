@@ -39,6 +39,7 @@ const initialState: IState = {
   /********** GENERAL GAME INFO ***********/
 
   activePlayer: null, // Which seat is the active player
+  playerStatus: [],
   connection: {
     playerRead: null,
     playerWrite: null,
