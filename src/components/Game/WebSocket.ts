@@ -70,8 +70,8 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
       updateSocketConnection(connectionStatus, nodeName, dispatch);
     }
     if (connectionStatus === Conn.disconnected) {
-      console.log(nodeName, ' has been disconnected ');
-      alert('You have been disconnected.');
+      console.log(nodeName, " has been disconnected ");
+      alert("You have been disconnected.");
       updateStateValue("nodesSet", false, dispatch);
       updateStateValue("nodes", [], dispatch);
       showControls(false, dispatch);
