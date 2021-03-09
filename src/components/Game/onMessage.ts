@@ -47,7 +47,6 @@ import notifications from "../../config/notifications.json";
 import { blindBet, isCurrentPlayer } from "./helpers";
 import { IMessage } from "./types/IMessage";
 import { validBEid, getGUIid, getStringId } from "../../lib/playerIdDecoder";
-import arrayEquals from '../../lib/arrayEquals'
 import activePlayerInfo from "./methods/activePlayerInfo";
 
 const { preFlop, flop, turn, showDown } = GameTurns;
@@ -62,7 +61,7 @@ export const onMessage = (
     log("Received an unexpected message from " + nodeName, "received", message);
     return;
   }
-  if(message.method === 'betting') {
+  if (message.method === "betting") {
     setLastMessage(message, dispatch);
   }
   log(`${Date.now()}: Received from ${nodeName}: `, "received", message);
@@ -75,9 +74,9 @@ export const onMessage = (
 
   switch (message.method) {
     case "active_player_info":
-      activePlayerInfo({message, state, dispatch})
+      activePlayerInfo({ message, state, dispatch });
       break;
-      
+
     case "backend_status":
       updateStateValue("backendStatus", message.backend_status, dispatch);
       walletInfo(state, dispatch);
