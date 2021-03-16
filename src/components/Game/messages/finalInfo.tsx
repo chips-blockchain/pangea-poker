@@ -4,15 +4,29 @@ import lowerCaseLastLetter from "../../../lib/lowerCaseLastLetter";
 import numberWithCommas from "../../../lib/numberWithCommas";
 import playerIdToString from "../../../lib/playerIdToString";
 import sounds from "../../../sounds/sounds";
-import { addToHandHistory, collectChips, doShowDown, setActivePlayer, setBoardCards, setWinner, updateGameTurn, updateMainPot } from "../../../store/actions";
+import {
+  addToHandHistory,
+  collectChips,
+  doShowDown,
+  setActivePlayer,
+  setBoardCards,
+  setWinner,
+  updateGameTurn,
+  updateMainPot
+} from "../../../store/actions";
 const { preFlop, flop, turn, showDown } = GameTurns;
+function sendGameOptions() {
+  throw new Error("Function not implemented.");
+}
 
 // Log winners to hand history
 const logWinners = (message, dispatch): void => {
   // Log if there is a single winner
   if (message.winners.length === 1) {
     addToHandHistory(
-      `Player${message.winners[0] + 1} wins ${numberWithCommas(message.win_amount)}.`,
+      `Player${message.winners[0] + 1} wins ${numberWithCommas(
+        message.win_amount
+      )}.`,
       dispatch
     );
     // Log if the pot is split between multiple players
@@ -28,9 +42,7 @@ const logWinners = (message, dispatch): void => {
   }
   // Else log an error in the console
   else {
-    console.error(
-      "Incorrect winner amount has been passed in to the log."
-    );
+    console.error("Incorrect winner amount has been passed in to the log.");
   }
 };
 
@@ -43,7 +55,7 @@ const handleWinner = (message, dispatch, state): void => {
 
 // Log board cards when players go All-In
 const logAllInBoardCards = (currentGameTurn, message, dispatch): void => {
-    const boardCardInfo = message.showInfo.boardCardInfo;
+  const boardCardInfo = message.showInfo.boardCardInfo;
   const [
     firstFlop,
     secondFlop,
@@ -58,11 +70,9 @@ const logAllInBoardCards = (currentGameTurn, message, dispatch): void => {
       dispatch
     );
   // Turn
-  currentGameTurn === 1 &&
-    addToHandHistory(`The turn is ${turn}.`, dispatch);
+  currentGameTurn === 1 && addToHandHistory(`The turn is ${turn}.`, dispatch);
   // River
-  currentGameTurn === 2 &&
-    addToHandHistory(`The river is ${river}.`, dispatch);
+  currentGameTurn === 2 && addToHandHistory(`The river is ${river}.`, dispatch);
 };
 
 const playWinnerSelectSound = (): void => {
@@ -73,7 +83,7 @@ const playWinnerSelectSound = (): void => {
 
 const progressShowDown = (currentGameTurn, state, dispatch, message): void => {
   if (currentGameTurn === showDown) {
-    handleWinner(message,dispatch, state);
+    handleWinner(message, dispatch, state);
     playWinnerSelectSound();
     sendGameOptions();
     return;
@@ -97,29 +107,22 @@ const progressShowDown = (currentGameTurn, state, dispatch, message): void => {
   );
 };
 
-
 const finalInfoMessage = (message, dispatch, state) => {
+  const currentGameTurn = state.gameTurn;
+  const boardCardInfo = message.showInfo.boardCardInfo;
+  const isShowDown = boardCardInfo.every(x => x !== null);
 
-    let currentGameTurn = state.gameTurn;
-    const boardCardInfo = message.showInfo.boardCardInfo;
-    const isShowDown = boardCardInfo.every(x => x !== null);
+  setActivePlayer(null, dispatch);
 
-    setActivePlayer(null, dispatch);
+  if (isShowDown) {
+    setBoardCards(boardCardInfo, dispatch);
+    collectChips(state, dispatch);
+    doShowDown(message.showInfo.allHoleCardsInfo, dispatch);
+    progressShowDown(currentGameTurn, state, dispatch, message);
+  } else {
+    handleWinner(message, dispatch, state);
+    playWinnerSelectSound();
+  }
+};
 
-    if (isShowDown) {
-      setBoardCards(boardCardInfo, dispatch);
-      collectChips(state, dispatch);
-      doShowDown(message.showInfo.allHoleCardsInfo, dispatch);
-      progressShowDown(currentGameTurn, state, dispatch, message);
-    } else {
-      handleWinner(message, dispatch, state);
-      playWinnerSelectSound();
-    }
-}
-
-
-function sendGameOptions() {
-    throw new Error("Function not implemented.");
-}
-
-export default finalInfoMessage
+export default finalInfoMessage;
