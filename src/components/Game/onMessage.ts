@@ -4,7 +4,6 @@
 import {
   addToHandHistory,
   bet,
-  collectChips,
   connectPlayer,
   deal,
   dealCards,
@@ -21,16 +20,11 @@ import {
   setMinRaiseTo,
   setToCall,
   setUserSeat,
-  setWinner,
   updateTotalPot,
   showControls,
   setBlinds,
-  doShowDown,
-  updateGameTurn,
   updateStateValue,
-  setBoardCards,
   processControls,
-  updateMainPot,
   setNotice,
   clearNotice,
   walletInfo
@@ -39,16 +33,13 @@ import log from "../../lib/dev";
 import numberWithCommas from "../../lib/numberWithCommas";
 import { IState } from "../../store/types";
 import playerIdToString from "../../lib/playerIdToString";
-import arrayToSentence from "../../lib/arrayToSentence";
-import lowerCaseLastLetter from "../../lib/lowerCaseLastLetter";
 import sounds from "../../sounds/sounds";
-import { GameTurns, Level, BetWarnings, Node } from "../../lib/constants";
+import { Level, BetWarnings, Node } from "../../lib/constants";
 import notifications from "../../config/notifications.json";
 import { blindBet, isCurrentPlayer } from "./helpers";
 import { IMessage } from "./types/IMessage";
 import { validBEid, getGUIid, getStringId } from "../../lib/playerIdDecoder";
-
-const { preFlop, flop, turn, showDown } = GameTurns;
+import finalInfoMessage from "./messages/finalInfo";
 
 export const onMessage = (
   message: IMessage,
@@ -226,113 +217,7 @@ export const onMessage = (
       break;
 
     case "finalInfo": {
-      let currentGameTurn = state.gameTurn;
-      const boardCardInfo = message.showInfo.boardCardInfo;
-      const isShowDown = boardCardInfo.every(x => x !== null);
-      const { winners, win_amount } = message;
-
-      // Log winners to hand history
-      const logWinners = (): void => {
-        // Log if there is a single winner
-        if (winners.length === 1) {
-          addToHandHistory(
-            `Player${winners[0] + 1} wins ${numberWithCommas(win_amount)}.`,
-            dispatch
-          );
-          // Log if the pot is split between multiple players
-        } else if (winners.length > 1 && winners.length < 10) {
-          const winnerList = arrayToSentence(winners.map(playerIdToString));
-
-          addToHandHistory(
-            `The pot is split between ${winnerList}. Each player wins ${numberWithCommas(
-              win_amount
-            )}.`,
-            dispatch
-          );
-        }
-        // Else log an error in the console
-        else {
-          console.error(
-            "Incorrect winner amount has been passed in to the log."
-          );
-        }
-      };
-
-      const handleWinner = (): void => {
-        setWinner(message.winners, message.win_amount, state, dispatch);
-        logWinners();
-        // Update the main pots with a delay, so that in case of a split pot, the numbers displayed are correct
-        setTimeout(() => updateMainPot(win_amount, dispatch), 2000);
-      };
-
-      // Log board cards when players go All-In
-      const logAllInBoardCards = (): void => {
-        const [
-          firstFlop,
-          secondFlop,
-          thirdFlop,
-          turn,
-          river
-        ] = boardCardInfo.map(card => lowerCaseLastLetter(card));
-        // Flop
-        currentGameTurn === 0 &&
-          addToHandHistory(
-            `The flop is ${firstFlop}, ${secondFlop}, ${thirdFlop}.`,
-            dispatch
-          );
-        // Turn
-        currentGameTurn === 1 &&
-          addToHandHistory(`The turn is ${turn}.`, dispatch);
-        // River
-        currentGameTurn === 2 &&
-          addToHandHistory(`The river is ${river}.`, dispatch);
-      };
-
-      setActivePlayer(null, dispatch);
-
-      if (isShowDown) {
-        setBoardCards(boardCardInfo, dispatch);
-        collectChips(state, dispatch);
-      }
-
-      const playWinnerSelectSound = (): void => {
-        setTimeout(() => {
-          sounds.winnerSelect.play();
-        }, 2000);
-      };
-
-      const progressShowDown = (): void => {
-        if (currentGameTurn === showDown) {
-          handleWinner();
-          playWinnerSelectSound();
-          return;
-        }
-        setTimeout(
-          () => {
-            updateGameTurn(currentGameTurn + 1, dispatch);
-            logAllInBoardCards();
-
-            // Play the sounds
-            if (currentGameTurn === preFlop) {
-              sounds.showFlop.play();
-            } else if (currentGameTurn === flop || currentGameTurn === turn) {
-              sounds.cardDrop.play();
-            }
-
-            currentGameTurn += 1;
-            progressShowDown();
-          },
-          currentGameTurn === preFlop ? 400 : 1500
-        );
-      };
-
-      if (isShowDown) {
-        doShowDown(message.showInfo.allHoleCardsInfo, dispatch);
-        progressShowDown();
-      } else {
-        handleWinner();
-        playWinnerSelectSound();
-      }
+      finalInfoMessage(message, dispatch, state);
       break;
     }
 

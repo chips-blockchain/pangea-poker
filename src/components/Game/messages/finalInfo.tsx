@@ -8,15 +8,25 @@ import {
   addToHandHistory,
   collectChips,
   doShowDown,
+  sendMessage,
   setActivePlayer,
   setBoardCards,
   setWinner,
   updateGameTurn,
   updateMainPot
 } from "../../../store/actions";
+import { gameOptions } from "../../../lib/constants";
 const { preFlop, flop, turn, showDown } = GameTurns;
-function sendGameOptions() {
-  throw new Error("Function not implemented.");
+
+function sendGameOptions(state, dispatch) {
+  sendMessage(
+    {
+      method: "sitout",
+      value: Number(state.gameOptions.chosenOption === gameOptions.SIT_OUT)
+    },
+    state,
+    dispatch
+  );
 }
 
 // Log winners to hand history
@@ -85,7 +95,7 @@ const progressShowDown = (currentGameTurn, state, dispatch, message): void => {
   if (currentGameTurn === showDown) {
     handleWinner(message, dispatch, state);
     playWinnerSelectSound();
-    sendGameOptions();
+    sendGameOptions(state, dispatch);
     return;
   }
   setTimeout(
@@ -121,6 +131,7 @@ const finalInfoMessage = (message, dispatch, state) => {
     progressShowDown(currentGameTurn, state, dispatch, message);
   } else {
     handleWinner(message, dispatch, state);
+    sendGameOptions(state, dispatch);
     playWinnerSelectSound();
   }
 };

@@ -171,9 +171,10 @@ const Table: React.FunctionComponent = () => {
                 <div>
                   <Controls />
                 </div>
-              )
-              // <AutomaticOptions />
-              }
+              )}
+              {state.userSeat &&
+                !controls.showControls &&
+                !state.isShowDown && <AutomaticOptions />}
             </TableWrapper>
 
             <Cashier dispatch={dispatch} isOpen={true} state={state} />
