@@ -167,13 +167,13 @@ const Table: React.FunctionComponent = () => {
               {!state.isStartupModal && isPlayer(nodeType) && (
                 <Notice level={notice.level}>{notice.text}</Notice>
               )}
-              {controls.showControls ? (
+              {controls.showControls && (
                 <div>
                   <Controls />
                 </div>
-              ) : (
-                <AutomaticOptions />
-              )}
+              ) 
+                // <AutomaticOptions />
+              }
             </TableWrapper>
 
             <Cashier dispatch={dispatch} isOpen={true} state={state} />
