@@ -67,7 +67,6 @@ export const onMessage = (
   switch (message.method) {
     case "backend_status":
       updateStateValue("backendStatus", message.backend_status, dispatch);
-      walletInfo(state, dispatch);
       break;
     case "betting":
       {
@@ -277,6 +276,9 @@ export const onMessage = (
     case "seats":
       updateStateValue("backendStatus", 1, dispatch);
       seats(message.seats, dispatch);
+      if (!state.depositAddress) {
+        walletInfo(state, dispatch);
+      }
       break;
 
     case "share_info":
