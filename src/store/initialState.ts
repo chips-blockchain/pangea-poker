@@ -57,6 +57,12 @@ const initialState: IState = {
   players: {}, // Object of all players at the table
   transactionFee: 0.005,
 
+  /********** GAME OPTIONS ***********/
+
+  gameOptions: {
+    chosenOption: null
+  },
+
   /********** POKER INFO ***********/
 
   blinds: [1, 2], // Current blinds - small and big one

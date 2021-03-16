@@ -1,0 +1,5 @@
+p {
+ font-size: var(--font-size-s);
+ color: var(--color-white);
+ font-family: var(--font-family-secondary);
+}

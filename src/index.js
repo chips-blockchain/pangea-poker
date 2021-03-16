@@ -7,6 +7,7 @@ import NoticiaBold from "./fonts/NoticiaText-Bold.ttf";
 import PTSansBold from "./fonts/PT_Sans-Web-Bold.ttf";
 import PTSansRegular from "./fonts/PTSans-Regular.ttf";
 import "./styles/variables.css";
+import "./styles/global.css";
 import "./styles/tabs.css";
 import { debugContextDevtool } from "react-context-devtool";
 

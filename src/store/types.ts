@@ -47,6 +47,9 @@ export interface IState {
   currentChipsStack: number;
   dealer: number;
   depositAddress: string;
+  gameOptions: {
+    chosenOption: string;
+  };
   gameStarted: boolean;
   gameTurn: 0 | 1 | 2 | 3 | 4;
   gameType: string;

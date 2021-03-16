@@ -48,6 +48,14 @@ const reducer = (state: IState, action: IAction): object => {
         }
       };
     }
+    case "chooseGameOption": {
+      return {
+        ...state,
+        gameOptions: {
+          chosenOption: action.payload
+        }
+      };
+    }
     case "closeStartupModal": {
       return {
         ...state,

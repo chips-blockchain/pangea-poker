@@ -30,6 +30,7 @@ import {
   walletInfo
 } from "../../store/actions";
 import { DealerContainer, GameWrapper } from "../Game/assets/style";
+import AutomaticOptions from "../Controls/Options/AutomaticOptions";
 
 // This is the current Main component
 
@@ -166,10 +167,12 @@ const Table: React.FunctionComponent = () => {
               {!state.isStartupModal && isPlayer(nodeType) && (
                 <Notice level={notice.level}>{notice.text}</Notice>
               )}
-              {controls.showControls && (
+              {controls.showControls ? (
                 <div>
                   <Controls />
                 </div>
+              ) : (
+                <AutomaticOptions />
               )}
             </TableWrapper>
 

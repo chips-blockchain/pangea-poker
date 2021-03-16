@@ -11,6 +11,9 @@ import { INotice } from "../components/Table/assets/types";
 import notifications from "../config/notifications.json";
 import { Node } from "../lib/constants";
 
+// Actions
+import chooseGameOptionAction from "./actions/gameOptions";
+
 const { preFlop, flop, turn } = GameTurns;
 
 // Add logs to the hand history to display them in the LogBox
@@ -77,6 +80,8 @@ export const collectChips = (
     sounds.collectChips.play();
   }
 };
+
+export const chooseGameOption = chooseGameOptionAction;
 
 export const connectPlayer = (
   player: string,
