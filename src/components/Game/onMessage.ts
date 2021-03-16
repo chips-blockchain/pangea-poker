@@ -64,7 +64,7 @@ export const onMessage = (
   if (message.method === "betting") {
     setLastMessage(message, dispatch);
   }
-  
+
   log(`${Date.now()}: Received from ${nodeName}: `, "received", message);
 
   // Prepare backend ID and GUI id

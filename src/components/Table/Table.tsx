@@ -171,8 +171,8 @@ const Table: React.FunctionComponent = () => {
                 <div>
                   <Controls />
                 </div>
-              ) 
-                // <AutomaticOptions />
+              )
+              // <AutomaticOptions />
               }
             </TableWrapper>
 
