@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Option from "./Option";
 import { gameOptions } from "../../../lib/constants";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DispatchContext } from "../../../store/context";
 import { chooseGameOption } from "../../../store/actions";
 
@@ -22,9 +22,11 @@ const Container = styled.div`
 
 const AutomaticOptions: React.FunctionComponent = () => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
+  const [checked, setChecked] = useState(false);
   const handleOptionSelection = (e: any): void => {
     if (e.target.className === gameOptions.SIT_OUT) {
       chooseGameOption(gameOptions.SIT_OUT, dispatch);
+      setChecked(e.target.checked);
     }
   };
 
@@ -32,6 +34,7 @@ const AutomaticOptions: React.FunctionComponent = () => {
     <Container>
       <Option
         onClick={e => handleOptionSelection(e)}
+        checked={checked}
         text={gameOptions.SIT_OUT}
       />
       {/* <Option onClick={(e) => handleOptionSelection(e)} text={constants.FOLD_ANY} /> */}
