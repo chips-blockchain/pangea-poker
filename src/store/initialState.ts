@@ -60,7 +60,9 @@ const initialState: IState = {
   /********** GAME OPTIONS ***********/
 
   gameOptions: {
-    chosenOption: null
+    sitout: 0,
+    foldAny: 0,
+    leaveTable: 0
   },
 
   /********** POKER INFO ***********/

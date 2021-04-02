@@ -48,7 +48,9 @@ export interface IState {
   dealer: number;
   depositAddress: string;
   gameOptions: {
-    chosenOption: string;
+    sitout: number;
+    foldAny: number;
+    leaveTable: number;
   };
   gameStarted: boolean;
   gameTurn: 0 | 1 | 2 | 3 | 4;

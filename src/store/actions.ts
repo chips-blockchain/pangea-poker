@@ -14,8 +14,6 @@ import { Node } from "../lib/constants";
 // Actions
 import chooseGameOptionAction from "./actions/gameOptions";
 
-const { preFlop, flop, turn } = GameTurns;
-
 // Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (
   lastAction: string,
@@ -119,7 +117,7 @@ export const deal = (
   if (holecards.length === 2) setHoleCards(holecards, dispatch);
   if (board) {
     // Flop
-    if (gameTurn === preFlop && board.length === 3) {
+    if (gameTurn === GameTurns.preFlop && board.length === 3) {
       setBoardCards(board, dispatch);
       nextTurn(1, state, dispatch);
       addToHandHistory(
@@ -134,7 +132,7 @@ export const deal = (
     }
 
     // Turn
-    if (gameTurn === flop && board.length === 4) {
+    if (gameTurn === GameTurns.flop && board.length === 4) {
       setBoardCards(board, dispatch);
       nextTurn(2, state, dispatch);
       addToHandHistory(
@@ -145,7 +143,7 @@ export const deal = (
     }
 
     // River
-    if (gameTurn === turn && board.length === 5) {
+    if (gameTurn === GameTurns.turn && board.length === 5) {
       setBoardCards(board, dispatch);
       nextTurn(3, state, dispatch);
       addToHandHistory(

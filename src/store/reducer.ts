@@ -52,7 +52,8 @@ const reducer = (state: IState, action: IAction): object => {
       return {
         ...state,
         gameOptions: {
-          chosenOption: action.payload
+          ...state.gameOptions,
+          ...action.payload
         }
       };
     }
