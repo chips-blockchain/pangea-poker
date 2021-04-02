@@ -11,9 +11,10 @@ const chooseGameOption = (
     val => val === Object.keys(option)[0]
   );
   const method = Object.keys(gameOptions)[idx];
+  const value = Object.values(option)[0];
   dispatch({
     type: "chooseGameOption",
-    payload: { [method]: option }
+    payload: { [method]: Number(value) }
   });
   sendGameOptions(option, method, state, dispatch);
 };
