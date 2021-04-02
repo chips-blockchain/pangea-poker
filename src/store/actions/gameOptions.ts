@@ -16,7 +16,7 @@ const chooseGameOption = (
     type: "chooseGameOption",
     payload: { [method]: Number(value) }
   });
-  sendGameOptions(option, method, state, dispatch);
+  sendGameOptions(Number(value), method, state, dispatch);
 };
 
 export default chooseGameOption;

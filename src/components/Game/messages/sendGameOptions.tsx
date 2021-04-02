@@ -4,7 +4,7 @@ export default function sendGameOptions(option, method, state, dispatch): void {
   sendMessage(
     {
       method: method,
-      value: option[method]
+      value: option
     },
     state,
     dispatch
