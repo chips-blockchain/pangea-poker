@@ -10,6 +10,7 @@ import "./styles/variables.css";
 import "./styles/global.css";
 import "./styles/tabs.css";
 import { debugContextDevtool } from "react-context-devtool";
+import ContextProvider from "./store/ContextProvider";
 
 const App = () => {
   return (
@@ -47,7 +48,9 @@ const App = () => {
           }
         `}
       />
-      <Main />
+      <ContextProvider>
+        <Main />
+      </ContextProvider>
     </React.Fragment>
   );
 };
