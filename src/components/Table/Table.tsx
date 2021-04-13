@@ -1,8 +1,6 @@
-import React, { useReducer, useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import diff from "deep-diff";
-import reducer from "../../store/reducer";
 import { StateContext, DispatchContext } from "../../store/context";
-import initialState from "../../store/initialState";
 import { IPlayer, IState } from "../../store/types";
 import Backgrounds from "./Backgrounds";
 import { PlayerGrid9Max } from "../PlayerGrid";
@@ -77,12 +75,14 @@ const Table: React.FunctionComponent = () => {
   }, [state]);
   // For debugging purposes log the difference betweeen the last and current state
   useEffect(() => {
-    const difference = diff(previousState, state);
-    difference && difference.push(state);
-    if (difference) {
-      console.log(difference);
+    if (process.env.NODE_ENV !== "test") {
+      const difference = diff(previousState, state);
+      difference && difference.push(state);
+      if (difference) {
+        console.log(difference);
+      }
+      setPreviousState(state);
     }
-    setPreviousState(state);
   }, [state]);
 
   return (
