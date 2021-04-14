@@ -1,4 +1,4 @@
-import { IState, IPlayer } from "./initialState";
+import { IState, IPlayer } from "./types";
 import { INotice } from "../components/Table/assets/types";
 import { Level } from "../lib/constants";
 import { isDev } from "../lib/dev";
@@ -24,9 +24,6 @@ interface IAction {
 }
 
 const reducer = (state: IState, action: IAction): object => {
-  if (isDev && process.env.REDUCER === "1") {
-    console.log("Reducer", action);
-  }
   switch (action.type) {
     case "addToHandHistory": {
       return {
@@ -48,6 +45,14 @@ const reducer = (state: IState, action: IAction): object => {
             betAmount: action.payload.betAmount,
             chips: action.payload.chips
           }
+        }
+      };
+    }
+    case "chooseGameOption": {
+      return {
+        ...state,
+        gameOptions: {
+          chosenOption: action.payload
         }
       };
     }
@@ -346,7 +351,6 @@ const reducer = (state: IState, action: IAction): object => {
         gameType: action.payload.gameType,
         gameStarted: true,
         pot: action.payload.pot,
-        // toCall: action.payload.toCall,
         options: {
           ...state.options,
           showPot: true,
@@ -369,6 +373,17 @@ const reducer = (state: IState, action: IAction): object => {
         connectionStatus: action.payload
       };
     }
+
+    case "updateSocketConnection": {
+      return {
+        ...state,
+        connection: {
+          ...state.connection,
+          [action.payload.nodeName]: action.payload.connection
+        }
+      };
+    }
+
     case "updateGameTurn": {
       return {
         ...state,

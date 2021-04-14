@@ -75,6 +75,13 @@ const initialState: IState = {
   // Wether the game has started
   // Pangea wallet address to deposit to
   depositAddress: undefined,
+
+  /********** GAME OPTIONS ***********/
+
+  gameOptions: {
+    chosenOption: null
+  },
+  
   gameStarted: false,
   // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river, 4:
   gameTurn: 0,

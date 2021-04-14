@@ -12,28 +12,25 @@ Currently, to play, you will need to run your own back-end nodes. We are working
 
 ## Development
 
-- Run `npm install` and `npm start` in the root folder This will fire up a web server and you can try the app via http://localhost:1234
+Server runs at port 1234 - http://localhost:1234
 
-- Run `npm run electron-dev` to start the Electron app in development.
+- `npm install && npm run dev` - start with `NODE_ENV=development`
 
-Run `npm electron-pack` to package the app with electron-builder for MacOS, Windows and Linux.
+- `npm run electron-dev` to start the Electron app in development.
 
-### Pre-push GitHook 
+- `npm electron-pack` to package the app with electron-builder for MacOS, Windows and Linux.
 
-In order not to fail Gitub CI all the time, set up a local git hook to check lint and run tests before a push to the repo.
+### Debugging
 
- [Pre push Github docs](https://www.git-scm.com/docs/githooks#_pre_push)
+browser plugin [React Context Dev Tools](https://github.com/deeppatel234/react-context-devtool)
 
+### Sockets
 
-`nano ./.git/hooks/pre-push`
+When the player enters the game he opens two socket connections:
 
-```
-set -e
-node_modules/eslint/bin/eslint.js './src/' --ext .js,.ts,.tsx
-npm run test
-```
+ - for writing `playerWrite`
 
-`sudo chmod +x ./.git/hooks/pre-push`
+ - for reading `playerRead`
 
 ### State Management
 
@@ -41,10 +38,6 @@ https://blog.logrocket.com/use-hooks-and-context-not-react-and-redux/
 
 Good video explaining redux vs context state management approach
 https://www.youtube.com/watch?time_continue=134&v=eBYJ7O482Dc&feature=emb_title
-
-### Developer Mode
-
-You can activate developer mode and skip the startup modal by adjusting the `src/config/local.json`.
 
 ### Environment variables in scripts
 

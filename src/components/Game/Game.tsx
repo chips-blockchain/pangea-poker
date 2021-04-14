@@ -1,10 +1,10 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import WebSocket from "./WebSocket";
+import { IState } from "../../store/types";
+import { isDealer, isPlayer } from "../../lib/helper";
 import { DispatchContext, StateContext } from "../../store/context";
-import { Button } from "../Controls";
-import { sendMessage } from "../../store/actions";
-import { IState } from "../../store/initialState";
-import { GameWrapper, DealerContainer } from "./assets/style";
+import { Node, Conn } from "../../lib/constants";
+import { updateConnectionStatus } from "../../store/actions";
 
 // This component is responsible for the WebSocket connections, as well as displaying the main Start button
 
@@ -12,33 +12,35 @@ import { GameWrapper, DealerContainer } from "./assets/style";
 const SOCKET_URL_ECHO = "wss://echo.websocket.org";
 
 const Game: React.FunctionComponent = () => {
-  const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
+  const dispatch: (arg: object) => void = useContext(DispatchContext);
   const { isDeveloperMode, nodes, nodeType, message } = state;
 
   const SOCKET_URL_DCV = `ws://${nodes.dcv}:9000`;
-  const SOCKET_URL_PLAYER1 = `ws://${[Object.values(nodes)[0]]}:9000`;
+  const SOCKET_URL_PLAYER_READ = `ws://${[Object.values(nodes)[0]]}:9000`;
+  const SOCKET_URL_PLAYER_WRITE = `ws://${[Object.values(nodes)[0]]}:9001`;
 
-  const startGame = () => (): void => {
-    sendMessage({ method: "game" }, "dcv", state, dispatch);
-  };
-
-  const resetGame = () => (): void => {
-    sendMessage({ method: "reset" }, "dcv", state, dispatch);
-  };
+  // @todo move this to a more appropriate place
+  useEffect(() => {
+    if (
+      !state.connectionStatus.status &&
+      Object.values(state.connection).indexOf(Conn.connecting) !== -1
+    ) {
+      updateConnectionStatus(Conn.connecting, dispatch);
+    }
+    if (
+      ((state.connection.playerRead === Conn.connected &&
+        state.connection.playerWrite === Conn.connected) ||
+        state.connection.dcv === Conn.connected) &&
+      state.connectionStatus.status !== Conn.connected
+    ) {
+      updateConnectionStatus(Conn.connected, dispatch);
+    }
+  }, [state]);
 
   return (
     <div>
-      <GameWrapper>
-        {nodeType === "dealer" && (
-          <DealerContainer>
-            <Button label="Start" onClick={startGame()} />
-            <Button label="Reset" onClick={resetGame()} />
-          </DealerContainer>
-        )}
-      </GameWrapper>
-
-      {state.nodesSet && nodeType === "dealer" && (
+      {state.nodesSet && isDealer(nodeType) && (
         <div>
           <WebSocket
             nodeName="dcv"
@@ -48,12 +50,19 @@ const Game: React.FunctionComponent = () => {
         </div>
       )}
 
-      {state.nodesSet && nodeType === "player" && (
-        <WebSocket
-          nodeName={Object.keys(nodes)[0]}
-          server={SOCKET_URL_PLAYER1}
-          message={message[Object.keys(nodes)[0]]}
-        />
+      {state.nodesSet && isPlayer(nodeType) && (
+        <div>
+          <WebSocket
+            nodeName={Node.playerWrite}
+            server={SOCKET_URL_PLAYER_WRITE}
+            message={message[Node.playerWrite]}
+          />
+          <WebSocket
+            nodeName={Node.playerRead}
+            server={SOCKET_URL_PLAYER_READ}
+            message={message[Node.playerRead]}
+          />
+        </div>
       )}
       {state.nodesSet && isDeveloperMode && (
         <WebSocket

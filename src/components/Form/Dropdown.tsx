@@ -1,6 +1,5 @@
 import React from "react";
 import { DropdownWrapper, dropdownStyle } from "./assets/style";
-import Label from "./Label";
 
 interface IProps {
   forwardRef?: (ref: object) => void;
@@ -21,7 +20,7 @@ const Dropdown: React.FunctionComponent<IProps> = ({
 }) => {
   return (
     <DropdownWrapper>
-      {label && <Label htmlFor={name}>{label}</Label>}
+      {label && <label htmlFor={name}>{label}</label>}
       <select
         css={dropdownStyle}
         name={name}
