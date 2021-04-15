@@ -70,7 +70,7 @@
     "rc-slider": "9.7.2",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "react-hook-form": "5.7.2",
+    "react-hook-form": "6.15.6",
     "react-modal": "3.12.1",
     "react-tabs": "3.2.0",
     "react-tooltip": "4.2.15",
