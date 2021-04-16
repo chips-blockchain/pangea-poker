@@ -164,9 +164,10 @@ const Table: React.FunctionComponent = () => {
                 <Controls />
               </div>
             )}
-            {(state.gameOptions.sitout || (state.userSeat &&  !controls.showControls && !state.isShowDown )) && (
-              <AutomaticOptions />
-            )}
+            {(state.gameOptions.sitout ||
+              (state.userSeat &&
+                !controls.showControls &&
+                !state.isShowDown)) && <AutomaticOptions />}
           </TableWrapper>
 
           <Cashier dispatch={dispatch} isOpen={true} state={state} />
