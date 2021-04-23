@@ -10,6 +10,10 @@ We hope to release a publicly playable version in April. You can find the latest
 
 Currently, to play, you will need to run your own back-end nodes. We are working on a Docker container to make this easy, which is expected to ship in April. [Here](https://github.com/NOCTLJRNE/CHIPS-tuto/blob/master/README.md) you can find the old, complicated way of setting up the back-end nodes.
 
+## Start the game
+
+- `npm install && npm start`
+
 ## Development
 
 Server runs at port 1234 - http://localhost:1234
