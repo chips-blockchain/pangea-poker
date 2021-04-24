@@ -7,3 +7,5 @@
 .DS_Store
 
 /src/config/local.json
+/coverage/*
+.vscode

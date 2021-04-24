@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
+import { ChangeEvent } from "react";
 
 interface IProps {
   text: string;
-  onClick: (e: MouseEvent) => void;
+  checked: boolean;
+  onChange: (e: ChangeEvent) => void;
 }
 
 const StyledOption = styled.div`
@@ -10,16 +12,24 @@ const StyledOption = styled.div`
   flex-direction: row;
   margin-bottom: 0.25rem;
   p {
-    // font-size: var(--font-size-xs);
     color: var(--color-superLightGray);
     margin: 0 0 0 0.5rem;
   }
 `;
 
-const Option: React.FunctionComponent<IProps> = ({ text, onClick }) => {
+const Option: React.FunctionComponent<IProps> = ({
+  text,
+  checked,
+  onChange
+}) => {
   return (
     <StyledOption>
-      <input className={text} onClick={e => onClick(e)} type="checkbox"></input>
+      <input
+        className={text}
+        checked={checked}
+        onChange={onChange}
+        type="checkbox"
+      ></input>
       <p>{text}</p>
     </StyledOption>
   );

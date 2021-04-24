@@ -1,7 +1,6 @@
 import { IState, IPlayer } from "./types";
 import { INotice } from "../components/Table/assets/types";
 import { Level } from "../lib/constants";
-import { isDev } from "../lib/dev";
 import playerStringToId from "../lib/playerStringToId";
 
 interface IPayload extends IState, IPlayer {
@@ -52,7 +51,8 @@ const reducer = (state: IState, action: IAction): object => {
       return {
         ...state,
         gameOptions: {
-          chosenOption: action.payload
+          ...state.gameOptions,
+          ...action.payload
         }
       };
     }

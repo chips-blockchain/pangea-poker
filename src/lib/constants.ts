@@ -69,7 +69,7 @@ export enum Status {
 }
 
 export enum gameOptions {
-  SIT_OUT = "Sit out the next hand",
-  FOLD_ANY = "Fold to any bet",
-  LEAVE_TABLE = "Leave table at next hand"
+  sitout = "Sit out the next hand",
+  foldAny = "Fold to any bet",
+  leaveTable = "Leave table at next hand"
 }
