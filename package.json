@@ -127,7 +127,7 @@
     "jest": "25.5.4",
     "jsdom": "16.5.3",
     "jsdom-global": "3.0.2",
-    "parcel-bundler": "1.12.4",
+    "parcel-bundler": "1.12.5",
     "prettier": "1.19.1",
     "react-context-devtool": "2.0.3",
     "react-test-renderer": "16.14.0",
