@@ -25,10 +25,11 @@ const Container = styled.div`
 const AutomaticOptions: React.FunctionComponent = () => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
+
   const [checked, setChecked] = useState({
-    [gameOptions.sitout]: false,
-    [gameOptions.leaveTable]: false
-    // [gameOptions.foldAny]: false
+    [gameOptions.sitout]: Boolean(state.gameOptions.sitout),
+    [gameOptions.leaveTable]: Boolean(state.gameOptions.leaveTable)
+    // [gameOptions.foldAny]: gameOptions.foldAny
   });
 
   const handleOptionSelection = useCallback(
@@ -42,16 +43,21 @@ const AutomaticOptions: React.FunctionComponent = () => {
 
   return (
     <Container>
-      <Option
-        onChange={handleOptionSelection}
-        checked={checked[gameOptions.sitout]}
-        text={gameOptions.sitout}
-      />
-      <Option
-        onChange={handleOptionSelection}
-        checked={checked[gameOptions.leaveTable]}
-        text={gameOptions.leaveTable}
-      />
+      {!checked[gameOptions.leaveTable] && (
+        <Option
+          onChange={handleOptionSelection}
+          checked={checked[gameOptions.sitout]}
+          text={gameOptions.sitout}
+        />
+      )}
+      {!checked[gameOptions.sitout] && (
+        <Option
+          onChange={handleOptionSelection}
+          checked={checked[gameOptions.leaveTable]}
+          text={gameOptions.leaveTable}
+        />
+      )}
+
       {/* <Option onClick={(e) => handleOptionSelection(e)} text={constants.FOLD_ANY} /> */}
     </Container>
   );
