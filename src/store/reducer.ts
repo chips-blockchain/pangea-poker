@@ -1,4 +1,5 @@
-import { IState, IPlayer } from "./types";
+import { IPlayer, IState } from "./types";
+
 import { INotice } from "../components/Table/assets/types";
 import { Level } from "../lib/constants";
 import playerStringToId from "../lib/playerStringToId";
@@ -60,6 +61,41 @@ const reducer = (state: IState, action: IAction): object => {
       return {
         ...state,
         isStartupModal: false
+      };
+    }
+
+    case "resetToStartup": {
+      return {
+        ...state,
+        isStartupModal: true,
+        playerSeat: null,
+        controls: {
+          showControls: false,
+          showFirstRow: true,
+          canCheck: false,
+          canRaise: true
+        },
+        depositAddress: null,
+        connectionStatus: {
+          level: 1,
+          status: null,
+          text: "",
+          balance: 0
+        },
+        activePlayer: null,
+        gameStarted: false,
+        gameOptions: {
+          sitout: 0,
+          foldAny: 0,
+          leaveTable: 0
+        },
+        nodesSet: false,
+        nodes: {
+          dcv: "0.0.0.0",
+          player1: "0.0.0.0",
+          player2: "0.0.0.0",
+          echo: "0.0.0.0"
+        }
       };
     }
     case "collectChips": {

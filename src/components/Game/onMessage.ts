@@ -281,7 +281,7 @@ export const onMessage = (
         setTimeout(() => {
           // the socket needs a little time to connect
           walletInfo(state, dispatch);
-        }, 500);
+        }, 1000);
       }
       break;
 

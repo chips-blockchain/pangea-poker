@@ -1,18 +1,18 @@
+import { Conn, GameTurns, Level, Possibilities } from "../lib/constants";
+
+import { IMessage } from "../components/Game/types/IMessage";
+import { INotice } from "../components/Table/assets/types";
+import { IState } from "./types";
+import { Node } from "../lib/constants";
+// Actions
+import chooseGameOptionAction from "./actions/gameOptions";
+import log from "../lib/dev";
+import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
+import notifications from "../config/notifications.json";
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/camelcase */
 import playerIdToString from "../lib/playerIdToString";
-import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
-import { IState } from "./types";
-import { IMessage } from "../components/Game/types/IMessage";
-import { Possibilities, GameTurns, Level, Conn } from "../lib/constants";
 import sounds from "../sounds/sounds";
-import log from "../lib/dev";
-import { INotice } from "../components/Table/assets/types";
-import notifications from "../config/notifications.json";
-import { Node } from "../lib/constants";
-
-// Actions
-import chooseGameOptionAction from "./actions/gameOptions";
 
 // Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (
@@ -101,6 +101,13 @@ export const clearNotice = (dispatch: (arg: object) => void): void => {
 export const closeStartupModal = (dispatch: (arg: object) => void): void => {
   dispatch({
     type: "closeStartupModal"
+  });
+};
+
+// Open the Startup Modal
+export const resetToStartup = (dispatch: (arg: object) => void): void => {
+  dispatch({
+    type: "resetToStartup"
   });
 };
 
@@ -341,7 +348,10 @@ export const sendMessage = (
     };
     dispatch(m);
     log(`${Date.now()}: Sent to ${node}: `, "sent", m);
-  } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
+  } else {
+    resetToStartup(dispatch);
+    alert(`Error: ${node} is not connected.`);
+  }
 };
 
 export const sendInitMessage = (
