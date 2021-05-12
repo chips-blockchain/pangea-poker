@@ -1,10 +1,11 @@
-import styled from "@emotion/styled";
-import Option from "./Option";
-import { gameOptions } from "../../../lib/constants";
-import { useCallback, useContext, useState } from "react";
 import { DispatchContext, StateContext } from "../../../store/context";
-import { chooseGameOption } from "../../../store/actions";
+import { useCallback, useContext, useState } from "react";
+
 import { IState } from "../../../store/types";
+import Option from "./Option";
+import { chooseGameOption } from "../../../store/actions";
+import { gameOptions } from "../../../lib/constants";
+import styled from "@emotion/styled";
 
 const Container = styled.div`
   height: 75px;
@@ -25,9 +26,9 @@ const AutomaticOptions: React.FunctionComponent = () => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const [checked, setChecked] = useState({
-    [gameOptions.sitout]: false
-    // [gameOptions.foldAny]: false,
-    // [gameOptions.leaveTable]: false
+    [gameOptions.sitout]: false,
+    [gameOptions.leaveTable]: false
+    // [gameOptions.foldAny]: false
   });
 
   const handleOptionSelection = useCallback(
@@ -46,8 +47,12 @@ const AutomaticOptions: React.FunctionComponent = () => {
         checked={checked[gameOptions.sitout]}
         text={gameOptions.sitout}
       />
+      <Option
+        onChange={handleOptionSelection}
+        checked={checked[gameOptions.leaveTable]}
+        text={gameOptions.leaveTable}
+      />
       {/* <Option onClick={(e) => handleOptionSelection(e)} text={constants.FOLD_ANY} /> */}
-      {/* <Option onClick={(e) => handleOptionSelection(e)} text={constants.LEAVE_TABLE} /> */}
     </Container>
   );
 };

@@ -1,6 +1,6 @@
-import sendGameOptions from "../../components/Game/messages/sendGameOptions";
-import { gameOptions } from "../../lib/constants";
 import { IState } from "../types";
+import { gameOptions } from "../../lib/constants";
+import sendGameOptions from "../../components/Game/messages/sendGameOptions";
 
 const chooseGameOption = (
   option: object,
