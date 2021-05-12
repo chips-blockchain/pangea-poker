@@ -1,45 +1,46 @@
 /* eslint-disable @typescript-eslint/camelcase */
 // Camel case rule is disabled until the backend casing becomes consistent
 
+import { BetWarnings, Level, Node } from "../../lib/constants";
 import {
   addToHandHistory,
   bet,
+  clearNotice,
   connectPlayer,
   deal,
   dealCards,
   fold,
   nextHand,
   playerJoin,
+  processControls,
   seats,
   sendMessage,
   setActivePlayer,
   setBalance,
+  setBlinds,
   setDealer,
   setLastAction,
   setLastMessage,
   setMinRaiseTo,
+  setNotice,
   setToCall,
   setUserSeat,
-  updateTotalPot,
   showControls,
-  setBlinds,
   updateStateValue,
-  processControls,
-  setNotice,
-  clearNotice,
+  updateTotalPot,
   walletInfo
 } from "../../store/actions";
-import log from "../../lib/dev";
-import numberWithCommas from "../../lib/numberWithCommas";
+import { blindBet, isCurrentPlayer } from "./helpers";
+import { getGUIid, getStringId, validBEid } from "../../lib/playerIdDecoder";
+
+import { IMessage } from "./types/IMessage";
 import { IState } from "../../store/types";
+import finalInfoMessage from "./messages/finalInfo";
+import log from "../../lib/dev";
+import notifications from "../../config/notifications.json";
+import numberWithCommas from "../../lib/numberWithCommas";
 import playerIdToString from "../../lib/playerIdToString";
 import sounds from "../../sounds/sounds";
-import { Level, BetWarnings, Node } from "../../lib/constants";
-import notifications from "../../config/notifications.json";
-import { blindBet, isCurrentPlayer } from "./helpers";
-import { IMessage } from "./types/IMessage";
-import { validBEid, getGUIid, getStringId } from "../../lib/playerIdDecoder";
-import finalInfoMessage from "./messages/finalInfo";
 
 export const onMessage = (
   message: IMessage,
@@ -277,7 +278,10 @@ export const onMessage = (
       updateStateValue("backendStatus", 1, dispatch);
       seats(message.seats, dispatch);
       if (!state.depositAddress) {
-        walletInfo(state, dispatch);
+        setTimeout(() => {
+          // the socket needs a little time to connect
+          walletInfo(state, dispatch);
+        }, 500);
       }
       break;
 
