@@ -1,29 +1,31 @@
-import React, { useEffect, useState, useContext } from "react";
-import diff from "deep-diff";
-import { StateContext, DispatchContext } from "../../store/context";
-import { IPlayer, IState } from "../../store/types";
-import Backgrounds from "./Backgrounds";
-import { PlayerGrid9Max } from "../PlayerGrid";
-import Player from "../Player";
-import Board from "../Board";
-import Dealer from "../Dealer";
-import TotalPot from "./TotalPot";
-import { ChipGrid, Bet } from "../Chips";
-import Controls, { Button } from "../Controls";
-import MainPot from "./MainPot";
-import Game from "../Game";
-import { StartupModal } from "../Modal";
-import DeveloperMode from "../DeveloperMode";
-import LogBox from "../LogBox";
-import Cashier from "../Cashier";
-import { TableContainer, TableWrapper, Notice } from "./assets/style";
 import "./assets/style.css";
-import notifications from "../../config/notifications.json";
+
+import { Bet, ChipGrid } from "../Chips";
 import { Conn, Node } from "../../lib/constants";
-import { isDealer, isPlayer } from "../../lib/helper";
-import { closeStartupModal, game, sendMessage } from "../../store/actions";
+import Controls, { Button } from "../Controls";
 import { DealerContainer, GameWrapper } from "../Game/assets/style";
+import { DispatchContext, StateContext } from "../../store/context";
+import { IPlayer, IState } from "../../store/types";
+import { Notice, TableContainer, TableWrapper } from "./assets/style";
+import React, { useContext, useEffect, useState } from "react";
+import { closeStartupModal, game, sendMessage } from "../../store/actions";
+import { isDealer, isPlayer } from "../../lib/helper";
+
 import AutomaticOptions from "../Controls/Options/AutomaticOptions";
+import Backgrounds from "./Backgrounds";
+import Board from "../Board";
+import Cashier from "../Cashier";
+import Dealer from "../Dealer";
+import DeveloperMode from "../DeveloperMode";
+import Game from "../Game";
+import LogBox from "../LogBox";
+import MainPot from "./MainPot";
+import Player from "../Player";
+import { PlayerGrid9Max } from "../PlayerGrid";
+import { StartupModal } from "../Modal";
+import TotalPot from "./TotalPot";
+import diff from "deep-diff";
+import notifications from "../../config/notifications.json";
 
 // This is the current Main component
 
@@ -72,7 +74,7 @@ const Table: React.FunctionComponent = () => {
         game({ gametype: "", pot: [0] }, state, dispatch);
       }
     }
-  }, [state]);
+  }, [connectionStatus]);
   // For debugging purposes log the difference betweeen the last and current state
   useEffect(() => {
     if (process.env.NODE_ENV !== "test") {

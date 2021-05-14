@@ -1,9 +1,11 @@
-import React from "react";
-import { mount } from "enzyme";
 import * as actions from "../../../store/actions";
+
+import { DispatchContext, StateContext } from "../../../store/context";
+
+import React from "react";
 import Table from "../../Table";
+import { mount } from "enzyme";
 import testState from "../../../store/testState";
-import { StateContext, DispatchContext } from "../../../store/context";
 
 /************** MOCKS and SPIES **************/
 
@@ -51,7 +53,7 @@ describe("Options test", () => {
     const state = { ...testState, isStartupModal: false };
     const wrapper = buildWrapper(dispatch, state);
     expect(wrapper.exists({ type: "checkbox" })).toEqual(true);
-    let checkbox = wrapper.find({ type: "checkbox" });
+    let checkbox = wrapper.find({ type: "checkbox" }).first();
     expect(checkbox.props().checked).toEqual(false);
     checkbox.simulate("change");
     expect(chooseGameOption).toHaveBeenCalled();
