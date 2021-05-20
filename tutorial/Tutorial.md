@@ -99,19 +99,23 @@ In case the game has misbehaved on you and you have already made bets, but didnt
 ./bet game dispute tx_id -- resovle specific disputed_tx
 ```
 
-## FAQ
+## GUI FAQ
 
 ### The game seems to be frozen
 
-Ah, it could be frozen. Wait a little bit, maybe 30 seconds or so and if nothing happens, something probably went wrong. Check the terminal output for your player node too in case there are any clues to what is going on.
+Nothing is happening in the GUI.
 
-To restart the game.
+Check your terminal output for clues if the game is frozen or you are just waiting for the delayed server response.
+
+It could be frozen. Wait a little bit, maybe 30 seconds or so and if nothing happens, something probably went wrong. Check the terminal output for your player node too in case there are any clues to what is going on.
+
+### I refreshed the GUI and when I enter back I cant do anything
+
+Re-joining the game functionality will be implemented as a part of beta. Currently, you need to restart everything and re-join. 
+
+### How to restart the game
 
 1. Stop all player nodes and dcv.
 2. Re-run dcv
 3. Re-run player nodes
 4. Make sure the nodes found the dealer.
-
-### I refreshed the GUI and when I enter back I cant do anything
-
-Ah, unfortunately you kindda fell out of the game :) Gotta restart everything and re-join.
