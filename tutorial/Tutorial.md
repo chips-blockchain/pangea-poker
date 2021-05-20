@@ -1,23 +1,31 @@
 # Pre-Alpha Pangea Poker Tutorial
 
+This is a tutorial on how to play Pangea Poker. It is assumed that you have already performed the installation of the project and are ready to proceed. If you have not installed the project yet please follow this [Guide](https://github.com/chips-blockchain/bet/blob/master/docs/HowToPangea.md) first.
+
+## Check that you are ready to go
+
 In order to play a game of poker using Pangea one needs:
 
-1. Publicly available IP for your player/dealer node
-2. Setup CHIPS, LN and BET
-2. Have CHIPS and LN synced
-3. Run your own player node
-4. Run a dealer node or have someone run a node for you. The dealer node facilitates the game and creates a table. 
-5. Have access to GUI. Can run it locally or access it at http://dev.chips.cash.
+1. Publicly available IP for your player/dealer node.
+2. Setup CHIPS, LN and BET.
+2. Have CHIPS and LN synced.
+3. Run your own player node on a remote server with publicly accessible IP.
+4. Run a dealer node or have someone run a node for you. The dealer node facilitates the game and creates a table. (Ask in Discord about this)
+5. Run a cashier node or have someone run cashier nodes you can connect to. (Ask in Discord about this)
+6. Have access to GUI. Can run it locally or access it at http://dev.chips.cash.
+
+## Good to know 
 
 http://dev.chips.cash has the latest playable version of the GUI. It points to the `dev` branch at the moment. 
 
 To enter the game using GUI you will only need to know your own player node IP.
 
-Both player and dealer nodes are run by [bet](https://github.com/chips-blockchain/bet).
+Player, dealer, cashier nodes are run by [bet](https://github.com/chips-blockchain/bet).
 
-You can setup CHIPS, LN and Bet either [manually](https://github.com/chips-blockchain/bet/blob/master/compile.md) or using [Docker](https://github.com/chips-blockchain/docker).
 
 ## 1. Dealer node
+
+Feel free to skip this if you dont want to run your own dealer node (you dont have to if someone else is already running it). You can always ping us in Discord and we will run a dealer node for you so you can try the game out.
 
 To run the dealer node:
 
