@@ -68,6 +68,37 @@ You will either be allowed to the table straight away or you will have to wait a
 
 > Please note, there could be a delay in communication between the player node and the GUI or between dealer nodes and player nodes, so the game might seem a bit slow. The best you can do is wait and take note if something took particularly long and provide us feedback. Thank you.
 
+## Player functionality
+
+### Cashier
+
+The player can check their balance, send funds from the GUI and copy their address.
+
+### Bets and poker functionality
+
+Most of Poker functionality is supported. Players make bets, check, call, go all in, etc.
+
+### Sit out 
+
+We have a PoC implementation of the sitout, its not exactly what you think it is. To learn more about the current sitout implementation see [this document](https://github.com/chips-blockchain/pangea-poker/blob/dev/docs/sitout.md).
+
+### Quitting the game
+
+There is an option to quit the game at the next hand. It is currently under development, so might not work. Feel free to try though, maybe by the time you reading this it has been resolved.
+
+### Disputing transactions
+
+In case the game has misbehaved on you and you have already made bets, but didnt get to finish the game, you can dispute your transactions.
+
+
+```
+./bet game info - all games info
+./bet game info fail -- disputed
+./bet game info success -- successful
+./bet game solve -- resolve all disputed
+./bet game dispute tx_id -- resovle specific disputed_tx
+```
+
 ## FAQ
 
 ### The game seems to be frozen
