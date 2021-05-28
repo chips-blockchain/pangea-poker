@@ -29,7 +29,7 @@ Feel free to skip this if you dont want to run your own dealer node (you dont ha
 
 To run the dealer node:
 
-`cd ./bet/privatebet && ./bet dcv the-dealer-ip`
+`cd ~/bet/privatebet && ./bet dcv the-dealer-ip`
 
 You should see something like this:
 
@@ -47,7 +47,7 @@ The dealer GUI does not have much functionality at the moment. It is important t
 
 To run the player node:
 
-`cd ./bet/privatebet && ./bet player`
+`cd ~/bet/privatebet && ./bet player`
 
 The player automatically searches for the available dealer and connects to them. So make sure you are only running one dealer node. This functionality will change in the future and players will be able to specify the dealer they want to connect to.
 
