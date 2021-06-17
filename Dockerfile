@@ -1,5 +1,5 @@
 # Tutorial https://mherman.org/blog/dockerizing-a-react-app/
-FROM node:14
+FROM node:16
 
 WORKDIR /src
 
