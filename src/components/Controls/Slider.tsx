@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { StateContext } from "../../store/context";
 import RCSlider from "rc-slider";
 import "./assets/slider.css";
-import { IState } from "../../store/initialState";
+import { IState } from "../../store/types";
 import { SliderContainer, SliderWrapper } from "./assets/style";
 
 // This is the Slider component used in Controls to set bet/raise amount

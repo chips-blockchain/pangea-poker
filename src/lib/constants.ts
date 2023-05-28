@@ -39,3 +39,37 @@ export enum BetWarnings {
   insufficientFunds = 2,
   tableIsFull = 3
 }
+
+export enum Conn {
+  connecting = "Connecting...",
+  connected = "Connected",
+  disconnecting = "Disconnecting...",
+  disconnected = "Disconnected",
+  uninstantiated = "Uninstantiated"
+}
+
+export enum Node {
+  dcv = "dcv",
+  player = "player",
+  playerRead = "playerRead",
+  playerWrite = "playerWrite",
+  echo = "echo"
+}
+
+export enum NodeType {
+  dealer = "dealer",
+  player = "player"
+}
+
+export enum Status {
+  Initial,
+  Processing,
+  Success,
+  Error
+}
+
+export enum gameOptions {
+  sitout = "Sit out the next hand",
+  foldAny = "Fold to any bet",
+  leaveTable = "Leave table at next hand"
+}

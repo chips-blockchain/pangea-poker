@@ -1,7 +1,7 @@
-import { IState, IPlayer } from "./initialState";
+import { IPlayer, IState } from "./types";
+
 import { INotice } from "../components/Table/assets/types";
 import { Level } from "../lib/constants";
-import { isDev } from "../lib/dev";
 import playerStringToId from "../lib/playerStringToId";
 
 interface IPayload extends IState, IPlayer {
@@ -24,9 +24,6 @@ interface IAction {
 }
 
 const reducer = (state: IState, action: IAction): object => {
-  if (isDev && process.env.REDUCER === "1") {
-    console.log("Reducer", action);
-  }
   switch (action.type) {
     case "addToHandHistory": {
       return {
@@ -51,10 +48,54 @@ const reducer = (state: IState, action: IAction): object => {
         }
       };
     }
+    case "chooseGameOption": {
+      return {
+        ...state,
+        gameOptions: {
+          ...state.gameOptions,
+          ...action.payload
+        }
+      };
+    }
     case "closeStartupModal": {
       return {
         ...state,
         isStartupModal: false
+      };
+    }
+
+    case "resetToStartup": {
+      return {
+        ...state,
+        isStartupModal: true,
+        playerSeat: null,
+        controls: {
+          showControls: false,
+          showFirstRow: true,
+          canCheck: false,
+          canRaise: true
+        },
+        depositAddress: null,
+        connectionStatus: {
+          level: 1,
+          status: null,
+          text: "",
+          balance: 0
+        },
+        activePlayer: null,
+        gameStarted: false,
+        gameOptions: {
+          sitout: 0,
+          foldAny: 0,
+          leaveTable: 0
+        },
+        nodesSet: false,
+        nodes: {
+          dcv: "0.0.0.0",
+          player1: "0.0.0.0",
+          player2: "0.0.0.0",
+          echo: "0.0.0.0"
+        }
       };
     }
     case "collectChips": {
@@ -346,7 +387,6 @@ const reducer = (state: IState, action: IAction): object => {
         gameType: action.payload.gameType,
         gameStarted: true,
         pot: action.payload.pot,
-        // toCall: action.payload.toCall,
         options: {
           ...state.options,
           showPot: true,
@@ -369,6 +409,17 @@ const reducer = (state: IState, action: IAction): object => {
         connectionStatus: action.payload
       };
     }
+
+    case "updateSocketConnection": {
+      return {
+        ...state,
+        connection: {
+          ...state.connection,
+          [action.payload.nodeName]: action.payload.connection
+        }
+      };
+    }
+
     case "updateGameTurn": {
       return {
         ...state,

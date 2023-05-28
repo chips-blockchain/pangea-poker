@@ -1,9 +1,11 @@
 /*eslint-disable @typescript-eslint/camelcase*/
 
-import { IMessage, onMessage_player } from "../onMessage";
+import { onMessage } from "../onMessage";
+import { IMessage } from "../types/IMessage";
 import state from "../../../store/testState";
-import { IState } from "../../../store/initialState";
+import { IState } from "../../../store/types";
 import * as actions from "../../../store/actions";
+import { Node } from "../../../lib/constants";
 
 const dispatch = jest.fn();
 const updateStateValueSpy = jest.spyOn(actions, "updateStateValue");
@@ -33,30 +35,26 @@ export const receiveMessage = (
     winners
   } = message;
 
-  onMessage_player(
-    JSON.stringify({
-      action,
-      addr,
-      amount,
-      backend_status,
-      balance,
-      big_blind,
-      bet_amount,
-      deal,
-      max_players,
-      method,
-      playerid,
-      possibilities,
-      showInfo,
-      small_blind,
-      table_stack_in_chips,
-      win_amount,
-      winners
-    }),
-    `player${userSeat + 1}`,
-    stateToTest,
-    dispatch
-  );
+  const msg: IMessage = {
+    action,
+    addr,
+    amount,
+    backend_status,
+    balance,
+    big_blind,
+    bet_amount,
+    deal,
+    max_players,
+    method,
+    playerid,
+    possibilities,
+    showInfo,
+    small_blind,
+    table_stack_in_chips,
+    win_amount,
+    winners
+  };
+  onMessage(msg, Node.playerRead, stateToTest, dispatch);
 };
 
 /**
@@ -126,11 +124,6 @@ describe("handHistory", () => {
     method: "betting",
     amount: 2,
     playerid: 0
-  };
-  const blinds_info = {
-    method: "blindsInfo",
-    small_blind: 2,
-    big_blind: 4
   };
   const big_blind_message = {
     action: "big_blind_bet",

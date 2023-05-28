@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Level } from "../../../lib/constants";
+import { Conn, Level } from "../../../lib/constants";
 
 export const TableContainer = styled.div`
   background-color: var(--dark);
@@ -103,3 +103,14 @@ export const Notice = styled.div`
   bottom: 2.5rem;
   position: absolute;
 `;
+
+export const pickColor = status => {
+  switch (status) {
+    case Conn.connected:
+      return "var(--color-primaryLight)";
+    case Conn.connecting:
+      return "var(--color-accent)";
+    case Conn.disconnected:
+      return "var(--color-danger)";
+  }
+};

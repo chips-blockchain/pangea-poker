@@ -1,15 +1,18 @@
+import { Conn, GameTurns, Level, Possibilities } from "../lib/constants";
+
+import { IMessage } from "../components/Game/types/IMessage";
+import { INotice } from "../components/Table/assets/types";
+import { IState } from "./types";
+import { Node } from "../lib/constants";
+// Actions
+import chooseGameOptionAction from "./actions/gameOptions";
+import log from "../lib/dev";
+import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
+import notifications from "../config/notifications.json";
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/camelcase */
 import playerIdToString from "../lib/playerIdToString";
-import lowerCaseLastLetter from "../lib/lowerCaseLastLetter";
-import { IState } from "./initialState";
-import { IMessage } from "../components/Game/onMessage";
-import { Possibilities, GameTurns, Level } from "../lib/constants";
 import sounds from "../sounds/sounds";
-import log from "../lib/dev";
-import { INotice } from "../components/Table/assets/types";
-
-const { preFlop, flop, turn } = GameTurns;
 
 // Add logs to the hand history to display them in the LogBox
 export const addToHandHistory = (
@@ -26,7 +29,7 @@ export const backendStatus = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  sendMessage({ method: "backend_status" }, "player", state, dispatch);
+  sendMessage({ method: "backend_status" }, state, dispatch);
 };
 
 // Update the player's current betAmount
@@ -76,6 +79,8 @@ export const collectChips = (
   }
 };
 
+export const chooseGameOption = chooseGameOptionAction;
+
 export const connectPlayer = (
   player: string,
   dispatch: (arg: object) => void
@@ -99,6 +104,13 @@ export const closeStartupModal = (dispatch: (arg: object) => void): void => {
   });
 };
 
+// Open the Startup Modal
+export const resetToStartup = (dispatch: (arg: object) => void): void => {
+  dispatch({
+    type: "resetToStartup"
+  });
+};
+
 // Process the deal message from the backend. It's responsible for setting up the board cards.
 export const deal = (
   message: IMessage,
@@ -112,7 +124,7 @@ export const deal = (
   if (holecards.length === 2) setHoleCards(holecards, dispatch);
   if (board) {
     // Flop
-    if (gameTurn === preFlop && board.length === 3) {
+    if (gameTurn === GameTurns.preFlop && board.length === 3) {
       setBoardCards(board, dispatch);
       nextTurn(1, state, dispatch);
       addToHandHistory(
@@ -127,7 +139,7 @@ export const deal = (
     }
 
     // Turn
-    if (gameTurn === flop && board.length === 4) {
+    if (gameTurn === GameTurns.flop && board.length === 4) {
       setBoardCards(board, dispatch);
       nextTurn(2, state, dispatch);
       addToHandHistory(
@@ -138,7 +150,7 @@ export const deal = (
     }
 
     // River
-    if (gameTurn === turn && board.length === 5) {
+    if (gameTurn === GameTurns.turn && board.length === 5) {
       setBoardCards(board, dispatch);
       nextTurn(3, state, dispatch);
       addToHandHistory(
@@ -236,12 +248,7 @@ export const playerJoin = (
 ): void => {
   // subtract 1 because backend seat numbers start from 0
   const id = Number(seat.slice(-1));
-  sendMessage(
-    { method: "player_join", gui_playerID: id },
-    "player",
-    state,
-    dispatch
-  );
+  sendMessage({ method: "player_join", gui_playerID: id }, state, dispatch);
 };
 
 // Defines which buttons to show in Controls by processsing the possibilities array
@@ -292,6 +299,10 @@ export const seats = (
   seatsArray: [{ name: string; playing: number; seat: number }],
   dispatch: (arg: object) => void
 ): void => {
+  if (!seatsArray) {
+    console.warn("The seats method is empty.");
+    return;
+  }
   seatsArray.map(seat => {
     dispatch({
       type: "updateSeats",
@@ -306,20 +317,28 @@ export const seats = (
   });
 };
 
+/**
+ *
+ * All the messages are automatically send to playerWrite unless specified using node parameter
+ *
+ * @param message The message being sent through the socket, usually an object
+ * @param state   Application state
+ * @param dispatch
+ * @param node    player|dcv (playerRead|playerWrite)
+ */
 export const sendMessage = (
   message: IMessage,
-  node: string,
   state: IState,
-  dispatch: (arg: object) => void
+  dispatch: (arg: object) => void,
+  node?: Node
 ): void => {
+  if (!node) {
+    node = Node.playerWrite;
+  }
   if (
-    state.connection[node] === "Connected" ||
+    state.connectionStatus.status === Conn.connected ||
     (state.players[node] && state.players[node].connected)
   ) {
-    // @todo some messages are sent to the dcv!
-    if (node !== "dcv") {
-      node = "player";
-    }
     const m = {
       type: "setMessage",
       payload: {
@@ -329,7 +348,10 @@ export const sendMessage = (
     };
     dispatch(m);
     log(`${Date.now()}: Sent to ${node}: `, "sent", m);
-  } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
+  } else {
+    resetToStartup(dispatch);
+    alert(`Error: ${node} is not connected.`);
+  }
 };
 
 export const sendInitMessage = (
@@ -508,15 +530,32 @@ export const toggleMainPot = (dispatch: (arg: object) => void): void => {
 };
 
 export const updateConnectionStatus = (
-  text: string,
-  level: Level,
+  status: string,
   dispatch: (arg: object) => void
 ): void => {
+  const level = status === Conn.disconnected ? Level.error : Level.warning;
+  const text =
+    status === Conn.disconnected ? notifications.CONNECTION_FAILED : status;
   dispatch({
     type: "updateConnectionStatus",
     payload: {
-      text,
-      level
+      level,
+      status,
+      text
+    }
+  });
+};
+
+export const updateSocketConnection = (
+  connection: string,
+  nodeName: string,
+  dispatch: (arg: object) => void
+): void => {
+  dispatch({
+    type: "updateSocketConnection",
+    payload: {
+      connection,
+      nodeName
     }
   });
 };
@@ -563,10 +602,26 @@ export const updateStateValue = (
 };
 
 export const walletInfo = (
-  // seat,
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
   // const id = Number(seat.slice(-1)) - 1;
-  sendMessage({ method: "walletInfo" }, "player", state, dispatch);
+  sendMessage({ method: "walletInfo" }, state, dispatch);
+};
+
+export const withdraw = (
+  address: string,
+  amount: number,
+  state: IState,
+  dispatch: (arg: object) => void
+): void => {
+  sendMessage(
+    {
+      method: "withdraw",
+      addr: address,
+      amount: amount
+    },
+    state,
+    dispatch
+  );
 };

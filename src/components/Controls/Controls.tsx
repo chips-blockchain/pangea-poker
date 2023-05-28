@@ -14,8 +14,8 @@ import {
   showControls
 } from "../../store/actions";
 import log from "../../lib/dev";
-import { IState } from "../../store/initialState";
-import { IMessage } from "../Game/onMessage";
+import { IState } from "../../store/types";
+import { IMessage } from "../Game/types/IMessage";
 import { Possibilities, PlayerActions } from "../../lib/constants";
 
 // This component displays all the controls (buttons and slider) at the bottom left
@@ -119,7 +119,7 @@ const Controls: React.FunctionComponent = () => {
 
     // Send the message to the back-end
     nextAction.possibilities = [action];
-    sendMessage(nextAction, userSeat, state, dispatch);
+    sendMessage(nextAction, state, dispatch);
   };
 
   enum buttonType {
@@ -225,32 +225,43 @@ const Controls: React.FunctionComponent = () => {
           <Slider setRaiseAmount={setRaiseAmount} />
         </div>
       )}
-      {/* Fold Button */}
-      <Button
-        label="Fold"
-        onClick={handleFoldClick()}
-        data-test="table-controls-fold-button"
-      />
-      {/* Check/Call Button */}
-      <Button
-        label={canCheck ? "Check" : "Call"}
-        amount={!canCheck && callAmount}
-        onClick={handleCheckCallClick()}
-        data-test={`table-controls-${canCheck ? "check" : "call"}-button`}
-      />
-      {/* Raise/All-In Button */}
-      {canRaise && (
+      <div
+        css={css`
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+        `}
+      >
+        {/* Fold Button */}
         <Button
-          label={
-            raiseAmount >= chips ? "All-In" : toCall === 0 ? "Bet" : "Raise to"
-          }
-          amount={
-            minRaiseTo >= chips || toCall >= chips ? totalStack : raiseAmount
-          }
-          onClick={handleRaiseClick()}
-          data-test="table-controls-raise-button"
+          label="Fold"
+          onClick={handleFoldClick()}
+          data-test="table-controls-fold-button"
         />
-      )}
+        {/* Check/Call Button */}
+        <Button
+          label={canCheck ? "Check" : "Call"}
+          amount={!canCheck && callAmount}
+          onClick={handleCheckCallClick()}
+          data-test={`table-controls-${canCheck ? "check" : "call"}-button`}
+        />
+        {/* Raise/All-In Button */}
+        {canRaise && (
+          <Button
+            label={
+              raiseAmount >= chips
+                ? "All-In"
+                : toCall === 0
+                ? "Bet"
+                : "Raise to"
+            }
+            amount={
+              minRaiseTo >= chips || toCall >= chips ? totalStack : raiseAmount
+            }
+            onClick={handleRaiseClick()}
+            data-test="table-controls-raise-button"
+          />
+        )}
+      </div>
     </div>
   );
 };
