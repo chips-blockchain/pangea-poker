@@ -81,6 +81,9 @@ export const modalStyle = {
     position: "absolute",
     height: "37.5rem",
     width: "50rem",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
     zIndex: 999
   }
 };

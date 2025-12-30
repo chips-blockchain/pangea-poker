@@ -3,8 +3,8 @@ import { Level } from "../../../lib/constants";
 
 export const TableContainer = styled.div`
   background-color: var(--dark);
-  height: 37.5rem;
-  width: 50rem;
+  height: 100vh;
+  width: 100vw;
   position: relative;
   opacity: ${p => (p.overlay ? 0.3 : 1)};
 `;

@@ -12,6 +12,11 @@ const Backgrounds: React.FunctionComponent = () => {
         srcSet={`${moonBg} 1x, ${moonBg2x} 2x, `}
         css={css`
           position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         `}
         alt="Watching the Earth from the Moon"
       />
@@ -19,8 +24,9 @@ const Backgrounds: React.FunctionComponent = () => {
         src={tableDefault}
         css={css`
           position: absolute;
-          top: 6rem;
-          left: 2.875rem;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
         `}
         alt="Poker table with Chips logo at the center"
       />

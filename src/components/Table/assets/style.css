@@ -7,8 +7,8 @@
 #overlayBg {
     background-color: #000000;
     position: absolute;
-    height: 37.5rem;
-    width: 50rem;
+    height: 100vh;
+    width: 100vw;
     z-index: 1;
 }
 
@@ -19,6 +19,9 @@
     padding-top: 16rem;
     height: 37.5rem;
     width: 50rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #gameType {
