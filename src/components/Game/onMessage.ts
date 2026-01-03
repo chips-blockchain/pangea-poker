@@ -523,6 +523,11 @@ export const onMessage_player = (
           break;
         case 5: // P_INIT_JOINED
           console.log("  ✓ Successfully joined table");
+          // Store the player_id from backend
+          if (message.player_id) {
+            updateStateValue("playerId", message.player_id, dispatch);
+            console.log(`  Player ID: ${message.player_id}`);
+          }
           clearNotice(dispatch);
           break;
         case 6: // P_INIT_DECK_READY

@@ -129,6 +129,8 @@ const initialState: IState = {
   toCall: 2,
   // Where does the user sit
   userSeat: null,
+  // Player's Verus ID from backend (e.g., "p1.sg777z.chips.vrsc@")
+  playerId: "",
   // Array of players that won
   winners: [undefined],
   // List of addresses where the player can withdraw to. See: https://github.com/chips-blockchain/bet/blob/master/handling_funds.md#withdrawing-the-funds
@@ -227,6 +229,7 @@ export interface IState {
   totalPot: number;
   toCall: number;
   userSeat: string;
+  playerId: string;
   winners: string[] | null;
   withdrawAddressList: string[];
 }

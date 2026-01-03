@@ -63,19 +63,31 @@ const Player: React.FunctionComponent<IProps> = ({
     isShowDown,
     lastAction,
     lastMessage,
+    playerId,
     seats,
     userSeat
   } = state;
 
   const [seatMessage, setSeatMessage] = useState(notifications.SIT_HERE);
   const [userAvatar] = useState(randomEmoji());
-  const [userName] = useState({
-    text: seat,
-    color: "var(--color-text)"
-  });
 
   // Calculate which widget is the current player
   const isUserSeat = userSeat === seat;
+  
+  // Get display name: use player ID (part before first dot) for user, seat name for others
+  const getDisplayName = (): string => {
+    if (isUserSeat && playerId) {
+      // Extract part before first dot (e.g., "p1" from "p1.sg777z.chips.vrsc@")
+      const firstDotIndex = playerId.indexOf(".");
+      return firstDotIndex > 0 ? playerId.substring(0, firstDotIndex) : playerId;
+    }
+    return seat;
+  };
+  
+  const userName = {
+    text: getDisplayName(),
+    color: "var(--color-text)"
+  };
 
   // Player Animation Setup
 
