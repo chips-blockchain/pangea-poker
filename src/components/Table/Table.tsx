@@ -36,17 +36,22 @@ const Table: React.FunctionComponent = () => {
     activePlayer,
     balance,
     backendStatus,
+    blinds,
     playerInitState,
     boardCards,
     chipsCollected,
     controls,
+    currentChipsStack,
     dealer,
+    dealerId,
     gameType,
     gameTurn,
     handHistory,
     isDeveloperMode,
     isLogBox,
+    maxPlayers,
     nodeType,
+    occupiedSeats,
     players,
     pot,
     options,
@@ -160,9 +165,57 @@ const Table: React.FunctionComponent = () => {
               </div>
             )}
             
-            <div id="gameType">{gameType}</div>
-            {tableId && <div id="tableId">Table: {tableId}</div>}
-            {gameType != "" && <div id="balanceGame">Balance: {balance}</div>}
+            {/* Table Info Panel - Top Left */}
+            {nodeType === "player" && state.tableInfoReceived && (
+              <div style={{
+                position: "absolute",
+                top: "0.5rem",
+                left: "0.5rem",
+                background: "var(--color-background)",
+                padding: "0.5rem 0.75rem",
+                borderRadius: "2px",
+                fontSize: "var(--font-size-xs)",
+                zIndex: 4,
+                border: "1px solid var(--color-primary)",
+                fontFamily: "var(--font-family-secondary)",
+                minWidth: "10rem"
+              }}>
+                <div style={{ 
+                  marginBottom: "0.25rem",
+                  color: "var(--color-text)",
+                  fontSize: "var(--font-size-xs)"
+                }}>
+                  Table: <span style={{ color: "var(--color-primaryLight)" }}>{tableId || "-"}</span>
+                </div>
+                <div style={{ 
+                  marginBottom: "0.25rem",
+                  color: "var(--color-text)",
+                  fontSize: "var(--font-size-xs)"
+                }}>
+                  Dealer: <span style={{ color: "var(--color-primaryLight)" }}>{dealerId || "-"}</span>
+                </div>
+                <div style={{ 
+                  marginBottom: "0.25rem",
+                  color: "var(--color-text)",
+                  fontSize: "var(--font-size-xs)"
+                }}>
+                  Players: <span style={{ color: "var(--color-primaryLight)" }}>{occupiedSeats?.length || 0}/{maxPlayers || "-"}</span>
+                </div>
+                <div style={{ 
+                  marginBottom: "0.25rem",
+                  color: "var(--color-text)",
+                  fontSize: "var(--font-size-xs)"
+                }}>
+                  Stake: <span style={{ color: "var(--color-primaryLight)" }}>{currentChipsStack || "-"} CHIPS</span>
+                </div>
+                <div style={{ 
+                  color: "var(--color-text)",
+                  fontSize: "var(--font-size-xs)"
+                }}>
+                  Blinds: <span style={{ color: "var(--color-accent)" }}>{blinds?.[0] || "-"}/{blinds?.[1] || "-"}</span>
+                </div>
+              </div>
+            )}
             <TableWrapper>
               
               {/* Find Table Button - Show when backend ready but table_info not yet received */}
