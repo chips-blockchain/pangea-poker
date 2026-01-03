@@ -82,6 +82,8 @@ export interface IMessage {
   warning_num: number;
   win_amount?: number;
   winners?: number[];
+  state?: number;
+  state_name?: string;
 }
 
 const { preFlop, flop, turn, showDown } = GameTurns;
@@ -110,15 +112,8 @@ export const onMessage_player = (
   switch (message.method) {
     case "backend_status":
       updateStateValue("backendStatus", message.backend_status, dispatch);
-      console.log(`[GUI STATE] backendStatus = ${message.backend_status}, balance = ${state.balance}`);
-      
-      // If backend is waiting for join approval, request table info
-      if (message.backend_status === 0 && !state.balance) {
-        console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        console.log("[AUTO-ACTION] Backend waiting for join. Requesting table info...");
-        console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        sendMessage({ method: "table_info" }, player, state, dispatch);
-      }
+      console.log(`[GUI STATE] backendStatus = ${message.backend_status}`);
+      // User will manually click "Find Table" button to request table_info
       break;
     case "bal_info":
       // Balance info response - just log it, balance already set from table_info
@@ -469,9 +464,10 @@ export const onMessage_player = (
       );
       updateStateValue("maxPlayers", message.max_players, dispatch);
       updateStateValue("tableId", message.table_id, dispatch);
+      updateStateValue("tableInfoReceived", true, dispatch);
       updateStateValue("dealerId", message.dealer_id || "", dispatch);
       updateStateValue("occupiedSeats", message.occupied_seats || [], dispatch);
-      console.log(`[GUI STATE] Table info received:`);
+      console.log(`[GUI STATE] Table info received, tableId set to: "${message.table_id}"`);
       console.log(`  - table_id: "${message.table_id}"`);
       console.log(`  - dealer_id: "${message.dealer_id}"`);
       console.log(`  - balance: ${message.balance}`);
@@ -487,18 +483,56 @@ export const onMessage_player = (
       for (let i = 0; i < maxPlayers; i++) {
         const occupiedSeat = occupiedSeatsArray.find((s: any) => s.seat === i);
         seatsData.push({
-          name: occupiedSeat ? occupiedSeat.player_id : "",
+          name: `player${i + 1}`,
           seat: i,
           playing: 0,
           empty: !occupiedSeat,
-          chips: 0
+          chips: occupiedSeat ? 100 : 0
         });
       }
+      
+      console.log("[SEATS DATA]", seatsData);
       
       // Update seats to show occupied/available
       seats(seatsData, dispatch);
       
       // Backend auto-joins, no manual approval needed
+      break;
+    case "player_init_state":
+      console.log(`[BACKEND STATE] Player init state: ${message.state} - ${message.state_name}`);
+      
+      // Update player init state in store
+      updateStateValue("playerInitState", message.state, dispatch);
+      
+      // Update GUI based on state
+      switch (message.state) {
+        case 1: // P_INIT_WALLET_READY
+          console.log("  ✓ Wallet and ID ready, loading table info...");
+          break;
+        case 2: // P_INIT_TABLE_FOUND
+          console.log("  ✓ Table found");
+          setNotice("Table found! Select a seat to join.", dispatch);
+          break;
+        case 3: // P_INIT_WAIT_JOIN
+          console.log("  ⏳ Waiting for user to select seat...");
+          setNotice("Click on an available seat to join the table", dispatch);
+          break;
+        case 4: // P_INIT_JOINING
+          console.log("  📤 Joining table, executing payin transaction...");
+          setNotice("Joining table... Please wait 10-30 seconds for transaction to confirm.", dispatch);
+          break;
+        case 5: // P_INIT_JOINED
+          console.log("  ✓ Successfully joined table");
+          clearNotice(dispatch);
+          break;
+        case 6: // P_INIT_DECK_READY
+          console.log("  ✓ Deck initialized");
+          break;
+        case 7: // P_INIT_IN_GAME
+          console.log("  ✓ Entered game loop");
+          clearNotice(dispatch);
+          break;
+      }
       break;
     case "join_ack":
       console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");

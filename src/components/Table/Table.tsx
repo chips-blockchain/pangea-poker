@@ -19,6 +19,7 @@ import { StartupModal } from "../Modal";
 import DeveloperMode from "../DeveloperMode";
 import LogBox from "../LogBox";
 import Cashier from "../Cashier";
+import FindTableButton from "../FindTableButton";
 import { TableContainer, TableWrapper, Notice } from "./assets/style";
 import "./assets/style.css";
 import notifications from "../../config/notifications.json";
@@ -35,6 +36,7 @@ const Table: React.FunctionComponent = () => {
     activePlayer,
     balance,
     backendStatus,
+    playerInitState,
     boardCards,
     chipsCollected,
     controls,
@@ -106,44 +108,54 @@ const Table: React.FunctionComponent = () => {
             {nodeType === "player" && state.depositAddress && balance > 0 && (
               <div style={{
                 position: "absolute",
-                top: "15px",
-                right: "15px",
-                background: "linear-gradient(135deg, rgba(26, 35, 126, 0.95) 0%, rgba(40, 53, 147, 0.95) 100%)",
-                color: "white",
-                padding: "15px 20px",
-                borderRadius: "10px",
-                fontSize: "14px",
-                zIndex: 9999,
-                boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
-                minWidth: "220px",
-                border: "1px solid rgba(255, 255, 255, 0.1)"
+                top: "1.5rem",
+                right: "0.5rem",
+                background: "var(--color-background)",
+                color: "var(--color-text)",
+                padding: "0.5rem 0.75rem",
+                borderRadius: "2px",
+                fontSize: "var(--font-size-xs)",
+                zIndex: 4,
+                border: "1px solid var(--color-primary)",
+                fontFamily: "var(--font-family-secondary)"
               }}>
                 <div style={{ 
-                  marginBottom: "8px", 
-                  fontSize: "16px",
+                  marginBottom: "0.5rem", 
+                  fontSize: "var(--font-size-xs)",
                   fontWeight: "bold",
-                  color: "#4CAF50"
+                  color: "var(--color-accent)"
                 }}>
                   {balance.toFixed(4)} CHIPS
                 </div>
                 <div style={{ 
-                  fontSize: "11px", 
-                  cursor: "pointer",
-                  padding: "5px 8px",
-                  background: "rgba(255, 255, 255, 0.1)",
-                  borderRadius: "5px",
-                  transition: "background 0.3s ease"
-                }}
-                  onClick={() => {
-                    navigator.clipboard.writeText(state.depositAddress);
-                    console.log("Address copied!");
-                    alert("Address copied to clipboard!");
-                  }}
-                  onMouseOver={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.2)"}
-                  onMouseOut={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)"}
-                  title="Click to copy full address"
-                >
-                  📋 {state.depositAddress.slice(0, 10)}...{state.depositAddress.slice(-8)}
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem"
+                }}>
+                  <span style={{ 
+                    fontSize: "var(--font-size-xxs)", 
+                    color: "var(--color-primaryLight)",
+                    wordBreak: "break-all"
+                  }}>
+                    {state.depositAddress}
+                  </span>
+                  <span 
+                    style={{ 
+                      cursor: "pointer",
+                      color: "var(--color-primaryLight)",
+                      transition: "color 0.1s ease",
+                      flexShrink: 0
+                    }}
+                    onClick={() => {
+                      navigator.clipboard.writeText(state.depositAddress);
+                      console.log("Address copied!");
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.color = "var(--color-accent)"}
+                    onMouseOut={(e) => e.currentTarget.style.color = "var(--color-primaryLight)"}
+                    title="Copy address"
+                  >
+                    ⧉
+                  </span>
                 </div>
               </div>
             )}
@@ -152,6 +164,14 @@ const Table: React.FunctionComponent = () => {
             {tableId && <div id="tableId">Table: {tableId}</div>}
             {gameType != "" && <div id="balanceGame">Balance: {balance}</div>}
             <TableWrapper>
+              
+              {/* Find Table Button - Show when backend ready but table_info not yet received */}
+              {nodeType === "player" && 
+               backendStatus === 1 && 
+               !state.tableInfoReceived &&
+               !state.isStartupModal && (
+                <FindTableButton state={state} dispatch={dispatch} />
+              )}
               {options.showPotCounter && (
                 <TotalPot state={state} dispatch={dispatch} />
               )}

@@ -234,9 +234,15 @@ export const playerJoin = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  // Backend auto-joins now, clicking seats has no effect
-  // This function remains for compatibility but does nothing
-  console.log(`[INFO] Seat click ignored - backend auto-joins (${seat})`);
+  // Extract seat number from "player1" -> 0, "player2" -> 1, etc.
+  const seatNumber = parseInt(seat.replace("player", "")) - 1;
+  console.log(`[USER ACTION] Joining seat ${seatNumber}`);
+  
+  // Send join_table message to backend with seat number
+  sendMessage({ method: "join_table", seat: seatNumber }, "player", state, dispatch);
+  
+  // Update join approval state
+  updateStateValue("joinApprovalSent", true, dispatch);
 };
 
 // Defines which buttons to show in Controls by processsing the possibilities array

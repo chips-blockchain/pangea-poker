@@ -44,16 +44,7 @@ const Cashier: React.FunctionComponent<IProps> = ({ dispatch, state }) => {
 
   return (
     <React.Fragment>
-      {!state.isStartupModal && state.nodeType !== "dealer" && (
-        <CashierButton>
-          <Button
-            label="Cashier"
-            onClick={handleCashierButtonClick()}
-            small
-            testId="cashier-button"
-          />
-        </CashierButton>
-      )}
+      {/* Cashier button removed - wallet info displayed in Table.tsx */}
       <Modal
         isOpen={state.isCashierOpen}
         id="cashier-modal"

@@ -12,6 +12,8 @@ const initialState: IState = {
   // 0 - transaction is still being mined
   // 1 - backend is ready
   backendStatus: 0,
+  // Player initialization state (1=WALLET_READY, 2=TABLE_FOUND, 3=WAIT_JOIN, 4=JOINING, 5=JOINED, 6=DECK_READY, 7=IN_GAME)
+  playerInitState: 0,
   // Whether join_table approval has been sent
   joinApprovalSent: false,
   // Current blinds - small and big one
@@ -47,6 +49,8 @@ const initialState: IState = {
   depositAddress: undefined,
   // Table ID from backend
   tableId: "",
+  // Whether table_info has been received from backend
+  tableInfoReceived: false,
   // Dealer ID
   dealerId: "",
   // Occupied seats array: [{seat: 0, player_id: "p1"}, {seat: 2, player_id: "p2"}]
@@ -157,6 +161,7 @@ export interface IState {
   };
   activePlayer: string;
   backendStatus: number;
+  playerInitState: number;
   balance: number;
   joinApprovalSent: boolean;
   blinds: [number, number];
@@ -180,6 +185,7 @@ export interface IState {
   dealer: number;
   depositAddress: string;
   tableId: string;
+  tableInfoReceived: boolean;
   dealerId: string;
   occupiedSeats: Array<{seat: number, player_id: string}>;
   gameStarted: boolean;
