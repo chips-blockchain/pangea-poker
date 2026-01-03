@@ -71,33 +71,8 @@ const Table: React.FunctionComponent = () => {
         {isDeveloperMode && <DeveloperMode />}
 
         <div id="overlayBg">
-          {/* Show table info overlay when ready to join but before joining */}
-          {!state.isStartupModal && nodeType === "player" && !backendStatus && !state.joinApprovalSent && state.balance > 0 && state.tableId && (
-            <div style={{
-              position: "fixed",
-              top: "20px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              background: "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)",
-              padding: "20px 30px",
-              borderRadius: "10px",
-              boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5)",
-              zIndex: 10000,
-              color: "white",
-              textAlign: "center"
-            }}>
-              <div style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "5px" }}>
-                {state.tableId}
-              </div>
-              <div style={{ fontSize: "14px", opacity: 0.9 }}>
-                Dealer: {state.dealerId} | Balance: {state.balance.toFixed(4)} CHIPS | Buy-in: {state.currentChipsStack} CHIPS
-              </div>
-              <div style={{ fontSize: "13px", marginTop: "10px", opacity: 0.8, fontStyle: "italic" }}>
-                ☝️ Click on an empty seat to join
-              </div>
-            </div>
-          )}
-          {!state.isStartupModal && nodeType === "player" && !backendStatus && state.joinApprovalSent && (
+          {/* Show joining message while backend processes join */}
+          {!state.isStartupModal && nodeType === "player" && !backendStatus && (
             <div style={{
               position: "fixed",
               top: "50%",
@@ -122,7 +97,7 @@ const Table: React.FunctionComponent = () => {
           )}
           <TableContainer
             overlay={
-              !state.isStartupModal && !backendStatus && nodeType === "player" && state.joinApprovalSent
+              !state.isStartupModal && !backendStatus && nodeType === "player"
             }
           >
             <Connections />

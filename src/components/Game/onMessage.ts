@@ -498,7 +498,7 @@ export const onMessage_player = (
       // Update seats to show occupied/available
       seats(seatsData, dispatch);
       
-      // Show table info to user - let them decide to join by clicking an empty seat
+      // Backend auto-joins, no manual approval needed
       break;
     case "join_ack":
       console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
