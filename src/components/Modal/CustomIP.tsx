@@ -41,6 +41,10 @@ const CustomIP: React.FunctionComponent = () => {
     dcv: development.ips.dcv || process.env.DEV_SOCKET_URL_DCV,
     player: development.ips.player || process.env.DEV_SOCKET_URL_PLAYER
   });
+  const [ports, setPorts] = useState({
+    dcv: "9000",
+    player: "9001"
+  });
   const [nodeType, setNodeType] = useState("dealer");
   const [canSetNodes, setCanSetNodes] = useState(false);
 
@@ -53,9 +57,11 @@ const CustomIP: React.FunctionComponent = () => {
   const handleSubmit = () => (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
 
-    // Set the node addresses and the node type
+    // Set the node addresses with port and the node type
     const isDealer = nodeType === "dealer";
-    const nodesToSet = isDealer ? { dcv: nodes.dcv } : { player: nodes.player };
+    const nodeKey = isDealer ? "dcv" : "player";
+    const nodeAddress = `${nodes[nodeKey]}:${ports[nodeKey]}`;
+    const nodesToSet = isDealer ? { dcv: nodeAddress } : { player: nodeAddress };
 
     const nodeTypeToSet: string = isDealer ? "dealer" : "player";
 
@@ -78,15 +84,25 @@ const CustomIP: React.FunctionComponent = () => {
     });
   };
 
+  const handlePortChange = (nodeName: string) => (
+    e: ChangeEvent<Element>
+  ): void => {
+    const target = e.target as HTMLInputElement;
+    setPorts({
+      ...ports,
+      [nodeName]: target.value
+    });
+  };
+
   // Validates whether all required input fields have data
   useEffect((): void => {
     if (nodeType === "dealer") {
-      nodes.dcv ? setCanSetNodes(true) : setCanSetNodes(false);
+      (nodes.dcv && ports.dcv) ? setCanSetNodes(true) : setCanSetNodes(false);
     }
     if (nodeType === "player") {
-      nodes.player ? setCanSetNodes(true) : setCanSetNodes(false);
+      (nodes.player && ports.player) ? setCanSetNodes(true) : setCanSetNodes(false);
     }
-  }, [nodes, nodeType]);
+  }, [nodes, ports, nodeType]);
 
   return (
     <form>
@@ -105,11 +121,19 @@ const CustomIP: React.FunctionComponent = () => {
             <TabPanel key={key}>
               <Input
                 defaultValue={node.devAddress}
-                label={node.name}
+                label={`${node.name} IP`}
                 name={node.name}
                 onChange={handleInputChange(node)}
                 placeholder={`${node.name}'s IP Address`}
                 type={"text"}
+              />
+              <Input
+                defaultValue={ports[node.name]}
+                label={`${node.name} Port`}
+                name={`${node.name}-port`}
+                onChange={handlePortChange(node.name)}
+                placeholder={`${node.name}'s WebSocket Port`}
+                type={"number"}
               />
               <ConnectionStatus level={state.connectionStatus.level}>
                 {state.connectionStatus.text}

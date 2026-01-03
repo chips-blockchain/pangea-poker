@@ -34,7 +34,7 @@ import {
   updateMainPot,
   setNotice,
   clearNotice,
-  walletInfo,
+  tableInfo,
   backendStatus
 } from "../../store/actions";
 import log from "../../lib/dev";
@@ -103,12 +103,26 @@ export const onMessage_player = (
   dispatch: (arg: object) => void
 ): void => {
   const message: IMessage = JSON.parse(messageString);
+  console.log(`[BACKEND → GUI] Received from ${player}:`, message);
   setLastMessage(message, dispatch);
   log(`${Date.now()}: Received from ${player}: `, "received", message);
 
   switch (message.method) {
     case "backend_status":
       updateStateValue("backendStatus", message.backend_status, dispatch);
+      console.log(`[GUI STATE] backendStatus = ${message.backend_status}, balance = ${state.balance}`);
+      
+      // If backend is waiting for join approval, request table info
+      if (message.backend_status === 0 && !state.balance) {
+        console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        console.log("[AUTO-ACTION] Backend waiting for join. Requesting table info...");
+        console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        sendMessage({ method: "table_info" }, player, state, dispatch);
+      }
+      break;
+    case "bal_info":
+      // Balance info response - just log it, balance already set from table_info
+      console.log(`[GUI STATE] Balance confirmed: ${message.chips_bal} CHIPS`);
       break;
     case "betting":
       {
@@ -432,7 +446,7 @@ export const onMessage_player = (
 
     case "seats":
       if (!state.depositAddress) {
-        walletInfo(state, dispatch);
+        tableInfo(state, dispatch);
       }
       // @todo if I receive seats I guess the backend is ready
       updateStateValue("backendStatus", 1, dispatch);
@@ -444,7 +458,7 @@ export const onMessage_player = (
       sendMessage(message, "player", state, dispatch);
       break;
 
-    case "walletInfo":
+    case "table_info":
       updateStateValue("backendStatus", message.backend_status, dispatch);
       updateStateValue("balance", message.balance, dispatch);
       updateStateValue("depositAddress", message.addr, dispatch);
@@ -454,6 +468,48 @@ export const onMessage_player = (
         dispatch
       );
       updateStateValue("maxPlayers", message.max_players, dispatch);
+      updateStateValue("tableId", message.table_id, dispatch);
+      updateStateValue("dealerId", message.dealer_id || "", dispatch);
+      updateStateValue("occupiedSeats", message.occupied_seats || [], dispatch);
+      console.log(`[GUI STATE] Table info received:`);
+      console.log(`  - table_id: "${message.table_id}"`);
+      console.log(`  - dealer_id: "${message.dealer_id}"`);
+      console.log(`  - balance: ${message.balance}`);
+      console.log(`  - max_players: ${message.max_players}`);
+      console.log(`  - occupied_seats:`, message.occupied_seats);
+      
+      // Update seat visualization from occupied_seats
+      const maxPlayers = message.max_players || 9;
+      const occupiedSeatsArray = message.occupied_seats || [];
+      
+      // Create seats array for all positions
+      const seatsData = [];
+      for (let i = 0; i < maxPlayers; i++) {
+        const occupiedSeat = occupiedSeatsArray.find((s: any) => s.seat === i);
+        seatsData.push({
+          name: occupiedSeat ? occupiedSeat.player_id : "",
+          seat: i,
+          playing: 0,
+          empty: !occupiedSeat,
+          chips: 0
+        });
+      }
+      
+      // Update seats to show occupied/available
+      seats(seatsData, dispatch);
+      
+      // Show table info to user - let them decide to join by clicking an empty seat
+      break;
+    case "join_ack":
+      console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+      console.log("[BACKEND ACK] Join approved by backend:", message.message);
+      console.log("[BACKEND ACK] Backend will now proceed with payin transaction");
+      console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+      // Backend will now proceed with payin transaction
+      // Show notice to user
+      if (message.status === "approved") {
+        setNotice(message.message || "Joining table...", dispatch);
+      }
       break;
     case "warning":
       updateStateValue(
@@ -465,6 +521,78 @@ export const onMessage_player = (
     case "withdrawResponse":
       updateStateValue("balance", message.balance, dispatch);
       updateStateValue("withdrawAddressList", message.addrs, dispatch);
+      break;
+
+    // Legacy BVV (Blind Verifiable Voting) methods - no longer used
+    case "bvv_join":
+    case "bvv_ready":
+    case "init_b":
+    case "init_p":
+      console.log(`[LEGACY] Received ${message.method} (not used in current implementation)`);
+      break;
+
+    // Error handling
+    case "error":
+      console.error(`[BACKEND ERROR] ${message.msg || message.message || "Unknown error"}`);
+      setNotice(
+        {
+          text: message.msg || message.message || "Backend error occurred",
+          level: Level.error
+        },
+        dispatch
+      );
+      break;
+
+    // Player state updates
+    case "player_active":
+      console.log(`[PLAYER ACTIVE] Player ${message.playerid} is active`);
+      // Could update player state/UI here if needed
+      break;
+
+    case "player_error":
+      console.error(`[PLAYER ERROR] Player ${message.playerid}: ${message.error || "Unknown error"}`);
+      break;
+
+    case "player_ready":
+      console.log(`[PLAYER READY] Player ${message.playerid} is ready`);
+      // Could update player state/UI here if needed
+      break;
+
+    // Transaction/Payment related
+    case "claim":
+      console.log(`[CLAIM] Invoice/payment claim for player ${message.playerid}`);
+      // Lightning Network related - currently not used
+      break;
+
+    case "lock_in_tx":
+      console.log(`[LOCK TX] Transaction lock request`);
+      // Database operation on backend side, no GUI action needed
+      break;
+
+    case "signedrawtransaction":
+      console.log(`[SIGNED TX] Received signed transaction`);
+      // Transaction signing complete on backend
+      break;
+
+    case "tx":
+      console.log(`[TX] Transaction info:`, message.id);
+      // General transaction message
+      break;
+
+    // Request/Response patterns
+    case "req_seats_info":
+      console.log(`[REQ SEATS] Backend requesting seats info`);
+      // Backend-to-backend communication, GUI just observes
+      break;
+
+    case "rqst_dealer_info":
+      console.log(`[REQ DEALER] Backend requesting dealer info`);
+      // Backend-to-backend communication, GUI just observes
+      break;
+
+    case "stack_info_req":
+      console.log(`[STACK REQ] Stack info request`);
+      // Backend requesting stack information
       break;
 
     default:

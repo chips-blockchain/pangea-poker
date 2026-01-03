@@ -91,10 +91,10 @@ describe("CustomIP", () => {
     // Click the Set Nodes button
     wrapper.find(`Button[data-test="set-nodes-button"]`).simulate("click");
 
-    // Sets the nodes in state
+    // Sets the nodes in state (with port appended)
     expect(updateStateValue).toHaveBeenCalledWith(
       "nodes",
-      { player: "9.9.9.9" },
+      { player: "9.9.9.9:9001" },  // Port is now appended
       dispatch
     );
 

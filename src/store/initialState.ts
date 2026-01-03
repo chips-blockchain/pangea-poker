@@ -12,6 +12,8 @@ const initialState: IState = {
   // 0 - transaction is still being mined
   // 1 - backend is ready
   backendStatus: 0,
+  // Whether join_table approval has been sent
+  joinApprovalSent: false,
   // Current blinds - small and big one
   blinds: [1, 2],
   // Board Cards
@@ -43,6 +45,12 @@ const initialState: IState = {
   dealer: 0,
   // Pangea wallet address to deposit to
   depositAddress: undefined,
+  // Table ID from backend
+  tableId: "",
+  // Dealer ID
+  dealerId: "",
+  // Occupied seats array: [{seat: 0, player_id: "p1"}, {seat: 2, player_id: "p2"}]
+  occupiedSeats: [],
   // Whether the game has started
   gameStarted: false,
   // Where are we at the game. 0: preflop, 1: flop, 2: turn, 3: river, 4: showDown
@@ -150,6 +158,7 @@ export interface IState {
   activePlayer: string;
   backendStatus: number;
   balance: number;
+  joinApprovalSent: boolean;
   blinds: [number, number];
   boardCards: string[];
   connection: {
@@ -170,6 +179,9 @@ export interface IState {
   currentChipsStack: number;
   dealer: number;
   depositAddress: string;
+  tableId: string;
+  dealerId: string;
+  occupiedSeats: Array<{seat: number, player_id: string}>;
   gameStarted: boolean;
   gameTurn: 0 | 1 | 2 | 3 | 4;
   gameType: string;

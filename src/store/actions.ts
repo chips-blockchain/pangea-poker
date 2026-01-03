@@ -234,14 +234,16 @@ export const playerJoin = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  // subtract 1 because backend seat numbers start from 0
-  const id = Number(seat.slice(-1));
+  // Extract seat number (player1 -> 0, player2 -> 1, etc.)
+  const seatNum = Number(seat.slice(-1)) - 1;
+  console.log(`[USER ACTION] Joining seat ${seatNum} (${seat})`);
   sendMessage(
-    { method: "player_join", gui_playerID: id },
+    { method: "join_table", seat: seatNum },
     "player",
     state,
     dispatch
   );
+  updateStateValue("joinApprovalSent", true, dispatch);
 };
 
 // Defines which buttons to show in Controls by processsing the possibilities array
@@ -327,6 +329,7 @@ export const sendMessage = (
         message: JSON.stringify(message)
       }
     };
+    console.log(`[GUI → BACKEND] Sending to ${node}:`, message);
     dispatch(m);
     log(`${Date.now()}: Sent to ${node}: `, "sent", m);
   } else !state.isDeveloperMode && alert(`Error: ${node} is not connected.`);
@@ -562,11 +565,9 @@ export const updateStateValue = (
   });
 };
 
-export const walletInfo = (
-  // seat,
+export const tableInfo = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  // const id = Number(seat.slice(-1)) - 1;
-  sendMessage({ method: "walletInfo" }, "player", state, dispatch);
+  sendMessage({ method: "table_info" }, "player", state, dispatch);
 };

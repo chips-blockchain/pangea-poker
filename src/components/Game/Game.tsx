@@ -16,8 +16,9 @@ const Game: React.FunctionComponent = () => {
   const state: IState = useContext(StateContext);
   const { isDeveloperMode, nodes, nodeType, message } = state;
 
-  const SOCKET_URL_DCV = `ws://${nodes.dcv}:9000`;
-  const SOCKET_URL_PLAYER1 = `ws://${[Object.values(nodes)[0]]}:9001`;
+  // Node addresses now include port (e.g., "159.69.23.31:9001")
+  const SOCKET_URL_DCV = `ws://${nodes.dcv}`;
+  const SOCKET_URL_PLAYER1 = `ws://${[Object.values(nodes)[0]]}`;
 
   const startGame = () => (): void => {
     sendMessage({ method: "game" }, "dcv", state, dispatch);
