@@ -38,8 +38,8 @@ const CustomIP: React.FunctionComponent = () => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const [nodes, setNodes] = useState({
-    dcv: process.env.DEV_SOCKET_URL_DCV,
-    player: process.env.DEV_SOCKET_URL_PLAYER
+    dcv: development.ips.dcv || process.env.DEV_SOCKET_URL_DCV,
+    player: development.ips.player || process.env.DEV_SOCKET_URL_PLAYER
   });
   const [nodeType, setNodeType] = useState("dealer");
   const [canSetNodes, setCanSetNodes] = useState(false);
