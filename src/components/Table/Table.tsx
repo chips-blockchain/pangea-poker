@@ -122,7 +122,7 @@ const Table: React.FunctionComponent = () => {
           )}
           <TableContainer
             overlay={
-              !state.isStartupModal && !backendStatus && nodeType === "player"
+              !state.isStartupModal && !backendStatus && nodeType === "player" && state.joinApprovalSent
             }
           >
             <Connections />
