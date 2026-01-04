@@ -16,6 +16,8 @@ const initialState: IState = {
   playerInitState: 0,
   // Whether join_table approval has been sent
   joinApprovalSent: false,
+  // The seat the user is trying to join (e.g., "player1")
+  pendingSeat: null,
   // Current blinds - small and big one
   blinds: [1, 2],
   // Board Cards
@@ -166,6 +168,7 @@ export interface IState {
   playerInitState: number;
   balance: number;
   joinApprovalSent: boolean;
+  pendingSeat: string | null;
   blinds: [number, number];
   boardCards: string[];
   connection: {

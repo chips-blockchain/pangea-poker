@@ -238,6 +238,9 @@ export const playerJoin = (
   const seatNumber = parseInt(seat.replace("player", "")) - 1;
   console.log(`[USER ACTION] Joining seat ${seatNumber}`);
   
+  // Store which seat user is trying to join
+  updateStateValue("pendingSeat", seat, dispatch);
+  
   // Send join_table message to backend with seat number
   sendMessage({ method: "join_table", seat: seatNumber }, "player", state, dispatch);
   

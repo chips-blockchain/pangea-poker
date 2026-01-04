@@ -104,7 +104,14 @@ export const onMessage_player = (
   state: IState,
   dispatch: (arg: object) => void
 ): void => {
-  const message: IMessage = JSON.parse(messageString);
+  let message: IMessage;
+  try {
+    message = JSON.parse(messageString);
+  } catch (e) {
+    console.error(`[JSON PARSE ERROR] Failed to parse message from ${player}:`, messageString);
+    console.error(`[JSON PARSE ERROR] Error:`, e);
+    return;
+  }
   console.log(`[BACKEND → GUI] Received from ${player}:`, message);
   setLastMessage(message, dispatch);
   log(`${Date.now()}: Received from ${player}: `, "received", message);
@@ -511,15 +518,15 @@ export const onMessage_player = (
           break;
         case 2: // P_INIT_TABLE_FOUND
           console.log("  ✓ Table found");
-          setNotice("Table found! Select a seat to join.", dispatch);
+          setNotice({ text: "Table found! Select a seat to join.", level: Level.info }, dispatch);
           break;
         case 3: // P_INIT_WAIT_JOIN
           console.log("  ⏳ Waiting for user to select seat...");
-          setNotice("Click on an available seat to join the table", dispatch);
+          setNotice({ text: "Click on an available seat to join the table", level: Level.info }, dispatch);
           break;
         case 4: // P_INIT_JOINING
           console.log("  📤 Joining table, executing payin transaction...");
-          setNotice("Joining table... Please wait 10-30 seconds for transaction to confirm.", dispatch);
+          setNotice({ text: "Joining table... Please wait 10-30 seconds for transaction to confirm.", level: Level.warning }, dispatch);
           break;
         case 5: // P_INIT_JOINED
           console.log("  ✓ Successfully joined table");
@@ -527,6 +534,14 @@ export const onMessage_player = (
           if (message.player_id) {
             updateStateValue("playerId", message.player_id, dispatch);
             console.log(`  Player ID: ${message.player_id}`);
+          }
+          // Set user seat and connect player using pendingSeat
+          if (state.pendingSeat) {
+            setUserSeat(state.pendingSeat, dispatch);
+            connectPlayer(state.pendingSeat, dispatch);
+            console.log(`  User seat set to: ${state.pendingSeat}`);
+            // Clear pending seat
+            updateStateValue("pendingSeat", null, dispatch);
           }
           clearNotice(dispatch);
           break;
@@ -547,7 +562,7 @@ export const onMessage_player = (
       // Backend will now proceed with payin transaction
       // Show notice to user
       if (message.status === "approved") {
-        setNotice(message.message || "Joining table...", dispatch);
+        setNotice({ text: message.message || "Joining table...", level: Level.info }, dispatch);
       }
       break;
     case "warning":
