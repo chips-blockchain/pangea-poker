@@ -24,13 +24,13 @@ const nodesToInput: INode[] = [
     id: "dealer",
     type: "dealer",
     tableId: "",
-    devAddress: development.ips.dcv
+    devAddress: "159.69.23.31"
   },
   {
     name: "player",
     id: "player",
     type: "player",
-    devAddress: development.ips.player
+    devAddress: "159.69.23.31"
   }
 ];
 
@@ -38,8 +38,8 @@ const CustomIP: React.FunctionComponent = () => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const [nodes, setNodes] = useState({
-    dcv: development.ips.dcv || process.env.DEV_SOCKET_URL_DCV,
-    player: development.ips.player || process.env.DEV_SOCKET_URL_PLAYER
+    dcv: "159.69.23.31",
+    player: "159.69.23.31"
   });
   const [ports, setPorts] = useState({
     dcv: "9000",
