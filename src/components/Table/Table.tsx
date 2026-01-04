@@ -41,7 +41,7 @@ const Table: React.FunctionComponent = () => {
     boardCards,
     chipsCollected,
     controls,
-    currentChipsStack,
+    tableMinStake,
     dealer,
     dealerId,
     gameType,
@@ -206,7 +206,7 @@ const Table: React.FunctionComponent = () => {
                   color: "var(--color-text)",
                   fontSize: "var(--font-size-xs)"
                 }}>
-                  Stake: <span style={{ color: "var(--color-primaryLight)" }}>{currentChipsStack || "-"} CHIPS</span>
+                  Min Stake: <span style={{ color: "var(--color-primaryLight)" }}>{tableMinStake || "-"} CHIPS</span>
                 </div>
                 <div style={{ 
                   color: "var(--color-text)",

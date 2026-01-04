@@ -84,6 +84,21 @@ export interface IMessage {
   winners?: number[];
   state?: number;
   state_name?: string;
+  // table_info fields
+  table_id?: string;
+  dealer_id?: string;
+  max_players?: number;
+  occupied_seats?: { seat: number; player_id: string }[];
+  table_min_stake?: number;
+  // player_init_state JOINED fields
+  player_id?: string;
+  payin_amount?: number;
+  // join_ack fields
+  status?: string;
+  message?: string;
+  // error fields
+  error?: string;
+  msg?: string;
 }
 
 const { preFlop, flop, turn, showDown } = GameTurns;
@@ -464,21 +479,25 @@ export const onMessage_player = (
       updateStateValue("backendStatus", message.backend_status, dispatch);
       updateStateValue("balance", message.balance, dispatch);
       updateStateValue("depositAddress", message.addr, dispatch);
-      updateStateValue(
-        "currentChipsStack",
-        message.table_stack_in_chips,
-        dispatch
-      );
       updateStateValue("maxPlayers", message.max_players, dispatch);
       updateStateValue("tableId", message.table_id, dispatch);
       updateStateValue("tableInfoReceived", true, dispatch);
       updateStateValue("dealerId", message.dealer_id || "", dispatch);
       updateStateValue("occupiedSeats", message.occupied_seats || [], dispatch);
+      // New fields from updated protocol
+      if (message.table_min_stake !== undefined) {
+        updateStateValue("tableMinStake", message.table_min_stake, dispatch);
+      }
+      if (message.small_blind !== undefined && message.big_blind !== undefined) {
+        updateStateValue("blinds", [message.small_blind, message.big_blind], dispatch);
+      }
       console.log(`[GUI STATE] Table info received, tableId set to: "${message.table_id}"`);
       console.log(`  - table_id: "${message.table_id}"`);
       console.log(`  - dealer_id: "${message.dealer_id}"`);
       console.log(`  - balance: ${message.balance}`);
       console.log(`  - max_players: ${message.max_players}`);
+      console.log(`  - table_min_stake: ${message.table_min_stake}`);
+      console.log(`  - blinds: ${message.small_blind}/${message.big_blind}`);
       console.log(`  - occupied_seats:`, message.occupied_seats);
       
       // Update seat visualization from occupied_seats
@@ -535,6 +554,11 @@ export const onMessage_player = (
             updateStateValue("playerId", message.player_id, dispatch);
             console.log(`  Player ID: ${message.player_id}`);
           }
+          // Store the payin_amount from backend
+          if (message.payin_amount !== undefined) {
+            updateStateValue("payinAmount", message.payin_amount, dispatch);
+            console.log(`  Payin amount: ${message.payin_amount} CHIPS`);
+          }
           // Set user seat and connect player using pendingSeat
           if (state.pendingSeat) {
             setUserSeat(state.pendingSeat, dispatch);
@@ -587,10 +611,12 @@ export const onMessage_player = (
 
     // Error handling
     case "error":
-      console.error(`[BACKEND ERROR] ${message.msg || message.message || "Unknown error"}`);
+      const errorText = message.error || message.msg || "Unknown error";
+      const errorContext = message.message || "";
+      console.error(`[BACKEND ERROR] ${errorText}${errorContext ? `: ${errorContext}` : ""}`);
       setNotice(
         {
-          text: message.msg || message.message || "Backend error occurred",
+          text: errorContext || errorText || "Backend error occurred",
           level: Level.error
         },
         dispatch

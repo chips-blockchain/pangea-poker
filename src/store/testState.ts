@@ -45,6 +45,10 @@ const initialState: IState = {
   balance: 0,
   // Current blinds - small and big one
   blinds: [0, 0],
+  // Minimum stake to join table (payin amount)
+  tableMinStake: 0.5,
+  // Player's actual payin amount after joining
+  payinAmount: 0,
   // Board Cards
   boardCards: [],
   // Connection status dispalyed at the top
@@ -68,8 +72,6 @@ const initialState: IState = {
   cardsDealt: false,
   // Wether the chips have been collected to the middle
   chipsCollected: false,
-  // current chips stack paid to enter the game
-  currentChipsStack: 0,
   // Which player is the dealer
   dealer: 0,
   // Wether the game has started

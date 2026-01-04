@@ -224,7 +224,7 @@ const Player: React.FunctionComponent<IProps> = ({
               ? lastAction.action
               : userName.text}
           </PlayerName>
-          {connected && <Balance>{numberWithCommas(chips)}</Balance>}
+          {connected && <Balance>{numberWithCommas(chips || 0)}</Balance>}
         </PlayerNameWrapper>
         {connected && <PlayerEmoji>{userAvatar}</PlayerEmoji>}
       </PlayerInfo>

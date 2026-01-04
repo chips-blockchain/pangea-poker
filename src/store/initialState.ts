@@ -20,6 +20,10 @@ const initialState: IState = {
   pendingSeat: null,
   // Current blinds - small and big one
   blinds: [1, 2],
+  // Minimum stake to join table (payin amount)
+  tableMinStake: 0.5,
+  // Player's actual payin amount after joining
+  payinAmount: 0,
   // Board Cards
   boardCards: [],
   // Connection status dispalyed at the top
@@ -43,8 +47,6 @@ const initialState: IState = {
     text: "",
     level: 1
   },
-  // current chips stack paid to enter the game
-  currentChipsStack: 0,
   // Which player is the dealer
   dealer: 0,
   // Pangea wallet address to deposit to
@@ -170,6 +172,8 @@ export interface IState {
   joinApprovalSent: boolean;
   pendingSeat: string | null;
   blinds: [number, number];
+  tableMinStake: number;
+  payinAmount: number;
   boardCards: string[];
   connection: {
     dcv: string;
@@ -186,7 +190,6 @@ export interface IState {
   cardsDealt: boolean;
   chipsCollected: boolean;
   connectionStatus: INotice;
-  currentChipsStack: number;
   dealer: number;
   depositAddress: string;
   tableId: string;
