@@ -88,7 +88,7 @@ export interface IMessage {
   table_id?: string;
   dealer_id?: string;
   max_players?: number;
-  occupied_seats?: { seat: number; player_id: string }[];
+  occupied_seats?: { seat: number; player_id: string; stack: number }[];
   table_min_stake?: number;
   // player_init_state JOINED fields
   player_id?: string;
@@ -513,7 +513,7 @@ export const onMessage_player = (
           seat: i,
           playing: 0,
           empty: !occupiedSeat,
-          chips: occupiedSeat ? 100 : 0
+          chips: occupiedSeat ? occupiedSeat.stack || 0 : 0
         });
       }
       
