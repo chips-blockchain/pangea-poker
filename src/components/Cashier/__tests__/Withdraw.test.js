@@ -7,7 +7,11 @@ import initialState from "../../../store/initialState";
 const dispatch = jest.fn();
 const closeCashierModal = jest.fn();
 
-const cashierState = { ...initialState, isCashierOpen: true };
+const cashierState = {
+  ...initialState,
+  isCashierOpen: true,
+  isStartupModal: false
+};
 
 const buildWrapper = (dispatch, state) => {
   return mount(
@@ -58,18 +62,9 @@ describe("Withdraw", () => {
   test("displays correct CHIPS balance", () => {
     const wrapper = createWrapper({ balance: 9 });
 
-    expect(wrapper.find(`div[data-test="withdraw-balance"]`)).toHaveLength(1);
-    expect(wrapper.find(`div[data-test="withdraw-balance"]`).text()).toBe(
-      "Available CHIPS: 9.00000000"
-    );
-  });
-
-  test("displays correct CHIPS balance", () => {
-    const wrapper = createWrapper({ balance: 9 });
-
-    expect(wrapper.find(`div[data-test="withdraw-balance"]`)).toHaveLength(1);
-    expect(wrapper.find(`div[data-test="withdraw-balance"]`).text()).toBe(
-      "Available CHIPS: 9.00000000"
+    expect(wrapper.find(`p[data-test="withdraw-balance"]`)).toHaveLength(1);
+    expect(wrapper.find(`p[data-test="withdraw-balance"]`).text()).toBe(
+      "Available: 9.00000000 CHIPS"
     );
   });
 
@@ -77,7 +72,7 @@ describe("Withdraw", () => {
     const wrapper = createWrapper();
 
     expect(wrapper.find(`InputWithButton`)).toHaveLength(1);
-    expect(wrapper.find(`InputWithButton input`).props().value).toEqual(0);
+    expect(wrapper.find(`InputWithButton input`).props().value).toEqual("");
   });
 
   test("handles clicking on the max button", () => {
@@ -87,21 +82,8 @@ describe("Withdraw", () => {
     expect(wrapper.find(`InputWithButton Button`)).toHaveLength(1);
     wrapper.find(`InputWithButton Button`).simulate("click");
     expect(wrapper.find(`InputWithButton input`).props().value).toEqual(
-      balance
+      "" + balance
     );
-  });
-
-  test("displays the address selector", () => {
-    const withdrawAddressList = [
-      "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
-      "1XPTgDRhN8RFnzniWCddobD9iKZatrvH4"
-    ];
-    const wrapper = createWrapper({ withdrawAddressList });
-
-    expect(wrapper.find(`[data-test="withdraw-address-list"]`)).toHaveLength(1);
-    expect(
-      wrapper.find(`[data-test="withdraw-address-list"]`).props().options
-    ).toEqual(withdrawAddressList);
   });
 
   test("Closes the cashier modal when clicking close button", () => {
@@ -116,34 +98,33 @@ describe("Withdraw", () => {
   test("The withdraw button is disabled by default", () => {
     const wrapper = createWrapper();
 
-    console.log(wrapper.debug());
-
     expect(
       wrapper.find(`Button[data-test="withdraw-button"]`).props()["disabled"]
     ).toBe(true);
   });
 
   test("Withdraw button is enabled when amount and withdraw address are set", () => {
-    const wrapper = createWrapper({
-      withdrawAddressList: [
-        "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
-        "1XPTgDRhN8RFnzniWCddobD9iKZatrvH4"
-      ]
+    const wrapper = createWrapper();
+    wrapper.find(`input#withdraw-amount`).simulate("change", {
+      target: { value: 0.223 }
     });
-
-    wrapper.find(`input#withdraw-amount`).simulate("change");
+    wrapper.find(`input#withdraw-address`).simulate("change", {
+      target: { value: "RMwqv9VNBu7wjrEvQtMrDD7c6ddogyStBG" }
+    });
+    // console.log(wrapper.debug());
     expect(
       wrapper.find(`Button[data-test="withdraw-button"]`).props()["disabled"]
     ).toBe(false);
   });
 
   test("Amount can't be set to be more than the balance ", () => {
+    const value = "1.00000000";
     const wrapper = createWrapper({ balance: 1 });
 
     wrapper
       .find(`input#withdraw-amount`)
       .simulate("change", { target: { value: 2 } });
     wrapper.find(`input#withdraw-amount`).simulate("blur");
-    expect(wrapper.find(`input#withdraw-amount`).props().value).toBe(1);
+    expect(wrapper.find(`input#withdraw-amount`).props().value).toBe(value);
   });
 });

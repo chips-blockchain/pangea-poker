@@ -1,23 +1,22 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect, useContext } from "react";
-import useWebSocket from "react-use-websocket";
+import useWebSocket, { ReadyState } from "react-use-websocket";
 import { DispatchContext, StateContext } from "../../store/context";
-import { onMessage, onMessage_player } from "./onMessage";
-import { IState } from "../../store/initialState";
-import notifications from "../../config/notifications.json";
-import { Level } from "../../lib/constants";
+import { onMessage } from "./onMessage";
+import { IState } from "../../store/types";
+import { Conn, Node } from "../../lib/constants";
 import {
   resetMessage,
   sendInitMessage,
-  closeStartupModal,
   updateStateValue,
-  game,
-  updateConnectionStatus
+  updateSocketConnection
 } from "../../store/actions";
 
 // This component is responsible for the WebSocket connection. It doesn't return and
 
-const STATIC_OPTIONS = {};
+const STATIC_OPTIONS = {
+  // onOpen: () => console.log('opened')
+};
 
 interface IProps {
   message: string;
@@ -25,25 +24,34 @@ interface IProps {
   server: string;
 }
 
+/**
+ * message  - JSON stringified message
+ * nodeName - dcv|playerRead|playerWrite
+ */
 const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
   const dispatch: (arg: object) => void = useContext(DispatchContext);
   const state: IState = useContext(StateContext);
   const [currentSocketUrl] = useState(server);
-  const [sendMessage, lastMessage, readyState] = useWebSocket(
+  const { sendMessage, lastJsonMessage, readyState } = useWebSocket(
     currentSocketUrl,
     STATIC_OPTIONS
   );
 
-  const readyStateString = {
-    0: "Connecting...",
-    1: "Connected",
-    2: "Disconnecting...",
-    3: "Disconnected"
+  const connectionStatus = {
+    [ReadyState.CONNECTING]: Conn.connecting,
+    [ReadyState.OPEN]: Conn.connected,
+    [ReadyState.CLOSING]: Conn.disconnecting,
+    [ReadyState.CLOSED]: Conn.disconnected,
+    [ReadyState.UNINSTANTIATED]: Conn.uninstantiated
   }[readyState];
 
   // Send a message if props changes
   useEffect(() => {
-    if (message && readyState === 1) {
+    if (
+      message &&
+      state.connection[nodeName] === Conn.connected &&
+      nodeName === Node.playerWrite
+    ) {
       sendMessage(message);
       resetMessage(nodeName, dispatch);
     }
@@ -51,44 +59,24 @@ const WebSocket = React.memo(({ message, nodeName, server }: IProps) => {
 
   // If the connection status changes, update the state
   useEffect(() => {
-    if (state.connection[nodeName] !== readyStateString) {
-      updateConnectionStatus(readyStateString, Level.warning, dispatch);
-      sendInitMessage(readyStateString, nodeName, dispatch);
-      if (readyStateString === "Connected") {
-        // Start the game if it's a player node
-        nodeName !== "dealer" &&
-          game({ gametype: "", pot: [0] }, state, dispatch);
-        closeStartupModal(dispatch);
-      }
-      if (readyStateString === "Disconnected") {
-        updateConnectionStatus(
-          notifications.CONNECTION_FAILED,
-          Level.error,
-          dispatch
-        );
-        updateStateValue("nodesSet", false, dispatch);
-      }
+    if (!state.connection[nodeName]) {
+      sendInitMessage(connectionStatus, nodeName, dispatch);
+      return;
     }
-  });
+    if (state.connection[nodeName] !== connectionStatus) {
+      updateSocketConnection(connectionStatus, nodeName, dispatch);
+    }
+    if (connectionStatus === Conn.disconnected) {
+      updateStateValue("nodesSet", false, dispatch);
+    }
+  }, [connectionStatus]);
 
-  // Parse the received message depending on the node
+  // Forward the received message depending on the node
   useEffect(() => {
-    if (lastMessage) {
-      switch (nodeName) {
-        case "dcv": {
-          onMessage(lastMessage.data, state, dispatch);
-          break;
-        }
-        case "echo": {
-          onMessage(lastMessage.data, state, dispatch);
-          break;
-        }
-        default: {
-          onMessage_player(lastMessage.data, nodeName, state, dispatch);
-        }
-      }
+    if (lastJsonMessage) {
+      onMessage(lastJsonMessage, nodeName, state, dispatch);
     }
-  }, [lastMessage]);
+  }, [lastJsonMessage]);
 });
 
 export default WebSocket;

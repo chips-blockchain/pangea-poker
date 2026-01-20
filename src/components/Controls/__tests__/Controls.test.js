@@ -172,7 +172,6 @@ describe("Button clicks", () => {
     expect(sendMessage).toHaveBeenCalledTimes(1);
     expect(sendMessage).toHaveBeenCalledWith(
       expect.objectContaining({ possibilities: [Possibilities.fold] }),
-      "player1",
       state,
       dispatch
     );
@@ -208,7 +207,6 @@ describe("Button clicks", () => {
     expect(sendMessage).toHaveBeenCalledTimes(1);
     expect(sendMessage).toHaveBeenCalledWith(
       expect.objectContaining({ possibilities: [Possibilities.check] }),
-      "player1",
       state,
       dispatch
     );
@@ -251,7 +249,6 @@ describe("Button clicks", () => {
         possibilities: [Possibilities.call],
         bet_amount: 100
       }),
-      "player1",
       state,
       dispatch
     );
@@ -298,7 +295,6 @@ describe("Button clicks", () => {
         possibilities: [Possibilities.raise],
         bet_amount: 50
       }),
-      "player1",
       state,
       dispatch
     );
@@ -345,7 +341,6 @@ describe("Button clicks", () => {
         possibilities: [Possibilities.allIn],
         bet_amount: 200
       }),
-      "player1",
       state,
       dispatch
     );

@@ -30,7 +30,6 @@
 }
 .rc-slider-handle {
   position: absolute;
-  margin-left: -7px;
   margin-top: -5px;
   width: 12px;
   height: 12px;
