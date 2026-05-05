@@ -109,7 +109,7 @@ export const deal = (
   const { gameTurn } = state;
 
   // Set the holecards
-  if (holecards.length === 2) setHoleCards(holecards, dispatch);
+  if (holecards && holecards.length === 2) setHoleCards(holecards, dispatch);
   if (board) {
     // Flop
     if (gameTurn === preFlop && board.length === 3) {
