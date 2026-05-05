@@ -559,14 +559,28 @@ export const onMessage_player = (
             updateStateValue("payinAmount", message.payin_amount, dispatch);
             console.log(`  Payin amount: ${message.payin_amount} CHIPS`);
           }
-          // Set user seat and connect player using pendingSeat
-          if (state.pendingSeat) {
+          // Set user seat from the backend's chain-assigned numeric ID.
+          // The backend sends gui_player_id as 0, 1, etc.
+          // We map 0 -> "player1", 1 -> "player2".
+          // This overrides whatever chair the user clicked (pendingSeat)
+          // to ensure isCurrentPlayer() matches the round_betting prompts.
+          if (
+            message.gui_player_id !== undefined &&
+            message.gui_player_id !== null
+          ) {
+            const backendSeat = `player${message.gui_player_id + 1}`;
+            setUserSeat(backendSeat, dispatch);
+            connectPlayer(backendSeat, dispatch);
+            console.log(
+              `  User seat set to: ${backendSeat} (backend assigned seat ${message.gui_player_id}, user clicked ${state.pendingSeat})`
+            );
+          } else if (state.pendingSeat) {
+            // Fallback for older backends
             setUserSeat(state.pendingSeat, dispatch);
             connectPlayer(state.pendingSeat, dispatch);
-            console.log(`  User seat set to: ${state.pendingSeat}`);
-            // Clear pending seat
-            updateStateValue("pendingSeat", null, dispatch);
+            console.log(`  User seat (fallback): ${state.pendingSeat}`);
           }
+          updateStateValue("pendingSeat", null, dispatch);
           clearNotice(dispatch);
           break;
         case 6: // P_INIT_DECK_READY
