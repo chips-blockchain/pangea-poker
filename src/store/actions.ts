@@ -556,6 +556,16 @@ export const updateTotalPot = (
   });
 };
 
+export const syncBackendPot = (
+  amount: number,
+  dispatch: (arg: object) => void
+): void => {
+  dispatch({
+    type: "syncBackendPot",
+    payload: amount
+  });
+};
+
 export const updateStateValue = (
   key: string,
   value: string | number | [] | {},

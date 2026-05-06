@@ -23,7 +23,6 @@ import {
   setToCall,
   setUserSeat,
   setWinner,
-  updateTotalPot,
   showControls,
   setBlinds,
   doShowDown,
@@ -35,7 +34,8 @@ import {
   setNotice,
   clearNotice,
   tableInfo,
-  backendStatus
+  backendStatus,
+  syncBackendPot
 } from "../../store/actions";
 import log from "../../lib/dev";
 import playerStringToId from "../../lib/playerStringToId";
@@ -189,7 +189,7 @@ export const onMessage_player = (
               });
 
             setActivePlayer(playerIdToString(bePlayerId), dispatch);
-            updateTotalPot(message.pot, dispatch);
+            syncBackendPot(message.pot, dispatch);
             setMinRaiseTo(message.minRaiseTo, dispatch);
             setToCall(message.toCall, dispatch);
 
