@@ -57,7 +57,7 @@ const Table: React.FunctionComponent = () => {
     options,
     showMainPot,
     showDealer,
-    winner,
+    winners,
     userSeat,
     notice,
     tableId
@@ -242,7 +242,7 @@ const Table: React.FunctionComponent = () => {
                       seat={player.seat}
                       showCards={player.showCards}
                       key={player.seat}
-                      winner={winner}
+                      winner={winners && winners[0]}
                     />
                   ))}
                 )
@@ -265,7 +265,7 @@ const Table: React.FunctionComponent = () => {
                 <MainPot
                   pot={pot}
                   gameTurn={state.gameTurn}
-                  winners={state.winners}
+                  winners={winners}
                 />
               )}
               {showDealer && <Dealer dealer={`player${dealer + 1}`} />}
