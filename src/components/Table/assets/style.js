@@ -18,10 +18,9 @@ export const TableWrapper = styled.div`
 
 // Shared pot style
 
-// Main Pot's position at the center of the screen
 const { left, top } = {
   left: 0,
-  top: "19rem"
+  top: "calc(50% + 3rem)"
 };
 
 // Coordinates for where the winner's pot should be pushed

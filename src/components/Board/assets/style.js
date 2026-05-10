@@ -5,8 +5,9 @@ const { preFlop } = GameTurns;
 export const BoardContainer = styled.div`
   height: 4.25rem;
   position: absolute;
-  top: 13.75rem;
-  left: 17rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const FlopElem = styled.span`

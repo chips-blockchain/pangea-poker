@@ -31,8 +31,9 @@ const ChipsGrid: React.FunctionComponent<IProps> = ({
           ". . player6 . player5 player4 . ."
           ". . . . . . . .";
         position: absolute;
-        top: 9.5rem;
-        left: 12rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         transition: 0.4s ease all;
       `}
     >
