@@ -120,7 +120,7 @@ const CustomIP: React.FunctionComponent = () => {
           return (
             <TabPanel key={key}>
               <Input
-                defaultValue={node.devAddress}
+                value={nodes[node.name] || ""}
                 label={`${node.name} IP`}
                 name={node.name}
                 onChange={handleInputChange(node)}
@@ -128,7 +128,7 @@ const CustomIP: React.FunctionComponent = () => {
                 type={"text"}
               />
               <Input
-                defaultValue={ports[node.name]}
+                value={ports[node.name] || ""}
                 label={`${node.name} Port`}
                 name={`${node.name}-port`}
                 onChange={handlePortChange(node.name)}

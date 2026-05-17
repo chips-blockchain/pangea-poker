@@ -18,69 +18,38 @@ export const TableWrapper = styled.div`
 
 // Shared pot style
 
-// Main Pot's position at the center of the screen
-const { left, top } = {
-  left: 0,
-  top: "19rem"
+const start = {
+  left: "50%",
+  top: "calc(50% + 3rem)"
 };
 
-// Coordinates for where the winner's pot should be pushed
 const winnerPotLocation = {
-  player1: {
-    left: "25rem",
-    top: "9.5rem"
-  },
-  player2: {
-    left: "30rem",
-    top: "14rem"
-  },
-  player3: {
-    left: "30rem",
-    top: "18.75rem"
-  },
-  player4: {
-    left: "30rem",
-    top: "20rem"
-  },
-  player5: {
-    left: "22.25rem",
-    top: "20rem"
-  },
-  player6: {
-    left: "11.75rem",
-    top: "20rem"
-  },
-  player7: {
-    left: "8.125rem",
-    top: "17.5rem"
-  },
-  player8: {
-    left: "8.125rem",
-    top: "13.125rem"
-  },
-  player9: {
-    left: "15.5rem",
-    top: "9.5rem"
-  }
+  player1: { left: "calc(50% + 5.5625rem)", top: "calc(50% - 9.9375rem)" },
+  player2: { left: "calc(50% + 18.1875rem)", top: "calc(50% - 3.3125rem)" },
+  player3: { left: "calc(50% + 18.1875rem)", top: "calc(50% + 3.3125rem)" },
+  player4: { left: "calc(50% + 12.6875rem)", top: "calc(50% + 9.9375rem)" },
+  player5: { left: "calc(50% - 0.8125rem)", top: "calc(50% + 9.9375rem)" },
+  player6: { left: "calc(50% - 12.6875rem)", top: "calc(50% + 9.9375rem)" },
+  player7: { left: "calc(50% - 18.1875rem)", top: "calc(50% + 3.3125rem)" },
+  player8: { left: "calc(50% - 18.1875rem)", top: "calc(50% - 3.3125rem)" },
+  player9: { left: "calc(50% - 8.1875rem)", top: "calc(50% - 9.9375rem)" }
 };
 
-// Custom animation style for each winner to send each pot to the right location
 export const PotContainer = styled.div`
   display: flex;
   justify-content: center;
-  left: ${left};
-  margin: auto;
   position: absolute;
-  right: 4rem;
-  top: ${top};
+  left: ${start.left};
+  top: ${start.top};
+  transform: translate(-50%, -50%);
   animation-iteration-count: 1;
   animation: ${p =>
     p.isWinnerSelectTurn &&
     `${`winnerSelect-${p.player}`} 0.5s ease-out 1s forwards`};
   @keyframes ${p => `winnerSelect-${p.player}`} {
     0% {
-      left: ${left};
-      top: ${top};
+      left: ${start.left};
+      top: ${start.top};
     }
     100% {
       left: ${p => p.player && winnerPotLocation[p.player].left};

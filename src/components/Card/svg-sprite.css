@@ -1,42 +1,42 @@
 /* Icons from directory "" */
 
-.card-10c,
-.card-10c\:regular {
+.card-Tc,
+.card-Tc\:regular {
   background-image: url("cards/cards.svg");
   background-position: 0 0;
   background-repeat: no-repeat;
 }
-.card-10c-dims {
+.card-Tc-dims {
   width: 50px;
   height: 70px;
 }
-.card-10d,
-.card-10d\:regular {
+.card-Td,
+.card-Td\:regular {
   background-image: url("cards/cards.svg");
   background-position: 0 -70px;
   background-repeat: no-repeat;
 }
-.card-10d-dims {
+.card-Td-dims {
   width: 50px;
   height: 70px;
 }
-.card-10h,
-.card-10h\:regular {
+.card-Th,
+.card-Th\:regular {
   background-image: url("cards/cards.svg");
   background-position: 0 -140px;
   background-repeat: no-repeat;
 }
-.card-10h-dims {
+.card-Th-dims {
   width: 50px;
   height: 70px;
 }
-.card-10s,
-.card-10s\:regular {
+.card-Ts,
+.card-Ts\:regular {
   background-image: url("cards/cards.svg");
   background-position: 0 -210px;
   background-repeat: no-repeat;
 }
-.card-10s-dims {
+.card-Ts-dims {
   width: 50px;
   height: 70px;
 }

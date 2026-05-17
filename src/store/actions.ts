@@ -109,7 +109,7 @@ export const deal = (
   const { gameTurn } = state;
 
   // Set the holecards
-  if (holecards.length === 2) setHoleCards(holecards, dispatch);
+  if (holecards && holecards.length === 2) setHoleCards(holecards, dispatch);
   if (board) {
     // Flop
     if (gameTurn === preFlop && board.length === 3) {
@@ -552,6 +552,16 @@ export const updateTotalPot = (
 ): void => {
   dispatch({
     type: "updateTotalPot",
+    payload: amount
+  });
+};
+
+export const syncBackendPot = (
+  amount: number,
+  dispatch: (arg: object) => void
+): void => {
+  dispatch({
+    type: "syncBackendPot",
     payload: amount
   });
 };

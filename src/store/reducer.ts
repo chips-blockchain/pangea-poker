@@ -387,6 +387,23 @@ const reducer = (state: IState, action: IAction): object => {
         totalPot: action.payload
       };
     }
+    case "syncBackendPot": {
+      const ps: object = {};
+      for (const idx in state.players) {
+        ps[idx] = {
+          ...state.players[idx],
+          isBetting: false,
+          betAmount: 0
+        };
+      }
+      return {
+        ...state,
+        chipsCollected: false,
+        players: ps,
+        pot: [action.payload],
+        totalPot: action.payload
+      };
+    }
     case "updateSeats": {
       return {
         ...state,

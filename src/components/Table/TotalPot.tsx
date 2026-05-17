@@ -23,7 +23,7 @@ const TotalPot: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
       });
       updateTotalPot(pot[0] + sumBetAmount, dispatch);
     }
-  }, [players]);
+  }, [chipsCollected, players, pot]);
 
   useEffect(() => {
     updateMainPot(totalPot, dispatch);
@@ -33,7 +33,7 @@ const TotalPot: React.FunctionComponent<IProps> = ({ state, dispatch }) => {
     <div
       css={css`
         color: var(--color-text);
-        top: 12rem;
+        top: calc(50% - 4rem);
         font-size: var(--font-size-xs);
         left: 0;
         margin: auto;
